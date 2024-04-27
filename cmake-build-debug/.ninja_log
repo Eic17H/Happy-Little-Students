@@ -1,0 +1,16 @@
+# ninja log v5
+41	205	7332834673974406	CMakeFiles/Happy_Little_Students.dir/estetica.c.obj	d953e25181a05f0f
+1	158	7359236084236156	build.ninja	f8eb3beada6786e4
+6	279	7332848025802247	CMakeFiles/Happy_Little_Students.dir/main.c.obj	74fa6315fad0ab45
+279	642	7332848029335628	Happy_Little_Students.exe	b719e407fac531f4
+29	206	7332834673984065	CMakeFiles/Happy_Little_Students.dir/letturaFile.c.obj	5457a69dc04adf25
+54	211	7332834674044318	CMakeFiles/Happy_Little_Students.dir/input.c.obj	aa1035aba761dff9
+49	546	7332847221297322	CMakeFiles/Happy_Little_Students.dir/turno.c.obj	4f15d19782edafbe
+22	569	7359236165162064	CMakeFiles/Happy_Little_Students.dir/letturaFile.c.obj	5457a69dc04adf25
+38	571	7359236165186088	CMakeFiles/Happy_Little_Students.dir/turno.c.obj	4f15d19782edafbe
+75	572	7359236165243560	CMakeFiles/Happy_Little_Students.dir/input.c.obj	aa1035aba761dff9
+55	580	7359236165285302	CMakeFiles/Happy_Little_Students.dir/estetica.c.obj	d953e25181a05f0f
+4	581	7359236168314136	CMakeFiles/Happy_Little_Students.dir/main.c.obj	74fa6315fad0ab45
+582	878	7359236171331360	Happy_Little_Students.exe	b719e407fac531f4
+3	144	7359236564094218	CMakeFiles/Happy_Little_Students.dir/letturaFile.c.obj	5457a69dc04adf25
+144	305	7359236565608917	Happy_Little_Students.exe	b719e407fac531f4

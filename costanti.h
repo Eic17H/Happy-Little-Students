@@ -1,0 +1,19 @@
+//
+// Created by eic17 on 23/03/2024.
+//
+
+#ifndef HAPPY_LITTLE_STUDENTS_COSTANTI_H
+#define HAPPY_LITTLE_STUDENTS_COSTANTI_H
+
+#define N_PERSONAGGI 4
+#define N_TIPI_OSTACOLI 4
+#define LUNG_NOMI 32
+#define LUNG_DESCR 128
+#define N_CARTE_MANO 5
+#define PUNTI_PER_VINCERE 50
+#define OSTACOLI_PER_PERDERE 3
+#define OSTACOLI_PER_PERDERE_2GIOCATORI 6
+// 15 è un sole, ma non è monospaziato
+#define SIMBOLO_CARTA_EFFETTO '*'
+
+#endif //HAPPY_LITTLE_STUDENTS_COSTANTI_H
