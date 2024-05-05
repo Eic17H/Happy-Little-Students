@@ -10,7 +10,7 @@
 
 int main() {
     printf("\n\n\n\n\n\n\n");
-    srand(17);
+    srand(time(NULL));
     stampaLogo();
     // File e input
 
@@ -32,14 +32,13 @@ int main() {
     int cfuTurno[nGiocatori];
     for(int i=0; i<nGiocatori; i++)
         cfuTurno[i] = 0;
-    pescaRotazione(giocatori, &carteCfu);
     printf("\n\n\n");
-
-    mostraCarteDiTutti(giocatori);
-    giocaCarta(giocatori, &scarti, cfuTurno);
-    mostraCarteDiTutti(giocatori);
-    printf("%d", cfuTurno[0]);
-    pescaRotazione(giocatori, &carteCfu);
-    mostraCarteDiTutti(giocatori);
+    printf("Tapposto fin qua\n");
+    turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo);
+    turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo);
+    free(carteCfu);
+    free(scarti);
+    free(carteOstacolo);
+    free(giocatori);
     return 0;
 }

@@ -53,6 +53,24 @@ void pescaCarta(Giocatore* giocatore, CartaCfu** mazzo){
     giocatore->primaCfu = carta;
 }
 
+/** Questa funzione permette di pescare una carta.
+ * La toglie dalla cima del mazzo e la mette in cima alla mano di un giocatore
+ * @param giocatore puntatore al giocatore che deve pescare
+ * @param mazzo puntatore al "mazzo", che a sua volta è un puntatore alla carta in cima
+ */
+void pescaOstacolo(Giocatore* giocatore, CartaOstacolo** mazzo){
+    // Si mette il puntatore alla carta in cima in una variabile
+    CartaOstacolo *carta;
+    carta = *mazzo;
+    // Il puntatore alla carta in cima (variabile del programma chiamante) viene spostato una carta in avanti
+    // La carta precedentemente in cima è puntata solo dalla variabile ausiliare e non più dal mazzo: è stata pescata
+    *mazzo = (*mazzo)->prossima;
+    // La mano del giocatore viene impostata come carta successiva a quella pescata
+    carta->prossima = giocatore->primaOstacolo;
+    // La carta pescata è impostata come prima carta in mano al giocatore
+    giocatore->primaOstacolo = carta;
+}
+
 /** Tutti i giocatori pescano a rotazione finché non hanno tutti N_CARTE_MANO carte in mano
  * @param giocatori puntatore al primo giocatore
  * @param mazzo puntatore al mazzo, che a sua volta è un puntatore alla prima carta del mazzo
@@ -187,4 +205,42 @@ void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
     }
     // Si aggiungono i CFU della carta scartata al conteggio dei CFU del giocatore
     *cfuTurno += scartata->cfu;
+}
+
+/** Il turno
+ * @param giocatori puntatore al primo giocatore
+ * @param nGiocatori il numero di giocatori
+ * @param carteCfu mazzo cfu
+ * @param scarti pila degli scarti
+ * @param carteOstacolo mazzo degli ostacoli
+ */
+void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu** scarti, CartaOstacolo** carteOstacolo){
+    Giocatore* giocatore = giocatori;
+    int i=0, cfuTurno[nGiocatori], min=0, max=0;
+    pescaRotazione(giocatori, carteCfu);
+
+    for(giocatore=giocatori; giocatore!=NULL; giocatore=giocatore->prossimo){
+        printf("%s: %d cfu\n", giocatore->nomeUtente, giocatore->cfu);
+    }
+    for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
+        cfuTurno[i] = 0;
+        printf("___===---!!! Turno di %s !!!---===___\n", giocatore->nomeUtente);
+        giocaCarta(giocatore, scarti, cfuTurno + i);
+    }
+    for(i=0; i<nGiocatori; i++){
+        if(cfuTurno[i] > cfuTurno[max])
+            max = i;
+        if(cfuTurno[i] < cfuTurno[min])
+            min = i;
+    }
+    // Vincitore
+    for(i=0, giocatore=giocatori; i<max; i++){
+        giocatore = giocatore->prossimo;
+    }
+    giocatore->cfu += cfuTurno[max];
+    // Perdente
+    for(i=0, giocatore=giocatori; i<min; i++){
+        giocatore = giocatore->prossimo;
+    }
+    pescaOstacolo(giocatore, carteOstacolo);
 }
