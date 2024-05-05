@@ -4,7 +4,7 @@ void mostraCarte(Giocatore giocatore){
     printf("\t===== Mano di %s =====\n", giocatore.nomeUtente);
     CartaCfu* carta = giocatore.primaCfu;
     while(carta != NULL) {
-        printf("%-32s %c %d CFU\n", carta->nome, cartaSpeciale(*carta), carta->cfu);
+        printf("%-32s %d CFU\n", carta->nome, carta->cfu);
         carta = carta->prossima;
     }
 }
