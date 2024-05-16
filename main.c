@@ -33,7 +33,6 @@ int main() {
     for(int i=0; i<nGiocatori; i++)
         cfuTurno[i] = 0;
     printf("\n\n\n");
-    printf("Tapposto fin qua\n");
     turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo);
     turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo);
     free(carteCfu);

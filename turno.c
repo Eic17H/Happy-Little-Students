@@ -207,6 +207,17 @@ void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
     *cfuTurno += scartata->cfu;
 }
 
+/**
+ * Spareggio per gli sconfitti
+ * @param giocatori puntatore al primo giocatore
+ * @param nGiocatori numero di giocatori
+ * @param sconfitti array degli spareggianti
+ * @return puntatore al giocatore che perde
+ */
+Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int* sconfitti){
+    return giocatori;
+}
+
 /** Il turno
  * @param giocatori puntatore al primo giocatore
  * @param nGiocatori il numero di giocatori
@@ -217,7 +228,10 @@ void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
 void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu** scarti, CartaOstacolo** carteOstacolo){
     Giocatore* giocatore = giocatori;
     int i=0, cfuTurno[nGiocatori], min=0, max=0;
+    int nSconfitti = 0, sconfitti[nGiocatori];
     pescaRotazione(giocatori, carteCfu);
+
+    printf("%s\n%s\n\n", (*carteOstacolo)->nome, (*carteOstacolo)->descrizione);
 
     for(giocatore=giocatori; giocatore!=NULL; giocatore=giocatore->prossimo){
         printf("%s: %d cfu\n", giocatore->nomeUtente, giocatore->cfu);
@@ -233,14 +247,20 @@ void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu**
         if(cfuTurno[i] < cfuTurno[min])
             min = i;
     }
-    // Vincitore
-    for(i=0, giocatore=giocatori; i<max; i++){
-        giocatore = giocatore->prossimo;
+    printf("AAAAA\n");
+    // Vincitori
+    for(i=0, giocatore=giocatori; i<nGiocatori; i++, giocatore = giocatore->prossimo){
+        if(cfuTurno[i]==cfuTurno[max])
+            giocatore->cfu += cfuTurno[i];
     }
-    giocatore->cfu += cfuTurno[max];
+    printf("BBBBB\n");
     // Perdente
-    for(i=0, giocatore=giocatori; i<min; i++){
-        giocatore = giocatore->prossimo;
+    for(i=0; i<nGiocatori; i++){
+        if(cfuTurno[i] == cfuTurno[min])
+            sconfitti[i] = 1;
+        else
+            sconfitti[i] = 0;
     }
+    giocatore = spareggio(giocatori, nGiocatori, sconfitti);
     pescaOstacolo(giocatore, carteOstacolo);
 }
