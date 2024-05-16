@@ -212,6 +212,8 @@ void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
  * @return NULL se nessuno ha vinto, il vincitore se qualcuno ha vinto
  */
 Giocatore* vince(Giocatore* giocatori){
+    if(giocatori->prossimo == NULL)
+        return giocatori;
     Giocatore* giocatore = giocatori;
     for(giocatore = giocatori; giocatore != NULL; giocatore = giocatore->prossimo){
         if(giocatore->cfu >= PUNTI_PER_VINCERE)
