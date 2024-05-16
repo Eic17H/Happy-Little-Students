@@ -17,7 +17,5 @@ void mostraCarteDiTutti(Giocatore*);
 void mischiaMazzo(CartaCfu**);
 void mischiaOstacoli(CartaOstacolo**);
 void giocaCarta(Giocatore*, CartaCfu**, int*);
-void turno(Giocatore*, int, CartaCfu**, CartaCfu**, CartaOstacolo**);
-void pescaOstacolo(Giocatore*, CartaOstacolo**);
 
 #endif //HAPPY_LITTLE_STUDENTS_TURNO_H

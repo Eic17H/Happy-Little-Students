@@ -11,3 +11,4 @@
 #endif //HAPPY_LITTLE_STUDENTS_ESTETICA_H
 
 void stampaLogo();
+char cartaSpeciale(CartaCfu);

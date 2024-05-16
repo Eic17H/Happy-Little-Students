@@ -14,3 +14,10 @@ void stampaLogo(){
     printf("\t \t \t \t \t   SMILE, IT'S ALMOST OVER");
     printf("\n\n\n");
 }
+
+char cartaSpeciale(CartaCfu carta){
+    if(carta.effetto == 0)
+        return ' ';
+    else
+        return SIMBOLO_CARTA_EFFETTO;
+}
