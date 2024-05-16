@@ -206,6 +206,19 @@ void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
     // Si aggiungono i CFU della carta scartata al conteggio dei CFU del giocatore
     *cfuTurno += scartata->cfu;
 }
+/**
+ * controlla se qualcuno ha vinto
+ * @param giocatori puntatore al primo giocatore
+ * @return NULL se nessuno ha vinto, il vincitore se qualcuno ha vinto
+ */
+Giocatore* vince(Giocatore* giocatori){
+    Giocatore* giocatore = giocatori;
+    for(giocatore = giocatori; giocatore != NULL; giocatore = giocatore->prossimo){
+        if(giocatore->cfu >= PUNTI_PER_VINCERE)
+            return giocatore;
+    }
+    return NULL;
+}
 
 /**
  * Spareggio per gli sconfitti

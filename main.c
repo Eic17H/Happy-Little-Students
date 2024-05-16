@@ -33,8 +33,9 @@ int main() {
     for(int i=0; i<nGiocatori; i++)
         cfuTurno[i] = 0;
     printf("\n\n\n");
-    turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo);
-    turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo);
+    while(vince(giocatori) == NULL){
+        turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo);
+    }
     free(carteCfu);
     free(scarti);
     free(carteOstacolo);

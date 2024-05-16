@@ -19,5 +19,7 @@ void mischiaOstacoli(CartaOstacolo**);
 void giocaCarta(Giocatore*, CartaCfu**, int*);
 void turno(Giocatore*, int, CartaCfu**, CartaCfu**, CartaOstacolo**);
 void pescaOstacolo(Giocatore*, CartaOstacolo**);
+Giocatore* vince(Giocatore*);
+Giocatore* spareggio(Giocatore*, int, int*);
 
 #endif //HAPPY_LITTLE_STUDENTS_TURNO_H
