@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/eic17/Desktop/Happy Little Students
+# Install script for directory: C:/GitHub/Happy-Little-Students/Happy-Little-Students
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/eic17/Desktop/Happy Little Students/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
