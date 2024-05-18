@@ -212,14 +212,50 @@ void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
  * @return NULL se nessuno ha vinto, il vincitore se qualcuno ha vinto
  */
 Giocatore* vince(Giocatore* giocatori){
+    // se rimane un solo giocatore, ha vinto
     if(giocatori->prossimo == NULL)
         return giocatori;
     Giocatore* giocatore = giocatori;
+    // se ha abbastanza punti, ha vinto
     for(giocatore = giocatori; giocatore != NULL; giocatore = giocatore->prossimo){
         if(giocatore->cfu >= PUNTI_PER_VINCERE)
             return giocatore;
     }
     return NULL;
+}
+
+void perdereOstacolo(Giocatore* giocatori){
+    if(giocatori->prossimo == NULL)
+        return;
+    Giocatore *giocatore=giocatori, *giocatorePrec;
+    CartaOstacolo *carta;
+    int carte[3] = {0, 0, 0};
+    // scorri i giocatori
+    for(giocatore = giocatori; giocatore->prossimo!=NULL; giocatore = giocatore->prossimo){
+        // scorre le carte ostacolo
+        for(carta = giocatore->primaOstacolo; carta!=NULL && carta->prossima!=NULL; carta = carta->prossima){
+            // conta le carte di ciascun tipo
+            if(carta->tipo==ESAME){
+                carte[0]+=1;
+                carte[1]+=1;
+                carte[2]+=1;
+            }else
+                carte[carta->tipo]+=1;
+        }
+        // TODO: 2 giocatori
+        if(carte[0]>=3 || carte[1]>=3 || carte[2]>=3 || carte[0]>0 && carte[1]>0 && carte[2]>0){
+            // caso speciale se è il primo
+            if(giocatori == giocatore){
+                giocatori = giocatore->prossimo;
+                free(giocatore);
+            }else{
+                for(giocatorePrec = giocatori; giocatorePrec->prossimo!=giocatore; giocatorePrec = giocatorePrec->prossimo){
+                    giocatorePrec->prossimo = giocatore->prossimo;
+                    free(giocatore);
+                }
+            }
+        }
+    }
 }
 
 /**

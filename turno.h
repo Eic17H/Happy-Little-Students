@@ -21,5 +21,6 @@ void turno(Giocatore*, int, CartaCfu**, CartaCfu**, CartaOstacolo**);
 void pescaOstacolo(Giocatore*, CartaOstacolo**);
 Giocatore* vince(Giocatore*);
 Giocatore* spareggio(Giocatore*, int, int*);
+void perdereOstacolo(Giocatore*);
 
 #endif //HAPPY_LITTLE_STUDENTS_TURNO_H

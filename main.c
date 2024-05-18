@@ -22,6 +22,7 @@ int main() {
     CartaCfu* scarti = NULL;
     // Puntatore alla prima carta del mazzo di carte ostacolo
     CartaOstacolo* carteOstacolo = leggiOstacoli();
+    Giocatore* vincitore = NULL;
 
     mischiaMazzo(&carteCfu);
     mischiaOstacoli(&carteOstacolo);
@@ -33,9 +34,12 @@ int main() {
     for(int i=0; i<nGiocatori; i++)
         cfuTurno[i] = 0;
     printf("\n\n\n");
-    while(vince(giocatori) == NULL){
-        turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo);
-    }
+    do{
+        perdereOstacolo(giocatori);
+        vincitore = vince(giocatori);
+        if(vincitore == NULL)
+            turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo);
+    }while(vincitore == NULL);
     free(carteCfu);
     free(scarti);
     free(carteOstacolo);
