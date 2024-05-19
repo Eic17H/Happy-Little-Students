@@ -273,9 +273,10 @@ void perdereOstacolo(Giocatore** giocatori){
  * @return puntatore al giocatore che perde
  */
 Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int* sconfitti, CartaCfu** scarti){
+    printf("\n\n=== SPAREGGIO ===\n\n")
     int punti[nGiocatori], continuare=1, min=0;
     Giocatore* giocatore = giocatori;
-    while(continuare){
+    while(continuare!=0){
         // scorriamo tutti i giocatori
         for (int i = 0; i < nGiocatori; i++, giocatore = giocatore->prossimo) {
             // i giocatori che non stanno spareggiando avranno un punteggio di default per il calcolo del minimo
@@ -299,18 +300,21 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int* sconfitti, Carta
         // controllare se ci sono due giocatori col punteggio minimo
         // c'è almeno un giocatore col punteggio minimo
         // se ce n'è solo uno, continuare sarà 0, altrimenti sarà diverso da 0
+        continuare = -1;
         for (int i = 0; i < nGiocatori; i++) {
-            continuare = -1;
             if (sconfitti[i] == 1){
                 if(punti[i]==punti[min])
                     continuare++;
             }
         }
     }
+    printf("EEEEE\n");
+    giocatore = giocatori;
     // trovato il punteggio minimo, vediamo di chi è
     for (int i = 0; i < nGiocatori; i++, giocatore = giocatore->prossimo)
-        if(i==min)
+        if(i==min) {
             return giocatore;
+        }
 }
 
 /** Il turno
