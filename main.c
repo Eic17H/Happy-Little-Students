@@ -35,7 +35,7 @@ int main() {
         cfuTurno[i] = 0;
     printf("\n\n\n");
     do{
-        perdereOstacolo(giocatori);
+        perdereOstacolo(&giocatori);
         vincitore = vince(giocatori);
         if(vincitore == NULL)
             turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo);

@@ -20,7 +20,7 @@ void giocaCarta(Giocatore*, CartaCfu**, int*);
 void turno(Giocatore*, int, CartaCfu**, CartaCfu**, CartaOstacolo**);
 void pescaOstacolo(Giocatore*, CartaOstacolo**);
 Giocatore* vince(Giocatore*);
-Giocatore* spareggio(Giocatore*, int, int*);
-void perdereOstacolo(Giocatore*);
+Giocatore* spareggio(Giocatore*, int, int*, CartaCfu**);
+void perdereOstacolo(Giocatore**);
 
 #endif //HAPPY_LITTLE_STUDENTS_TURNO_H
