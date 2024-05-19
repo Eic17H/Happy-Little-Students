@@ -273,7 +273,7 @@ void perdereOstacolo(Giocatore** giocatori){
  * @return puntatore al giocatore che perde
  */
 Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int* sconfitti, CartaCfu** scarti){
-    printf("\n\n=== SPAREGGIO ===\n\n")
+    printf("\n\n=== SPAREGGIO ===\n\n");
     int punti[nGiocatori], continuare=1, min=0;
     Giocatore* giocatore = giocatori;
     while(continuare!=0){
