@@ -232,7 +232,6 @@ void perdereOstacolo(Giocatore** giocatori){
     int carte[3] = {0, 0, 0};
     // scorri i giocatori
     for(giocatore = *giocatori; giocatore!=NULL; giocatore = giocatore->prossimo){
-        printf("Prisencolinensianciusol\n");
         carte[0] = 0;
         carte[1] = 0;
         carte[2] = 0;
@@ -360,9 +359,10 @@ void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu**
             sconfitti[i] = 0;
     }
     if(nSconfitti==1)
-        for(i=0, giocatore=giocatori; i<nGiocatori; i++)
+        for(i=0, giocatore=giocatori; i<min; i++)
             giocatore = giocatore->prossimo;
     else
         giocatore = spareggio(giocatori, nGiocatori, sconfitti, scarti);
+    printf("%s deve pescare la carta ostacolo!\n", giocatore->nomeUtente);
     pescaOstacolo(giocatore, carteOstacolo);
 }
