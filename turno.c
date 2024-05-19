@@ -361,7 +361,9 @@ void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu**
     if(nSconfitti==1)
         for(i=0, giocatore=giocatori; i<min; i++)
             giocatore = giocatore->prossimo;
-    else
+    else {
         giocatore = spareggio(giocatori, nGiocatori, sconfitti, scarti);
+        pescaRotazione(giocatori, carteCfu);
+    }
     pescaOstacolo(giocatore, carteOstacolo);
 }
