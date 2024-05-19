@@ -59,8 +59,7 @@ CartaCfu* leggiCarte(){
         letti = fscanf(fp, "%d %d %d %[^\n]", &quantita, &effetto, &valore, nome);
         // Se non c'e' niente da leggere, il mazzo è finito: la prossima è l'ultima carta
         if (letti < 0) {
-            prossima->prossima = NULL;
-            carta->prossima = prossima;
+            carta->prossima = NULL;
         }
         else
             // Si usano gli stessi dati piu' volte se ci sono carte uguali
@@ -84,6 +83,7 @@ CartaCfu* leggiCarte(){
  */
 // TODO: Capire come leggere un file con gli spazi
 CartaOstacolo* leggiOstacoli(){
+    TipoOstacolo tipo = 1;
     // Apertura file
     FILE *fp;
     fp = fopen("ostacoli.txt", "r");
@@ -120,11 +120,14 @@ CartaOstacolo* leggiOstacoli(){
                 strcpy(prossima->nome, nome);
                 fscanf(fp, "%s", descrizione);
                 strcpy(prossima->descrizione, descrizione);
+                prossima->tipo = tipo;
                 // Si va avanti di una carta
                 carta = prossima;
                 carta->prossima = (CartaOstacolo *) malloc(sizeof(CartaOstacolo));
                 prossima = carta->prossima;
             }
+        // si cambia il tipo di cui si leggono le carte
+        tipo++;
     }while(letti>0);
     fclose(fp);
     return mazzo;

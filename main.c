@@ -9,17 +9,17 @@
 #include "estetica.h"
 
 int main() {
-    printf("\n\n\n\n\n\n\n");
     srand(time(NULL));
     stampaLogo();
-    // File e input
 
+    // File e input
     // Array contenente i quattro personaggi (le plance di gioco)
     Personaggio personaggi[N_PERSONAGGI];
     leggiPersonaggi(personaggi);
     // Puntatore alla prima carta del mazzo di carte CFU
     CartaCfu* carteCfu = leggiCarte();
     CartaCfu* scarti = NULL;
+    CartaCfu* cartaCfu = carteCfu;
     // Puntatore alla prima carta del mazzo di carte ostacolo
     CartaOstacolo* carteOstacolo = leggiOstacoli();
     Giocatore* vincitore = NULL;
@@ -40,6 +40,7 @@ int main() {
         if(vincitore == NULL)
             turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo);
     }while(vincitore == NULL);
+    printf("Ha vinto %s!", vincitore->nomeUtente);
     free(carteCfu);
     free(scarti);
     free(carteOstacolo);

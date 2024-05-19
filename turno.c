@@ -118,8 +118,9 @@ void mischiaMazzo(CartaCfu** mazzo){
         i++;
     }
     for(i=0; i<nCarte; i++){
-        rand1 = rand()%(nCarte-2);
-        rand2 = rand()%(nCarte-2);
+        // nCarte-3 perché vanno da 0 a nCarte-1, e lo scambio coinvolge rand1, rand1+1, rand1+2, rand2, rand2+1 e rand2+2
+        rand1 = rand()%(nCarte-3);
+        rand2 = rand()%(nCarte-3);
         r1 = carte[rand1];
         r2 = carte[rand2];
         p1 = r1->prossima;
@@ -245,7 +246,6 @@ void perdereOstacolo(Giocatore** giocatori){
             }else
                 carte[carta->tipo]+=1;
         }
-        printf("Ostacoli %s: %d %d %d\n", giocatore->nomeUtente, carte[0], carte[1], carte[2]);
         // TODO: 2 giocatori
         if(carte[0]>=3 || carte[1]>=3 || carte[2]>=3 || carte[0]>0 && carte[1]>0 && carte[2]>0){
             // caso speciale se è il primo
@@ -307,7 +307,6 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int* sconfitti, Carta
             }
         }
     }
-    printf("EEEEE\n");
     giocatore = giocatori;
     // trovato il punteggio minimo, vediamo di chi è
     for (int i = 0; i < nGiocatori; i++, giocatore = giocatore->prossimo)
@@ -323,13 +322,14 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int* sconfitti, Carta
  * @param scarti pila degli scarti
  * @param carteOstacolo mazzo degli ostacoli
  */
+ // TODO: capire che fare quando finisce il mazzo
 void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu** scarti, CartaOstacolo** carteOstacolo){
     Giocatore* giocatore = giocatori;
     int i=0, cfuTurno[nGiocatori], min=0, max=0;
     int nSconfitti = 0, sconfitti[nGiocatori];
     pescaRotazione(giocatori, carteCfu);
 
-    printf("%s\n%s\n\n", (*carteOstacolo)->nome, (*carteOstacolo)->descrizione);
+    printf("%s\n%s\n%d\n\n", (*carteOstacolo)->nome, (*carteOstacolo)->descrizione, (*carteOstacolo)->tipo);
 
     for(giocatore=giocatori; giocatore!=NULL; giocatore=giocatore->prossimo){
         printf("%s: %d cfu\n", giocatore->nomeUtente, giocatore->cfu);
