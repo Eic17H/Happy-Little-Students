@@ -363,6 +363,5 @@ void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu**
             giocatore = giocatore->prossimo;
     else
         giocatore = spareggio(giocatori, nGiocatori, sconfitti, scarti);
-    printf("%s deve pescare la carta ostacolo!\n", giocatore->nomeUtente);
     pescaOstacolo(giocatore, carteOstacolo);
 }
