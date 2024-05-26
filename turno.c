@@ -275,6 +275,8 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int* sconfitti, Carta
     int punti[nGiocatori], continuare=1, min=0;
     Giocatore* giocatore = giocatori;
     while(continuare!=0){
+        continuare=1;
+        giocatore = giocatori;
         // scorriamo tutti i giocatori
         for (int i = 0; i < nGiocatori; i++, giocatore = giocatore->prossimo) {
             // i giocatori che non stanno spareggiando avranno un punteggio di default per il calcolo del minimo

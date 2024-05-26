@@ -7,11 +7,14 @@
 #include "turno.h"
 #include "input.h"
 #include "estetica.h"
+#include "ANSI-color-codes.h"
 
 int main() {
     srand(time(NULL));
     stampaLogo();
     // File e input
+
+    printf(RED "TEST\n" RESET);
 
     // Array contenente i quattro personaggi (le plance di gioco)
     Personaggio personaggi[N_PERSONAGGI];
