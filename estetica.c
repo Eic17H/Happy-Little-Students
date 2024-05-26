@@ -5,16 +5,23 @@
 #include "estetica.h"
 
 void stampaLogo(){
-    printf(" _   _  ___ ______________   __  _    _____ _____ _____ _     _____   _____ _____ _   _______ _____ _   _ _____ _____ \n");
-    printf("| | | |/ _ \\| ___ \\ ___ \\ \\ / / | |  |_   _|_   _|_   _| |   |  ___| /  ___|_   _| | | |  _  \\  ___| \\ | |_   _/  ___|\n");
-    printf("| |_| / /_\\ \\ |_/ / |_/ /\\ V /  | |    | |   | |   | | | |   | |__   \\ `--.  | | | | | | | | | |__ |  \\| | | | \\ `--. \n");
-    printf("|  _  |  _  |  __/|  __/  \\ /   | |    | |   | |   | | | |   |  __|   `--. \\ | | | | | | | | |  __|| . ` | | |  `--. \\\n");
-    printf("| | | | | | | |   | |     | |   | |____| |_  | |   | | | |___| |___  /\\__/ / | | | |_| | |/ /| |___| |\\  | | | /\\__/ /\n");
-    printf("\\_| |_|_| |_|_|   \\_|     \\_/   \\_____|___/  \\_/   \\_/ \\_____|____/  \\____/  \\_/  \\___/|___/ \\____/\\_| \\_/ \\_/ \\____/ \n");
-    printf("\t \t \t \t \t   SMILE, IT'S ALMOST OVER");
+    FILE *logo = fopen("logo.txt", "r");
+    if(logo == NULL)
+        exit(-1);
+    char c = fgetc(logo);
+    while(c != EOF){
+        printf("%c", c);
+        c = fgetc(logo);
+    }
+    fclose(logo);
     printf("\n\n\n");
 }
 
+/**
+ * Indica se una carta ha un effetto
+ * @param carta una carta cfu
+ * @return l'indicatore se la carta ha un effetto, uno spazio altrimenti
+ */
 char cartaSpeciale(CartaCfu carta){
     if(carta.effetto == 0)
         return ' ';
@@ -22,6 +29,14 @@ char cartaSpeciale(CartaCfu carta){
         return SIMBOLO_CARTA_EFFETTO;
 }
 
+/**
+ * Colora il testo basandosi sul tipo di una carta ostacolo. Poi va resettato.
+ * Studio: rosso
+ * Sopravvivenza: blu
+ * Sociale: verde
+ * Esame: giallo
+ * @param tipo il tipo della carta.
+ */
 void coloreOstacoli(TipoOstacolo tipo){
     switch(tipo){
         case STUDIO:
@@ -38,6 +53,65 @@ void coloreOstacoli(TipoOstacolo tipo){
             break;
         default:
             printf(RESET);
+            break;
+    }
+}
+
+/**
+ * Stampa la descrizione dell'effetto di una carta cfu
+ * @param carta
+ */
+void stampaEffetto(CartaCfu carta){
+    switch(carta.effetto){
+        case NESSUNO:
+            printf("Nessun effetto.\n");
+            break;
+        case SCARTAP:
+            printf("Scarta una" YEL " carta CFU punto " RESET "e aggiungi il suo punteggio a quello del turno.\n");
+            break;
+        case RUBA:
+            printf("Guarda la mano di un collega e ruba una carta a scelta.\n");
+            break;
+        case SCAMBIADS:
+            printf("Scambia questa carta con quella di un altro giocatore, purche' senza effetto.\n");
+            break;
+        case SCARTAE:
+            printf("Scarta una" YEL " carta CFU punto " RESET "con" CYN " effetto " RESET "e aggiungi il suo punteggio a quello del turno.\n");
+            break;
+        case SCARTAC:
+            printf("Scarta da uno a tre carte dalla tua mano.\n");
+            break;
+        case SCAMBIAP:
+            printf("Scambia il punteggio del turno maggiore e minore dopo il calcolo del punteggio di base.\n");
+            break;
+        case DOPPIOE:
+            printf("Raddoppia gli" CYN " effetti " RESET "delle carte che aumentano o diminuiscono il punteggio (per tutti).\n");
+            break;
+        case SBIRCIA:
+            printf("Guarda due carte in cima al mazzo, prendine una e scarta l'altra.\n");
+            break;
+        case SCAMBIAC:
+            printf("Scambia la carta punto giocata nel turno da un giocatore G1 con quella di un giocatore G2, con G1 e G2 scelti dal giocatore che ha giocato la carta.\n");
+            break;
+        case ANNULLA:
+            printf("Annulla gli" CYN " effetti " RESET "di tutte le carte punto durante il turno.\n");
+            break;
+        case AUMENTA:
+            printf("Aumenta di 2" YEL " CFU " RESET "il punteggio del turno di un giocatore a scelta.\n");
+            break;
+        case DIMINUISCI:
+            printf("Diminuisci di 2" YEL " CFU " RESET "il punteggio del turno di un giocatore a scelta.\n");
+            break;
+        case INVERTI:
+            printf("Inverti punteggio minimo e massimo del turno.\n");
+            break;
+        case SALVA:
+            printf("Metti la carta" RED " Ostacolo " RESET "che stai per prendere in fondo al mazzo.\n");
+            break;
+        case DIROTTA:
+            printf("Dai la carta" RED " Ostacolo " RESET "che stai per prendere ad un altro giocatore a tua scelta.\n");
+            break;
+        default:
             break;
     }
 }

@@ -1,11 +1,6 @@
-//
-// Created by eic17 on 23/03/2024.
-//
-
-
 #include "letturaFile.h"
 
-/** La funzione leggiPersonaggi legge i personaggi da personaggi.txt e li mette in un array dichiarato nel main
+/** La funzione leggiPersonaggi legge i personaggi da personaggi.txt e li mette in un array dichiarato nel main.
  * @param lista puntatore all'array
  */
 void leggiPersonaggi(Personaggio* lista){
@@ -17,7 +12,7 @@ void leggiPersonaggi(Personaggio* lista){
 
     // Leggere dal file
     for(int i=0; i<N_PERSONAGGI; i++){
-        for (int j = 0; j<4; j++) {
+        for (int j = 0; j<4; j++){
             fscanf(fp, "%i", &(lista[i].ostacoli[j]));
         }
         fscanf(fp, "%s", (&lista[i])->nome);
@@ -54,15 +49,16 @@ CartaCfu* leggiCarte(){
     carta = mazzo;
     prossima = carta;
 
+    // A ogni ciclo, imposto la "prossima" carta, lavoro su quella, e poi vado avanti di una.
     do{
         // Si legge il file e si controlla che ci sia qualcosa da leggere
         letti = fscanf(fp, "%d %d %d %[^\n]", &quantita, &effetto, &valore, nome);
+
         // Se non c'e' niente da leggere, il mazzo è finito: la prossima è l'ultima carta
         if (letti < 0) {
             prossima->prossima = NULL;
             carta->prossima = prossima;
-        }
-        else
+        }else
             // Si usano gli stessi dati piu' volte se ci sono carte uguali
             for (int i = 0; i < quantita; i++) {
                 // Si assegnano effetto, valore e nome della prossima
@@ -89,6 +85,7 @@ CartaOstacolo* leggiOstacoli(){
     fp = fopen("ostacoli.txt", "r");
     if(fp == NULL)
         exit(-1);
+    // I tipi partono da 1
     TipoOstacolo tipo = 1;
 
     // Creazione variabili
@@ -102,6 +99,7 @@ CartaOstacolo* leggiOstacoli(){
     CartaOstacolo *mazzo, *carta, *prossima;
 
     // Si comincia dall'inizio del mazzo
+    // Lavoro sempre sulla "prossima", poi vado avanti di una
     mazzo = (CartaOstacolo*) malloc(sizeof(CartaOstacolo));
     carta = mazzo;
     prossima = carta;
@@ -127,6 +125,7 @@ CartaOstacolo* leggiOstacoli(){
                 carta->prossima = (CartaOstacolo *) malloc(sizeof(CartaOstacolo));
                 prossima = carta->prossima;
             }
+        // Lette le carte di questo gruppo, si cambia tipo
         tipo++;
     }while(letti>0);
     fclose(fp);

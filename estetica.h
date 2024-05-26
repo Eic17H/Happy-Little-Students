@@ -6,6 +6,7 @@
 #define HAPPY_LITTLE_STUDENTS_ESTETICA_H
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "tipi.h"
 #include "ANSI-color-codes.h"
 
@@ -14,3 +15,4 @@
 void stampaLogo();
 char cartaSpeciale(CartaCfu);
 void coloreOstacoli(TipoOstacolo);
+void stampaEffetto(CartaCfu);

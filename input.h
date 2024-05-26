@@ -7,6 +7,6 @@
 
 Giocatore* inputGiocatori(int);
 int inputNGiocatori();
-void stampaNomiGiocatori(Giocatore*);
+void stampaNomiGiocatori(Giocatore*); //TODO: rimuovere
 
 #endif //HAPPY_LITTLE_STUDENTS_INPUT_H

@@ -1,9 +1,14 @@
 #include "turno.h"
 
+/**
+ * Mostra le carte in mano a un giocatore
+ * @param giocatore
+ */
 void mostraCarte(Giocatore giocatore){
     printf("\t===== Mano di %s =====\n", giocatore.nomeUtente);
     CartaCfu* carta = giocatore.primaCfu;
     while(carta != NULL) {
+        // Stampa il nome, se è una carta con effetto, e il valore
         printf("%-32s %c %d CFU\n", carta->nome, cartaSpeciale(*carta), carta->cfu);
         carta = carta->prossima;
     }
