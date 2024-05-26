@@ -21,3 +21,23 @@ char cartaSpeciale(CartaCfu carta){
     else
         return SIMBOLO_CARTA_EFFETTO;
 }
+
+void coloreOstacoli(TipoOstacolo tipo){
+    switch(tipo){
+        case STUDIO:
+            printf(RED);
+            break;
+        case SOPRAVVIVENZA:
+            printf(BLU);
+            break;
+        case SOCIALE:
+            printf(GRN);
+            break;
+        case ESAME:
+            printf(YEL);
+            break;
+        default:
+            printf(RESET);
+            break;
+    }
+}

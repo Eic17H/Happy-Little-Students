@@ -7,8 +7,10 @@
 
 #include <stdio.h>
 #include "tipi.h"
+#include "ANSI-color-codes.h"
 
 #endif //HAPPY_LITTLE_STUDENTS_ESTETICA_H
 
 void stampaLogo();
 char cartaSpeciale(CartaCfu);
+void coloreOstacoli(TipoOstacolo);

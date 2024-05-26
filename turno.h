@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
+#include "ANSI-color-codes.h"
 #include "costanti.h"
 #include "estetica.h"
 

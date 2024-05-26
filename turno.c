@@ -329,8 +329,11 @@ void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu**
     int i=0, cfuTurno[nGiocatori], min=0, max=0;
     int nSconfitti = 0, sconfitti[nGiocatori];
     pescaRotazione(giocatori, carteCfu);
+    char colore[16];
 
-    printf("%s\n%s\n%d\n\n", (*carteOstacolo)->nome, (*carteOstacolo)->descrizione, (*carteOstacolo)->tipo);
+    coloreOstacoli((*carteOstacolo)->tipo);
+
+    printf("%s\n%s\n\n" RESET, (*carteOstacolo)->nome, (*carteOstacolo)->descrizione);
 
     for(giocatore=giocatori; giocatore!=NULL; giocatore=giocatore->prossimo){
         printf("%s: %d cfu\n", giocatore->nomeUtente, giocatore->cfu);

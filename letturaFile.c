@@ -89,6 +89,7 @@ CartaOstacolo* leggiOstacoli(){
     fp = fopen("ostacoli.txt", "r");
     if(fp == NULL)
         exit(-1);
+    TipoOstacolo tipo = 1;
 
     // Creazione variabili
     // Quante carte ha il tipo che si sta leggendo
@@ -120,11 +121,13 @@ CartaOstacolo* leggiOstacoli(){
                 strcpy(prossima->nome, nome);
                 fscanf(fp, " %[^\n]\n", descrizione);
                 strcpy(prossima->descrizione, descrizione);
+                prossima->tipo = tipo;
                 // Si va avanti di una carta
                 carta = prossima;
                 carta->prossima = (CartaOstacolo *) malloc(sizeof(CartaOstacolo));
                 prossima = carta->prossima;
             }
+        tipo++;
     }while(letti>0);
     fclose(fp);
     return mazzo;
