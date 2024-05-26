@@ -32,9 +32,9 @@ enum EffettoCarta {
 
 enum TipoOstacolo {
     STUDIO = 1,
-    SOPRAVVIVENZA,
-    SOCIALE,
-    ESAME
+    SOPRAVVIVENZA=2,
+    SOCIALE=3,
+    ESAME=4
 };
 
 struct CartaCfu{

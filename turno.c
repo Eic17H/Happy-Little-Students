@@ -53,6 +53,24 @@ void pescaCarta(Giocatore* giocatore, CartaCfu** mazzo){
     giocatore->primaCfu = carta;
 }
 
+/** Questa funzione permette di pescare una carta.
+ * La toglie dalla cima del mazzo e la mette in cima alla mano di un giocatore
+ * @param giocatore puntatore al giocatore che deve pescare
+ * @param mazzo puntatore al "mazzo", che a sua volta è un puntatore alla carta in cima
+ */
+void pescaOstacolo(Giocatore* giocatore, CartaOstacolo** mazzo){
+    // Si mette il puntatore alla carta in cima in una variabile
+    CartaOstacolo *carta;
+    carta = *mazzo;
+    // Il puntatore alla carta in cima (variabile del programma chiamante) viene spostato una carta in avanti
+    // La carta precedentemente in cima è puntata solo dalla variabile ausiliare e non più dal mazzo: è stata pescata
+    *mazzo = (*mazzo)->prossima;
+    // La mano del giocatore viene impostata come carta successiva a quella pescata
+    carta->prossima = giocatore->primaOstacolo;
+    // La carta pescata è impostata come prima carta in mano al giocatore
+    giocatore->primaOstacolo = carta;
+}
+
 /** Tutti i giocatori pescano a rotazione finché non hanno tutti N_CARTE_MANO carte in mano
  * @param giocatori puntatore al primo giocatore
  * @param mazzo puntatore al mazzo, che a sua volta è un puntatore alla prima carta del mazzo
@@ -187,4 +205,164 @@ void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
     }
     // Si aggiungono i CFU della carta scartata al conteggio dei CFU del giocatore
     *cfuTurno += scartata->cfu;
+}
+/**
+ * controlla se qualcuno ha vinto
+ * @param giocatori puntatore al primo giocatore
+ * @return NULL se nessuno ha vinto, il vincitore se qualcuno ha vinto
+ */
+Giocatore* vince(Giocatore* giocatori){
+    // se rimane un solo giocatore, ha vinto
+    if(giocatori->prossimo == NULL)
+        return giocatori;
+    Giocatore* giocatore = giocatori;
+    // se ha abbastanza punti, ha vinto
+    for(giocatore = giocatori; giocatore != NULL; giocatore = giocatore->prossimo){
+        if(giocatore->cfu >= PUNTI_PER_VINCERE)
+            return giocatore;
+    }
+    return NULL;
+}
+
+void    perdereOstacolo(Giocatore** giocatori){
+    if((*giocatori)->prossimo == NULL)
+        return;
+    Giocatore *giocatore=*giocatori, *giocatorePrec;
+    CartaOstacolo *carta;
+    int carte[3] = {0, 0, 0};
+    // scorri i giocatori
+    for(giocatore = *giocatori; giocatore!=NULL; giocatore = giocatore->prossimo){
+        carte[0] = 0;
+        carte[1] = 0;
+        carte[2] = 0;
+        // scorre le carte ostacolo
+        for(carta = giocatore->primaOstacolo; carta!=NULL && carta->prossima!=NULL; carta = carta->prossima){
+            // conta le carte di ciascun tipo
+            if(carta->tipo==ESAME){
+                carte[0]+=1;
+                carte[1]+=1;
+                carte[2]+=1;
+            }else
+                carte[carta->tipo]+=1;
+        }
+        // TODO: 2 giocatori
+        if(carte[0]>=3 || carte[1]>=3 || carte[2]>=3 || carte[0]>0 && carte[1]>0 && carte[2]>0){
+            // caso speciale se è il primo
+            if(*giocatori == giocatore){
+                *giocatori = giocatore->prossimo;
+                printf("\n\n%s ha perso per ostacoli\n\n", giocatore->nomeUtente);
+                free(giocatore);
+            }else{
+                for(giocatorePrec = *giocatori; giocatorePrec->prossimo!=giocatore; giocatorePrec = giocatorePrec->prossimo){
+                    giocatorePrec->prossimo = giocatore->prossimo;
+                    printf("\n\n%s ha perso per ostacoli\n\n", giocatore->nomeUtente);
+                    free(giocatore);
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Spareggio per gli sconfitti
+ * @param giocatori puntatore al primo giocatore
+ * @param nGiocatori numero di giocatori
+ * @param sconfitti array degli spareggianti
+ * @return puntatore al giocatore che perde
+ */
+Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int* sconfitti, CartaCfu** scarti){
+    printf("\n\n=== SPAREGGIO ===\n\n");
+    int punti[nGiocatori], continuare=1, min=0;
+    Giocatore* giocatore = giocatori;
+    while(continuare!=0){
+        // scorriamo tutti i giocatori
+        for (int i = 0; i < nGiocatori; i++, giocatore = giocatore->prossimo) {
+            // i giocatori che non stanno spareggiando avranno un punteggio di default per il calcolo del minimo
+            punti[i]=500;
+            // perdi automaticamente se non hai più carte in mano
+            if(contaCarteMano(*giocatore)==0)
+                return giocatore;
+            // consideriamo solo chi partecipa allo spareggio
+            if (sconfitti[i] == 1) {
+                punti[i]=0;
+                giocaCarta(giocatore, scarti, &punti[i]);
+            }
+        }
+        // trovare il punteggio minimo
+        for (int i = 0; i < nGiocatori; i++) {
+            if (sconfitti[i] == 1){
+                if(punti[i]<punti[min])
+                    min=i;
+            }
+        }
+        // controllare se ci sono due giocatori col punteggio minimo
+        // c'è almeno un giocatore col punteggio minimo
+        // se ce n'è solo uno, continuare sarà 0, altrimenti sarà diverso da 0
+        continuare = -1;
+        for (int i = 0; i < nGiocatori; i++) {
+            if (sconfitti[i] == 1){
+                if(punti[i]==punti[min])
+                    continuare++;
+            }
+        }
+    }
+    giocatore = giocatori;
+    // trovato il punteggio minimo, vediamo di chi è
+    for (int i = 0; i < nGiocatori; i++, giocatore = giocatore->prossimo)
+        if(i==min) {
+            return giocatore;
+        }
+}
+
+/** Il turno
+ * @param giocatori puntatore al primo giocatore
+ * @param nGiocatori il numero di giocatori
+ * @param carteCfu mazzo cfu
+ * @param scarti pila degli scarti
+ * @param carteOstacolo mazzo degli ostacoli
+ */
+ // TODO: capire che fare quando finisce il mazzo
+void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu** scarti, CartaOstacolo** carteOstacolo){
+    Giocatore* giocatore = giocatori;
+    int i=0, cfuTurno[nGiocatori], min=0, max=0;
+    int nSconfitti = 0, sconfitti[nGiocatori];
+    pescaRotazione(giocatori, carteCfu);
+
+    printf("%s\n%s\n%d\n\n", (*carteOstacolo)->nome, (*carteOstacolo)->descrizione, (*carteOstacolo)->tipo);
+
+    for(giocatore=giocatori; giocatore!=NULL; giocatore=giocatore->prossimo){
+        printf("%s: %d cfu\n", giocatore->nomeUtente, giocatore->cfu);
+    }
+    for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
+        cfuTurno[i] = 0;
+        printf("___===---!!! Turno di %s !!!---===___\n", giocatore->nomeUtente);
+        giocaCarta(giocatore, scarti, cfuTurno + i);
+    }
+    for(i=0; i<nGiocatori; i++){
+        if(cfuTurno[i] > cfuTurno[max])
+            max = i;
+        if(cfuTurno[i] < cfuTurno[min])
+            min = i;
+    }
+    // Vincitori
+    for(i=0, giocatore=giocatori; i<nGiocatori; i++, giocatore = giocatore->prossimo){
+        if(cfuTurno[i]==cfuTurno[max])
+            giocatore->cfu += cfuTurno[i];
+    }
+    // Perdente
+    for(i=0; i<nGiocatori; i++){
+        if(cfuTurno[i] == cfuTurno[min]){
+            nSconfitti++;
+            sconfitti[i] = 1;
+        }else
+            sconfitti[i] = 0;
+    }
+    if(nSconfitti==1)
+        for(i=0, giocatore=giocatori; i<min; i++)
+            giocatore = giocatore->prossimo;
+    else {
+        giocatore = spareggio(giocatori, nGiocatori, sconfitti, scarti);
+        pescaRotazione(giocatori, carteCfu);
+    }
+    pescaOstacolo(giocatore, carteOstacolo);
 }

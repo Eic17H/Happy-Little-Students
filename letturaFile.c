@@ -116,9 +116,9 @@ CartaOstacolo* leggiOstacoli(){
         else
             // Il numero di carte da leggere è salvato in quantita
             for (int i = 0; i < quantita; i++) {
-                fscanf(fp, "%s", nome);
+                fscanf(fp, " %[^\n]\n", nome);
                 strcpy(prossima->nome, nome);
-                fscanf(fp, "%s", descrizione);
+                fscanf(fp, " %[^\n]\n", descrizione);
                 strcpy(prossima->descrizione, descrizione);
                 // Si va avanti di una carta
                 carta = prossima;

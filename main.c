@@ -9,8 +9,7 @@
 #include "estetica.h"
 
 int main() {
-    printf("\n\n\n\n\n\n\n");
-    srand(17);
+    srand(time(NULL));
     stampaLogo();
     // File e input
 
@@ -20,11 +19,13 @@ int main() {
     // Puntatore alla prima carta del mazzo di carte CFU
     CartaCfu* carteCfu = leggiCarte();
     CartaCfu* scarti = NULL;
+    CartaCfu* cartaCfu = carteCfu;
     // Puntatore alla prima carta del mazzo di carte ostacolo
     CartaOstacolo* carteOstacolo = leggiOstacoli();
+    Giocatore* vincitore = NULL;
 
-    mischiaMazzo(&carteCfu);
-    mischiaOstacoli(&carteOstacolo);
+    //mischiaMazzo(&carteCfu);
+    //mischiaOstacoli(&carteOstacolo);
 
     int nGiocatori = inputNGiocatori();
     Giocatore *giocatori = inputGiocatori(nGiocatori);
@@ -32,14 +33,17 @@ int main() {
     int cfuTurno[nGiocatori];
     for(int i=0; i<nGiocatori; i++)
         cfuTurno[i] = 0;
-    pescaRotazione(giocatori, &carteCfu);
     printf("\n\n\n");
-
-    mostraCarteDiTutti(giocatori);
-    giocaCarta(giocatori, &scarti, cfuTurno);
-    mostraCarteDiTutti(giocatori);
-    printf("%d", cfuTurno[0]);
-    pescaRotazione(giocatori, &carteCfu);
-    mostraCarteDiTutti(giocatori);
+    do{
+        perdereOstacolo(&giocatori);
+        vincitore = vince(giocatori);
+        if(vincitore == NULL)
+            turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo);
+    }while(vincitore == NULL);
+    printf("Ha vinto %s!", vincitore->nomeUtente);
+    free(carteCfu);
+    free(scarti);
+    free(carteOstacolo);
+    free(giocatori);
     return 0;
 }
