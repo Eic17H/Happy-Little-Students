@@ -42,10 +42,11 @@ void inizializzaGiocatori(Giocatore* giocatori){
 
 // TODO: input
 void assegnaPersonaggi(Giocatore* giocatori, Personaggio* personaggi){
-    Giocatore*giocatore = giocatori;
+    Giocatore *giocatore = giocatori;
     int i=0;
     while(giocatore != NULL){
         giocatore->personaggio = personaggi[i];
+        giocatore = giocatore->prossimo;
         i++;
     }
 }
@@ -384,11 +385,6 @@ void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu**
 
     stampaOstacolo(**carteOstacolo);
 
-    for(giocatore=giocatori; giocatore!=NULL; giocatore=giocatore->prossimo){
-        printf("%s: %d cfu\n", giocatore->nomeUtente, giocatore->cfu);
-        for(cartaOstacolo = giocatore->primaOstacolo; cartaOstacolo != NULL; cartaOstacolo = cartaOstacolo->prossima)
-            stampaNomeOstacolo(*cartaOstacolo);
-    }
     for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
         cfuTurno[i] = 0;
         printf("___===---!!! Turno di %s !!!---===___\n", giocatore->nomeUtente);

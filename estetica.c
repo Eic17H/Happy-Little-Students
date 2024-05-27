@@ -247,3 +247,40 @@ void coloreGiocatore(int n){
             break;
     }
 }
+
+void stampaSituazione(Giocatore* giocatori, int nGiocatori){
+    Giocatore* giocatore = giocatori;
+    CartaOstacolo *carta[nGiocatori];
+    int i=0, continua=0;
+
+    // Nomi
+    for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
+        carta[i] = giocatore->primaOstacolo;
+        coloreGiocatore(i+1);
+        printf("%32s", giocatore->nomeUtente);
+        printf(RESET);
+    }
+    printf("\n");
+
+    // Cfu
+    for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
+        coloreGiocatore(i+1);
+        printf("\t\t\t    %d CFU", giocatore->cfu);
+        printf(RESET);
+    }
+    printf("\n");
+
+    // Ostacoli
+    do{
+        continua = 0;
+        for (i = 0; i < nGiocatori; i++) {
+            printf("\t\t\t\t");
+            if(carta[i]!=NULL){
+                stampaNomeOstacolo(*carta[i]);
+                carta[i] = carta[i]->prossima;
+                continua = 1;
+            }
+        }
+    }while(continua);
+    printf("\n\n");
+}

@@ -22,3 +22,4 @@ void stampaNomeOstacolo(CartaOstacolo);
 void stampaPlancia(Giocatore*, int);
 void segnalino(Giocatore*, int);
 void coloreGiocatore(int);
+void stampaSituazione(Giocatore*, int);

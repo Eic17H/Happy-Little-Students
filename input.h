@@ -6,7 +6,7 @@
 #ifndef HAPPY_LITTLE_STUDENTS_INPUT_H
 #define HAPPY_LITTLE_STUDENTS_INPUT_H
 
-Giocatore* inputGiocatori(int);
+Giocatore* inputGiocatori(int, int);
 int inputNGiocatori();
 void stampaNomiGiocatori(Giocatore*); //TODO: rimuovere
 

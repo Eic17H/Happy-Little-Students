@@ -38,7 +38,7 @@ int main() {
 
     // Input del numero dei giocatori, input delle informazioni, assegnazione personaggi
     int nGiocatori = inputNGiocatori();
-    Giocatore *giocatori = inputGiocatori(nGiocatori);
+    Giocatore *giocatori = inputGiocatori(nGiocatori, 1);
     inizializzaGiocatori(giocatori);
     assegnaPersonaggi(giocatori, personaggi);
 
@@ -46,6 +46,7 @@ int main() {
     int nTurno = 1;
 
     do{
+        stampaSituazione(giocatori, nGiocatori);
         turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo, nTurno);
         // Controlliamo se ha perso qualcuno
         perdereOstacolo(&giocatori);
