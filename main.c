@@ -7,6 +7,7 @@
 #include "turno.h"
 #include "input.h"
 #include "estetica.h"
+#include "utilita.h"
 #include "ANSI-color-codes.h"
 
 int main() {

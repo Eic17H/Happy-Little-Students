@@ -137,3 +137,19 @@ void stampaEffetto(CartaCfu carta){
             break;
     }
 }
+
+void stampaOstacolo(CartaOstacolo carta){
+    stampaNomeOstacolo(carta);
+    stampaDescOstacolo(carta);
+    printf("\n");
+}
+
+void stampaNomeOstacolo(CartaOstacolo carta){
+    coloreOstacoli(carta.tipo);
+    printf("%s\n" RESET, carta.nome);
+}
+
+void stampaDescOstacolo(CartaOstacolo carta){
+    coloreOstacoli(carta.tipo);
+    printf("%s\n" RESET, carta.descrizione);
+}

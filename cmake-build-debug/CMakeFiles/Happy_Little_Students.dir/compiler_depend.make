@@ -117,7 +117,8 @@ CMakeFiles/Happy_Little_Students.dir/main.c.obj: C:/GitHub/Happy-Little-Students
   C:/GitHub/Happy-Little-Students/Happy-Little-Students/input.h \
   C:/GitHub/Happy-Little-Students/Happy-Little-Students/letturaFile.h \
   C:/GitHub/Happy-Little-Students/Happy-Little-Students/tipi.h \
-  C:/GitHub/Happy-Little-Students/Happy-Little-Students/turno.h
+  C:/GitHub/Happy-Little-Students/Happy-Little-Students/turno.h \
+  C:/GitHub/Happy-Little-Students/Happy-Little-Students/utilita.h
 
 CMakeFiles/Happy_Little_Students.dir/turno.c.obj: C:/GitHub/Happy-Little-Students/Happy-Little-Students/turno.c \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/limits.h \
@@ -152,7 +153,11 @@ CMakeFiles/Happy_Little_Students.dir/turno.c.obj: C:/GitHub/Happy-Little-Student
   C:/GitHub/Happy-Little-Students/Happy-Little-Students/costanti.h \
   C:/GitHub/Happy-Little-Students/Happy-Little-Students/estetica.h \
   C:/GitHub/Happy-Little-Students/Happy-Little-Students/tipi.h \
-  C:/GitHub/Happy-Little-Students/Happy-Little-Students/turno.h
+  C:/GitHub/Happy-Little-Students/Happy-Little-Students/turno.h \
+  C:/GitHub/Happy-Little-Students/Happy-Little-Students/utilita.h
+
+CMakeFiles/Happy_Little_Students.dir/utilita.c.obj: C:/GitHub/Happy-Little-Students/Happy-Little-Students/utilita.c \
+  C:/GitHub/Happy-Little-Students/Happy-Little-Students/utilita.h
 
 
 C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/stdio.h:
@@ -201,6 +206,8 @@ C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-ming
 
 C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdio_s.h:
 
+C:/GitHub/Happy-Little-Students/Happy-Little-Students/utilita.c:
+
 C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/string.h:
 
 C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdlib_s.h:
@@ -232,5 +239,7 @@ C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-ming
 C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sys/timeb.h:
 
 C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/time.h:
+
+C:/GitHub/Happy-Little-Students/Happy-Little-Students/utilita.h:
 
 C:/GitHub/Happy-Little-Students/Happy-Little-Students/turno.c:

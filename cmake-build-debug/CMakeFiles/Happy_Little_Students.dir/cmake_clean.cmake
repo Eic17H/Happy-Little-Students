@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Happy_Little_Students.dir/main.c.obj.d"
   "CMakeFiles/Happy_Little_Students.dir/turno.c.obj"
   "CMakeFiles/Happy_Little_Students.dir/turno.c.obj.d"
+  "CMakeFiles/Happy_Little_Students.dir/utilita.c.obj"
+  "CMakeFiles/Happy_Little_Students.dir/utilita.c.obj.d"
   "Happy_Little_Students.exe"
   "Happy_Little_Students.exe.manifest"
   "Happy_Little_Students.pdb"
