@@ -25,8 +25,8 @@ int main() {
     CartaOstacolo* carteOstacolo = leggiOstacoli();
     Giocatore* vincitore = NULL;
 
-    //mischiaMazzo(&carteCfu);
-    //mischiaOstacoli(&carteOstacolo);
+    mischiaMazzo(&carteCfu);
+    mischiaOstacoli(&carteOstacolo);
 
     int nGiocatori = inputNGiocatori();
     Giocatore *giocatori = inputGiocatori(nGiocatori);

@@ -109,66 +109,100 @@ void mostraCarteDiTutti(Giocatore* giocatore){
  * @param mazzo puntatore al mazzo, che a sua volta punta alla sua prima carta
  */
 void mischiaMazzo(CartaCfu** mazzo){
-    int nCarte=0, i=0, rand1, rand2;
-    CartaCfu *carta = *mazzo, *r1, *r2, *p1, *p2, *pp1, *pp2;
+    int nCarte=0, i=0, j=0;
+    CartaCfu *carta = *mazzo;
+
+    // Contiamo quante carte ci sono
     while(carta != NULL){
         nCarte++;
         carta = carta->prossima;
     }
+    // Array che punterà a tutte le carte
     CartaCfu* carte[nCarte];
+    // Facciamo puntare ciascun elemento dell'array a una carta
     carta = *mazzo;
     while(carta != NULL){
         carte[i] = carta;
         carta = carta->prossima;
         i++;
     }
-    for(i=0; i<nCarte; i++){
-        rand1 = rand()%(nCarte-2);
-        rand2 = rand()%(nCarte-2);
-        r1 = carte[rand1];
-        r2 = carte[rand2];
-        p1 = r1->prossima;
-        p2 = r2->prossima;
-        pp1 = p1->prossima;
-        pp2 = p2->prossima;
-        r1->prossima->prossima = pp2;
-        r2->prossima->prossima = pp1;
-        r1->prossima = p2;
-        r2->prossima = p1;
+    // Le carte non formano più una lista, ma sono ancora in ordine nell'array
+    for(i=0; i<nCarte; i++)
+        carte[i]->prossima = NULL;
+
+    // Array che conterrà una permutazione casuale di interi da 0 a nCarte-1
+    int random[nCarte];
+    for(i=0; i<nCarte; i++)
+        random[i] = i;
+
+    // Andiamo dalla fine all'inizio. Scambiamo ogni numero con un numero casuale che viene prima
+    // Non arriviamo a i==0 perché non si può dividere per 0
+    for(i=nCarte-1; i>0; i--){
+        j=rand()%i;
+        scambiaInt(&random[j], &random[i]);
     }
+
+    // Creiamo una nuova lista:
+    // Usiamo la sequenza di random[] come ordine degli indici di carte[]
+    // "carta" resta un posto indietro, così possiamo agire su carta->prossima senza che carta sia NULL
+    // Quindi il primo passo è fuori dal loop
+    carta = carte[random[0]];
+    *mazzo = carta;
+    for(i=1; i<nCarte; i++){
+        carta->prossima = carte[random[i]];
+        carta = carta->prossima;
+    }
+    carta->prossima = NULL;
 }
 
 /** Mischia il mazzo degli ostacoli
  * @param mazzo puntatore al mazzo degli ostacoli, che a sua volta è un puntatore alla sua prima carta
  */
 void mischiaOstacoli(CartaOstacolo** mazzo){
-    int nCarte=0, i=0, rand1, rand2;
-    CartaOstacolo *carta = *mazzo, *r1, *r2, *p1, *p2, *pp1, *pp2;
+    int nCarte=0, i=0, j=0;
+    CartaOstacolo *carta = *mazzo;
+
+    // Contiamo quante carte ci sono
     while(carta != NULL){
         nCarte++;
         carta = carta->prossima;
     }
+    // Array che punterà a tutte le carte
     CartaOstacolo* carte[nCarte];
+    // Facciamo puntare ciascun elemento dell'array a una carta
     carta = *mazzo;
     while(carta != NULL){
         carte[i] = carta;
         carta = carta->prossima;
         i++;
     }
-    for(i=0; i<nCarte; i++){
-        rand1 = rand()%(nCarte-2);
-        rand2 = rand()%(nCarte-2);
-        r1 = carte[rand1];
-        r2 = carte[rand2];
-        p1 = r1->prossima;
-        p2 = r2->prossima;
-        pp1 = p1->prossima;
-        pp2 = p2->prossima;
-        r1->prossima->prossima = pp2;
-        r2->prossima->prossima = pp1;
-        r1->prossima = p2;
-        r2->prossima = p1;
+    // Le carte non formano più una lista, ma sono ancora in ordine nell'array
+    for(i=0; i<nCarte; i++)
+        carte[i]->prossima = NULL;
+
+    // Array che conterrà una permutazione casuale di interi da 0 a nCarte-1
+    int random[nCarte];
+    for(i=0; i<nCarte; i++)
+        random[i] = i;
+
+    // Andiamo dalla fine all'inizio. Scambiamo ogni numero con un numero casuale che viene prima
+    // Non arriviamo a i==0 perché non si può dividere per 0
+    for(i=nCarte-1; i>0; i--){
+        j=rand()%i;
+        scambiaInt(&random[j], &random[i]);
     }
+
+    // Creiamo una nuova lista:
+    // Usiamo la sequenza di random[] come ordine degli indici di carte[]
+    // "carta" resta un posto indietro, così possiamo agire su carta->prossima senza che carta sia NULL
+    // Quindi il primo passo è fuori dal loop
+    carta = carte[random[0]];
+    *mazzo = carta;
+    for(i=1; i<nCarte; i++){
+        carta->prossima = carte[random[i]];
+        carta = carta->prossima;
+    }
+    carta->prossima = NULL;
 }
 
 /** Permette di giocare una carta CFU (per ora senza effetti secondari)

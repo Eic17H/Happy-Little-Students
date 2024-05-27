@@ -112,6 +112,12 @@
 		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/turno.h">
 			<Option target="Happy_Little_Students"/>
 		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/utilita.c">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/utilita.h">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
 		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

@@ -14,4 +14,6 @@ add_executable(Happy_Little_Students main.c
         input.h
         estetica.c
         estetica.h
-        ANSI-color-codes.h)
+        ANSI-color-codes.h
+        utilita.c
+        utilita.h)

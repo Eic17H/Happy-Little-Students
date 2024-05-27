@@ -6,6 +6,7 @@
 #include "ANSI-color-codes.h"
 #include "costanti.h"
 #include "estetica.h"
+#include "utilita.h"
 
 #ifndef HAPPY_LITTLE_STUDENTS_TURNO_H
 #define HAPPY_LITTLE_STUDENTS_TURNO_H

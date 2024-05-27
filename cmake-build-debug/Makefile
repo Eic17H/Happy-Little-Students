@@ -248,6 +248,30 @@ turno.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/turno.c.s
 .PHONY : turno.c.s
 
+utilita.obj: utilita.c.obj
+.PHONY : utilita.obj
+
+# target to build an object file
+utilita.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/utilita.c.obj
+.PHONY : utilita.c.obj
+
+utilita.i: utilita.c.i
+.PHONY : utilita.i
+
+# target to preprocess a source file
+utilita.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/utilita.c.i
+.PHONY : utilita.c.i
+
+utilita.s: utilita.c.s
+.PHONY : utilita.s
+
+# target to generate assembly for a file
+utilita.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/utilita.c.s
+.PHONY : utilita.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -272,6 +296,9 @@ help:
 	@echo ... turno.obj
 	@echo ... turno.i
 	@echo ... turno.s
+	@echo ... utilita.obj
+	@echo ... utilita.i
+	@echo ... utilita.s
 .PHONY : help
 
 
