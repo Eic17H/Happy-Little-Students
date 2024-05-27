@@ -23,4 +23,6 @@ CMakeFiles/Happy_Little_Students.dir/input.c.obj: \
  C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
  C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/malloc.h \
  C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/mm_malloc.h \
- C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/errno.h
+ C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/errno.h \
+ C:\GitHub\Happy-Little-Students\Happy-Little-Students\estetica.h \
+ C:\GitHub\Happy-Little-Students\Happy-Little-Students\ANSI-color-codes.h

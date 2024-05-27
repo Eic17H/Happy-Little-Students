@@ -364,6 +364,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int* sconfitti, Carta
  */
  // TODO: capire che fare quando finisce il mazzo
 void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu** scarti, CartaOstacolo** carteOstacolo){
+    stampaPlancia(giocatori, nGiocatori);
     Giocatore* giocatore = giocatori;
     int i=0, cfuTurno[nGiocatori], min=0, max=0;
     int nSconfitti = 0, sconfitti[nGiocatori];

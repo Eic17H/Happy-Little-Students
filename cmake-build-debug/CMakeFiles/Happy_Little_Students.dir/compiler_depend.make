@@ -50,7 +50,9 @@ CMakeFiles/Happy_Little_Students.dir/input.c.obj: C:/GitHub/Happy-Little-Student
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/stdlib.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/swprintf.inl \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
+  C:/GitHub/Happy-Little-Students/Happy-Little-Students/ANSI-color-codes.h \
   C:/GitHub/Happy-Little-Students/Happy-Little-Students/costanti.h \
+  C:/GitHub/Happy-Little-Students/Happy-Little-Students/estetica.h \
   C:/GitHub/Happy-Little-Students/Happy-Little-Students/input.h \
   C:/GitHub/Happy-Little-Students/Happy-Little-Students/tipi.h
 

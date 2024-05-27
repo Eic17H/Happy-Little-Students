@@ -5,10 +5,10 @@
 #include "estetica.h"
 
 void stampaLogo(){
-    FILE *logo = fopen("immagine.txt", "r");
-    if(logo == NULL)
+    FILE *fp = fopen("immagine.txt", "r");
+    if(fp == NULL)
         exit(-1);
-    char c = fgetc(logo);
+    char c = fgetc(fp);
     while(c != EOF){
         switch(c){
             case 'R':
@@ -24,17 +24,19 @@ void stampaLogo(){
                 printf("%c", c);
                 break;
         }
-        c = fgetc(logo);
+        c = fgetc(fp);
     }
-    fclose(logo);
+    fclose(fp);
 
     printf("\n");
 
-    logo = fopen("logo.txt", "r");
-    c = fgetc(logo);
+    fp = fopen("logo.txt", "r");
+    if(fp == NULL)
+        exit(-1);
+    c = fgetc(fp);
     while(c != EOF){
         printf("%c", c);
-        c = fgetc(logo);
+        c = fgetc(fp);
     }
     printf("\n\n\n");
 }
@@ -152,4 +154,96 @@ void stampaNomeOstacolo(CartaOstacolo carta){
 void stampaDescOstacolo(CartaOstacolo carta){
     coloreOstacoli(carta.tipo);
     printf("%s\n" RESET, carta.descrizione);
+}
+
+void stampaPlancia(Giocatore* giocatori, int nGiocatori){
+    FILE *fp = fopen("plancia.txt", "r");
+    if(fp == NULL)
+        exit(-1);
+    // Una riga del txt è di 51 caratteri, sono 3 righe per casella + 1 riga per il bordo
+    char c = fgetc(fp);
+    int cont=1, col, rig, casella;
+
+    // Un array che contiene i giocatori, per non dover scrivere segnalino(*(*giocatori).prossimo, rig+col);
+    Giocatore *arrayGiocatori[4], *giocatore=giocatori;
+    for(int i=0; i<nGiocatori; i++){
+        if(i>nGiocatori)
+            arrayGiocatori[i] = NULL;
+        else{
+            arrayGiocatori[i] = giocatore;
+            giocatore = giocatore->prossimo;
+        }
+    }
+
+    while(c!=EOF){
+        // Numero della riga nella plancia
+        // (saltiamo la prima riga di caratteri, 51 caratteri per riga, 3 righe di testo per riga di plancia)
+        rig = (cont-51)/51/3;
+        // si ripete dopo ogni riga, 7 caratteri per colonna
+        col = cont%51/7;
+
+        casella = rig*7+col;
+        switch(c){
+            case 'A':
+                coloreGiocatore(1);
+                segnalino(arrayGiocatori[0], casella);
+                printf(RESET);
+                break;
+            case 'B':
+                coloreGiocatore(2);
+                segnalino(arrayGiocatori[1], casella);
+                printf(RESET);
+                break;
+            case 'C':
+                coloreGiocatore(3);
+                segnalino(arrayGiocatori[2], casella);
+                printf(RESET);
+                break;
+            case 'D':
+                coloreGiocatore(4);
+                segnalino(arrayGiocatori[3], casella);
+                printf(RESET);
+                break;
+            default:
+                printf("%c", c);
+                break;
+        }
+        c = fgetc(fp);
+        cont++;
+    }
+    printf("\n\n");
+}
+
+void segnalino(Giocatore *giocatore, int casella){
+    int caselle[49] = {45, 46, 47, 48, 49, 38, 37,
+                       44, 43, 42, 41, 40, 39, 36,
+                       29, 30, 31, 32, 33, 34, 35,
+                       28, 27, 26, 25, 24, 23, 22,
+                       3, 4, 17, 18, 19, 20, 21,
+                       2, 5, 16, 15, 14, 13, 12,
+                       1, 6, 7, 8, 9, 10, 11};
+
+    if(giocatore == NULL)
+        printf(" ");
+    else if(caselle[casella%49] == giocatore->cfu)
+        printf("%c", giocatore->nomeUtente[0]);
+    else
+        printf(" ");
+}
+
+void coloreGiocatore(int n){
+    switch(n){
+        case 1:
+            printf(RED);
+            break;
+        case 2:
+            printf(BLU);
+            break;
+        case 3:
+            printf(GRN);
+            break;
+        case 4:
+            printf(YEL);
+            break;
+    }
 }

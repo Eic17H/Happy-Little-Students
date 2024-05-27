@@ -1,6 +1,7 @@
 #include "tipi.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "estetica.h"
 
 #ifndef HAPPY_LITTLE_STUDENTS_INPUT_H
 #define HAPPY_LITTLE_STUDENTS_INPUT_H

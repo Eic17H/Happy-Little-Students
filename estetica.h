@@ -19,3 +19,6 @@ void stampaEffetto(CartaCfu);
 void stampaOstacolo(CartaOstacolo);
 void stampaDescOstacolo(CartaOstacolo);
 void stampaNomeOstacolo(CartaOstacolo);
+void stampaPlancia(Giocatore*, int);
+void segnalino(Giocatore*, int);
+void coloreGiocatore(int);

@@ -5,12 +5,16 @@
  * @return puntatore al primo giocatore
  */
 Giocatore* inputGiocatori(int nGiocatori){
+    coloreGiocatore(N_PERSONAGGI-nGiocatori+1);
     if(nGiocatori==0)
         return NULL;
     Giocatore* giocatori = malloc(sizeof(Giocatore));
-    printf("\n=== INSERIRE NOME UTENTE ===\n");
+    printf("\n\n");
+    printf("Giocatore %d:\n", N_PERSONAGGI-nGiocatori+1);
+    printf("=== INSERIRE NOME UTENTE ===\n");
     scanf("%s", giocatori->nomeUtente);
     giocatori->prossimo = inputGiocatori(nGiocatori-1);
+    printf(RESET);
     return giocatori;
 }
 
