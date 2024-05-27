@@ -108,7 +108,7 @@ CartaOstacolo* leggiOstacoli(){
         // Si controlla quante carte si devono leggere, e se è stata letta una quantità
         letti = fscanf(fp, "%d", &quantita);
         // Se non è stata letta una quantità, il file è finito, quindi è la fine del mazzo
-        if (letti < 0) {
+        if (letti < 1) {
             prossima->prossima = NULL;
             carta->prossima = prossima;
         }

@@ -1,8 +1,7 @@
-#include "costanti.h"
-
-
 #ifndef HAPPY_LITTLE_STUDENTS_TIPI_H
 #define HAPPY_LITTLE_STUDENTS_TIPI_H
+
+#include "costanti.h"
 
 typedef struct Personaggio Personaggio;
 typedef struct Giocatore Giocatore;

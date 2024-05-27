@@ -1,7 +1,3 @@
-//
-// Created by eic17 on 23/03/2024.
-//
-
 #ifndef HAPPY_LITTLE_STUDENTS_COSTANTI_H
 #define HAPPY_LITTLE_STUDENTS_COSTANTI_H
 
