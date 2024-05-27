@@ -40,6 +40,16 @@ void inizializzaGiocatori(Giocatore* giocatori){
     }
 }
 
+// TODO: input
+void assegnaPersonaggi(Giocatore* giocatori, Personaggio* personaggi){
+    Giocatore*giocatore = giocatori;
+    int i=0;
+    while(giocatore != NULL){
+        giocatore->personaggio = personaggi[i];
+        i++;
+    }
+}
+
 /** Questa funzione permette di pescare una carta.
  * La toglie dalla cima del mazzo e la mette in cima alla mano di un giocatore
  * @param giocatore puntatore al giocatore che deve pescare
@@ -363,7 +373,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int* sconfitti, Carta
  * @param carteOstacolo mazzo degli ostacoli
  */
  // TODO: capire che fare quando finisce il mazzo
-void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu** scarti, CartaOstacolo** carteOstacolo){
+void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu** scarti, CartaOstacolo** carteOstacolo, int nTurno){
     stampaPlancia(giocatori, nGiocatori);
     Giocatore* giocatore = giocatori;
     int i=0, cfuTurno[nGiocatori], min=0, max=0;

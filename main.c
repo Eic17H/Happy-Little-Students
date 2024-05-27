@@ -18,30 +18,44 @@ int main() {
     // Array contenente i quattro personaggi (le plance di gioco)
     Personaggio personaggi[N_PERSONAGGI];
     leggiPersonaggi(personaggi);
+
     // Puntatore alla prima carta del mazzo di carte CFU
     CartaCfu* carteCfu = leggiCarte();
+    // Puntatore alla prima carta degli scarti CFU
     CartaCfu* scarti = NULL;
+    // Puntatore generico a una carta CFU
     CartaCfu* cartaCfu = carteCfu;
+
     // Puntatore alla prima carta del mazzo di carte ostacolo
     CartaOstacolo* carteOstacolo = leggiOstacoli();
+
+    // Puntatore al giocatore che ha vinto
     Giocatore* vincitore = NULL;
 
+    // Si mischiano le carte
     mischiaMazzo(&carteCfu);
     mischiaOstacoli(&carteOstacolo);
 
+    // Input del numero dei giocatori, input delle informazioni, assegnazione personaggi
     int nGiocatori = inputNGiocatori();
     Giocatore *giocatori = inputGiocatori(nGiocatori);
     inizializzaGiocatori(giocatori);
-    int cfuTurno[nGiocatori];
-    for(int i=0; i<nGiocatori; i++)
-        cfuTurno[i] = 0;
-    printf("\n\n\n");
+    assegnaPersonaggi(giocatori, personaggi);
+
+    // Si parte dal primo turno
+    int nTurno = 1;
+
     do{
+        turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo, nTurno);
+        // Controlliamo se ha perso qualcuno
         perdereOstacolo(&giocatori);
+        // Controlliamo se ha vinto qualcuno
         vincitore = vince(giocatori);
-        if(vincitore == NULL)
-            turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo);
+        // Se non ha vinto nessuno, si continua a giocare
+        nTurno++;
     }while(vincitore == NULL);
+
+    // Se qualcuno ha vinto si esce dal loop
     printf("Ha vinto %s!", vincitore->nomeUtente);
     free(carteCfu);
     free(scarti);
