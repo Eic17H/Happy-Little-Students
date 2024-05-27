@@ -23,7 +23,7 @@ void giocaCarta(Giocatore*, CartaCfu**, int*);
 void turno(Giocatore*, int, CartaCfu**, CartaCfu**, CartaOstacolo**, int);
 void pescaOstacolo(Giocatore*, CartaOstacolo**);
 Giocatore* vince(Giocatore*);
-Giocatore* spareggio(Giocatore*, int, int*, CartaCfu**);
+Giocatore* spareggio(Giocatore*, int, int[], CartaCfu**);
 void perdereOstacolo(Giocatore**);
 void assegnaPersonaggi(Giocatore*, Personaggio*);
 

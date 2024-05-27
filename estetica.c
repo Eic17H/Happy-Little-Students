@@ -142,18 +142,19 @@ void stampaEffetto(CartaCfu carta){
 
 void stampaOstacolo(CartaOstacolo carta){
     stampaNomeOstacolo(carta);
-    stampaDescOstacolo(carta);
     printf("\n");
+    stampaDescOstacolo(carta);
+    printf("\n\n");
 }
 
 void stampaNomeOstacolo(CartaOstacolo carta){
     coloreOstacoli(carta.tipo);
-    printf("%s\n" RESET, carta.nome);
+    printf("%s" RESET, carta.nome);
 }
 
 void stampaDescOstacolo(CartaOstacolo carta){
     coloreOstacoli(carta.tipo);
-    printf("%s\n" RESET, carta.descrizione);
+    printf("%s" RESET, carta.descrizione);
 }
 
 void stampaPlancia(Giocatore* giocatori, int nGiocatori){
@@ -250,37 +251,19 @@ void coloreGiocatore(int n){
 
 void stampaSituazione(Giocatore* giocatori, int nGiocatori){
     Giocatore* giocatore = giocatori;
-    CartaOstacolo *carta[nGiocatori];
+    CartaOstacolo *carta;
     int i=0, continua=0;
 
     // Nomi
     for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
-        carta[i] = giocatore->primaOstacolo;
         coloreGiocatore(i+1);
-        printf("%32s", giocatore->nomeUtente);
-        printf(RESET);
-    }
-    printf("\n");
-
-    // Cfu
-    for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
-        coloreGiocatore(i+1);
-        printf("\t\t\t    %d CFU", giocatore->cfu);
-        printf(RESET);
-    }
-    printf("\n");
-
-    // Ostacoli
-    do{
-        continua = 0;
-        for (i = 0; i < nGiocatori; i++) {
-            printf("\t\t\t\t");
-            if(carta[i]!=NULL){
-                stampaNomeOstacolo(*carta[i]);
-                carta[i] = carta[i]->prossima;
-                continua = 1;
-            }
+        printf("%32s: %2d CFU\t", giocatore->nomeUtente, giocatore->cfu);
+        for(carta = giocatore->primaOstacolo; carta != NULL; carta = carta->prossima) {
+            stampaNomeOstacolo(*carta);
+            printf("\t");
         }
-    }while(continua);
+        printf(RESET);
+        printf("\n");
+    }
     printf("\n\n");
 }

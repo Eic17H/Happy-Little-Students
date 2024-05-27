@@ -320,7 +320,7 @@ void    perdereOstacolo(Giocatore** giocatori){
  * @param sconfitti array degli spareggianti
  * @return puntatore al giocatore che perde
  */
-Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int* sconfitti, CartaCfu** scarti){
+Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int sconfitti[nGiocatori], CartaCfu** scarti){
     printf("\n\n=== SPAREGGIO ===\n\n");
     int punti[nGiocatori], continuare=1, min=0;
     Giocatore* giocatore = giocatori;
@@ -330,7 +330,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int* sconfitti, Carta
         // scorriamo tutti i giocatori
         for (int i = 0; i < nGiocatori; i++, giocatore = giocatore->prossimo) {
             // i giocatori che non stanno spareggiando avranno un punteggio di default per il calcolo del minimo
-            punti[i]=500;
+            punti[i]=PUNTI_PER_VINCERE+1;
             // perdi automaticamente se non hai più carte in mano
             if(contaCarteMano(*giocatore)==0)
                 return giocatore;
@@ -355,6 +355,8 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int* sconfitti, Carta
             if (sconfitti[i] == 1){
                 if(punti[i]==punti[min])
                     continuare++;
+                else
+                    sconfitti[i] = 0;
             }
         }
     }
@@ -364,6 +366,12 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int* sconfitti, Carta
         if(i==min) {
             return giocatore;
         }
+    for (int i = 0; i < min; i++)
+        giocatore = giocatore->prossimo;
+    for(int i=0; i<nGiocatori; i++)
+        sconfitti[i] = 0;
+    return giocatore;
+    // TODO: rendere ricorsiva, così non funziona dopo la seconda iterazione
 }
 
 /** Il turno
