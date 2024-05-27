@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Happy_Little_Students"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Happy_Little_Students">
+				<Option output="C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Happy_Little_Students.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Users/eic17/AppData/Local/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Users/eic17/AppData/Local/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Users/eic17/AppData/Local/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Users/eic17/AppData/Local/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 Happy_Little_Students"/>
+					<CompileFile command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Happy_Little_Students/fast">
+				<Option output="C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Happy_Little_Students.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Users/eic17/AppData/Local/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Users/eic17/AppData/Local/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Users/eic17/AppData/Local/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Users/eic17/AppData/Local/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 Happy_Little_Students/fast"/>
+					<CompileFile command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/Users/eic17/AppData/Local/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/GitHub/Happy-Little-Students/Happy-Little-Students/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/ANSI-color-codes.h">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/costanti.h">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/estetica.c">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/estetica.h">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/input.c">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/input.h">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/letturaFile.c">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/letturaFile.h">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/main.c">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/tipi.h">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/turno.c">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/turno.h">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

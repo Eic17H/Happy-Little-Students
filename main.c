@@ -10,10 +10,6 @@
 #include "ANSI-color-codes.h"
 
 int main() {
-    CartaCfu effeffe;
-    for(effeffe.effetto=0; effeffe.effetto<16; effeffe.effetto++){
-        stampaEffetto(effeffe);
-    }
     srand(time(NULL));
     stampaLogo();
     // File e input

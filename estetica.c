@@ -5,15 +5,37 @@
 #include "estetica.h"
 
 void stampaLogo(){
-    FILE *logo = fopen("logo.txt", "r");
+    FILE *logo = fopen("immagine.txt", "r");
     if(logo == NULL)
         exit(-1);
     char c = fgetc(logo);
     while(c != EOF){
-        printf("%c", c);
+        switch(c){
+            case 'R':
+                printf(RED);
+                break;
+            case 'Y':
+                printf(YEL);
+                break;
+            case 'W':
+                printf(RESET);
+                break;
+            default:
+                printf("%c", c);
+                break;
+        }
         c = fgetc(logo);
     }
     fclose(logo);
+
+    printf("\n");
+
+    logo = fopen("logo.txt", "r");
+    c = fgetc(logo);
+    while(c != EOF){
+        printf("%c", c);
+        c = fgetc(logo);
+    }
     printf("\n\n\n");
 }
 
