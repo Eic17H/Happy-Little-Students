@@ -243,8 +243,9 @@ void perdereOstacolo(Giocatore** giocatori){
         if(carte[0]>=3 || carte[1]>=3 || carte[2]>=3 || carte[0]>0 && carte[1]>0 && carte[2]>0){
             // caso speciale se è il primo
             if(*giocatori == giocatore){
-                *giocatori = giocatore->prossimo;
-                printf(REDHB "\n\n%s ha perso per ostacoli\n\n" RESET, giocatore->nomeUtente);
+                giocatore->prossimo = NULL;
+                *giocatori = (*giocatori)->prossimo;
+                printf("\n\n" REDHB "%s ha perso per ostacoli" RESET "\n\n", giocatore->nomeUtente);
                 free(giocatore);
             }else{
                 for(giocatorePrec = *giocatori; giocatorePrec->prossimo!=giocatore; giocatorePrec = giocatorePrec->prossimo){
