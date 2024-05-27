@@ -46,12 +46,17 @@ int main() {
     int nTurno = 1;
 
     do{
+        printf("stampaSituazione(giocatori, nGiocatori);\n"); // TODO: rimuovere
         stampaSituazione(giocatori, nGiocatori);
+        printf("turno\n"); // TODO: rimuovere
         turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo, nTurno);
         // Controlliamo se ha perso qualcuno
+        printf("perdereOstacolo(&giocatori);\n"); // TODO: rimuovere
         perdereOstacolo(&giocatori);
         // Controlliamo se ha vinto qualcuno
+        printf("vincitore = vince(giocatori);\n"); // TODO: rimuovere
         vincitore = vince(giocatori);
+        printf("nTurno++;\n"); // TODO: rimuovere
         // Se non ha vinto nessuno, si continua a giocare
         nTurno++;
     }while(vincitore == NULL);

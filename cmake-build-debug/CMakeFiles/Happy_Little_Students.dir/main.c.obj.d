@@ -35,4 +35,5 @@ CMakeFiles/Happy_Little_Students.dir/main.c.obj: \
  C:\GitHub\Happy-Little-Students\Happy-Little-Students\ANSI-color-codes.h \
  C:\GitHub\Happy-Little-Students\Happy-Little-Students\estetica.h \
  C:\GitHub\Happy-Little-Students\Happy-Little-Students\utilita.h \
+ C:\GitHub\Happy-Little-Students\Happy-Little-Students\output.h \
  C:\GitHub\Happy-Little-Students\Happy-Little-Students\input.h

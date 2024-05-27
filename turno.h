@@ -14,8 +14,8 @@
 
 int contaCarteMano(Giocatore);
 void inizializzaGiocatori(Giocatore*);
-void pescaRotazione(Giocatore*, CartaCfu**);
-void pescaCarta(Giocatore*, CartaCfu**);
+void pescaRotazione(Giocatore*, CartaCfu**, CartaCfu**);
+void pescaCarta(Giocatore*, CartaCfu**, CartaCfu**);
 void mischiaMazzo(CartaCfu**);
 void mischiaOstacoli(CartaOstacolo**);
 void turno(Giocatore*, int, CartaCfu**, CartaCfu**, CartaOstacolo**, int);

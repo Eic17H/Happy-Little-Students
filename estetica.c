@@ -235,10 +235,10 @@ void segnalino(Giocatore *giocatore, int casella){
 void coloreGiocatore(int n){
     switch(n){
         case 1:
-            printf(RED);
+            printf(MAG);
             break;
         case 2:
-            printf(BLU);
+            printf(CYN);
             break;
         case 3:
             printf(GRN);

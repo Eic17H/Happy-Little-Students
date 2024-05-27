@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Happy_Little_Students.dir/letturaFile.c.obj.d"
   "CMakeFiles/Happy_Little_Students.dir/main.c.obj"
   "CMakeFiles/Happy_Little_Students.dir/main.c.obj.d"
+  "CMakeFiles/Happy_Little_Students.dir/output.c.obj"
+  "CMakeFiles/Happy_Little_Students.dir/output.c.obj.d"
   "CMakeFiles/Happy_Little_Students.dir/turno.c.obj"
   "CMakeFiles/Happy_Little_Students.dir/turno.c.obj.d"
   "CMakeFiles/Happy_Little_Students.dir/utilita.c.obj"

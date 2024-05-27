@@ -42,7 +42,13 @@ void assegnaPersonaggi(Giocatore* giocatori, Personaggio* personaggi){
  * @param giocatore puntatore al giocatore che deve pescare
  * @param mazzo puntatore al "mazzo", che a sua volta è un puntatore alla carta in cima
  */
-void pescaCarta(Giocatore* giocatore, CartaCfu** mazzo){
+void pescaCarta(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
+    // Se è finito il mazzo si mischiano gli scarti
+    if(mazzo==NULL){
+        mazzo = scarti;
+        scarti = NULL;
+        mischiaMazzo(mazzo);
+    }
     // Si mette il puntatore alla carta in cima in una variabile
     CartaCfu *carta;
     carta = *mazzo;
@@ -77,7 +83,7 @@ void pescaOstacolo(Giocatore* giocatore, CartaOstacolo** mazzo){
  * @param giocatori puntatore al primo giocatore
  * @param mazzo puntatore al mazzo, che a sua volta è un puntatore alla prima carta del mazzo
  */
-void pescaRotazione(Giocatore* giocatori, CartaCfu** mazzo){
+void pescaRotazione(Giocatore* giocatori, CartaCfu** mazzo, CartaCfu** scarti){
     Giocatore* giocatore;
     int finito = 0;
     while(!finito) {
@@ -86,7 +92,7 @@ void pescaRotazione(Giocatore* giocatori, CartaCfu** mazzo){
         while (giocatore != NULL) {
             if (contaCarteMano(*giocatore) < N_CARTE_MANO) {
                 finito=0;
-                pescaCarta(giocatore, mazzo);
+                pescaCarta(giocatore, mazzo, scarti);
             }
             giocatore = giocatore->prossimo;
         }
@@ -211,6 +217,7 @@ Giocatore* vince(Giocatore* giocatori){
     return NULL;
 }
 
+// TODO: gestire eliminazione primo giocatore, evidentemente non funziona
 void perdereOstacolo(Giocatore** giocatori){
     if((*giocatori)->prossimo == NULL)
         return;
@@ -223,21 +230,21 @@ void perdereOstacolo(Giocatore** giocatori){
         carte[1] = 0;
         carte[2] = 0;
         // scorre le carte ostacolo
-        for(carta = giocatore->primaOstacolo; carta!=NULL && carta->prossima!=NULL; carta = carta->prossima){
+        for(carta = giocatore->primaOstacolo; carta!=NULL; carta = carta->prossima){
             // conta le carte di ciascun tipo
             if(carta->tipo==ESAME){
                 carte[0]+=1;
                 carte[1]+=1;
                 carte[2]+=1;
             }else
-                carte[carta->tipo]+=1;
+                carte[carta->tipo-1]+=1;
         }
         // TODO: 2 giocatori
         if(carte[0]>=3 || carte[1]>=3 || carte[2]>=3 || carte[0]>0 && carte[1]>0 && carte[2]>0){
             // caso speciale se è il primo
             if(*giocatori == giocatore){
                 *giocatori = giocatore->prossimo;
-                printf("\n\n%s ha perso per ostacoli\n\n", giocatore->nomeUtente);
+                printf(REDHB "\n\n%s ha perso per ostacoli\n\n" RESET, giocatore->nomeUtente);
                 free(giocatore);
             }else{
                 for(giocatorePrec = *giocatori; giocatorePrec->prossimo!=giocatore; giocatorePrec = giocatorePrec->prossimo){
@@ -324,7 +331,7 @@ void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu**
     Giocatore* giocatore = giocatori;
     int i=0, cfuTurno[nGiocatori], min=0, max=0;
     int nSconfitti = 0, sconfitti[nGiocatori];
-    pescaRotazione(giocatori, carteCfu);
+    pescaRotazione(giocatori, carteCfu, scarti);
     char colore[16];
     CartaOstacolo *cartaOstacolo;
 
@@ -361,7 +368,7 @@ void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu**
             giocatore = giocatore->prossimo;
     else {
         giocatore = spareggio(giocatori, nGiocatori, sconfitti, scarti);
-        pescaRotazione(giocatori, carteCfu);
+        pescaRotazione(giocatori, carteCfu, scarti);
     }
     pescaOstacolo(giocatore, carteOstacolo);
 }
