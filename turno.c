@@ -229,7 +229,7 @@ void rimuoviGiocatore(Giocatore** giocatori, Giocatore* giocatore, int* nGiocato
     if(*giocatori == giocatore && giocatore->prossimo == NULL)
         return;
     Giocatore* precedente;
-    *nGiocatori--;
+    (*nGiocatori)--;
 
     // Se si elimina il primo giocatore, bisogna spostare il puntatore al primo
     if(giocatore == *giocatori){

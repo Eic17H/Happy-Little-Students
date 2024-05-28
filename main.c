@@ -41,9 +41,10 @@ int main() {
     Giocatore *giocatori = inputGiocatori(nGiocatori, 1);
     inizializzaGiocatori(giocatori);
     assegnaPersonaggi(giocatori, personaggi);
-
     // Si parte dal primo turno
     int nTurno = 1;
+
+
 
     do{
         printf("stampaSituazione(giocatori, nGiocatori);\n"); // TODO: rimuovere
