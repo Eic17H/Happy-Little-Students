@@ -259,7 +259,7 @@ bool troppiOstacoli(int carte[4]){
     return false;
 }
 
-void perdereOstacolo(Giocatore** giocatori, int* nGiocatori){
+void controlloOstacoli(Giocatore** giocatori, int* nGiocatori){
     if((*giocatori)->prossimo == NULL)
         return;
     Giocatore *giocatore=*giocatori, *giocatorePrec;
@@ -273,6 +273,8 @@ void perdereOstacolo(Giocatore** giocatori, int* nGiocatori){
         carte[3] = 0;
         // scorre le carte ostacolo
         for(carta = giocatore->primaOstacolo; carta!=NULL; carta = carta->prossima){
+            // Aumento CFU per ogni carta ostacolo
+            giocatore->cfu++;
             // conta le carte di ciascun tipo
             switch(carta->tipo){
                 case STUDIO:

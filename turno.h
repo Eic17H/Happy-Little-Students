@@ -23,7 +23,7 @@ void turno(Giocatore*, int, CartaCfu**, CartaCfu**, CartaOstacolo**, int, Person
 void pescaOstacolo(Giocatore*, CartaOstacolo**);
 Giocatore* vince(Giocatore*);
 Giocatore* spareggio(Giocatore*, int, int[], CartaCfu**);
-void perdereOstacolo(Giocatore**, int*);
+void controlloOstacoli(Giocatore **giocatori, int *nGiocatori);
 void assegnaPersonaggi(Giocatore*, Personaggio*);
 bool troppiOstacoli(int[]);
 void rimuoviGiocatore(Giocatore**, Giocatore*, int*);

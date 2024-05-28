@@ -50,7 +50,7 @@ int main() {
         stampaSituazione(giocatori, nGiocatori, personaggi);
         turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo, nTurno, personaggi);
         // Controlliamo se ha perso qualcuno
-        perdereOstacolo(&giocatori, &nGiocatori);
+        controlloOstacoli(&giocatori, &nGiocatori);
         // Controlliamo se ha vinto qualcuno
         vincitore = vince(giocatori);
         // Se non ha vinto nessuno, si continua a giocare
