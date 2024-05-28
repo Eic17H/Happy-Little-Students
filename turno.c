@@ -223,7 +223,6 @@ Giocatore* vince(Giocatore* giocatori){
  * @param giocatore Il giocatore da eliminare
  */
 void rimuoviGiocatore(Giocatore** giocatori, Giocatore* giocatore, int* nGiocatori){
-    printf(REDB "STO PROVANDO A RIMUOVERE %s" RESET, giocatore->nomeUtente);
 
     // Non rimuovere l'ultimo giocatore rimasto
     if(*giocatori == giocatore && giocatore->prossimo == NULL)
@@ -260,7 +259,6 @@ bool troppiOstacoli(int carte[4]){
     return false;
 }
 
-// TODO: rifare da capo
 void perdereOstacolo(Giocatore** giocatori, int* nGiocatori){
     if((*giocatori)->prossimo == NULL)
         return;
@@ -276,8 +274,6 @@ void perdereOstacolo(Giocatore** giocatori, int* nGiocatori){
         // scorre le carte ostacolo
         for(carta = giocatore->primaOstacolo; carta!=NULL; carta = carta->prossima){
             // conta le carte di ciascun tipo
-            stampaOstacolo(*carta);
-            printf("%s: %d %d %d %d\n", giocatore->nomeUtente, carte[0], carte[1], carte[2], carte[3]);
             switch(carta->tipo){
                 case STUDIO:
                     carte[0]++;
