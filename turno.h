@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <stdbool.h>
 #include "ANSI-color-codes.h"
 #include "costanti.h"
 #include "estetica.h"
@@ -24,5 +25,6 @@ Giocatore* vince(Giocatore*);
 Giocatore* spareggio(Giocatore*, int, int[], CartaCfu**);
 void perdereOstacolo(Giocatore**);
 void assegnaPersonaggi(Giocatore*, Personaggio*);
+bool troppiOstacoli(int[]);
 
 #endif //HAPPY_LITTLE_STUDENTS_TURNO_H

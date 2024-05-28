@@ -87,6 +87,7 @@ CMakeFiles/Happy_Little_Students.dir/letturaFile.c.obj: C:/GitHub/Happy-Little-S
 CMakeFiles/Happy_Little_Students.dir/main.c.obj: C:/GitHub/Happy-Little-Students/Happy-Little-Students/main.c \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/limits.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/mm_malloc.h \
+  C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/syslimits.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/_mingw.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/_mingw_mac.h \
@@ -162,6 +163,7 @@ CMakeFiles/Happy_Little_Students.dir/output.c.obj: C:/GitHub/Happy-Little-Studen
 CMakeFiles/Happy_Little_Students.dir/turno.c.obj: C:/GitHub/Happy-Little-Students/Happy-Little-Students/turno.c \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/limits.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/mm_malloc.h \
+  C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/syslimits.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/_mingw.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/_mingw_mac.h \
@@ -269,6 +271,8 @@ C:/GitHub/Happy-Little-Students/Happy-Little-Students/estetica.h:
 C:/GitHub/Happy-Little-Students/Happy-Little-Students/input.h:
 
 C:/GitHub/Happy-Little-Students/Happy-Little-Students/main.c:
+
+C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h:
 
 C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/_timeval.h:
 

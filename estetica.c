@@ -232,6 +232,7 @@ void segnalino(Giocatore *giocatore, int casella){
         printf(" ");
 }
 
+// TODO: usare i personaggi anziché il numero
 void coloreGiocatore(int n){
     switch(n){
         case 1:
@@ -245,6 +246,9 @@ void coloreGiocatore(int n){
             break;
         case 4:
             printf(YEL);
+            break;
+        default:
+            printf(RESET);
             break;
     }
 }

@@ -31,6 +31,7 @@ CMakeFiles/Happy_Little_Students.dir/turno.c.obj: \
  C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/pthread_time.h \
  C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/string.h \
  C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/string_s.h \
+ C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h \
  C:\GitHub\Happy-Little-Students\Happy-Little-Students\ANSI-color-codes.h \
  C:\GitHub\Happy-Little-Students\Happy-Little-Students\estetica.h \
  C:\GitHub\Happy-Little-Students\Happy-Little-Students\utilita.h \

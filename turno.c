@@ -217,43 +217,86 @@ Giocatore* vince(Giocatore* giocatori){
     return NULL;
 }
 
-// TODO: gestire eliminazione primo giocatore, evidentemente non funziona
+/**
+ * Rimuove un giocatore
+ * @param giocatori Puntatore alla lista di giocatori, che a sua volta è un puntatore
+ * @param giocatore Il giocatore da eliminare
+ */
+void rimuoviGiocatore(Giocatore** giocatori, Giocatore* giocatore){
+    printf(REDB "STO PROVANDO A RIMUOVERE %s" RESET, giocatore->nomeUtente);
+
+    // Non rimuovere l'ultimo giocatore rimasto
+    if(*giocatori == giocatore && giocatore->prossimo == NULL)
+        return;
+    Giocatore* precedente;
+
+    // Se si elimina il primo giocatore, bisogna spostare il puntatore al primo
+    if(giocatore == *giocatori){
+        *giocatori = giocatore->prossimo;
+        free(giocatore);
+    }else{
+        for(precedente=*giocatori; precedente->prossimo!=giocatore; precedente=precedente->prossimo);
+        precedente->prossimo = giocatore->prossimo;
+        free(giocatore);
+    }
+}
+
+bool troppiOstacoli(int carte[4]){
+    // Tre carte dello stesso colore (le carte esame contano in ogni caso)
+    if(carte[0]+carte[3]>=3)
+        return true;
+    if(carte[1]+carte[3]>=3)
+        return true;
+    if(carte[2]+carte[3]>=3)
+        return true;
+    // Tre carte di colore diverso (considerando le carte esame come ciascun colore)
+    if(carte[0]+carte[3]>0 && carte[1]>0 && carte[2]>0)
+        return true;
+    if(carte[0]>0 && carte[1]+carte[3]>0 && carte[2]>0)
+        return true;
+    if(carte[0]>0 && carte[1]>0 && carte[2]+carte[3]>0)
+        return true;
+    return false;
+}
+
+// TODO: rifare da capo
 void perdereOstacolo(Giocatore** giocatori){
     if((*giocatori)->prossimo == NULL)
         return;
     Giocatore *giocatore=*giocatori, *giocatorePrec;
     CartaOstacolo *carta;
-    int carte[3] = {0, 0, 0};
+    int carte[4] = {0, 0, 0, 0};
     // scorri i giocatori
     for(giocatore = *giocatori; giocatore!=NULL; giocatore = giocatore->prossimo){
         carte[0] = 0;
         carte[1] = 0;
         carte[2] = 0;
+        carte[3] = 0;
         // scorre le carte ostacolo
         for(carta = giocatore->primaOstacolo; carta!=NULL; carta = carta->prossima){
             // conta le carte di ciascun tipo
-            if(carta->tipo==ESAME){
-                carte[0]+=1;
-                carte[1]+=1;
-                carte[2]+=1;
-            }else
-                carte[carta->tipo-1]+=1;
+            stampaOstacolo(*carta);
+            printf("%s: %d %d %d %d\n", giocatore->nomeUtente, carte[0], carte[1], carte[2], carte[3]);
+            switch(carta->tipo){
+                case STUDIO:
+                    carte[0]++;
+                    break;
+                case SOPRAVVIVENZA:
+                    carte[1]++;
+                    break;
+                case SOCIALE:
+                    carte[2]++;
+                    break;
+                case ESAME:
+                    carte[3]++;
+                    break;
+                default:
+                    break;
+            }
         }
         // TODO: 2 giocatori
-        if(carte[0]>=3 || carte[1]>=3 || carte[2]>=3 || carte[0]>0 && carte[1]>0 && carte[2]>0){
-            // caso speciale se è il primo
-            if(*giocatori == giocatore){
-                giocatore->prossimo = NULL;
-                *giocatori = (*giocatori)->prossimo;
-                printf("\n\n" REDHB "%s ha perso per ostacoli" RESET "\n\n", giocatore->nomeUtente);
-                free(giocatore);
-            }else{
-                for(giocatorePrec = *giocatori; giocatorePrec->prossimo!=giocatore; giocatorePrec = giocatorePrec->prossimo){
-                    giocatorePrec->prossimo = giocatore->prossimo;
-                    printf("\n\n%s ha perso per ostacoli\n\n", giocatore->nomeUtente);
-                    free(giocatore);
-                }
-            }
+        if(troppiOstacoli(carte)){
+            rimuoviGiocatore(giocatori, giocatore);
         }
     }
 }
@@ -316,7 +359,6 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int sconfitti[nGiocat
     for(int i=0; i<nGiocatori; i++)
         sconfitti[i] = 0;
     return giocatore;
-    // TODO: rendere ricorsiva, così non funziona dopo la seconda iterazione
 }
 
 /** Il turno
@@ -326,7 +368,8 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int sconfitti[nGiocat
  * @param scarti pila degli scarti
  * @param carteOstacolo mazzo degli ostacoli
  */
- // TODO: capire che fare quando finisce il mazzo
+ // TODO: cambiare nGiocatori quando perde qualcuno, capire che fare coi colori quando perde qualcuno
+ // TODO: forse posso direttamente assegnare un colore a ciascun personaggio
 void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu** scarti, CartaOstacolo** carteOstacolo, int nTurno){
     stampaPlancia(giocatori, nGiocatori);
     Giocatore* giocatore = giocatori;
