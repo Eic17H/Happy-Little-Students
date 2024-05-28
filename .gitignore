@@ -3,3 +3,5 @@
 /cmake-build-debug/Testing/
 /cmake-build-debug/cmake-build-debug/
 /cmake-build-debug/.cmake/
+*.obj
+*.obj.d
