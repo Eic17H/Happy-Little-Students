@@ -293,6 +293,18 @@ void perdereOstacolo(Giocatore** giocatori, int* nGiocatori){
         }
         // TODO: 2 giocatori
         if(troppiOstacoli(carte)){
+            // Testo rosso
+            printf(BHRED "\n\n");
+            // Abbastanza "=" per raggiungere la lunghezza del nome del giocatore
+            for(int i=0; i<strlen(giocatore->nomeUtente); i++)
+                printf("=");
+            // Il messaggio
+            printf("==========\n%s ha perso.\n==========", giocatore->nomeUtente);
+            // Di nuovo, raggiungere la lunghezza del nome
+            for(int i=0; i<strlen(giocatore->nomeUtente); i++)
+                printf("=");
+            // Andare a capo e mettere il colore normale
+            printf("\n\n" RESET);
             rimuoviGiocatore(giocatori, giocatore, nGiocatori);
         }
     }

@@ -63,8 +63,11 @@ int main() {
     free(scarti);
     free(carteOstacolo);
     free(giocatori);
+
+    // Evita che l'andata a capo già inserita sia presa dal prossimo getchar()
     getchar();
     printf("\n\nPremi invio per chiudere.\n");
+    // Prima di chiudere il gioco, attende che si prema invio
     getchar();
     return 0;
 }
