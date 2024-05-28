@@ -47,12 +47,12 @@ int main() {
 
     do{
         printf("stampaSituazione(giocatori, nGiocatori);\n"); // TODO: rimuovere
-        stampaSituazione(giocatori, nGiocatori);
+        stampaSituazione(giocatori, nGiocatori, personaggi);
         printf("turno\n"); // TODO: rimuovere
-        turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo, nTurno);
+        turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo, nTurno, personaggi);
         // Controlliamo se ha perso qualcuno
         printf("perdereOstacolo(&giocatori);\n"); // TODO: rimuovere
-        perdereOstacolo(&giocatori);
+        perdereOstacolo(&giocatori, &nGiocatori);
         // Controlliamo se ha vinto qualcuno
         printf("vincitore = vince(giocatori);\n"); // TODO: rimuovere
         vincitore = vince(giocatori);

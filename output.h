@@ -11,6 +11,7 @@
 #include "estetica.h"
 #include "utilita.h"
 #include "output.h"
+#include "turno.h"
 
 void mostraCarte(Giocatore);
 void giocaCarta(Giocatore*, CartaCfu**, int*);

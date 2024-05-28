@@ -186,22 +186,22 @@ void stampaPlancia(Giocatore* giocatori, int nGiocatori){
         casella = rig*7+col;
         switch(c){
             case 'A':
-                coloreGiocatore(1);
+                coloreNumero(1);
                 segnalino(arrayGiocatori[0], casella);
                 printf(RESET);
                 break;
             case 'B':
-                coloreGiocatore(2);
+                coloreNumero(2);
                 segnalino(arrayGiocatori[1], casella);
                 printf(RESET);
                 break;
             case 'C':
-                coloreGiocatore(3);
+                coloreNumero(3);
                 segnalino(arrayGiocatori[2], casella);
                 printf(RESET);
                 break;
             case 'D':
-                coloreGiocatore(4);
+                coloreNumero(4);
                 segnalino(arrayGiocatori[3], casella);
                 printf(RESET);
                 break;
@@ -233,7 +233,7 @@ void segnalino(Giocatore *giocatore, int casella){
 }
 
 // TODO: usare i personaggi anziché il numero
-void coloreGiocatore(int n){
+void coloreNumero(int n){
     switch(n){
         case 1:
             printf(MAG);
@@ -253,14 +253,24 @@ void coloreGiocatore(int n){
     }
 }
 
-void stampaSituazione(Giocatore* giocatori, int nGiocatori){
+void colorePersonaggio(Personaggio personaggio, Personaggio* personaggi){
+    // TODO: in effetti faccio scegliere che personaggio prendere, ignorando i colori nell'inserimento del nome utente
+    // TODO: consistenza, forse
+    // I personaggi partono da 0, ma i giocatori sono numerati da 1
+    for(int i=0; i<N_PERSONAGGI; i++){
+        if(strcmp(personaggio.nome, personaggi[i].nome) == 0)
+            coloreNumero(i+1);
+    }
+}
+
+void stampaSituazione(Giocatore* giocatori, int nGiocatori, Personaggio* personaggi){
     Giocatore* giocatore = giocatori;
     CartaOstacolo *carta;
     int i=0, continua=0;
 
     // Nomi
     for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
-        coloreGiocatore(i+1);
+        colorePersonaggio(giocatore->personaggio, personaggi);
         printf("%32s: %2d CFU\t", giocatore->nomeUtente, giocatore->cfu);
         for(carta = giocatore->primaOstacolo; carta != NULL; carta = carta->prossima) {
             stampaNomeOstacolo(*carta);

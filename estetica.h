@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "tipi.h"
 #include "ANSI-color-codes.h"
+#include <string.h>
 
 #endif //HAPPY_LITTLE_STUDENTS_ESTETICA_H
 
@@ -17,5 +18,6 @@ void stampaDescOstacolo(CartaOstacolo);
 void stampaNomeOstacolo(CartaOstacolo);
 void stampaPlancia(Giocatore*, int);
 void segnalino(Giocatore*, int);
-void coloreGiocatore(int);
-void stampaSituazione(Giocatore*, int);
+void coloreNumero(int);
+void colorePersonaggio(Personaggio, Personaggio*);
+void stampaSituazione(Giocatore*, int, Personaggio*);

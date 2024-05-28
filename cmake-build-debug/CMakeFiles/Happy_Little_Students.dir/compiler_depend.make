@@ -19,8 +19,10 @@ CMakeFiles/Happy_Little_Students.dir/estetica.c.obj: C:/GitHub/Happy-Little-Stud
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
+  C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/string_s.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/stdio.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/stdlib.h \
+  C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/string.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/swprintf.inl \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
   C:/GitHub/Happy-Little-Students/Happy-Little-Students/ANSI-color-codes.h \
@@ -46,8 +48,10 @@ CMakeFiles/Happy_Little_Students.dir/input.c.obj: C:/GitHub/Happy-Little-Student
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
+  C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/string_s.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/stdio.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/stdlib.h \
+  C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/string.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/swprintf.inl \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
   C:/GitHub/Happy-Little-Students/Happy-Little-Students/ANSI-color-codes.h \
@@ -127,6 +131,7 @@ CMakeFiles/Happy_Little_Students.dir/main.c.obj: C:/GitHub/Happy-Little-Students
 CMakeFiles/Happy_Little_Students.dir/output.c.obj: C:/GitHub/Happy-Little-Students/Happy-Little-Students/output.c \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/limits.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/mm_malloc.h \
+  C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/syslimits.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/_mingw.h \
   C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/_mingw_mac.h \
@@ -158,6 +163,7 @@ CMakeFiles/Happy_Little_Students.dir/output.c.obj: C:/GitHub/Happy-Little-Studen
   C:/GitHub/Happy-Little-Students/Happy-Little-Students/estetica.h \
   C:/GitHub/Happy-Little-Students/Happy-Little-Students/output.h \
   C:/GitHub/Happy-Little-Students/Happy-Little-Students/tipi.h \
+  C:/GitHub/Happy-Little-Students/Happy-Little-Students/turno.h \
   C:/GitHub/Happy-Little-Students/Happy-Little-Students/utilita.h
 
 CMakeFiles/Happy_Little_Students.dir/turno.c.obj: C:/GitHub/Happy-Little-Students/Happy-Little-Students/turno.c \
@@ -256,9 +262,9 @@ C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-ming
 
 C:/GitHub/Happy-Little-Students/Happy-Little-Students/turno.h:
 
-C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/string_s.h:
-
 C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/stdlib.h:
+
+C:/Users/eic17/AppData/Local/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/string_s.h:
 
 C:/GitHub/Happy-Little-Students/Happy-Little-Students/ANSI-color-codes.h:
 

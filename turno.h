@@ -19,12 +19,13 @@ void pescaRotazione(Giocatore*, CartaCfu**, CartaCfu**);
 void pescaCarta(Giocatore*, CartaCfu**, CartaCfu**);
 void mischiaMazzo(CartaCfu**);
 void mischiaOstacoli(CartaOstacolo**);
-void turno(Giocatore*, int, CartaCfu**, CartaCfu**, CartaOstacolo**, int);
+void turno(Giocatore*, int, CartaCfu**, CartaCfu**, CartaOstacolo**, int, Personaggio*);
 void pescaOstacolo(Giocatore*, CartaOstacolo**);
 Giocatore* vince(Giocatore*);
 Giocatore* spareggio(Giocatore*, int, int[], CartaCfu**);
-void perdereOstacolo(Giocatore**);
+void perdereOstacolo(Giocatore**, int*);
 void assegnaPersonaggi(Giocatore*, Personaggio*);
 bool troppiOstacoli(int[]);
+void rimuoviGiocatore(Giocatore**, Giocatore*, int*);
 
 #endif //HAPPY_LITTLE_STUDENTS_TURNO_H

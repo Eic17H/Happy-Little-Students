@@ -222,13 +222,14 @@ Giocatore* vince(Giocatore* giocatori){
  * @param giocatori Puntatore alla lista di giocatori, che a sua volta è un puntatore
  * @param giocatore Il giocatore da eliminare
  */
-void rimuoviGiocatore(Giocatore** giocatori, Giocatore* giocatore){
+void rimuoviGiocatore(Giocatore** giocatori, Giocatore* giocatore, int* nGiocatori){
     printf(REDB "STO PROVANDO A RIMUOVERE %s" RESET, giocatore->nomeUtente);
 
     // Non rimuovere l'ultimo giocatore rimasto
     if(*giocatori == giocatore && giocatore->prossimo == NULL)
         return;
     Giocatore* precedente;
+    *nGiocatori--;
 
     // Se si elimina il primo giocatore, bisogna spostare il puntatore al primo
     if(giocatore == *giocatori){
@@ -260,7 +261,7 @@ bool troppiOstacoli(int carte[4]){
 }
 
 // TODO: rifare da capo
-void perdereOstacolo(Giocatore** giocatori){
+void perdereOstacolo(Giocatore** giocatori, int* nGiocatori){
     if((*giocatori)->prossimo == NULL)
         return;
     Giocatore *giocatore=*giocatori, *giocatorePrec;
@@ -296,7 +297,7 @@ void perdereOstacolo(Giocatore** giocatori){
         }
         // TODO: 2 giocatori
         if(troppiOstacoli(carte)){
-            rimuoviGiocatore(giocatori, giocatore);
+            rimuoviGiocatore(giocatori, giocatore, nGiocatori);
         }
     }
 }
@@ -370,7 +371,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int sconfitti[nGiocat
  */
  // TODO: cambiare nGiocatori quando perde qualcuno, capire che fare coi colori quando perde qualcuno
  // TODO: forse posso direttamente assegnare un colore a ciascun personaggio
-void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu** scarti, CartaOstacolo** carteOstacolo, int nTurno){
+void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu** scarti, CartaOstacolo** carteOstacolo, int nTurno, Personaggio personaggi[]){
     stampaPlancia(giocatori, nGiocatori);
     Giocatore* giocatore = giocatori;
     int i=0, cfuTurno[nGiocatori], min=0, max=0;
@@ -383,7 +384,7 @@ void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu**
 
     for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
         cfuTurno[i] = 0;
-        coloreGiocatore(i+1);
+        colorePersonaggio(giocatore->personaggio, personaggi);
         printf("___===---!!! Turno di %s !!!---===___\n", giocatore->nomeUtente);
         giocaCarta(giocatore, scarti, cfuTurno + i);
         printf(RESET);
