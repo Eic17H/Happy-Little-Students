@@ -8,8 +8,10 @@ void stampaLogo(){
     FILE *fp = fopen("immagine.txt", "r");
     if(fp == NULL)
         exit(-1);
-    char c = fgetc(fp);
-    while(c != EOF){
+    char c;
+    int letto;
+    letto = fscanf(fp, "%c", &c);
+    while(letto>=0){
         switch(c){
             case 'R':
                 printf(RED);
@@ -24,7 +26,7 @@ void stampaLogo(){
                 printf("%c", c);
                 break;
         }
-        c = fgetc(fp);
+        letto = fscanf(fp, "%c", &c);
     }
     fclose(fp);
 
@@ -33,10 +35,10 @@ void stampaLogo(){
     fp = fopen("logo.txt", "r");
     if(fp == NULL)
         exit(-1);
-    c = fgetc(fp);
-    while(c != EOF){
+    letto = fscanf(fp, "%c", &c);
+    while(letto>=0){
         printf("%c", c);
-        c = fgetc(fp);
+        letto = fscanf(fp, "%c", &c);
     }
     printf("\n\n\n");
 }
@@ -162,7 +164,9 @@ void stampaPlancia(Giocatore* giocatori, int nGiocatori){
     if(fp == NULL)
         exit(-1);
     // Una riga del txt è di 51 caratteri, sono 3 righe per casella + 1 riga per il bordo
-    char c = fgetc(fp);
+    int letto;
+    char c;
+    letto = fscanf(fp, "%c", &c);
     int cont=1, col, rig, casella;
 
     // Un array che contiene i giocatori, per non dover scrivere segnalino(*(*giocatori).prossimo, rig+col);
@@ -176,7 +180,7 @@ void stampaPlancia(Giocatore* giocatori, int nGiocatori){
         }
     }
 
-    while(c!=EOF){
+    while(letto>=0){
         // Numero della riga nella plancia
         // (saltiamo la prima riga di caratteri, 51 caratteri per riga, 3 righe di testo per riga di plancia)
         rig = (cont-51)/51/3;
@@ -209,7 +213,7 @@ void stampaPlancia(Giocatore* giocatori, int nGiocatori){
                 printf("%c", c);
                 break;
         }
-        c = fgetc(fp);
+        letto = fscanf(fp, "%c", &c);
         cont++;
     }
     printf("\n\n");
