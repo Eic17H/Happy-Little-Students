@@ -304,3 +304,16 @@ void stampaSituazione(Giocatore* giocatori, int nGiocatori, Personaggio* persona
     }
     printf("\n\n");
 }
+
+void aiuto(int scelta){
+    switch(scelta){
+        case 0:
+            printf("Una carta senza segnalino e' una carta che non ha un effetto.\n");
+            break;
+        case 1:
+            printf("Una carta con il segnalino \"%c\" e' una carta con effetto che puoi usare nella prima fase del turno.\n", SIMBOLO_CARTA_EFFETTO);
+            break;
+        case 2:
+            printf("Una carta con il segnalino \"%c\" e' una carta istantanea, da usare dopo il calcolo del punteggio.\n", SIMBOLO_CARTA_ISTANTANEA);
+    }
+}
