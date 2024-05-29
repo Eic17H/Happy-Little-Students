@@ -285,6 +285,7 @@ void colorePersonaggio(Personaggio personaggio, Personaggio* personaggi){
     }
 }
 
+// TODO: interfaccia.c
 void stampaSituazione(Giocatore* giocatori, int nGiocatori, Personaggio* personaggi){
     Giocatore* giocatore = giocatori;
     CartaOstacolo *carta;
