@@ -4,6 +4,9 @@
 
 #include "estetica.h"
 
+/**
+ * Stampa il logo leggendolo da immagine.txt e logo.txt
+ */
 void stampaLogo(){
     FILE *fp = fopen("immagine.txt", "r");
     if(fp == NULL)
@@ -11,6 +14,7 @@ void stampaLogo(){
     char c;
     int letto;
     letto = fscanf(fp, "%c", &c);
+    // Una R rende il testo rosso, una Y giallo, una W bianco, gli altri caratteri vengono stampati
     while(letto>=0){
         switch(c){
             case 'R':
@@ -46,11 +50,13 @@ void stampaLogo(){
 /**
  * Indica se una carta ha un effetto
  * @param carta una carta cfu
- * @return l'indicatore se la carta ha un effetto, uno spazio altrimenti
+ * @return un indicatore se la carta ha un effetto, uno spazio altrimenti
  */
 char cartaSpeciale(CartaCfu carta){
     if(carta.effetto == 0)
         return ' ';
+    else if(carta.effetto>=13)
+        return SIMBOLO_CARTA_ISTANTANEA;
     else
         return SIMBOLO_CARTA_EFFETTO;
 }
@@ -159,7 +165,25 @@ void stampaDescOstacolo(CartaOstacolo carta){
     printf("%s" RESET, carta.descrizione);
 }
 
-void stampaPlancia(Giocatore* giocatori, int nGiocatori){
+/**
+ * Legge i numeri che segnano il valore di una casella in plancia.txt, e li mette in un array
+ * @param numeri Array dei numeri, letti da sinistra a destra, dall'alto verso il basso
+ */
+void leggiNumeriPlancia(int numeri[PUNTI_PER_VINCERE]){
+    FILE *fp = fopen("plancia.txt", "r");
+    char c;
+    int i=0, letti=0;
+    do{
+        letti=fscanf(fp, "%c", &c);
+        if(c>='0' && c<='9'){
+            fseek(fp, -1, SEEK_CUR);
+            fscanf(fp, "%d", &numeri[i]);
+            i++;
+        }
+    }while(i<PUNTI_PER_VINCERE && letti>=0);
+}
+
+void stampaPlancia(Giocatore* giocatori, int nGiocatori, int numeri[PUNTI_PER_VINCERE]){
     FILE *fp = fopen("plancia.txt", "r");
     if(fp == NULL)
         exit(-1);
@@ -188,29 +212,30 @@ void stampaPlancia(Giocatore* giocatori, int nGiocatori){
         col = cont%51/7;
 
         casella = rig*7+col;
+        // TODO: colore personaggio
         switch(c){
             case 'A':
                 coloreNumero(1);
-                segnalino(arrayGiocatori[0], casella);
+                segnalino(arrayGiocatori[0], casella, numeri);
                 printf(RESET);
                 break;
             case 'B':
                 coloreNumero(2);
-                segnalino(arrayGiocatori[1], casella);
+                segnalino(arrayGiocatori[1], casella, numeri);
                 printf(RESET);
                 break;
             case 'C':
                 coloreNumero(3);
-                segnalino(arrayGiocatori[2], casella);
+                segnalino(arrayGiocatori[2], casella, numeri);
                 printf(RESET);
                 break;
             case 'D':
                 coloreNumero(4);
-                segnalino(arrayGiocatori[3], casella);
+                segnalino(arrayGiocatori[3], casella, numeri);
                 printf(RESET);
                 break;
             default:
-                printf("%c", c);
+                printf(RESET "%c", c);
                 break;
         }
         letto = fscanf(fp, "%c", &c);
@@ -219,15 +244,7 @@ void stampaPlancia(Giocatore* giocatori, int nGiocatori){
     printf("\n\n");
 }
 
-void segnalino(Giocatore *giocatore, int casella){
-    int caselle[49] = {45, 46, 47, 48, 49, 38, 37,
-                       44, 43, 42, 41, 40, 39, 36,
-                       29, 30, 31, 32, 33, 34, 35,
-                       28, 27, 26, 25, 24, 23, 22,
-                       3, 4, 17, 18, 19, 20, 21,
-                       2, 5, 16, 15, 14, 13, 12,
-                       1, 6, 7, 8, 9, 10, 11};
-
+void segnalino(Giocatore *giocatore, int casella, int caselle[PUNTI_PER_VINCERE]){
     if(giocatore == NULL)
         printf(" ");
     else if(caselle[casella%49] == giocatore->cfu)

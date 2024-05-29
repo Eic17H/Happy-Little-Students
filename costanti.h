@@ -11,5 +11,6 @@
 #define OSTACOLI_PER_PERDERE_2GIOCATORI 6
 // 15 è un sole, ma non è monospaziato
 #define SIMBOLO_CARTA_EFFETTO '*'
+#define SIMBOLO_CARTA_ISTANTANEA '!'
 
 #endif //HAPPY_LITTLE_STUDENTS_COSTANTI_H

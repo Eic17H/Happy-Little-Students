@@ -44,11 +44,13 @@ int main() {
     // Si parte dal primo turno
     int nTurno = 1;
 
+    int numeriPlancia[PUNTI_PER_VINCERE];
+    leggiNumeriPlancia(numeriPlancia);
 
 
     do{
         stampaSituazione(giocatori, nGiocatori, personaggi);
-        turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo, nTurno, personaggi);
+        turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo, nTurno, personaggi, numeriPlancia);
         // Controlliamo se ha perso qualcuno
         controlloOstacoli(&giocatori, &nGiocatori);
         // Controlliamo se ha vinto qualcuno
