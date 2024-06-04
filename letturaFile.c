@@ -55,7 +55,7 @@ CartaCfu* leggiCarte(){
         letti = fscanf(fp, "%d %d %d %[^\n]", &quantita, &effetto, &valore, nome);
 
         // Se non c'e' niente da leggere, il mazzo è finito: la prossima è l'ultima carta
-        if (letti < 0) {
+        if (letti <= 0) {
             prossima = NULL;
             carta->prossima = prossima;
         }else
