@@ -7,6 +7,7 @@
 #define LUNG_DESCR 128
 #define N_CARTE_MANO 5
 #define PUNTI_PER_VINCERE 50
+#define PRIMA_ISTANTANEA INVERTI // Da INVERTI in poi gli effetti sono istantanei
 #define OSTACOLI_PER_PERDERE 3
 #define OSTACOLI_PER_PERDERE_2GIOCATORI 6
 // 15 è un sole, ma non è monospaziato

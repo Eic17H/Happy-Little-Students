@@ -30,12 +30,28 @@ void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
     int carteInMano = contaCarteMano(*giocatore);
     // Puntatori a due carte
     CartaCfu *carta = giocatore->primaCfu, *scartata;
-    int scelta;
+    int scelta=0;
+
+
+    CartaCfu* mano[carteInMano];
+    for(int i=0; carta != NULL; carta = carta->prossima, i++){
+        mano[i] = carta;
+    }
     printf("Quale vuoi giocare?\n");
-    scanf("%d", &scelta);
-    while(scelta<1 || scelta>carteInMano){
-        printf("Scegli una delle carte in mano (1-%d).\n", carteInMano);
+    bool sceltaValida = false;
+    while(!sceltaValida){
+        sceltaValida = true;
         scanf("%d", &scelta);
+        if(scelta<1){
+            sceltaValida = false;
+            printf("Le carte sono numerate a partire da 1.\n");
+        }else if(scelta>carteInMano){
+            sceltaValida = false;
+            printf("Hai solo %d carte in mano.\n", carteInMano);
+        }else if(mano[scelta-1]->effetto >= PRIMA_ISTANTANEA){
+            sceltaValida = false;
+            printf("Non e' la fase delle carte istantanee (%c).\n", SIMBOLO_CARTA_ISTANTANEA);
+        }
     }
     // Caso speciale se è stata scelta la prima carta (non posso operare su quella precedente)
     if(scelta == 1){
@@ -45,6 +61,7 @@ void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
         giocatore->primaCfu = giocatore->primaCfu->prossima;
     }else{
         // Scorre la lista fino a quella prima di quella scelta
+        carta = giocatore->primaCfu;
         for(int i=0; i<scelta-2; i++)
             carta = carta->prossima;
         // Quella scartata è quella dopo

@@ -312,6 +312,8 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori){
     }
 }
 
+// TODO: scartaTutteLeCarte(), in questo momento ci si può softlockare
+
 /**
  * Spareggio per gli sconfitti
  * @param giocatori puntatore al primo giocatore
