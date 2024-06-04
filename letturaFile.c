@@ -57,7 +57,7 @@ CartaCfu* leggiCarte(){
         // Se non c'e' niente da leggere, il mazzo è finito: la prossima è l'ultima carta
         // TODO: provare combinazioni diverse di >=<
         if (letti < 0) {
-            prossima->prossima = NULL;
+            prossima = NULL;
             carta->prossima = prossima;
         }else
             // Si usano gli stessi dati piu' volte se ci sono carte uguali
@@ -79,7 +79,6 @@ CartaCfu* leggiCarte(){
 /** La funzione leggiOstacoli restituisce una lista di carte lette da ostacoli.txt
  * @return puntatore alla prima carta del mazzo ostacoli
  */
-// TODO: Capire come leggere un file con gli spazi
 CartaOstacolo* leggiOstacoli(){
     // Apertura file
     FILE *fp;
@@ -110,7 +109,7 @@ CartaOstacolo* leggiOstacoli(){
         letti = fscanf(fp, "%d", &quantita);
         // Se non è stata letta una quantità, il file è finito, quindi è la fine del mazzo
         if (letti < 1) {
-            prossima->prossima = NULL;
+            prossima = NULL;
             carta->prossima = prossima;
         }
         else
