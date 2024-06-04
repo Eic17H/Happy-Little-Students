@@ -19,7 +19,7 @@ void pescaRotazione(Giocatore*, CartaCfu**, CartaCfu**);
 void pescaCarta(Giocatore*, CartaCfu**, CartaCfu**);
 void mischiaMazzo(CartaCfu**);
 void mischiaOstacoli(CartaOstacolo**);
-void turno(Giocatore*, int, CartaCfu**, CartaCfu**, CartaOstacolo**, int, Personaggio*, int[]);
+void faseCfu(Giocatore *giocatori, int nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int nTurno, Personaggio[], int[50]);
 void pescaOstacolo(Giocatore*, CartaOstacolo**);
 Giocatore* vince(Giocatore*);
 Giocatore* spareggio(Giocatore*, int, int[], CartaCfu**);

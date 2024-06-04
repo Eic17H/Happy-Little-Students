@@ -195,11 +195,19 @@ void stampaPlancia(Giocatore* giocatori, int nGiocatori, int numeri[PUNTI_PER_VI
 
     // Un array che contiene i giocatori, per non dover scrivere segnalino(*(*giocatori).prossimo, rig+col);
     Giocatore *arrayGiocatori[4], *giocatore=giocatori;
+    // Se ci sono due giocatori, i segnalini si spostano a destra per essere centrati
+    int offset;
+    if(nGiocatori == 2){
+        arrayGiocatori[0] = NULL;
+        offset = 1;
+    }else{
+        offset = 0;
+    }
     for(int i=0; i<nGiocatori; i++){
-        if(i>nGiocatori)
-            arrayGiocatori[i] = NULL;
-        else{
-            arrayGiocatori[i] = giocatore;
+        if(i+offset>nGiocatori){
+            arrayGiocatori[i + offset] = NULL;
+        }else{
+            arrayGiocatori[i+offset] = giocatore;
             giocatore = giocatore->prossimo;
         }
     }
@@ -211,6 +219,12 @@ void stampaPlancia(Giocatore* giocatori, int nGiocatori, int numeri[PUNTI_PER_VI
         rig = (cont-51)/51/3;
         // si ripete dopo ogni riga, 7 caratteri per colonna
         col = cont%51/7;
+
+        /**
+         * 4 g: 1 2 3 4
+         * 3 g: 1 2 3
+         * 2 g: 2 3
+         */
 
         casella = rig*7+col;
         // TODO: colore personaggio

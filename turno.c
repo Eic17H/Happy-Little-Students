@@ -372,7 +372,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int sconfitti[nGiocat
     return giocatore;
 }
 
-/** Il turno
+/** La fase delle carte CFU
  * @param giocatori puntatore al primo giocatore
  * @param nGiocatori il numero di giocatori
  * @param carteCfu mazzo cfu
@@ -381,7 +381,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int sconfitti[nGiocat
  */
  // TODO: cambiare nGiocatori quando perde qualcuno, capire che fare coi colori quando perde qualcuno
  // TODO: forse posso direttamente assegnare un colore a ciascun personaggio
-void turno(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu** scarti, CartaOstacolo** carteOstacolo, int nTurno, Personaggio personaggi[], int numeriPlancia[PUNTI_PER_VINCERE]){
+void faseCfu(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu** scarti, CartaOstacolo** carteOstacolo, int nTurno, Personaggio personaggi[], int numeriPlancia[PUNTI_PER_VINCERE]){
     stampaPlancia(giocatori, nGiocatori, numeriPlancia);
     Giocatore* giocatore = giocatori;
     int i=0, cfuTurno[nGiocatori], min=0, max=0;

@@ -25,9 +25,9 @@ enum EffettoCarta {
     ANNULLA,    // Annulla gli effetti di tutte le carte punto durante il turno
     AUMENTA,    // Aumenta di 2 CFU il punteggio del turno di un giocatore a scelta
     DIMINUISCI, // Diminuisci di 2 CFU il punteggio del turno di un giocatore a scelta
-    INVERTI,    // Inverti punteggio minimo e massimo del turno
-    SALVA,      // Metti la carta Ostacolo che stai per prendere in fondo al mazzo
-    DIROTTA     // Dai la carta che stai per prendere ad un altro giocatore a tua scelta
+    INVERTI,    // Inverti punteggio minimo e massimo del turno (istantanea)
+    SALVA,      // Metti la carta Ostacolo che stai per prendere in fondo al mazzo (istantanea)
+    DIROTTA     // Dai la carta che stai per prendere ad un altro giocatore a tua scelta (istantanea)
 };
 
 enum TipoOstacolo {

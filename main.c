@@ -50,7 +50,7 @@ int main() {
 
     do{
         stampaSituazione(giocatori, nGiocatori, personaggi);
-        turno(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo, nTurno, personaggi, numeriPlancia);
+        faseCfu(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo, nTurno, personaggi, numeriPlancia);
         // Controlliamo se ha perso qualcuno
         controlloOstacoli(&giocatori, &nGiocatori);
         // Controlliamo se ha vinto qualcuno
@@ -60,7 +60,8 @@ int main() {
     }while(vincitore == NULL);
 
     // Se qualcuno ha vinto si esce dal loop
-    printf("Ha vinto %s!", vincitore->nomeUtente);
+    colorePersonaggio(vincitore->personaggio, personaggi);
+    printf("Ha vinto %s!" RESET, vincitore->nomeUtente);
     free(carteCfu);
     free(scarti);
     free(carteOstacolo);
