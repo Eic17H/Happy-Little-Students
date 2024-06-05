@@ -215,7 +215,12 @@ void stampaPlancia(Giocatore* giocatori, int nGiocatori, int numeri[PUNTI_PER_VI
     }
 
     while(letto>=0){
-        // TODO: aggiungere in plancia.txt questi magic number
+        /**
+         * TODO: trovarli con delle funzioni
+         * rig = caratteri prima del primo \n
+         * col = caratteri tra un A e l'altro
+         * magari aggiungere anche la lista di segnalini all'interno del file
+         */
         // Numero della riga nella plancia
         // (saltiamo la prima riga di caratteri, 51 caratteri per riga, 3 righe di testo per riga di plancia)
         rig = (cont-51)/51/3;
