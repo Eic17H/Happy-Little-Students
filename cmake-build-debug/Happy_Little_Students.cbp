@@ -115,12 +115,6 @@
 		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/main.c">
 			<Option target="Happy_Little_Students"/>
 		</Unit>
-		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/output.c">
-			<Option target="Happy_Little_Students"/>
-		</Unit>
-		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/output.h">
-			<Option target="Happy_Little_Students"/>
-		</Unit>
 		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/tipi.h">
 			<Option target="Happy_Little_Students"/>
 		</Unit>

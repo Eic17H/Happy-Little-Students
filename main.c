@@ -51,7 +51,8 @@ int main() {
 
     do{
         stampaSituazione(giocatori, nGiocatori, personaggi);
-        faseCfu(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo, nTurno, personaggi, numeriPlancia);
+        stampaPlancia(giocatori, nGiocatori, numeriPlancia);
+        faseCfu(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo, personaggi);
         // Controlliamo se ha perso qualcuno
         controlloOstacoli(&giocatori, &nGiocatori, personaggi);
         // Controlliamo se ha vinto qualcuno

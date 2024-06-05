@@ -13,7 +13,9 @@
 #include "utilita.h"
 
 void inizializzaGiocatori(Giocatore*);
-void faseCfu(Giocatore *giocatori, int nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int nTurno, Personaggio[], int[50]);
+void
+faseCfu(Giocatore *giocatori, int nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo,
+        Personaggio[]);
 Giocatore* vince(Giocatore*);
 Giocatore* spareggio(Giocatore*, int, int[], CartaCfu**);
 void assegnaPersonaggi(Giocatore*, Personaggio*);
