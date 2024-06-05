@@ -117,18 +117,48 @@ void usaEffetto(CartaCfu carta){
     }
 }
 
-void scartaP();
-void ruba();
-void scambiaDS();
-void scartaE();
-void scartaC();
-void scambiaP();
-void doppioE();
-void sbircia();
-void scambiaC();
-void annulla();
-void aumenta();
-void diminuisci();
-void inverti();
-void salva();
-void dirotta();
+void scartaP(){
+    return;
+}
+void ruba(){
+    return;
+}
+void scambiaDS(){
+    return;
+}
+void scartaE(){
+    return;
+}
+void scartaC(){
+    return;
+}
+void scambiaP(){
+    return;
+}
+void doppioE(){
+    return;
+}
+void sbircia(){
+    return;
+}
+void scambiaC(){
+    return;
+}
+void annulla(){
+    return;
+}
+void aumenta(){
+    return;
+}
+void diminuisci(){
+    return;
+}
+void inverti(){
+    return;
+}
+void salva(){
+    return;
+}
+void dirotta(){
+    return;
+}

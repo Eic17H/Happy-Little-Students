@@ -167,7 +167,7 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
     for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
         cfuTurno[i] = 0;
         colorePersonaggio(giocatore->personaggio, personaggi);
-        printf("___===---!!! Turno di %s !!!---===___\n", giocatore->nomeUtente);
+        printf("= Turno di %s\n", giocatore->nomeUtente);
         giocaCarta(giocatore, scarti, &cfuTurno[i]);
         printf(RESET);
     }
