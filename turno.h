@@ -17,7 +17,7 @@ void
 faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio[4], CartaCfu **carteCfu, CartaCfu **scarti,
         CartaOstacolo **carteOstacolo);
 Giocatore* vince(Giocatore*);
-Giocatore* spareggio(Giocatore*, int, int[], CartaCfu**);
+Giocatore* spareggio(Giocatore*, int, bool[], CartaCfu**);
 void assegnaPersonaggi(Giocatore*, Personaggio*);
 void rimuoviGiocatore(Giocatore**, Giocatore*, int*);
 

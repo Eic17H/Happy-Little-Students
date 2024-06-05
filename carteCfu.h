@@ -15,6 +15,8 @@
 
 CartaCfu* daiCarta(Giocatore*, CartaCfu*);
 void scartaCarta(CartaCfu**, CartaCfu*);
+CartaCfu* cartaDalMazzo(CartaCfu**);
+void prendiCarta(Giocatore*, CartaCfu*);
 bool haQuestaCarta(Giocatore*, CartaCfu*);
 void giocaCarta(Giocatore*, CartaCfu**, int*);
 int contaCarteMano(Giocatore);

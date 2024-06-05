@@ -108,6 +108,34 @@ int contaCarteMano(Giocatore giocatore){
     return conta;
 }
 
+/**
+ * Toglie una carta dal mazzo e la restituisce
+ * @param mazzo Il mazzo da cui pescare
+ * @return La carta pescata
+ */
+CartaCfu* cartaDalMazzo(CartaCfu** mazzo){
+    // Gestione di un mazzo vuoto
+    if(*mazzo == NULL)
+        return NULL;
+    // La carta in cima al mazzo
+    CartaCfu* carta = *mazzo;
+    // La cima del mazzo viene spostata alla prossima carta
+    *mazzo = carta->prossima;
+    // La carta da togliere dal mazzo non è più collegata al mazzo
+    carta->prossima = NULL;
+    return carta;
+}
+
+/**
+ * Inserisce una carta in cima alla mano di un giocatore
+ * @param giocatore Il giocatore che deve prendere la carta
+ * @param carta La carta da prendere
+ */
+void prendiCarta(Giocatore* giocatore, CartaCfu* carta){
+    carta->prossima = giocatore->primaCfu;
+    giocatore->primaCfu = carta;
+}
+
 /** Questa funzione permette di pescare una carta.
  * La toglie dalla cima del mazzo e la mette in cima alla mano di un giocatore
  * @param giocatore puntatore al giocatore che deve pescare
@@ -120,16 +148,8 @@ void pescaCarta(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
         scarti = NULL;
         mischiaMazzo(mazzo);
     }
-    // Si mette il puntatore alla carta in cima in una variabile
-    CartaCfu *carta;
-    carta = *mazzo;
-    // Il puntatore alla carta in cima (variabile del programma chiamante) viene spostato una carta in avanti
-    // La carta precedentemente in cima è puntata solo dalla variabile ausiliare e non più dal mazzo: è stata pescata
-    *mazzo = (*mazzo)->prossima;
-    // La mano del giocatore viene impostata come carta successiva a quella pescata
-    carta->prossima = giocatore->primaCfu;
-    // La carta pescata è impostata come prima carta in mano al giocatore
-    giocatore->primaCfu = carta;
+    // Il giocatore prende la carta in cima al mazzo
+    prendiCarta(giocatore, cartaDalMazzo(mazzo));
 }
 
 /** Tutti i giocatori pescano a rotazione finché non hanno tutti N_CARTE_MANO carte in mano
@@ -138,13 +158,13 @@ void pescaCarta(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
  */
 void pescaRotazione(Giocatore* giocatori, CartaCfu** mazzo, CartaCfu** scarti){
     Giocatore* giocatore;
-    int finito = 0;
+    bool finito = false;
     while(!finito) {
         giocatore = giocatori;
-        finito = 1;
+        finito = true;
         while (giocatore != NULL) {
             if (contaCarteMano(*giocatore) < N_CARTE_MANO) {
-                finito=0;
+                finito = false;
                 pescaCarta(giocatore, mazzo, scarti);
             }
             giocatore = giocatore->prossimo;

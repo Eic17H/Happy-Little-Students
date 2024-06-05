@@ -81,7 +81,7 @@ void rimuoviGiocatore(Giocatore** giocatori, Giocatore* giocatore, int* nGiocato
  * @return puntatore al giocatore che perde
  */
 // TODO: Colore personaggio
-Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int sconfitti[nGiocatori], CartaCfu** scarti){
+Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGiocatori], CartaCfu** scarti){
     printf("\n\n=== SPAREGGIO ===\n\n");
     int punti[nGiocatori], continuare=1, min=0;
     Giocatore* giocatore = giocatori;
