@@ -141,13 +141,26 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int sconfitti[nGiocat
  * @param scarti pila degli scarti
  * @param carteOstacolo mazzo degli ostacoli
  */
- void faseCfu(Giocatore *giocatori, int nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Personaggio personaggi[N_PERSONAGGI]){
+void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo){
+
+    // Controllo che ci siano giocatori
+    if(giocatori == NULL)
+        return;
+    if(nGiocatori<=0)
+        return;
+
+    int i=0;
+
+    // Variabile che scorre la lista di giocatori
     Giocatore* giocatore = giocatori;
-    int i=0, cfuTurno[nGiocatori], min=0, max=0;
-    int nSconfitti = 0, sconfitti[nGiocatori];
-    pescaRotazione(giocatori, carteCfu, scarti);
-    char colore[16];
-    CartaOstacolo *cartaOstacolo;
+    // TODO: usare la struct
+    int cfuTurno[nGiocatori];
+    // Punteggio minimo e punteggio massimo del turno
+    int min=0, max=0;
+    // Numero ed elenco di sconfitti, per lo spareggio
+    int nSconfitti = 0;
+    // Vero se il personaggio in quella posizione deve spareggiare, falso altrimenti
+    bool sconfitti[nGiocatori];
 
     stampaOstacolo(**carteOstacolo);
 

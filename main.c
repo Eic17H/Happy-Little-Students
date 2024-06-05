@@ -42,23 +42,30 @@ int main() {
     Giocatore *giocatori = inputGiocatori(nGiocatori, 1);
     inizializzaGiocatori(giocatori);
     assegnaPersonaggi(giocatori, personaggi);
-    // Si parte dal primo turno
-    int nTurno = 1;
+
+    // Variabile che tiene traccia del conteggio dei turni
+    int nTurno = 0;
 
     int numeriPlancia[PUNTI_PER_VINCERE];
     leggiNumeriPlancia(numeriPlancia);
 
 
     do{
+        // Comincia un turno
+        nTurno++;
+        // Stampa le carte ostacolo e il numero di cfu di ciascun giocatore
         stampaSituazione(giocatori, nGiocatori, personaggi);
+        // Stampa la plancia con i segnalini
         stampaPlancia(giocatori, nGiocatori, numeriPlancia);
-        faseCfu(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo, personaggi);
+        // Tutti i giocatori pescano finché non hanno abbastanza carte in mano
+        pescaRotazione(giocatori, &carteCfu, &scarti);
+        // Prima fase del turno
+        faseCfu(giocatori, nGiocatori, personaggi, &carteCfu, &scarti, &carteOstacolo);
         // Controlliamo se ha perso qualcuno
         controlloOstacoli(&giocatori, &nGiocatori, personaggi);
         // Controlliamo se ha vinto qualcuno
         vincitore = vince(giocatori);
         // Se non ha vinto nessuno, si continua a giocare
-        nTurno++;
     }while(vincitore == NULL);
 
     // Se qualcuno ha vinto si esce dal loop
