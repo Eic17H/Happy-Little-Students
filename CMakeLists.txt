@@ -17,7 +17,7 @@ add_executable(Happy_Little_Students main.c
         ANSI-color-codes.h
         utilita.c
         utilita.h
-        output.c
-        output.h
-        carte.c
-        carte.h)
+        carteCfu.c
+        carteCfu.h
+        carteOstacolo.c
+        carteOstacolo.h)

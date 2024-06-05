@@ -22,4 +22,3 @@ void leggiNumeriPlancia(int[]);
 void coloreNumero(int);
 void colorePersonaggio(Personaggio, Personaggio[]);
 void stampaSituazione(Giocatore*, int, Personaggio*);
-char numeroOI(int);

@@ -9,6 +9,8 @@
 #include "estetica.h"
 #include "utilita.h"
 #include "ANSI-color-codes.h"
+#include "carteCfu.h"
+#include "carteOstacolo.h"
 
 int main() {
     srand(time(NULL));

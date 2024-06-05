@@ -128,29 +128,53 @@ Happy_Little_Students/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/build
 .PHONY : Happy_Little_Students/fast
 
-carte.obj: carte.c.obj
-.PHONY : carte.obj
+carteCfu.obj: carteCfu.c.obj
+.PHONY : carteCfu.obj
 
 # target to build an object file
-carte.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carte.c.obj
-.PHONY : carte.c.obj
+carteCfu.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carteCfu.c.obj
+.PHONY : carteCfu.c.obj
 
-carte.i: carte.c.i
-.PHONY : carte.i
+carteCfu.i: carteCfu.c.i
+.PHONY : carteCfu.i
 
 # target to preprocess a source file
-carte.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carte.c.i
-.PHONY : carte.c.i
+carteCfu.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carteCfu.c.i
+.PHONY : carteCfu.c.i
 
-carte.s: carte.c.s
-.PHONY : carte.s
+carteCfu.s: carteCfu.c.s
+.PHONY : carteCfu.s
 
 # target to generate assembly for a file
-carte.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carte.c.s
-.PHONY : carte.c.s
+carteCfu.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carteCfu.c.s
+.PHONY : carteCfu.c.s
+
+carteOstacolo.obj: carteOstacolo.c.obj
+.PHONY : carteOstacolo.obj
+
+# target to build an object file
+carteOstacolo.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carteOstacolo.c.obj
+.PHONY : carteOstacolo.c.obj
+
+carteOstacolo.i: carteOstacolo.c.i
+.PHONY : carteOstacolo.i
+
+# target to preprocess a source file
+carteOstacolo.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carteOstacolo.c.i
+.PHONY : carteOstacolo.c.i
+
+carteOstacolo.s: carteOstacolo.c.s
+.PHONY : carteOstacolo.s
+
+# target to generate assembly for a file
+carteOstacolo.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carteOstacolo.c.s
+.PHONY : carteOstacolo.c.s
 
 estetica.obj: estetica.c.obj
 .PHONY : estetica.obj
@@ -329,9 +353,12 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Happy_Little_Students
-	@echo ... carte.obj
-	@echo ... carte.i
-	@echo ... carte.s
+	@echo ... carteCfu.obj
+	@echo ... carteCfu.i
+	@echo ... carteCfu.s
+	@echo ... carteOstacolo.obj
+	@echo ... carteOstacolo.i
+	@echo ... carteOstacolo.s
 	@echo ... estetica.obj
 	@echo ... estetica.i
 	@echo ... estetica.s

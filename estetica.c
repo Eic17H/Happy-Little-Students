@@ -3,6 +3,7 @@
 //
 
 #include "estetica.h"
+#include "utilita.h"
 
 /**
  * Stampa il logo leggendolo da immagine.txt e logo.txt
@@ -337,14 +338,3 @@ void aiuto(int scelta){
     }
 }
 
-/**
- * Desinenza di una parola
- * @param n Una quantità
- * @return 'o' per il singolare, 'i' per il plurale
- */
-char numeroOI(int n){
-    if(n == 1)
-        return 'o';
-    else
-        return 'i';
-}

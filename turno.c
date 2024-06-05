@@ -1,14 +1,6 @@
 #include "turno.h"
-
-int contaCarteMano(Giocatore giocatore){
-    int conta = 0;
-    CartaCfu* carta = giocatore.primaCfu;
-    while(carta != NULL){
-        conta++;
-        carta = carta->prossima;
-    }
-    return conta;
-}
+#include "carteCfu.h"
+#include "carteOstacolo.h"
 
 /** Inizializza i giocatori:
  * nessuna carta CFU,
@@ -35,168 +27,6 @@ void assegnaPersonaggi(Giocatore* giocatori, Personaggio* personaggi){
         giocatore = giocatore->prossimo;
         i++;
     }
-}
-
-/** Questa funzione permette di pescare una carta.
- * La toglie dalla cima del mazzo e la mette in cima alla mano di un giocatore
- * @param giocatore puntatore al giocatore che deve pescare
- * @param mazzo puntatore al "mazzo", che a sua volta è un puntatore alla carta in cima
- */
-void pescaCarta(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
-    // Se è finito il mazzo si mischiano gli scarti
-    if(mazzo==NULL){
-        mazzo = scarti;
-        scarti = NULL;
-        mischiaMazzo(mazzo);
-    }
-    // Si mette il puntatore alla carta in cima in una variabile
-    CartaCfu *carta;
-    carta = *mazzo;
-    // Il puntatore alla carta in cima (variabile del programma chiamante) viene spostato una carta in avanti
-    // La carta precedentemente in cima è puntata solo dalla variabile ausiliare e non più dal mazzo: è stata pescata
-    *mazzo = (*mazzo)->prossima;
-    // La mano del giocatore viene impostata come carta successiva a quella pescata
-    carta->prossima = giocatore->primaCfu;
-    // La carta pescata è impostata come prima carta in mano al giocatore
-    giocatore->primaCfu = carta;
-}
-
-/** Questa funzione permette di pescare una carta.
- * La toglie dalla cima del mazzo e la mette in cima alla mano di un giocatore
- * @param giocatore puntatore al giocatore che deve pescare
- * @param mazzo puntatore al "mazzo", che a sua volta è un puntatore alla carta in cima
- */
-void pescaOstacolo(Giocatore* giocatore, CartaOstacolo** mazzo){
-    // Si mette il puntatore alla carta in cima in una variabile
-    CartaOstacolo *carta;
-    carta = *mazzo;
-    // Il puntatore alla carta in cima (variabile del programma chiamante) viene spostato una carta in avanti
-    // La carta precedentemente in cima è puntata solo dalla variabile ausiliare e non più dal mazzo: è stata pescata
-    *mazzo = (*mazzo)->prossima;
-    // La mano del giocatore viene impostata come carta successiva a quella pescata
-    carta->prossima = giocatore->primaOstacolo;
-    // La carta pescata è impostata come prima carta in mano al giocatore
-    giocatore->primaOstacolo = carta;
-}
-
-/** Tutti i giocatori pescano a rotazione finché non hanno tutti N_CARTE_MANO carte in mano
- * @param giocatori puntatore al primo giocatore
- * @param mazzo puntatore al mazzo, che a sua volta è un puntatore alla prima carta del mazzo
- */
-void pescaRotazione(Giocatore* giocatori, CartaCfu** mazzo, CartaCfu** scarti){
-    Giocatore* giocatore;
-    int finito = 0;
-    while(!finito) {
-        giocatore = giocatori;
-        finito = 1;
-        while (giocatore != NULL) {
-            if (contaCarteMano(*giocatore) < N_CARTE_MANO) {
-                finito=0;
-                pescaCarta(giocatore, mazzo, scarti);
-            }
-            giocatore = giocatore->prossimo;
-        }
-    }
-}
-
-/** Mischia il mazzo delle carte CFU
- * @param mazzo puntatore al mazzo, che a sua volta punta alla sua prima carta
- */
-void mischiaMazzo(CartaCfu** mazzo){
-    int nCarte=0, i=0, j=0;
-    CartaCfu *carta = *mazzo;
-
-    // Contiamo quante carte ci sono
-    while(carta != NULL){
-        nCarte++;
-        carta = carta->prossima;
-    }
-    // Array che punterà a tutte le carte
-    CartaCfu* carte[nCarte];
-    // Facciamo puntare ciascun elemento dell'array a una carta
-    carta = *mazzo;
-    while(carta != NULL){
-        carte[i] = carta;
-        carta = carta->prossima;
-        i++;
-    }
-    // Le carte non formano più una lista, ma sono ancora in ordine nell'array
-    for(i=0; i<nCarte; i++)
-        carte[i]->prossima = NULL;
-
-    // Array che conterrà una permutazione casuale di interi da 0 a nCarte-1
-    int random[nCarte];
-    for(i=0; i<nCarte; i++)
-        random[i] = i;
-
-    // Andiamo dalla fine all'inizio. Scambiamo ogni numero con un numero casuale che viene prima
-    // Non arriviamo a i==0 perché non si può dividere per 0
-    for(i=nCarte-1; i>0; i--){
-        j=rand()%i;
-        scambiaInt(&random[j], &random[i]);
-    }
-
-    // Creiamo una nuova lista:
-    // Usiamo la sequenza di random[] come ordine degli indici di carte[]
-    // "carta" resta un posto indietro, così possiamo agire su carta->prossima senza che carta sia NULL
-    // Quindi il primo passo è fuori dal loop
-    carta = carte[random[0]];
-    *mazzo = carta;
-    for(i=1; i<nCarte; i++){
-        carta->prossima = carte[random[i]];
-        carta = carta->prossima;
-    }
-    carta->prossima = NULL;
-}
-
-/** Mischia il mazzo degli ostacoli
- * @param mazzo puntatore al mazzo degli ostacoli, che a sua volta è un puntatore alla sua prima carta
- */
-void mischiaOstacoli(CartaOstacolo** mazzo){
-    int nCarte=0, i=0, j=0;
-    CartaOstacolo *carta = *mazzo;
-
-    // Contiamo quante carte ci sono
-    while(carta != NULL){
-        nCarte++;
-        carta = carta->prossima;
-    }
-    // Array che punterà a tutte le carte
-    CartaOstacolo* carte[nCarte];
-    // Facciamo puntare ciascun elemento dell'array a una carta
-    carta = *mazzo;
-    while(carta != NULL){
-        carte[i] = carta;
-        carta = carta->prossima;
-        i++;
-    }
-    // Le carte non formano più una lista, ma sono ancora in ordine nell'array
-    for(i=0; i<nCarte; i++)
-        carte[i]->prossima = NULL;
-
-    // Array che conterrà una permutazione casuale di interi da 0 a nCarte-1
-    int random[nCarte];
-    for(i=0; i<nCarte; i++)
-        random[i] = i;
-
-    // Andiamo dalla fine all'inizio. Scambiamo ogni numero con un numero casuale che viene prima
-    // Non arriviamo a i==0 perché non si può dividere per 0
-    for(i=nCarte-1; i>0; i--){
-        j=rand()%i;
-        scambiaInt(&random[j], &random[i]);
-    }
-
-    // Creiamo una nuova lista:
-    // Usiamo la sequenza di random[] come ordine degli indici di carte[]
-    // "carta" resta un posto indietro, così possiamo agire su carta->prossima senza che carta sia NULL
-    // Quindi il primo passo è fuori dal loop
-    carta = carte[random[0]];
-    *mazzo = carta;
-    for(i=1; i<nCarte; i++){
-        carta->prossima = carte[random[i]];
-        carta = carta->prossima;
-    }
-    carta->prossima = NULL;
 }
 
 /**
@@ -241,83 +71,6 @@ void rimuoviGiocatore(Giocatore** giocatori, Giocatore* giocatore, int* nGiocato
     }
 }
 
-bool troppiOstacoli(int carte[4]){
-    // Tre carte dello stesso colore (le carte esame contano in ogni caso)
-    if(carte[0]+carte[3]>=3)
-        return true;
-    if(carte[1]+carte[3]>=3)
-        return true;
-    if(carte[2]+carte[3]>=3)
-        return true;
-    // Tre carte di colore diverso (considerando le carte esame come ciascun colore)
-    if(carte[0]+carte[3]>0 && carte[1]>0 && carte[2]>0)
-        return true;
-    if(carte[0]>0 && carte[1]+carte[3]>0 && carte[2]>0)
-        return true;
-    if(carte[0]>0 && carte[1]>0 && carte[2]+carte[3]>0)
-        return true;
-    return false;
-}
-
-void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio personaggi[N_PERSONAGGI]){
-    if((*giocatori)->prossimo == NULL)
-        return;
-    Giocatore *giocatore=*giocatori, *giocatorePrec;
-    CartaOstacolo *carta;
-    int carte[4] = {0, 0, 0, 0};
-    int punteggioprima=0;
-    // scorri i giocatori
-    for(giocatore = *giocatori; giocatore!=NULL; giocatore = giocatore->prossimo){
-        punteggioprima = giocatore->cfu;
-        carte[0] = 0;
-        carte[1] = 0;
-        carte[2] = 0;
-        carte[3] = 0;
-        // scorre le carte ostacolo
-        for(carta = giocatore->primaOstacolo; carta!=NULL; carta = carta->prossima){
-            // Aumento CFU per ogni carta ostacolo
-            giocatore->cfu++;
-            // conta le carte di ciascun tipo
-            switch(carta->tipo){
-                case STUDIO:
-                    carte[0]++;
-                    break;
-                case SOPRAVVIVENZA:
-                    carte[1]++;
-                    break;
-                case SOCIALE:
-                    carte[2]++;
-                    break;
-                case ESAME:
-                    carte[3]++;
-                    break;
-                default:
-                    break;
-            }
-        }
-        // TODO: 2 giocatori
-        if(troppiOstacoli(carte)){
-            // Testo rosso
-            printf(BHRED "\n\n");
-            // Abbastanza "=" per raggiungere la lunghezza del nome del giocatore
-            for(int i=0; i<strlen(giocatore->nomeUtente); i++)
-                printf("=");
-            // Il messaggio
-            printf("==========\n%s ha perso.\n==========", giocatore->nomeUtente);
-            // Di nuovo, raggiungere la lunghezza del nome
-            for(int i=0; i<strlen(giocatore->nomeUtente); i++)
-                printf("=");
-            // Andare a capo e mettere il colore normale
-            printf("\n\n" RESET);
-            rimuoviGiocatore(giocatori, giocatore, nGiocatori);
-        // Solo se il giocatore non ha perso, diciamo se ha preso punti per le carte ostacolo
-        }else if(giocatore->cfu != punteggioprima){
-                colorePersonaggio(giocatore->personaggio, personaggi);
-                printf("%s ha preso %d cfu per le carte ostacolo.\n" RESET, giocatore->nomeUtente, giocatore->cfu-punteggioprima);
-            }
-    }
-}
-
 // TODO: scartaTutteLeCarte(), in questo momento ci si può softlockare
 
 /**
@@ -327,6 +80,7 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio perso
  * @param sconfitti array degli spareggianti
  * @return puntatore al giocatore che perde
  */
+// TODO: Colore personaggio
 Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int sconfitti[nGiocatori], CartaCfu** scarti){
     printf("\n\n=== SPAREGGIO ===\n\n");
     int punti[nGiocatori], continuare=1, min=0;
