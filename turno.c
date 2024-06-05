@@ -141,7 +141,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, int sconfitti[nGiocat
  * @param scarti pila degli scarti
  * @param carteOstacolo mazzo degli ostacoli
  */
- void faseCfu(Giocatore *giocatori, int nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Personaggio personaggi[]){
+ void faseCfu(Giocatore *giocatori, int nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Personaggio personaggi[N_PERSONAGGI]){
     Giocatore* giocatore = giocatori;
     int i=0, cfuTurno[nGiocatori], min=0, max=0;
     int nSconfitti = 0, sconfitti[nGiocatori];
