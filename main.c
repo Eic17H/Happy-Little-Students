@@ -13,7 +13,6 @@
 int main() {
     srand(time(NULL));
     stampaLogo();
-    // File e input
 
     // Array contenente i quattro personaggi (le plance di gioco)
     Personaggio personaggi[N_PERSONAGGI];
@@ -52,7 +51,7 @@ int main() {
         stampaSituazione(giocatori, nGiocatori, personaggi);
         faseCfu(giocatori, nGiocatori, &carteCfu, &scarti, &carteOstacolo, nTurno, personaggi, numeriPlancia);
         // Controlliamo se ha perso qualcuno
-        controlloOstacoli(&giocatori, &nGiocatori);
+        controlloOstacoli(&giocatori, &nGiocatori, personaggi);
         // Controlliamo se ha vinto qualcuno
         vincitore = vince(giocatori);
         // Se non ha vinto nessuno, si continua a giocare

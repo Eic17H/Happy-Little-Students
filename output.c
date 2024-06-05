@@ -32,11 +32,12 @@ void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
     CartaCfu *carta = giocatore->primaCfu, *scartata;
     int scelta=0;
 
-
+    // Un array contenente le carte del giocatore
     CartaCfu* mano[carteInMano];
     for(int i=0; carta != NULL; carta = carta->prossima, i++){
         mano[i] = carta;
     }
+
     printf("Quale vuoi giocare?\n");
     bool sceltaValida = false;
     while(!sceltaValida){
@@ -54,26 +55,14 @@ void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
         }
     }
     // Caso speciale se è stata scelta la prima carta (non posso operare su quella precedente)
-    if(scelta == 1){
-        // Quella scartata è la prima
-        scartata = giocatore->primaCfu;
-        // L'inizio del mazzo è adesso la carta che prima era la seconda
-        giocatore->primaCfu = giocatore->primaCfu->prossima;
-    }else{
-        // Scorre la lista fino a quella prima di quella scelta
-        carta = giocatore->primaCfu;
-        for(int i=0; i<scelta-2; i++)
-            carta = carta->prossima;
-        // Quella scartata è quella dopo
-        scartata = carta->prossima;
-        // La carta dopo "carta" è adesso quella che prima era due carte dopo (è stata tolta la carta scartata)
-        // Se è stata scelta l'ultima carta, carta->prossima->prossima è NULL, quindi funziona comunque
-        carta->prossima = carta->prossima->prossima;
-        // La carta scartata viene messa nel mazzo degli scarti
-        scartata->prossima = *scarti;
-        // La prima carta nel mazzo degli scarti è quella appena scartata
-        *scarti = scartata;
+    scartata = daiCarta(giocatore, mano[scelta-1]);
+    // In teoria non può succedere, ma è meglio metterla
+    if(scartata == NULL){
+        printf(HRED "Errore: il giocatore sta provando a usare una carta non presente nella sua mano.\n" RESET);
+        return;
     }
     // Si aggiungono i CFU della carta scartata al conteggio dei CFU del giocatore
     *cfuTurno += scartata->cfu;
+    // Si mette la carta nella pila degli scarti
+    scartaCarta(scarti, scartata);
 }

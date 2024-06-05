@@ -289,7 +289,12 @@ void coloreNumero(int n){
     }
 }
 
-void colorePersonaggio(Personaggio personaggio, Personaggio* personaggi){
+/**
+ * Imposta il colore del testo a quello associato a un certo personaggio
+ * @param personaggio Il personaggio
+ * @param personaggi L'array dei personaggi
+ */
+void colorePersonaggio(Personaggio personaggio, Personaggio personaggi[N_PERSONAGGI]){
     // TODO: in effetti faccio scegliere che personaggio prendere, ignorando i colori nell'inserimento del nome utente
     // TODO: consistenza, forse
     // I personaggi partono da 0, ma i giocatori sono numerati da 1
@@ -330,4 +335,16 @@ void aiuto(int scelta){
         case 2:
             printf("Una carta con il segnalino \"%c\" e' una carta istantanea, da usare dopo il calcolo del punteggio.\n", SIMBOLO_CARTA_ISTANTANEA);
     }
+}
+
+/**
+ * Desinenza di una parola
+ * @param n Una quantità
+ * @return 'o' per il singolare, 'i' per il plurale
+ */
+char numeroOI(int n){
+    if(n == 1)
+        return 'o';
+    else
+        return 'i';
 }

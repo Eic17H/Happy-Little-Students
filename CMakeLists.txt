@@ -18,4 +18,6 @@ add_executable(Happy_Little_Students main.c
         utilita.c
         utilita.h
         output.c
-        output.h)
+        output.h
+        carte.c
+        carte.h)

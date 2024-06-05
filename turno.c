@@ -259,14 +259,16 @@ bool troppiOstacoli(int carte[4]){
     return false;
 }
 
-void controlloOstacoli(Giocatore** giocatori, int* nGiocatori){
+void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio personaggi[N_PERSONAGGI]){
     if((*giocatori)->prossimo == NULL)
         return;
     Giocatore *giocatore=*giocatori, *giocatorePrec;
     CartaOstacolo *carta;
     int carte[4] = {0, 0, 0, 0};
+    int punteggioprima=0;
     // scorri i giocatori
     for(giocatore = *giocatori; giocatore!=NULL; giocatore = giocatore->prossimo){
+        punteggioprima = giocatore->cfu;
         carte[0] = 0;
         carte[1] = 0;
         carte[2] = 0;
@@ -308,7 +310,11 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori){
             // Andare a capo e mettere il colore normale
             printf("\n\n" RESET);
             rimuoviGiocatore(giocatori, giocatore, nGiocatori);
-        }
+        // Solo se il giocatore non ha perso, diciamo se ha preso punti per le carte ostacolo
+        }else if(giocatore->cfu != punteggioprima){
+                colorePersonaggio(giocatore->personaggio, personaggi);
+                printf("%s ha preso %d cfu per le carte ostacolo.\n" RESET, giocatore->nomeUtente, giocatore->cfu-punteggioprima);
+            }
     }
 }
 
@@ -398,7 +404,7 @@ void faseCfu(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu
         cfuTurno[i] = 0;
         colorePersonaggio(giocatore->personaggio, personaggi);
         printf("___===---!!! Turno di %s !!!---===___\n", giocatore->nomeUtente);
-        giocaCarta(giocatore, scarti, cfuTurno + i);
+        giocaCarta(giocatore, scarti, &cfuTurno[i]);
         printf(RESET);
     }
     for(i=0; i<nGiocatori; i++){
@@ -409,8 +415,11 @@ void faseCfu(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu
     }
     // Vincitori
     for(i=0, giocatore=giocatori; i<nGiocatori; i++, giocatore = giocatore->prossimo){
-        if(cfuTurno[i]==cfuTurno[max])
+        if(cfuTurno[i]==cfuTurno[max]){
+            colorePersonaggio(giocatore->personaggio, personaggi);
+            printf("%s ha preso %d punti grazie alle carte.\n" RESET, giocatore->nomeUtente, cfuTurno[i]);
             giocatore->cfu += cfuTurno[i];
+        }
     }
     // Perdente
     for(i=0; i<nGiocatori; i++){

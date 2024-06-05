@@ -20,5 +20,6 @@ void stampaPlancia(Giocatore*, int, int[]);
 void segnalino(Giocatore*, int, int[]);
 void leggiNumeriPlancia(int[]);
 void coloreNumero(int);
-void colorePersonaggio(Personaggio, Personaggio*);
+void colorePersonaggio(Personaggio, Personaggio[]);
 void stampaSituazione(Giocatore*, int, Personaggio*);
+char numeroOI(int);

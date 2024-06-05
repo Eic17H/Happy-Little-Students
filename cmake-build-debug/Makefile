@@ -128,6 +128,30 @@ Happy_Little_Students/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/build
 .PHONY : Happy_Little_Students/fast
 
+carte.obj: carte.c.obj
+.PHONY : carte.obj
+
+# target to build an object file
+carte.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carte.c.obj
+.PHONY : carte.c.obj
+
+carte.i: carte.c.i
+.PHONY : carte.i
+
+# target to preprocess a source file
+carte.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carte.c.i
+.PHONY : carte.c.i
+
+carte.s: carte.c.s
+.PHONY : carte.s
+
+# target to generate assembly for a file
+carte.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carte.c.s
+.PHONY : carte.c.s
+
 estetica.obj: estetica.c.obj
 .PHONY : estetica.obj
 
@@ -305,6 +329,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Happy_Little_Students
+	@echo ... carte.obj
+	@echo ... carte.i
+	@echo ... carte.s
 	@echo ... estetica.obj
 	@echo ... estetica.i
 	@echo ... estetica.s

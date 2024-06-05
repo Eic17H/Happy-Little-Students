@@ -23,7 +23,7 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, CartaCfu **carteCfu, CartaCfu
 void pescaOstacolo(Giocatore*, CartaOstacolo**);
 Giocatore* vince(Giocatore*);
 Giocatore* spareggio(Giocatore*, int, int[], CartaCfu**);
-void controlloOstacoli(Giocatore **giocatori, int *nGiocatori);
+void controlloOstacoli(Giocatore**, int*, Personaggio[]);
 void assegnaPersonaggi(Giocatore*, Personaggio*);
 bool troppiOstacoli(int[]);
 void rimuoviGiocatore(Giocatore**, Giocatore*, int*);

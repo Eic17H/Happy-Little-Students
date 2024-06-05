@@ -79,6 +79,12 @@
 		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/ANSI-color-codes.h">
 			<Option target="Happy_Little_Students"/>
 		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/carte.c">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/carte.h">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
 		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/costanti.h">
 			<Option target="Happy_Little_Students"/>
 		</Unit>

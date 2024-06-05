@@ -12,6 +12,7 @@
 #include "utilita.h"
 #include "output.h"
 #include "turno.h"
+#include "carte.h"
 
 void mostraCarte(Giocatore);
 void giocaCarta(Giocatore*, CartaCfu**, int*);
