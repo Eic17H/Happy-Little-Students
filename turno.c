@@ -417,7 +417,7 @@ void faseCfu(Giocatore* giocatori, int nGiocatori, CartaCfu** carteCfu, CartaCfu
     for(i=0, giocatore=giocatori; i<nGiocatori; i++, giocatore = giocatore->prossimo){
         if(cfuTurno[i]==cfuTurno[max]){
             colorePersonaggio(giocatore->personaggio, personaggi);
-            printf("%s ha preso %d punti grazie alle carte.\n" RESET, giocatore->nomeUtente, cfuTurno[i]);
+            printf("%s ha preso %d cfu per le carte giocate.\n" RESET, giocatore->nomeUtente, cfuTurno[i]);
             giocatore->cfu += cfuTurno[i];
         }
     }
