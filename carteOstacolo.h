@@ -2,7 +2,6 @@
 #define HAPPY_LITTLE_STUDENTS_CARTEOSTACOLO_H
 
 #include "turno.h"
-#include "output.h"
 #include "tipi.h"
 #include <stdbool.h>
 #include <stdio.h>
