@@ -176,7 +176,9 @@ void pescaRotazione(Giocatore* giocatori, CartaCfu** mazzo, CartaCfu** scarti){
  * @param mazzo puntatore al mazzo, che a sua volta punta alla sua prima carta
  */
 void mischiaMazzo(CartaCfu** mazzo){
-    int nCarte=0, i=0, j=0;
+    // Numero di carte nel mazzo
+    int nCarte=0;
+    int i=0, j=0;
     CartaCfu *carta = *mazzo;
 
     // Contiamo quante carte ci sono
@@ -197,7 +199,8 @@ void mischiaMazzo(CartaCfu** mazzo){
     for(i=0; i<nCarte; i++)
         carte[i]->prossima = NULL;
 
-    // Array che conterrà una permutazione casuale di interi da 0 a nCarte-1
+    // Array che poi conterrà una permutazione casuale di interi da 0 a nCarte-1
+    // Per adesso li contiene in ordine
     int random[nCarte];
     for(i=0; i<nCarte; i++)
         random[i] = i;
@@ -227,7 +230,7 @@ void mischiaMazzo(CartaCfu** mazzo){
  * @param giocatore
  */
 void mostraCarte(Giocatore giocatore){
-    printf("\t===== Mano di %s =====\n", giocatore.nomeUtente);
+    printf("=== Carte di %s:\n", giocatore.nomeUtente);
     CartaCfu* carta = giocatore.primaCfu;
     int i = 1;
     while(carta != NULL) {

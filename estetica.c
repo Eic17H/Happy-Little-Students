@@ -195,7 +195,7 @@ void stampaPlancia(Giocatore* giocatori, int nGiocatori, int numeri[PUNTI_PER_VI
     int cont=1, col, rig, casella;
 
     // Un array che contiene i giocatori, per non dover scrivere segnalino(*(*giocatori).prossimo, rig+col);
-    Giocatore *arrayGiocatori[4], *giocatore=giocatori;
+    Giocatore *arrayGiocatori[N_PERSONAGGI], *giocatore=giocatori;
     // Se ci sono due giocatori, i segnalini si spostano a destra per essere centrati
     int offset;
     if(nGiocatori == 2){
@@ -204,7 +204,8 @@ void stampaPlancia(Giocatore* giocatori, int nGiocatori, int numeri[PUNTI_PER_VI
     }else{
         offset = 0;
     }
-    for(int i=0; i<nGiocatori; i++){
+    // Tutti gli slot giocatore vuoti sono NULL
+    for(int i=0; i<N_PERSONAGGI; i++){
         if(i+offset>nGiocatori){
             arrayGiocatori[i + offset] = NULL;
         }else{
@@ -222,9 +223,9 @@ void stampaPlancia(Giocatore* giocatori, int nGiocatori, int numeri[PUNTI_PER_VI
         col = cont%51/7;
 
         /**
-         * 4 g: 1 2 3 4
-         * 3 g: 1 2 3
-         * 2 g: 2 3
+         * 4 g: G1 G2 G3 G4
+         * 3 g: G1 G2 G3
+         * 2 g:    G1 G2
          */
 
         casella = rig*7+col;
