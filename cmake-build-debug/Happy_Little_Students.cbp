@@ -85,6 +85,12 @@
 		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/carteCfu.h">
 			<Option target="Happy_Little_Students"/>
 		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/carteEffetto.c">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/carteEffetto.h">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
 		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/carteOstacolo.c">
 			<Option target="Happy_Little_Students"/>
 		</Unit>

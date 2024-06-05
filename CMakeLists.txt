@@ -20,4 +20,6 @@ add_executable(Happy_Little_Students main.c
         carteCfu.c
         carteCfu.h
         carteOstacolo.c
-        carteOstacolo.h)
+        carteOstacolo.h
+        carteEffetto.c
+        carteEffetto.h)

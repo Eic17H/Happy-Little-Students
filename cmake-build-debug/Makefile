@@ -152,6 +152,30 @@ carteCfu.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carteCfu.c.s
 .PHONY : carteCfu.c.s
 
+carteEffetto.obj: carteEffetto.c.obj
+.PHONY : carteEffetto.obj
+
+# target to build an object file
+carteEffetto.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carteEffetto.c.obj
+.PHONY : carteEffetto.c.obj
+
+carteEffetto.i: carteEffetto.c.i
+.PHONY : carteEffetto.i
+
+# target to preprocess a source file
+carteEffetto.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carteEffetto.c.i
+.PHONY : carteEffetto.c.i
+
+carteEffetto.s: carteEffetto.c.s
+.PHONY : carteEffetto.s
+
+# target to generate assembly for a file
+carteEffetto.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/carteEffetto.c.s
+.PHONY : carteEffetto.c.s
+
 carteOstacolo.obj: carteOstacolo.c.obj
 .PHONY : carteOstacolo.obj
 
@@ -332,6 +356,9 @@ help:
 	@echo ... carteCfu.obj
 	@echo ... carteCfu.i
 	@echo ... carteCfu.s
+	@echo ... carteEffetto.obj
+	@echo ... carteEffetto.i
+	@echo ... carteEffetto.s
 	@echo ... carteOstacolo.obj
 	@echo ... carteOstacolo.i
 	@echo ... carteOstacolo.s
