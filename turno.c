@@ -36,13 +36,17 @@ void assegnaPersonaggi(Giocatore* giocatori, Personaggio* personaggi){
  */
 Giocatore* vince(Giocatore* giocatori){
     // se rimane un solo giocatore, ha vinto
-    if(giocatori->prossimo == NULL)
+    if(giocatori->prossimo == NULL){
+        printf("%s e' l'ultimo giocatore rimasto.\n", giocatori->nomeUtente);
         return giocatori;
+    }
     Giocatore* giocatore = giocatori;
     // se ha abbastanza punti, ha vinto
     for(giocatore = giocatori; giocatore != NULL; giocatore = giocatore->prossimo){
-        if(giocatore->cfu >= PUNTI_PER_VINCERE)
+        if(giocatore->cfu >= PUNTI_PER_VINCERE){
+            printf("%s ha abbastanza CFU per vincere.\n", giocatore->nomeUtente);
             return giocatore;
+        }
     }
     return NULL;
 }

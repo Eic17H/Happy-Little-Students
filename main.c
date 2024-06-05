@@ -53,13 +53,13 @@ int main() {
     do{
         // Comincia un turno
         nTurno++;
+        pescaRotazione(giocatori, &carteCfu, &scarti);
+        // Prima fase del turno
         // Stampa le carte ostacolo e il numero di cfu di ciascun giocatore
         stampaSituazione(giocatori, nGiocatori, personaggi);
         // Stampa la plancia con i segnalini
         stampaPlancia(giocatori, nGiocatori, numeriPlancia);
         // Tutti i giocatori pescano finché non hanno abbastanza carte in mano
-        pescaRotazione(giocatori, &carteCfu, &scarti);
-        // Prima fase del turno
         faseCfu(giocatori, nGiocatori, personaggi, &carteCfu, &scarti, &carteOstacolo);
         // Controlliamo se ha perso qualcuno
         controlloOstacoli(&giocatori, &nGiocatori, personaggi);

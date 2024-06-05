@@ -8,7 +8,8 @@
 
 void pescaOstacolo(Giocatore*, CartaOstacolo**);
 void mischiaOstacoli(CartaOstacolo**);
-bool troppiOstacoli(int[ESAME]);
+
+bool troppiOstacoli(int[4], int nGiocatori);
 void controlloOstacoli(Giocatore**, int*, Personaggio[]);
 
 #endif //HAPPY_LITTLE_STUDENTS_CARTEOSTACOLO_H
