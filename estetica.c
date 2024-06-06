@@ -132,6 +132,7 @@ void leggiNumeriPlancia(int numeri[PUNTI_PER_VINCERE]){
  * @param nGiocatori Numero di giocatori corrente
  * @param numeri Array contenente l'ordine in cui si trovano le caselle (letto dal file della plancia)
  */
+// TODO: sembra che quando ci sono due giocatori, il secondo non venga stampato
 void stampaPlancia(Giocatore* giocatori, int nGiocatori, int numeri[PUNTI_PER_VINCERE]){
     FILE *fp = fopen("plancia.txt", "r");
     if(fp == NULL)
