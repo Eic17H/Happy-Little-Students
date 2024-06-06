@@ -147,9 +147,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
 void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo){
 
     // Controllo che ci siano giocatori
-    if(giocatori == NULL)
-        return;
-    if(nGiocatori<=0)
+    if(giocatori == NULL || nGiocatori<=0)
         return;
 
     int i=0;
@@ -168,6 +166,11 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
     stampaOstacolo(**carteOstacolo);
 
     for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
+        // Se il giocatore ha solo carte istantanee, scarta tutta la mano e pesca altre carte
+        while(soloIstantanee(*giocatore)){
+            printf("%s ha solo carte istantanee, scarta tutta la sua mano.\n", giocatore->nomeUtente);
+            scartaMano(giocatore, carteCfu, scarti);
+        }
         cfuTurno[i] = 0;
         colorePersonaggio(giocatore->personaggio, personaggi);
         printf("= Turno di %s\n", giocatore->nomeUtente);

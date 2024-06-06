@@ -24,5 +24,8 @@ void pescaCarta(Giocatore*, CartaCfu**, CartaCfu**);
 void pescaRotazione(Giocatore*, CartaCfu**, CartaCfu**);
 void mischiaMazzo(CartaCfu**);
 void mostraCarte(Giocatore);
+void scartaMano(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti);
+bool soloIstantanee(Giocatore);
+CartaCfu* selezionaCarta(Giocatore*);
 
 #endif //HAPPY_LITTLE_STUDENTS_CARTECFU_H

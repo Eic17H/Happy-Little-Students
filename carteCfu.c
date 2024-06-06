@@ -138,8 +138,9 @@ void prendiCarta(Giocatore* giocatore, CartaCfu* carta){
 
 /** Questa funzione permette di pescare una carta.
  * La toglie dalla cima del mazzo e la mette in cima alla mano di un giocatore
- * @param giocatore puntatore al giocatore che deve pescare
- * @param mazzo puntatore al "mazzo", che a sua volta è un puntatore alla carta in cima
+ * @param giocatore Puntatore al giocatore che deve pescare
+ * @param mazzo Puntatore al "mazzo", che a sua volta è un puntatore alla carta in cima
+ * @param scarti Puntatore alla carta in cima al mazzo (serve quando il mazzo è vuoto)
  */
 void pescaCarta(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
     // Se è finito il mazzo si mischiano gli scarti
@@ -239,4 +240,44 @@ void mostraCarte(Giocatore giocatore){
         carta = carta->prossima;
         i++;
     }
+}
+
+/**
+ * Scarta tutte le carte e ne pesca altre N_CARTE_MANO
+ * @param giocatore Il giocatore che deve scartare le carte e pescarne altre N_CARTE_MANO
+ * @param mazzo Puntatore alla cima del mazzo, che a sua volta è un puntatore
+ * @param scarti Puntatore alla cima degli scarti, che a sua volta è un puntatore
+ */
+void scartaMano(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
+    // Scarta tutte le carte
+    while(giocatore->primaCfu != NULL){
+        scartaCarta(scarti, giocatore->primaCfu);
+    }
+    for(int i=0; i<N_CARTE_MANO; i++){
+        pescaCarta(giocatore, mazzo, scarti);
+    }
+}
+
+/**
+ * Controlla se il giocatore ha solo carte istantanee
+ * @param giocatore Il giocatore da controllare
+ * @return Vero se il giocatore ha solo carte istantanee in mano, falso altrimenti
+ */
+bool soloIstantanee(Giocatore giocatore){
+    bool soloIstantanee = true;
+    for(CartaCfu* carta = giocatore.primaCfu; carta != NULL; carta = carta->prossima)
+        if(carta->effetto < PRIMA_ISTANTANEA)
+            soloIstantanee = false;
+    return soloIstantanee;
+}
+
+// TODO: capire che farne
+/**
+ * Mostra un menù per selezionare una carta dalla mano di un giocatore, e restituisce la carta selezionata
+ * (Devo decidere se tenerla)
+ * @param giocatore Il giocatore di cui si deve selezionare una carta
+ * @return Puntatore alla carta selezionata
+ */
+CartaCfu* selezionaCarta(Giocatore* giocatore){
+    return NULL
 }

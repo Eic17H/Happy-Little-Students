@@ -12,22 +12,38 @@ typedef enum TipoOstacolo TipoOstacolo;
 typedef struct Punteggio Punteggio;
 
 enum EffettoCarta {
-    NESSUNO,    // Nessun effetto
-    SCARTAP,    // Scarta una carta CFU punto e aggiungi il suo punteggio a quello del turno
-    RUBA,       // Guarda la mano di un collega e ruba una carta a scelta.
-    SCAMBIADS,  // Scambia questa carta con quella di un altro giocatore, purché senza effetto
-    SCARTAE,    // Scarta una carta CFU punto con effetto e aggiungi il suo punteggio a quello del turno
-    SCARTAC,    // Scarta da uno a tre carte dalla tua mano
-    SCAMBIAP,   // Scambia il punteggio del turno maggiore e minore dopo il calcolo del punteggio di base
-    DOPPIOE,    // Raddoppia gli effetti delle carte che aumentano o diminuiscono il punteggio (per tutti)
-    SBIRCIA,    // Guarda due carte in cima al mazzo, prendine una e scarta l’altra
-    SCAMBIAC,   // Scambia la carta punto giocata nel turno da un giocatore G1 con quella di un giocatore G2, con G1 e G2 scelti dal giocatore che ha giocato la carta SCAMBIAC
-    ANNULLA,    // Annulla gli effetti di tutte le carte punto durante il turno
-    AUMENTA,    // Aumenta di 2 CFU il punteggio del turno di un giocatore a scelta
-    DIMINUISCI, // Diminuisci di 2 CFU il punteggio del turno di un giocatore a scelta
-    INVERTI,    // Inverti punteggio minimo e massimo del turno (istantanea)
-    SALVA,      // Metti la carta Ostacolo che stai per prendere in fondo al mazzo (istantanea)
-    DIROTTA     // Dai la carta che stai per prendere ad un altro giocatore a tua scelta (istantanea)
+    // Nessun effetto
+    NESSUNO,
+    // Scarta una carta CFU punto e aggiungi il suo punteggio a quello del turno
+    SCARTAP,
+    // Guarda la mano di un collega e ruba una carta a scelta.
+    RUBA,
+    // Scambia questa carta con quella di un altro giocatore, purché senza effetto
+    SCAMBIADS,
+    // Scarta una carta CFU punto con effetto e aggiungi il suo punteggio a quello del turno
+    SCARTAE,
+    // Scarta da uno a tre carte dalla tua mano
+    SCARTAC,
+    // Scambia il punteggio del turno maggiore e minore dopo il calcolo del punteggio di base
+    SCAMBIAP,
+    // Raddoppia gli effetti delle carte che aumentano o diminuiscono il punteggio (per tutti)
+    DOPPIOE,
+    // Guarda due carte in cima al mazzo, prendine una e scarta l’altra
+    SBIRCIA,
+    // Scambia la carta punto giocata nel turno da un giocatore G1 con quella di un giocatore G2, con G1 e G2 scelti dal giocatore che ha giocato la carta SCAMBIAC
+    SCAMBIAC,
+    // Annulla gli effetti di tutte le carte punto durante il turno
+    ANNULLA,
+    // Aumenta di 2 CFU il punteggio del turno di un giocatore a scelta
+    AUMENTA,
+    // Diminuisci di 2 CFU il punteggio del turno di un giocatore a scelta
+    DIMINUISCI,
+    // Inverti punteggio minimo e massimo del turno (istantanea)
+    INVERTI,
+    // Metti la carta Ostacolo che stai per prendere in fondo al mazzo (istantanea)
+    SALVA,
+    // Dai la carta che stai per prendere ad un altro giocatore a tua scelta (istantanea)
+    DIROTTA
 };
 
 enum TipoOstacolo {
