@@ -99,6 +99,7 @@ bool troppiOstacoli(int carte[4], int nGiocatori){
     return false;
 }
 
+// TODO: ricomunicare i punti guadagnati
 void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio personaggi[N_PERSONAGGI]){
     if((*giocatori)->prossimo == NULL)
         return;
