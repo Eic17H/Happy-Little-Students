@@ -49,7 +49,6 @@ int main() {
     int numeriPlancia[PUNTI_PER_VINCERE];
     leggiNumeriPlancia(numeriPlancia);
 
-
     do{
         // Comincia un turno
         nTurno++;

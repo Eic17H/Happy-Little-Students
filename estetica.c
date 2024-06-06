@@ -148,7 +148,7 @@ void stampaPlancia(Giocatore* giocatori, int nGiocatori, int numeri[PUNTI_PER_VI
     }
     // Tutti gli slot giocatore vuoti sono NULL
     for(int i=0; i<N_PERSONAGGI; i++){
-        if(i+offset>nGiocatori){
+        if(i+offset>nGiocatori-1){
             arrayGiocatori[i + offset] = NULL;
         }else{
             arrayGiocatori[i+offset] = giocatore;

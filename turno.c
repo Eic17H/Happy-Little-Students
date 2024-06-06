@@ -57,7 +57,6 @@ Giocatore* vince(Giocatore* giocatori){
  * @param giocatore Il giocatore da eliminare
  */
 void rimuoviGiocatore(Giocatore** giocatori, Giocatore* giocatore, int* nGiocatori){
-
     // Non rimuovere l'ultimo giocatore rimasto
     if(*giocatori == giocatore && giocatore->prossimo == NULL)
         return;

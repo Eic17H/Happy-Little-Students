@@ -71,6 +71,7 @@ void mischiaOstacoli(CartaOstacolo** mazzo){
 }
 
 bool troppiOstacoli(int carte[4], int nGiocatori){
+    printf("troppiOstacoli(%d %d %d %d, %d)\n", carte[0], carte[1], carte[2], carte[3], nGiocatori);
     int limite;
     if(nGiocatori == 2)
         limite = OSTACOLI_PER_PERDERE_2GIOCATORI;
@@ -80,19 +81,19 @@ bool troppiOstacoli(int carte[4], int nGiocatori){
     int limiteMiste = limite/(N_TIPI_OSTACOLI-1);
 
     // Tre/sei carte dello stesso colore (le carte esame contano in ogni caso)
-    if(carte[0]+carte[3]>=limite)
+    if(carte[STUDIO-1]+carte[ESAME-1]>=limite)
         return true;
-    if(carte[1]+carte[3]>=limite)
+    if(carte[SOPRAVVIVENZA-1]+carte[ESAME-1]>=limite)
         return true;
-    if(carte[2]+carte[3]>=limite)
+    if(carte[SOCIALE-1]+carte[ESAME-1]>=limite)
         return true;
 
     // Tre/sei carte di colore diverso (considerando le carte esame come ciascun colore)
-    if(carte[0]+carte[3]>=limiteMiste && carte[1]>=limiteMiste && carte[2]>=limiteMiste)
+    if(carte[STUDIO-1]+carte[ESAME-1]>=limiteMiste && carte[SOPRAVVIVENZA-1]>=limiteMiste && carte[SOCIALE-1]>=limiteMiste)
         return true;
-    if(carte[0]>=limiteMiste && carte[1]+carte[3]>=limiteMiste && carte[2]>=limiteMiste)
+    if(carte[STUDIO-1]>=limiteMiste && carte[SOPRAVVIVENZA-1]+carte[ESAME-1]>=limiteMiste && carte[SOCIALE-1]>=limiteMiste)
         return true;
-    if(carte[0]>=limiteMiste && carte[1]>=limiteMiste && carte[2]+carte[3]>=limiteMiste)
+    if(carte[STUDIO-1]>=limiteMiste && carte[SOPRAVVIVENZA-1]>=limiteMiste && carte[SOCIALE-1]+carte[ESAME-1]>=limiteMiste)
         return true;
 
     return false;
@@ -104,12 +105,7 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio perso
     Giocatore *giocatore=*giocatori, *giocatorePrec;
     CartaOstacolo *carta;
     int carte[4] = {0, 0, 0, 0};
-    int punteggioprima=0;
-    // TODO: Array di giocatori
-    // In questo momento, se un giocatore viene eliminato, certe volte succede segfault
-    // scorri i giocatori
     for(giocatore = *giocatori; giocatore!=NULL; giocatore = giocatore->prossimo){
-        punteggioprima = giocatore->cfu;
         carte[0] = 0;
         carte[1] = 0;
         carte[2] = 0;
@@ -151,10 +147,6 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio perso
             // Andare a capo e mettere il colore normale
             printf("\n\n" RESET);
             rimuoviGiocatore(giocatori, giocatore, nGiocatori);
-        // Solo se il giocatore non ha perso, diciamo se ha preso punti per le carte ostacolo
-        }else if(giocatore->cfu != punteggioprima){
-                colorePersonaggio(giocatore->personaggio, personaggi);
-                printf("%s ha preso %d cfu per le carte ostacolo.\n" RESET, giocatore->nomeUtente, giocatore->cfu-punteggioprima);
-            }
+        }
     }
 }
