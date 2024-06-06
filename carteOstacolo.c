@@ -71,7 +71,6 @@ void mischiaOstacoli(CartaOstacolo** mazzo){
 }
 
 bool troppiOstacoli(int carte[4], int nGiocatori){
-    printf("troppiOstacoli(%d %d %d %d, %d)\n", carte[0], carte[1], carte[2], carte[3], nGiocatori);
     int limite;
     if(nGiocatori == 2)
         limite = OSTACOLI_PER_PERDERE_2GIOCATORI;

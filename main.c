@@ -53,16 +53,16 @@ int main() {
         // Comincia un turno
         nTurno++;
         pescaRotazione(giocatori, &carteCfu, &scarti);
-        // Prima fase del turno
-        // Stampa le carte ostacolo e il numero di cfu di ciascun giocatore
+
+        // Si stampano le informazioni correnti
         stampaSituazione(giocatori, nGiocatori, personaggi);
-        // Stampa la plancia con i segnalini
         stampaPlancia(giocatori, nGiocatori, numeriPlancia);
-        // Tutti i giocatori pescano finché non hanno abbastanza carte in mano
+
+        // Le due fasi del turno
         faseCfu(giocatori, nGiocatori, personaggi, &carteCfu, &scarti, &carteOstacolo);
-        // Controlliamo se ha perso qualcuno
+
+        // Si controlla se qualcuno ha vinto o perso
         controlloOstacoli(&giocatori, &nGiocatori, personaggi);
-        // Controlliamo se ha vinto qualcuno
         vincitore = vince(giocatori);
         // Se non ha vinto nessuno, si continua a giocare
     }while(vincitore == NULL);

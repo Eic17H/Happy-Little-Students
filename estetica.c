@@ -126,6 +126,12 @@ void leggiNumeriPlancia(int numeri[PUNTI_PER_VINCERE]){
     }while(i<PUNTI_PER_VINCERE && letti>=0);
 }
 
+/**
+ * Stampa la plancia di gioco e i segnalini dei giocatori
+ * @param giocatori Puntatore al primo giocatore
+ * @param nGiocatori Numero di giocatori corrente
+ * @param numeri Array contenente l'ordine in cui si trovano le caselle (letto dal file della plancia)
+ */
 void stampaPlancia(Giocatore* giocatori, int nGiocatori, int numeri[PUNTI_PER_VINCERE]){
     FILE *fp = fopen("plancia.txt", "r");
     if(fp == NULL)
@@ -254,6 +260,13 @@ void colorePersonaggio(Personaggio personaggio, Personaggio personaggi[N_PERSONA
 }
 
 // TODO: interfaccia.c
+
+/**
+ * Stampa le carte ostacolo e i CFU di ciascun giocatore
+ * @param giocatori Puntatore al primo giocatore
+ * @param nGiocatori Numero corrente di giocatori
+ * @param personaggi Array dei personaggi
+ */
 void stampaSituazione(Giocatore* giocatori, int nGiocatori, Personaggio* personaggi){
     Giocatore* giocatore = giocatori;
     CartaOstacolo *carta;

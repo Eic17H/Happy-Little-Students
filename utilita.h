@@ -7,6 +7,10 @@
 #include "tipi.h"
 #include <stdlib.h>
 
+// TODO: rimuovere tutti gli utilizzi
+// printf per attivare, // per disattivare
+#define debug printf
+
 void scambiaInt(int*, int*);
 char numeroOI(int);
 
