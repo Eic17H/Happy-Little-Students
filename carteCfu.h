@@ -18,13 +18,13 @@ CartaCfu* daiCarta(Giocatore*, CartaCfu*);
 void cartaNegliScarti(CartaCfu**, CartaCfu*);
 CartaCfu* cartaDalMazzo(CartaCfu**);
 void prendiCarta(Giocatore*, CartaCfu*);
+CartaCfu* selezionaCarta(Giocatore*, bool);
 
 // Subroutine che usano quelle precedenti
 void giocaCarta(Giocatore*, CartaCfu**, int*);
 void pescaCarta(Giocatore*, CartaCfu**, CartaCfu**);
 void pescaRotazione(Giocatore*, CartaCfu**, CartaCfu**);
 void scartaMano(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti);
-CartaCfu* selezionaCarta(Giocatore*, bool);
 
 // Altre cose utili
 bool haQuestaCarta(Giocatore*, CartaCfu*);

@@ -8,10 +8,13 @@
  * @return Puntatore alla carta data (NULL se la carta non c'è)
  */
 CartaCfu* daiCarta(Giocatore* giocatore, CartaCfu* carta){
+
     // Se il giocatore non ha quella carta, restituisce NULL
     if(!haQuestaCarta(giocatore, carta))
         return NULL;
+
     CartaCfu* cerca = giocatore->primaCfu;
+
     // Caso speciale se è la prima
     if(cerca == carta){
         // La mano adesso comincia dalla carta successiva, carta viene "portata fuori dalla mano"
@@ -19,6 +22,7 @@ CartaCfu* daiCarta(Giocatore* giocatore, CartaCfu* carta){
         carta->prossima = NULL;
     }else{
         // cerca deve essere la carta precedente a carta
+        // Non sarà mai NULL perché abbiamo controllato con haQuestaCarta()
         while(cerca->prossima != carta)
             cerca = cerca->prossima;
         // Il nuovo collegamento salta carta, e carta viene "portata fuori dalla mano"
