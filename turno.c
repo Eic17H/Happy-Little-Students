@@ -203,15 +203,15 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
     }
     // Vincitori
     for(i=0, giocatore=giocatori; i<nGiocatori; i++, giocatore = giocatore->prossimo){
-        if(cfuTurno[i]==cfuTurno[max]){
+        if(punteggi[i].totale==punteggi[max].totale){
             colorePersonaggio(giocatore->personaggio, personaggi);
-            printf("%s ha preso %d cfu per le carte giocate.\n" RESET, giocatore->nomeUtente, cfuTurno[i]);
-            giocatore->cfu += cfuTurno[i];
+            printf("%s ha preso %d cfu per le carte giocate.\n" RESET, giocatore->nomeUtente, punteggi[i].totale);
+            giocatore->cfu += punteggi[i].totale;
         }
     }
     // Perdente
     for(i=0; i<nGiocatori; i++){
-        if(cfuTurno[i] == cfuTurno[min]){
+        if(punteggi[i].totale == punteggi[min].totale){
             nSconfitti++;
             sconfitti[i] = 1;
         }else
