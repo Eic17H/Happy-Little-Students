@@ -63,7 +63,8 @@ void stampaEffetto(CartaCfu carta){
  * Usa l'effetto di una carta cfu
  * @param carta La carta
  */
-void usaEffetto(CartaCfu carta, Giocatore* giocatore, Punteggio* punteggio, CartaCfu** scarti){
+void usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, Personaggio personaggi[4],
+           Giocatore **giocatori, int nGiocatori) {
     switch(carta.effetto){
         case NESSUNO:
             break;
@@ -71,7 +72,7 @@ void usaEffetto(CartaCfu carta, Giocatore* giocatore, Punteggio* punteggio, Cart
             scartaPE(giocatore, punteggio, scarti, false);
             break;
         case RUBA:
-            ruba();
+            ruba(giocatori, giocatore, personaggi, nGiocatori);
             break;
         case SCAMBIADS:
             scambiaDS();
@@ -130,7 +131,41 @@ void scartaPE(Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, boo
     cartaNegliScarti(scarti, carta);
     return;
 }
-void ruba(){
+
+/**
+ * Scambia questa carta con quella di un altro giocatore, purché senza effetto
+ * @param giocatori Puntatore alla lista di giocatori
+ * @param giocatore Giocatore che sta rubando
+ * @param personaggi Array dei personaggi
+ * @param nGiocatori Numero corrente di giocatori
+ */
+void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
+    int scelta = 0;
+
+    // Un array contenente gli avversari
+    Giocatore* avversari[nGiocatori - 1];
+    Giocatore* cerca = *giocatori;
+    for(int i=0; i<nGiocatori-1; i++){
+        if(cerca != giocatore)
+            avversari[i] = cerca;
+    }
+
+    // Si mostrano gli avversari
+    coloreGiocatore(giocatore, personaggi);
+    printf("%s" RESET ", seleziona un avversario a cui rubare una carta:\n", giocatore->nomeUtente);
+    for(int i=0; i<nGiocatori-1; i++){
+        coloreGiocatore(avversari[i], personaggi);
+        printf("\t%d: %s\n", i+1, avversari[i]->nomeUtente);
+    }
+
+    // Selezione dell'avversario
+    coloreGiocatore(giocatore, personaggi);
+    scanf("%d", &scelta);
+    printf(RESET);
+    scelta--;
+
+    // Il giocatore seleziona e prende una carta qualunque dalla mano dell'avversario scelto
+    prendiCarta(giocatore, daiCarta(avversari[scelta], selezionaCarta(avversari[scelta], true, true, true)));
     return;
 }
 void scambiaDS(){
