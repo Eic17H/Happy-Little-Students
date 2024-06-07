@@ -1,6 +1,10 @@
 #ifndef HAPPY_LITTLE_STUDENTS_CARTEEFFETTO_H
 #define HAPPY_LITTLE_STUDENTS_CARTEEFFETTO_H
 
+#include "turno.h"
+#include <stdbool.h>
+#include <time.h>
+#include "costanti.h"
 #include <string.h>
 #include "ANSI-color-codes.h"
 #include "tipi.h"
@@ -26,5 +30,7 @@ void diminuisci();
 void inverti();
 void salva();
 void dirotta();
+void ordinaEffetti(int nGiocatori, GiocatoreCarta effetti[nGiocatori]);
+void scambiaEffetti(GiocatoreCarta*, GiocatoreCarta*);
 
 #endif //HAPPY_LITTLE_STUDENTS_CARTEEFFETTO_H

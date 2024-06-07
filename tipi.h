@@ -10,6 +10,7 @@ typedef struct CartaCfu CartaCfu;
 typedef struct CartaOstacolo CartaOstacolo;
 typedef enum TipoOstacolo TipoOstacolo;
 typedef struct Punteggio Punteggio;
+typedef struct GiocatoreCarta GiocatoreCarta;
 
 enum EffettoCarta {
     // Nessun effetto
@@ -85,6 +86,11 @@ struct Punteggio{
     int carta;
     int personaggio;
     int aumenta;
+};
+
+struct GiocatoreCarta{
+    CartaCfu carta;
+    Giocatore* giocatore;
 };
 
 #endif //HAPPY_LITTLE_STUDENTS_TIPI_H

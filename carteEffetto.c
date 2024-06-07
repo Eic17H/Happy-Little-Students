@@ -1,3 +1,4 @@
+#include "carteCfu.h"
 #include "carteEffetto.h"
 
 /**
@@ -66,6 +67,7 @@ void stampaEffetto(CartaCfu carta){
 void usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, Personaggio personaggi[N_PERSONAGGI], Giocatore **giocatori, int nGiocatori) {
     switch(carta.effetto){
         case NESSUNO:
+            debug("NESSUN EFFETTO\n");
             break;
         case SCARTAP:
             scartaPE(giocatore, punteggio, scarti, false);
@@ -125,6 +127,7 @@ void usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, Cart
  * @param soloEffetto Vero se sono permesse solo le carte con un effetto, falso altrimenti
  */
 void scartaPE(Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, bool soloEffetto) {
+    debug("scartaPE()\n");
     CartaCfu* carta = daiCarta(giocatore, selezionaCarta(giocatore, false, true, !soloEffetto));
     punteggio->carta += carta->cfu;
     cartaNegliScarti(scarti, carta);
@@ -139,6 +142,7 @@ void scartaPE(Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, boo
  * @param nGiocatori Numero corrente di giocatori
  */
 void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
+    debug("ruba()\n");
     int scelta = 0;
 
     // Un array contenente gli avversari
@@ -168,38 +172,76 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
     return;
 }
 void scambiaDS(){
+    debug("scambiaDS()\n");
     return;
 }
 void scartaC(){
+    debug("scartaC()\n");
     return;
 }
 void scambiaP(){
+    debug("scambiaP()\n");
     return;
 }
 void doppioE(){
+    debug("doppioE()\n");
     return;
 }
 void sbircia(){
+    debug("sbircia()\n");
     return;
 }
 void scambiaC(){
+    debug("scambiaC()\n");
     return;
 }
 void annulla(){
+    debug("annulla()\n");
     return;
 }
 void aumenta(){
+    debug("aumenta()\n");
     return;
 }
 void diminuisci(){
+    debug("diminuisci()\n");
     return;
 }
 void inverti(){
+    debug("inverti()\n");
     return;
 }
 void salva(){
+    debug("salva()\n");
     return;
 }
 void dirotta(){
+    debug("dirotta()\n");
     return;
+}
+
+/**
+ * Ordina le coppie giocatore-carta per eseguire gli effetti in ordine
+ * Selection sort in ordine decrescente di CFU
+ * @param nGiocatori Il numero corrente di giocatori
+ * @param effetti L'array di coppie giocatore-carta
+ */
+void ordinaEffetti(int nGiocatori, GiocatoreCarta effetti[nGiocatori]){
+    if(nGiocatori == 1)
+        return;
+    int min = 0;
+    for(int i=1; i<nGiocatori; i++)
+        if(effetti[i].carta.cfu < effetti[min].carta.cfu)
+            min = i;
+    scambiaEffetti(&effetti[nGiocatori-1], &effetti[min]);
+    ordinaEffetti(nGiocatori-1, effetti);
+}
+
+/**
+ * Scambia due coppie giocatore-carta
+ */
+void scambiaEffetti(GiocatoreCarta* a, GiocatoreCarta* b){
+    GiocatoreCarta temp = *a;
+    *a = *b;
+    *b = temp;
 }

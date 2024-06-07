@@ -1,6 +1,7 @@
 #include "turno.h"
 #include "carteCfu.h"
 #include "carteOstacolo.h"
+#include "carteEffetto.h"
 
 /** Inizializza i giocatori:
  * nessuna carta CFU,
@@ -101,7 +102,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
             // consideriamo solo chi partecipa allo spareggio
             if (sconfitti[i] == 1) {
                 punti[i]=0;
-                giocaCarta(giocatore, scarti, &punti[i]);
+                giocaCarta(giocatore, scarti, &punti[i], NULL);
             }
         }
         // trovare il punteggio minimo
@@ -146,6 +147,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
  */
 void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo){
 
+    Punteggio punteggi[nGiocatori];
     // Controllo che ci siano giocatori
     if(giocatori == NULL || nGiocatori<=0)
         return;
@@ -165,6 +167,9 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
 
     stampaOstacolo(**carteOstacolo);
 
+    // Conterrà le coppie giocatore-carta per eseguire gli effetti in ordine
+    GiocatoreCarta effetti[nGiocatori];
+
     for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
         // Se il giocatore ha solo carte istantanee, scarta tutta la mano e pesca altre carte
         while(soloIstantanee(*giocatore)){
@@ -174,7 +179,7 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
         cfuTurno[i] = 0;
         colorePersonaggio(giocatore->personaggio, personaggi);
         printf("= Turno di %s\n", giocatore->nomeUtente);
-        giocaCarta(giocatore, scarti, &cfuTurno[i]);
+        giocaCarta(giocatore, scarti, &cfuTurno[i], &effetti[i]);
         printf(RESET);
     }
     for(i=0; i<nGiocatori; i++){
@@ -182,6 +187,10 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
             max = i;
         if(cfuTurno[i] < cfuTurno[min])
             min = i;
+    }
+    ordinaEffetti(nGiocatori, effetti);
+    for(i=0; i<nGiocatori; i++){
+        usaEffetto(effetti[i].carta, effetti[i].giocatore, &punteggi[i], scarti, personaggi, &giocatori, nGiocatori);
     }
     // Vincitori
     for(i=0, giocatore=giocatori; i<nGiocatori; i++, giocatore = giocatore->prossimo){

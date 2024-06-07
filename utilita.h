@@ -8,8 +8,8 @@
 #include <stdlib.h>
 
 // TODO: rimuovere tutti gli utilizzi
-// printf per attivare, // per disattivare
-#define debug printf
+// "printf" per attivare, "//" per disattivare (senza virgolette)
+#define debug //
 
 void scambiaInt(int*, int*);
 char numeroOI(int);

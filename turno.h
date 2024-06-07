@@ -11,6 +11,7 @@
 #include "costanti.h"
 #include "estetica.h"
 #include "utilita.h"
+#include "carteEffetto.h"
 
 void inizializzaGiocatori(Giocatore*);
 void

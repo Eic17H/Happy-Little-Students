@@ -1,4 +1,5 @@
 #include "carteCfu.h"
+#include "carteEffetto.h"
 
 /**
  * Questa funzione toglie una carta da una mano e la restituisce.
@@ -40,7 +41,7 @@ CartaCfu* daiCarta(Giocatore* giocatore, CartaCfu* carta){
  */
 void cartaNegliScarti(CartaCfu** scarti, CartaCfu* carta){
     carta->prossima = *scarti;
-    *scarti = carta->prossima;
+    *scarti = carta;
 }
 
 /**
@@ -57,11 +58,12 @@ bool haQuestaCarta(Giocatore* giocatore, CartaCfu* carta){
 }
 
 /** Permette di giocare una carta CFU (per ora senza effetti secondari)
- * @param giocatore puntatore al giocatore di turno
- * @param scarti puntatore alla pila degli scarti, che a sua volta è un puntatore alla sua prima carta
- * @param cfuTurno puntatore alla variabile che registra i CFU correnti del giocatore
+ * @param giocatore Puntatore al giocatore di turno
+ * @param scarti Puntatore alla pila degli scarti, che a sua volta è un puntatore alla sua prima carta
+ * @param cfuTurno Puntatore alla variabile che registra i CFU correnti del giocatore
+ * @param effetto Puntatore alla struct che contiene informazioni sul giocatore e sulla sua carta
  */
-void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
+void giocaCarta(Giocatore *giocatore, CartaCfu **scarti, int *cfuTurno, GiocatoreCarta *effetto){
 
     // Il giocatore seleziona una carta dalla propria mano (le carte istantanee non sono ammesse)
     CartaCfu *carta = daiCarta(giocatore, selezionaCarta(giocatore, false, 0, 0));
@@ -73,6 +75,9 @@ void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
     }
     // Si aggiungono i CFU della carta scartata al conteggio dei CFU del giocatore
     *cfuTurno += carta->cfu;
+    // Si mettono le informazioni per l'esecuzione degli effetti in ordine
+    effetto->giocatore = giocatore;
+    effetto->carta = *carta;
     // Si mette la carta nella pila degli scarti
     cartaNegliScarti(scarti, carta);
 }
@@ -290,3 +295,4 @@ CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bo
     }
     return mano[scelta-1];
 }
+
