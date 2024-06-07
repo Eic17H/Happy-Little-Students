@@ -68,7 +68,7 @@ void usaEffetto(CartaCfu carta, Giocatore* giocatore, Punteggio* punteggio, Cart
         case NESSUNO:
             break;
         case SCARTAP:
-            scartaP(giocatore, punteggio, scarti);
+            scartaPE(giocatore, punteggio, scarti, false);
             break;
         case RUBA:
             ruba();
@@ -77,7 +77,7 @@ void usaEffetto(CartaCfu carta, Giocatore* giocatore, Punteggio* punteggio, Cart
             scambiaDS();
             break;
         case SCARTAE:
-            scartaE();
+            scartaPE(giocatore, punteggio, scarti, true);
             break;
         case SCARTAC:
             scartaC();
@@ -122,9 +122,10 @@ void usaEffetto(CartaCfu carta, Giocatore* giocatore, Punteggio* punteggio, Cart
  * @param giocatore Il giocatore che ha giocato la carta
  * @param punteggio Puntatore al punteggio del giocatore
  * @param scarti Puntatore alla pila degli scarti
+ * @param soloEffetto Vero se sono permesse solo le carte con un effetto, falso altrimenti
  */
-void scartaP(Giocatore* giocatore, Punteggio* punteggio, CartaCfu** scarti){
-    CartaCfu* carta = daiCarta(giocatore, selezionaCarta(giocatore, false));
+void scartaPE(Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, bool soloEffetto) {
+    CartaCfu* carta = daiCarta(giocatore, selezionaCarta(giocatore, false, true, !soloEffetto));
     punteggio->carta += carta->cfu;
     cartaNegliScarti(scarti, carta);
     return;
@@ -133,9 +134,6 @@ void ruba(){
     return;
 }
 void scambiaDS(){
-    return;
-}
-void scartaE(){
     return;
 }
 void scartaC(){

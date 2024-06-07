@@ -64,7 +64,7 @@ bool haQuestaCarta(Giocatore* giocatore, CartaCfu* carta){
 void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
 
     // Il giocatore seleziona una carta dalla propria mano (le carte istantanee non sono ammesse)
-    CartaCfu *carta = daiCarta(giocatore, selezionaCarta(giocatore, false));
+    CartaCfu *carta = daiCarta(giocatore, selezionaCarta(giocatore, false, 0, 0));
 
     // In teoria non può succedere, ma è meglio metterla
     if(carta == NULL){
@@ -250,14 +250,16 @@ bool soloIstantanee(Giocatore giocatore){
     return soloIstantanee;
 }
 
-// TODO: capire che farne
 /**
  * Mostra un menù per selezionare una carta dalla mano di un giocatore, e restituisce la carta selezionata
  * (Devo decidere se tenerla)
  * @param giocatore Il giocatore di cui si deve selezionare una carta
+ * @param istantanee Vero se sono permesse le istantanee, falso altrimenti
+ * @param effetto Vero se sono permesse le carte punto con effetto, falso altrimenti
+ * @param normali Vero se sono permesse le carte senza effetto, falso altrimenti
  * @return Puntatore alla carta selezionata
  */
-CartaCfu* selezionaCarta(Giocatore* giocatore, bool istantanee){
+CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bool normali){
     mostraCarte(*giocatore);
     int carteInMano = contaCarteMano(*giocatore);
     // Puntatori a due carte

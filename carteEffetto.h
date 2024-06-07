@@ -12,10 +12,9 @@
 
 void stampaEffetto(CartaCfu);
 void usaEffetto(CartaCfu, Giocatore*, Punteggio*, CartaCfu**);
-void scartaP(Giocatore*, Punteggio*, CartaCfu**);
+void scartaPE(Giocatore*, Punteggio*, CartaCfu**, bool);
 void ruba();
 void scambiaDS();
-void scartaE();
 void scartaC();
 void scambiaP();
 void doppioE();
