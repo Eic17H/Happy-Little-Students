@@ -184,6 +184,11 @@ void scambiaP(){
     debug("scambiaP()\n");
     return;
 }
+
+/**
+ * Raddoppia il valore del moltiplicatore degli aumenta/diminuisci punteggio
+ * @param moltiplicatoreAumenta Puntatore al moltiplicatore
+ */
 void doppioE(int *moltiplicatoreAumenta){
     if(moltiplicatoreAumenta == NULL)
         return;

@@ -230,7 +230,7 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
 
 void calcolaPunteggio(Punteggio *punteggio, int moltiplicatoreAumenta){
     punteggio->totale = 0;
-    punteggio->totale += punteggio.carta;
-    punteggio->totale += punteggio.personaggio;
-    punteggio->totale += punteggio.aumenta*moltiplicatoreAumenta;
+    punteggio->totale += punteggio->carta;
+    punteggio->totale += punteggio->personaggio;
+    punteggio->totale += punteggio->aumenta*2*moltiplicatoreAumenta;
 }
