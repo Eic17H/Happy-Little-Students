@@ -15,7 +15,7 @@
 
 // Subroutine che gestiscono le fondamenta dello spostamento delle carte
 CartaCfu* daiCarta(Giocatore*, CartaCfu*);
-void scartaCarta(CartaCfu**, CartaCfu*);
+void cartaNegliScarti(CartaCfu**, CartaCfu*);
 CartaCfu* cartaDalMazzo(CartaCfu**);
 void prendiCarta(Giocatore*, CartaCfu*);
 

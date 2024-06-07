@@ -33,7 +33,7 @@ CartaCfu* daiCarta(Giocatore* giocatore, CartaCfu* carta){
  * @param scarti Puntatore alla pila, che a sua volta è un puntatore alla carta in cima alla pila
  * @param carta La carta da scartare
  */
-void scartaCarta(CartaCfu** scarti, CartaCfu* carta){
+void cartaNegliScarti(CartaCfu** scarti, CartaCfu* carta){
     carta->prossima = *scarti;
     *scarti = carta->prossima;
 }
@@ -69,7 +69,7 @@ void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
     // Si aggiungono i CFU della carta scartata al conteggio dei CFU del giocatore
     *cfuTurno += carta->cfu;
     // Si mette la carta nella pila degli scarti
-    scartaCarta(scarti, carta);
+    cartaNegliScarti(scarti, carta);
 }
 
 int contaCarteMano(Giocatore giocatore){
@@ -225,7 +225,7 @@ void mostraCarte(Giocatore giocatore){
 void scartaMano(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
     // Scarta tutte le carte
     while(giocatore->primaCfu != NULL){
-        scartaCarta(scarti, giocatore->primaCfu);
+        cartaNegliScarti(scarti, giocatore->primaCfu);
     }
     for(int i=0; i<N_CARTE_MANO; i++){
         pescaCarta(giocatore, mazzo, scarti);
