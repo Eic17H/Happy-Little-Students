@@ -13,19 +13,24 @@
 #include "tipi.h"
 #include "turno.h"
 
+// Subroutine che gestiscono le fondamenta dello spostamento delle carte
 CartaCfu* daiCarta(Giocatore*, CartaCfu*);
 void scartaCarta(CartaCfu**, CartaCfu*);
 CartaCfu* cartaDalMazzo(CartaCfu**);
 void prendiCarta(Giocatore*, CartaCfu*);
-bool haQuestaCarta(Giocatore*, CartaCfu*);
+
+// Subroutine che usano quelle precedenti
 void giocaCarta(Giocatore*, CartaCfu**, int*);
-int contaCarteMano(Giocatore);
 void pescaCarta(Giocatore*, CartaCfu**, CartaCfu**);
 void pescaRotazione(Giocatore*, CartaCfu**, CartaCfu**);
+void scartaMano(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti);
+CartaCfu* selezionaCarta(Giocatore*, bool);
+
+// Altre cose utili
+bool haQuestaCarta(Giocatore*, CartaCfu*);
+int contaCarteMano(Giocatore);
 void mischiaMazzo(CartaCfu**);
 void mostraCarte(Giocatore);
-void scartaMano(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti);
 bool soloIstantanee(Giocatore);
-CartaCfu* selezionaCarta(Giocatore*, bool);
 
 #endif //HAPPY_LITTLE_STUDENTS_CARTECFU_H

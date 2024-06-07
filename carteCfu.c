@@ -57,6 +57,7 @@ bool haQuestaCarta(Giocatore* giocatore, CartaCfu* carta){
  * @param cfuTurno puntatore alla variabile che registra i CFU correnti del giocatore
  */
 void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
+
     // Il giocatore seleziona una carta dalla propria mano (le carte istantanee non sono ammesse)
     CartaCfu *carta = daiCarta(giocatore, selezionaCarta(giocatore, false));
 
