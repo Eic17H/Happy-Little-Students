@@ -89,7 +89,7 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
             scambiaP();
             break;
         case DOPPIOE:
-            doppioE();
+            doppioE(moltiplicatoreAumenta);
             break;
         case SBIRCIA:
             sbircia();
@@ -184,8 +184,11 @@ void scambiaP(){
     debug("scambiaP()\n");
     return;
 }
-void doppioE(){
+void doppioE(int *moltiplicatoreAumenta){
+    if(moltiplicatoreAumenta == NULL)
+        return;
     debug("doppioE()\n");
+    *moltiplicatoreAumenta *= 2;
     return;
 }
 void sbircia(){

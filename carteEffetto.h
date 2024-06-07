@@ -22,7 +22,7 @@ void ruba(Giocatore**, Giocatore*, Personaggio[N_PERSONAGGI], int);
 void scambiaDS();
 void scartaC();
 void scambiaP();
-void doppioE();
+void doppioE(int *moltiplicatoreAumenta);
 void sbircia();
 void scambiaC();
 void annulla();
