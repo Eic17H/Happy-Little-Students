@@ -86,6 +86,7 @@ struct Punteggio{
     int carta;
     int personaggio;
     int aumenta;
+    int totale;
 };
 
 struct GiocatoreCarta{

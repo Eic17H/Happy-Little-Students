@@ -64,7 +64,8 @@ void stampaEffetto(CartaCfu carta){
  * Usa l'effetto di una carta cfu
  * @param carta La carta
  */
-void usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, Personaggio personaggi[N_PERSONAGGI], Giocatore **giocatori, int nGiocatori) {
+void
+usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, Personaggio personaggi[4], Giocatore **giocatori, int nGiocatori, int *moltiplicatoreAumenta){
     switch(carta.effetto){
         case NESSUNO:
             debug("NESSUN EFFETTO\n");

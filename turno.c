@@ -147,7 +147,8 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
  */
 void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo){
 
-    Punteggio punteggi[nGiocatori];
+    int moltiplicatoreAumenta = 1;
+
     // Controllo che ci siano giocatori
     if(giocatori == NULL || nGiocatori<=0)
         return;
@@ -157,6 +158,7 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
     // Variabile che scorre la lista di giocatori
     Giocatore* giocatore = giocatori;
     // TODO: usare la struct
+    Punteggio punteggi[nGiocatori];
     int cfuTurno[nGiocatori];
     // Punteggio minimo e punteggio massimo del turno
     int min=0, max=0;
@@ -176,21 +178,28 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
             printf("%s ha solo carte istantanee, scarta tutta la sua mano.\n", giocatore->nomeUtente);
             scartaMano(giocatore, carteCfu, scarti);
         }
-        cfuTurno[i] = 0;
+        // Il punteggio dato dalla carta per ora è 0
+        punteggi[i].carta = 0;
+        // Si legge il bonus/malus
+        punteggi[i].personaggio = giocatore->personaggio.ostacoli[(**carteOstacolo).tipo];
+        // Si parte senza aumenta/diminuisci
+        punteggi[i].aumenta = 0;
         colorePersonaggio(giocatore->personaggio, personaggi);
         printf("= Turno di %s\n", giocatore->nomeUtente);
-        giocaCarta(giocatore, scarti, &cfuTurno[i], &effetti[i]);
+        giocaCarta(giocatore, scarti, &punteggi[i].carta, &effetti[i]);
         printf(RESET);
-    }
-    for(i=0; i<nGiocatori; i++){
-        if(cfuTurno[i] > cfuTurno[max])
-            max = i;
-        if(cfuTurno[i] < cfuTurno[min])
-            min = i;
+        calcolaPunteggio(&punteggi[i], moltiplicatoreAumenta);
     }
     ordinaEffetti(nGiocatori, effetti);
+    // TODO: risolvere mismatch tra l'ordine di effetti[] e l'ordine di punteggi[] (forse non serve)
     for(i=0; i<nGiocatori; i++){
-        usaEffetto(effetti[i].carta, effetti[i].giocatore, &punteggi[i], scarti, personaggi, &giocatori, nGiocatori);
+        usaEffetto(effetti[i].carta, effetti[i].giocatore, &punteggi[i], scarti, personaggi, &giocatori, nGiocatori, &moltiplicatoreAumenta);
+    }
+    for(i=0; i<nGiocatori; i++){
+        if(punteggi[i].totale > punteggi[max].totale)
+            max = i;
+        if(punteggi[i].totale < punteggi[min].totale)
+            min = i;
     }
     // Vincitori
     for(i=0, giocatore=giocatori; i<nGiocatori; i++, giocatore = giocatore->prossimo){
@@ -216,4 +225,11 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
         pescaRotazione(giocatori, carteCfu, scarti);
     }
     pescaOstacolo(giocatore, carteOstacolo);
+}
+
+void calcolaPunteggio(Punteggio *punteggio, int moltiplicatoreAumenta){
+    punteggio->totale = 0;
+    punteggio->totale += punteggio.carta;
+    punteggio->totale += punteggio.personaggio;
+    punteggio->totale += punteggio.aumenta*moltiplicatoreAumenta;
 }

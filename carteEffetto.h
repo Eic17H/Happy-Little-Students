@@ -15,7 +15,8 @@
 #include "carteCfu.h"
 
 void stampaEffetto(CartaCfu);
-void usaEffetto(CartaCfu, Giocatore*, Punteggio*, CartaCfu**, Personaggio[N_PERSONAGGI], Giocatore**, int);
+void usaEffetto(CartaCfu, Giocatore *, Punteggio *, CartaCfu **, Personaggio[4], Giocatore **, int,
+                int *moltiplicatoreAumenta);
 void scartaPE(Giocatore*, Punteggio*, CartaCfu**, bool);
 void ruba(Giocatore**, Giocatore*, Personaggio[N_PERSONAGGI], int);
 void scambiaDS();
