@@ -56,7 +56,7 @@ int main() {
 
         // Si stampano le informazioni correnti
         stampaSituazione(giocatori, nGiocatori, personaggi);
-        stampaPlancia(giocatori, nGiocatori, numeriPlancia);
+        stampaPlancia(giocatori, nGiocatori, numeriPlancia, personaggi);
 
         // Le due fasi del turno
         faseCfu(giocatori, nGiocatori, personaggi, &carteCfu, &scarti, &carteOstacolo);

@@ -133,7 +133,7 @@ void leggiNumeriPlancia(int numeri[PUNTI_PER_VINCERE]){
  * @param numeri Array contenente l'ordine in cui si trovano le caselle (letto dal file della plancia)
  */
 // TODO: sembra che quando ci sono due giocatori, il secondo non venga stampato
-void stampaPlancia(Giocatore* giocatori, int nGiocatori, int numeri[PUNTI_PER_VINCERE]){
+void stampaPlancia(Giocatore *giocatori, int nGiocatori, int numeri[50], Personaggio personaggi[N_PERSONAGGI]){
     FILE *fp = fopen("plancia.txt", "r");
     if(fp == NULL)
         exit(-1);
@@ -182,26 +182,33 @@ void stampaPlancia(Giocatore* giocatori, int nGiocatori, int numeri[PUNTI_PER_VI
          * 2 g:    G1 G2
          */
 
+        /**
+         * in plancia.txt metto un numero (npersonaggi)
+         * poi metto (seconda riga) tipo "ABCD"
+         * li metto in char[npersonaggi]
+         * poi faccio for int i=0 i<npersonaggi i++ if c==char[i] colore giocatore[i] segnalino giocatore[i] etc
+         */
+
         casella = rig*7+col;
         // TODO: colore personaggio
         switch(c){
             case 'A':
-                coloreNumero(1);
+                coloreGiocatore(arrayGiocatori[0], personaggi);
                 segnalino(arrayGiocatori[0], casella, numeri);
                 printf(RESET);
                 break;
             case 'B':
-                coloreNumero(2);
+                coloreGiocatore(arrayGiocatori[1], personaggi);
                 segnalino(arrayGiocatori[1], casella, numeri);
                 printf(RESET);
                 break;
             case 'C':
-                coloreNumero(3);
+                coloreGiocatore(arrayGiocatori[2], personaggi);
                 segnalino(arrayGiocatori[2], casella, numeri);
                 printf(RESET);
                 break;
             case 'D':
-                coloreNumero(4);
+                coloreGiocatore(arrayGiocatori[3], personaggi);
                 segnalino(arrayGiocatori[3], casella, numeri);
                 printf(RESET);
                 break;
@@ -258,6 +265,17 @@ void colorePersonaggio(Personaggio personaggio, Personaggio personaggi[N_PERSONA
         if(strcmp(personaggio.nome, personaggi[i].nome) == 0)
             coloreNumero(i+1);
     }
+}
+
+/**
+ * Imposta il colore del testo a quello associato al personaggio di un giocatore
+ * @param personaggio Il giocatore
+ * @param personaggi L'array dei personaggi
+ */
+void coloreGiocatore(Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI]){
+    if(giocatore == NULL)
+        return;
+    colorePersonaggio(giocatore->personaggio, personaggi);
 }
 
 // TODO: interfaccia.c
