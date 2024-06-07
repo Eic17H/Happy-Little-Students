@@ -26,6 +26,6 @@ void mischiaMazzo(CartaCfu**);
 void mostraCarte(Giocatore);
 void scartaMano(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti);
 bool soloIstantanee(Giocatore);
-CartaCfu* selezionaCarta(Giocatore*);
+CartaCfu* selezionaCarta(Giocatore*, bool);
 
 #endif //HAPPY_LITTLE_STUDENTS_CARTECFU_H

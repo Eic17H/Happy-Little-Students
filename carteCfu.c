@@ -57,45 +57,18 @@ bool haQuestaCarta(Giocatore* giocatore, CartaCfu* carta){
  * @param cfuTurno puntatore alla variabile che registra i CFU correnti del giocatore
  */
 void giocaCarta(Giocatore* giocatore, CartaCfu** scarti, int* cfuTurno){
-    mostraCarte(*giocatore);
-    int carteInMano = contaCarteMano(*giocatore);
-    // Puntatori a due carte
-    CartaCfu *carta = giocatore->primaCfu, *scartata;
-    int scelta=0;
+    // Il giocatore seleziona una carta dalla propria mano (le carte istantanee non sono ammesse)
+    CartaCfu *carta = daiCarta(giocatore, selezionaCarta(giocatore, false));
 
-    // Un array contenente le carte del giocatore
-    CartaCfu* mano[carteInMano];
-    for(int i=0; carta != NULL; carta = carta->prossima, i++){
-        mano[i] = carta;
-    }
-
-    printf("Quale vuoi giocare?\n");
-    bool sceltaValida = false;
-    while(!sceltaValida){
-        sceltaValida = true;
-        scanf("%d", &scelta);
-        if(scelta<1){
-            sceltaValida = false;
-            printf("Le carte sono numerate a partire da 1.\n");
-        }else if(scelta>carteInMano){
-            sceltaValida = false;
-            printf("Hai solo %d carte in mano.\n", carteInMano);
-        }else if(mano[scelta-1]->effetto >= PRIMA_ISTANTANEA){
-            sceltaValida = false;
-            printf("Non e' la fase delle carte istantanee (%c).\n", SIMBOLO_CARTA_ISTANTANEA);
-        }
-    }
-    // Caso speciale se è stata scelta la prima carta (non posso operare su quella precedente)
-    scartata = daiCarta(giocatore, mano[scelta-1]);
     // In teoria non può succedere, ma è meglio metterla
-    if(scartata == NULL){
+    if(carta == NULL){
         printf(HRED "Errore: il giocatore sta provando a usare una carta non presente nella sua mano.\n" RESET);
         return;
     }
     // Si aggiungono i CFU della carta scartata al conteggio dei CFU del giocatore
-    *cfuTurno += scartata->cfu;
+    *cfuTurno += carta->cfu;
     // Si mette la carta nella pila degli scarti
-    scartaCarta(scarti, scartata);
+    scartaCarta(scarti, carta);
 }
 
 int contaCarteMano(Giocatore giocatore){
@@ -278,6 +251,34 @@ bool soloIstantanee(Giocatore giocatore){
  * @param giocatore Il giocatore di cui si deve selezionare una carta
  * @return Puntatore alla carta selezionata
  */
-CartaCfu* selezionaCarta(Giocatore* giocatore){
-    return NULL
+CartaCfu* selezionaCarta(Giocatore* giocatore, bool istantanee){
+    mostraCarte(*giocatore);
+    int carteInMano = contaCarteMano(*giocatore);
+    // Puntatori a due carte
+    CartaCfu *carta = giocatore->primaCfu;
+    int scelta=0;
+
+    // Un array contenente le carte del giocatore
+    CartaCfu* mano[carteInMano];
+    for(int i=0; carta != NULL; carta = carta->prossima, i++){
+        mano[i] = carta;
+    }
+
+    printf("Quale vuoi giocare?\n");
+    bool sceltaValida = false;
+    while(!sceltaValida){
+        sceltaValida = true;
+        scanf("%d", &scelta);
+        if(scelta<1){
+            sceltaValida = false;
+            printf("Le carte sono numerate a partire da 1.\n");
+        }else if(scelta>carteInMano){
+            sceltaValida = false;
+            printf("Hai solo %d carte in mano.\n", carteInMano);
+        }else if(mano[scelta-1]->effetto >= PRIMA_ISTANTANEA && !istantanee){
+            sceltaValida = false;
+            printf("Non e' la fase delle carte istantanee (%c).\n", SIMBOLO_CARTA_ISTANTANEA);
+        }
+    }
+    return mano[scelta-1];
 }
