@@ -63,12 +63,12 @@ void stampaEffetto(CartaCfu carta){
  * Usa l'effetto di una carta cfu
  * @param carta La carta
  */
-void usaEffetto(CartaCfu carta){
+void usaEffetto(CartaCfu carta, Giocatore* giocatore, Punteggio* punteggio, CartaCfu** scarti){
     switch(carta.effetto){
         case NESSUNO:
             break;
         case SCARTAP:
-            scartaP();
+            scartaP(giocatore, punteggio, scarti);
             break;
         case RUBA:
             ruba();
@@ -117,7 +117,16 @@ void usaEffetto(CartaCfu carta){
     }
 }
 
-void scartaP(){
+/**
+ * Scarta una carta CFU punto e aggiungi il suo punteggio a quello del turno
+ * @param giocatore Il giocatore che ha giocato la carta
+ * @param punteggio Puntatore al punteggio del giocatore
+ * @param scarti Puntatore alla pila degli scarti
+ */
+void scartaP(Giocatore* giocatore, Punteggio* punteggio, CartaCfu** scarti){
+    CartaCfu* carta = daiCarta(giocatore, selezionaCarta(giocatore, false));
+    punteggio->carta += carta->cfu;
+    cartaNegliScarti(scarti, carta);
     return;
 }
 void ruba(){

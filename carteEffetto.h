@@ -8,10 +8,11 @@
 #include <stdio.h>
 #include "utilita.h"
 #include "estetica.h"
+#include "carteCfu.h"
 
 void stampaEffetto(CartaCfu);
-void usaEffetto(CartaCfu);
-void scartaP();
+void usaEffetto(CartaCfu, Giocatore*, Punteggio*, CartaCfu**);
+void scartaP(Giocatore*, Punteggio*, CartaCfu**);
 void ruba();
 void scambiaDS();
 void scartaE();

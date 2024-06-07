@@ -3,6 +3,7 @@
 /**
  * Questa funzione toglie una carta da una mano e la restituisce.
  * Da usare solo se il giocatore ha la carta.
+ * Esempio di utilizzo: daiCarta(giocatore, selezionaCarta(giocatore, ...))
  * @param giocatore Puntatore al giocatore che deve dare la carta
  * @param carta Puntatore alla carta da dare, che dovrebbe essere presente nella mano del giocatore
  * @return Puntatore alla carta data (NULL se la carta non c'è)
