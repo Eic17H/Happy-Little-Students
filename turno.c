@@ -192,6 +192,7 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
     }
     ordinaEffetti(nGiocatori, effetti);
     // TODO: risolvere mismatch tra l'ordine di effetti[] e l'ordine di punteggi[] (forse non serve)
+    // Magari anziché ordinare effetti[] tengo un altro array che dice l'ordine
     for(i=0; i<nGiocatori; i++){
         usaEffetto(effetti[i].carta, effetti[i].giocatore, &punteggi[i], scarti, personaggi, &giocatori, nGiocatori, &moltiplicatoreAumenta);
     }
