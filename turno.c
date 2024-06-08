@@ -145,9 +145,16 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
  * @param carteOstacolo mazzo degli ostacoli
  */
 void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo){
+    int i=0;
 
+    // Un array per le carte giocate e uno per i giocatori, utili per mantenere l'ordine nelle subroutine
     CartaCfu carte[nGiocatori];
     Giocatore* arrayGiocatori[nGiocatori];
+
+    // Conterrà l'ordine in cui verranno eseguiti gli effetti, relativamente all'ordine dei giocatori
+    int ordineEffetti[nGiocatori];
+    for(i=0; i<nGiocatori; i++)
+        ordineEffetti[i] = i;
 
     // TODO: spostare nel main
     int moltiplicatoreAumenta = 1;
@@ -156,19 +163,12 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
     if(giocatori == NULL || nGiocatori<=0)
         return;
 
-    bool annulla = false;
-
-    int i=0;
-    // Conterrà l'ordine in cui verranno eseguiti gli effetti, relativamente all'ordine dei giocatori
-    int ordineEffetti[nGiocatori];
-    for(i=0; i<nGiocatori; i++)
-        ordineEffetti[i] = i;
-
     // Variabile che scorre la lista di giocatori
     Giocatore* giocatore = giocatori;
 
     // TODO: spostare nel main
     Punteggio punteggi[nGiocatori];
+
     // Punteggio minimo e punteggio massimo del turno
     int min=0, max=0;
     // Numero ed elenco di sconfitti, per lo spareggio
@@ -198,8 +198,10 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
         printf(RESET);
         calcolaPunteggio(&punteggi[i], moltiplicatoreAumenta);
     }
-    annulla = controllaAnnulla(nGiocatori, carte);
-    if(!annulla) {
+
+    // Attiva gli effetti solo se non ci sono carte annulla
+    if(!controllaAnnulla(nGiocatori, carte)){
+        // Le carte con più CFU vengono attivate prima
         ordinaEffetti(nGiocatori, ordineEffetti, carte);
         for (i = 0; i < nGiocatori; i++) {
             // TODO: più bello
@@ -208,13 +210,16 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
                            scarti, personaggi, &giocatori, nGiocatori, &moltiplicatoreAumenta);
         }
     }
+
+    // Trova punteggio minimo e massimo
     for(i=0; i<nGiocatori; i++){
         if(punteggi[i].totale > punteggi[max].totale)
             max = i;
         if(punteggi[i].totale < punteggi[min].totale)
             min = i;
     }
-    // Vincitori
+
+    // Dà i punti ai vincitori
     for(i=0, giocatore=giocatori; i<nGiocatori; i++, giocatore = giocatore->prossimo){
         if(punteggi[i].totale==punteggi[max].totale){
             colorePersonaggio(giocatore->personaggio, personaggi);
@@ -222,7 +227,9 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
             giocatore->cfu += punteggi[i].totale;
         }
     }
-    // Perdente
+
+
+    // Controlla chi ha il punteggio minore
     for(i=0; i<nGiocatori; i++){
         if(punteggi[i].totale == punteggi[min].totale){
             nSconfitti++;
@@ -230,13 +237,12 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
         }else
             sconfitti[i] = 0;
     }
+
+    // Se ci sono più giocatori con il punteggio minore, si spareggia
     if(nSconfitti==1)
-        for(i=0, giocatore=giocatori; i<min; i++)
-            giocatore = giocatore->prossimo;
-    else {
+        giocatore = arrayGiocatori[min];
+    else
         giocatore = spareggio(giocatori, nGiocatori, sconfitti, scarti);
-        pescaRotazione(giocatori, carteCfu, scarti);
-    }
     pescaOstacolo(giocatore, carteOstacolo);
 }
 
