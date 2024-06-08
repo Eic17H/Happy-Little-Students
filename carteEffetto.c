@@ -132,7 +132,7 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
  */
 void scartaPE(Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, bool soloEffetto) {
     debug("scartaPE()\n");
-    CartaCfu* carta = daiCarta(giocatore, selezionaCarta(giocatore, false, true, !soloEffetto));
+    CartaCfu* carta = daiCarta(giocatore, selezionaCarta(giocatore, false, true, !soloEffetto, false));
     punteggio->carta += carta->cfu;
     cartaNegliScarti(scarti, carta);
     return;
@@ -175,7 +175,7 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
     scelta--;
 
     // Il giocatore seleziona e prende una carta qualunque dalla mano dell'avversario scelto
-    prendiCarta(giocatore, daiCarta(avversari[scelta], selezionaCarta(avversari[scelta], true, true, true)));
+    prendiCarta(giocatore, daiCarta(avversari[scelta], selezionaCarta(avversari[scelta], true, true, true, false)));
     return;
 }
 void scambiaDS(){

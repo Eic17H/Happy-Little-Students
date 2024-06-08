@@ -66,7 +66,7 @@ bool haQuestaCarta(Giocatore* giocatore, CartaCfu* carta){
 void giocaCarta(Giocatore *giocatore, CartaCfu **scarti, int *cfuTurno){
 
     // Il giocatore seleziona una carta dalla propria mano (le carte istantanee non sono ammesse)
-    CartaCfu *carta = daiCarta(giocatore, selezionaCarta(giocatore, false, true, true));
+    CartaCfu *carta = daiCarta(giocatore, selezionaCarta(giocatore, false, true, true, false));
 
     // In teoria non può succedere, ma è meglio metterla
     if(carta == NULL){
@@ -261,7 +261,7 @@ bool soloIstantanee(Giocatore giocatore){
  * @param normali Vero se sono permesse le carte senza effetto, falso altrimenti
  * @return Puntatore alla carta selezionata
  */
-CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bool normali){
+CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bool normali, bool annulla) {
 
     // Secondo le regole del gioco, questo non dovrebbe mai succedere
     if(!istantanee && !effetto && !normali){
@@ -270,6 +270,8 @@ CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bo
         normali = true;
     }
     mostraCarte(*giocatore);
+    if(annulla)
+        printf("0: Annulla\n");
     int carteInMano = contaCarteMano(*giocatore);
     // Puntatori a due carte
     CartaCfu *carta = giocatore->primaCfu;
@@ -286,7 +288,14 @@ CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bo
     while(!sceltaValida){
         sceltaValida = true;
         scanf("%d", &scelta);
-        if(scelta<1){
+        if(scelta==1){
+            if(annulla)
+                return NULL;
+            else {
+                sceltaValida = false;
+                printf("Le carte sono numerate a partire da 1.\n");
+            }
+        }if(scelta<0){
             sceltaValida = false;
             printf("Le carte sono numerate a partire da 1.\n");
         }else if(scelta>carteInMano){
