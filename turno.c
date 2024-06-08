@@ -187,7 +187,7 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
         // Il punteggio dato dalla carta per ora è 0
         punteggi[i].carta = 0;
         // Si legge il bonus/malus
-        punteggi[i].personaggio = giocatore->personaggio.ostacoli[(**carteOstacolo).tipo];
+        punteggi[i].personaggio = giocatore->personaggio.ostacoli[(**carteOstacolo).tipo-1];
         // Si parte senza aumenta/diminuisci
         punteggi[i].aumenta = 0;
         colorePersonaggio(giocatore->personaggio, personaggi);
@@ -196,7 +196,6 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
         arrayGiocatori[i] = giocatore;
         carte[i] = **scarti;
         printf(RESET);
-        calcolaPunteggio(&punteggi[i], moltiplicatoreAumenta);
     }
 
     // Attiva gli effetti solo se non ci sono carte annulla
@@ -213,6 +212,7 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
 
     // Trova punteggio minimo e massimo
     for(i=0; i<nGiocatori; i++){
+        calcolaPunteggio(&punteggi[i], moltiplicatoreAumenta);
         if(punteggi[i].totale > punteggi[max].totale)
             max = i;
         if(punteggi[i].totale < punteggi[min].totale)
@@ -220,11 +220,11 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
     }
 
     // Dà i punti ai vincitori
-    for(i=0, giocatore=giocatori; i<nGiocatori; i++, giocatore = giocatore->prossimo){
+    for(i=0; i<nGiocatori; i++){
         if(punteggi[i].totale==punteggi[max].totale){
-            colorePersonaggio(giocatore->personaggio, personaggi);
-            printf("%s ha preso %d cfu per le carte giocate.\n" RESET, giocatore->nomeUtente, punteggi[i].totale);
-            giocatore->cfu += punteggi[i].totale;
+            colorePersonaggio(arrayGiocatori[i]->personaggio, personaggi);
+            printf("%s ha preso %d cfu per le carte giocate.\n" RESET, arrayGiocatori[i]->nomeUtente, punteggi[i].totale);
+            arrayGiocatori[i]->cfu += punteggi[i].totale;
         }
     }
 
@@ -250,5 +250,5 @@ void calcolaPunteggio(Punteggio *punteggio, int moltiplicatoreAumenta){
     punteggio->totale = 0;
     punteggio->totale += punteggio->carta;
     punteggio->totale += punteggio->personaggio;
-    punteggio->totale += punteggio->aumenta*2*moltiplicatoreAumenta;
+    punteggio->totale += punteggio->aumenta * 2 * moltiplicatoreAumenta;
 }

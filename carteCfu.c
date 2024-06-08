@@ -288,7 +288,7 @@ CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bo
     while(!sceltaValida){
         sceltaValida = true;
         scanf("%d", &scelta);
-        if(scelta==1){
+        if(scelta==0){
             if(annulla)
                 return NULL;
             else {

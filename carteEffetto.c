@@ -67,8 +67,9 @@ void stampaEffetto(CartaCfu carta){
 void
 usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, Personaggio personaggi[4], Giocatore **giocatori, int nGiocatori, int *moltiplicatoreAumenta){
     coloreGiocatore(giocatore, personaggi);
-    printf("Si attiva l'effetto della carta di %s!\n" RESET, giocatore->nomeUtente);
+    printf("\nSi attiva l'effetto della carta di %s!\n" RESET, giocatore->nomeUtente);
     stampaEffetto(carta);
+    printf("\n");
     switch(carta.effetto){
         case NESSUNO:
             debug("NESSUN EFFETTO\n");
@@ -178,6 +179,10 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
     prendiCarta(giocatore, daiCarta(avversari[scelta], selezionaCarta(avversari[scelta], true, true, true, false)));
     return;
 }
+
+/**
+ * Scambia questa carta con quella di un altro giocatore, purché senza effetto
+ */
 void scambiaDS(){
     debug("scambiaDS()\n");
     return;
