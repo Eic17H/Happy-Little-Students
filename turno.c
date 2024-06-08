@@ -219,16 +219,6 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
             min = i;
     }
 
-    // Dà i punti ai vincitori
-    for(i=0; i<nGiocatori; i++){
-        if(punteggi[i].totale==punteggi[max].totale){
-            colorePersonaggio(arrayGiocatori[i]->personaggio, personaggi);
-            printf("%s ha preso %d cfu per le carte giocate.\n" RESET, arrayGiocatori[i]->nomeUtente, punteggi[i].totale);
-            arrayGiocatori[i]->cfu += punteggi[i].totale;
-        }
-    }
-
-
     // Controlla chi ha il punteggio minore
     for(i=0; i<nGiocatori; i++){
         if(punteggi[i].totale == punteggi[min].totale){
@@ -236,6 +226,20 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
             sconfitti[i] = 1;
         }else
             sconfitti[i] = 0;
+    }
+
+    if(nSconfitti == nGiocatori){
+        // rimettiOstacoloNelMazzo();
+        return;
+    }
+
+    // Dà i punti ai vincitori
+    for(i=0; i<nGiocatori; i++){
+        if(punteggi[i].totale==punteggi[max].totale){
+            colorePersonaggio(arrayGiocatori[i]->personaggio, personaggi);
+            printf("%s ha preso %d cfu per le carte giocate.\n" RESET, arrayGiocatori[i]->nomeUtente, punteggi[i].totale);
+            arrayGiocatori[i]->cfu += punteggi[i].totale;
+        }
     }
 
     // Se ci sono più giocatori con il punteggio minore, si spareggia

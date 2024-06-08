@@ -10,6 +10,7 @@
  * @return Puntatore alla carta data (NULL se la carta non c'è)
  */
 CartaCfu* daiCarta(Giocatore* giocatore, CartaCfu* carta){
+    debug("\t\tdaiCarta()\n");
 
     // Se il giocatore non ha quella carta, restituisce NULL
     if(!haQuestaCarta(giocatore, carta))
@@ -40,6 +41,7 @@ CartaCfu* daiCarta(Giocatore* giocatore, CartaCfu* carta){
  * @param carta La carta da scartare
  */
 void cartaNegliScarti(CartaCfu** scarti, CartaCfu* carta){
+    debug("\t\tcartaNegliScarti()\n");
     carta->prossima = *scarti;
     *scarti = carta;
 }
@@ -51,6 +53,7 @@ void cartaNegliScarti(CartaCfu** scarti, CartaCfu* carta){
  * @return vero se ce l'ha, falso altrimenti
  */
 bool haQuestaCarta(Giocatore* giocatore, CartaCfu* carta){
+    debug("\t\thaQuestaCarta()\n");
     for(CartaCfu* cerca = giocatore->primaCfu; cerca != NULL; cerca = cerca->prossima)
         if(cerca == carta)
             return true;
@@ -64,6 +67,7 @@ bool haQuestaCarta(Giocatore* giocatore, CartaCfu* carta){
  * @param effetto Puntatore alla struct che contiene informazioni sul giocatore e sulla sua carta
  */
 void giocaCarta(Giocatore *giocatore, CartaCfu **scarti, int *cfuTurno){
+    debug("\t\tgiocaCarta()\n");
 
     // Il giocatore seleziona una carta dalla propria mano (le carte istantanee non sono ammesse)
     CartaCfu *carta = daiCarta(giocatore, selezionaCarta(giocatore, false, true, true, false));
@@ -80,6 +84,7 @@ void giocaCarta(Giocatore *giocatore, CartaCfu **scarti, int *cfuTurno){
 }
 
 int contaCarteMano(Giocatore giocatore){
+    debug("\t\tcontaCarteMano()\n");
     int conta = 0;
     CartaCfu* carta = giocatore.primaCfu;
     while(carta != NULL){
@@ -95,6 +100,7 @@ int contaCarteMano(Giocatore giocatore){
  * @return La carta pescata
  */
 CartaCfu* cartaDalMazzo(CartaCfu** mazzo){
+    debug("\t\tcartaDalMazzo()\n");
     // Gestione di un mazzo vuoto
     if(*mazzo == NULL)
         return NULL;
@@ -113,6 +119,7 @@ CartaCfu* cartaDalMazzo(CartaCfu** mazzo){
  * @param carta La carta da prendere
  */
 void prendiCarta(Giocatore* giocatore, CartaCfu* carta){
+    debug("\t\tprendiCarta()\n");
     carta->prossima = giocatore->primaCfu;
     giocatore->primaCfu = carta;
 }
@@ -124,6 +131,7 @@ void prendiCarta(Giocatore* giocatore, CartaCfu* carta){
  * @param scarti Puntatore alla carta in cima al mazzo (serve quando il mazzo è vuoto)
  */
 void pescaCarta(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
+    debug("\t\tpescaCarta()\n");
     // Se è finito il mazzo si mischiano gli scarti
     if(mazzo==NULL){
         mazzo = scarti;
@@ -139,6 +147,7 @@ void pescaCarta(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
  * @param mazzo puntatore al mazzo, che a sua volta è un puntatore alla prima carta del mazzo
  */
 void pescaRotazione(Giocatore* giocatori, CartaCfu** mazzo, CartaCfu** scarti){
+    debug("\t\tpescaRotazione()\n");
     Giocatore* giocatore;
     bool finito = false;
     while(!finito) {
@@ -158,6 +167,7 @@ void pescaRotazione(Giocatore* giocatori, CartaCfu** mazzo, CartaCfu** scarti){
  * @param mazzo puntatore al mazzo, che a sua volta punta alla sua prima carta
  */
 void mischiaMazzo(CartaCfu** mazzo){
+    debug("\t\tmischiaMazzo()\n");
     // Numero di carte nel mazzo
     int nCarte=0;
     int i=0, j=0;
@@ -212,6 +222,7 @@ void mischiaMazzo(CartaCfu** mazzo){
  * @param giocatore
  */
 void mostraCarte(Giocatore giocatore){
+    debug("\t\tmostraCarte()\n");
     printf("=== Carte di %s:\n", giocatore.nomeUtente);
     CartaCfu* carta = giocatore.primaCfu;
     int i = 1;
@@ -230,6 +241,7 @@ void mostraCarte(Giocatore giocatore){
  * @param scarti Puntatore alla cima degli scarti, che a sua volta è un puntatore
  */
 void scartaMano(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
+    debug("\t\tscartaMano()\n");
     // Scarta tutte le carte
     while(giocatore->primaCfu != NULL){
         cartaNegliScarti(scarti, giocatore->primaCfu);
@@ -245,6 +257,7 @@ void scartaMano(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
  * @return Vero se il giocatore ha solo carte istantanee in mano, falso altrimenti
  */
 bool soloIstantanee(Giocatore giocatore){
+    debug("\t\tsoloIstantanee()\n");
     bool soloIstantanee = true;
     for(CartaCfu* carta = giocatore.primaCfu; carta != NULL; carta = carta->prossima)
         if(carta->effetto < PRIMA_ISTANTANEA)
@@ -262,6 +275,7 @@ bool soloIstantanee(Giocatore giocatore){
  * @return Puntatore alla carta selezionata
  */
 CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bool normali, bool annulla) {
+    debug("\t\tselezionaCarta()\n");
 
     // Secondo le regole del gioco, questo non dovrebbe mai succedere
     if(!istantanee && !effetto && !normali){
@@ -312,6 +326,7 @@ CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bo
             printf("Non e' la fase delle carte istantanee (%c).\n", SIMBOLO_CARTA_ISTANTANEA);
         }
     }
+    printf("\n");
     return mano[scelta-1];
 }
 
