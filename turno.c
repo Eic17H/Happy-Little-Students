@@ -156,6 +156,8 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
     if(giocatori == NULL || nGiocatori<=0)
         return;
 
+    bool annulla = false;
+
     int i=0;
     // Conterrà l'ordine in cui verranno eseguiti gli effetti, relativamente all'ordine dei giocatori
     int ordineEffetti[nGiocatori];
@@ -196,11 +198,15 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
         printf(RESET);
         calcolaPunteggio(&punteggi[i], moltiplicatoreAumenta);
     }
-    ordinaEffetti(nGiocatori, ordineEffetti, carte);
-    for(i=0; i<nGiocatori; i++){
-        // TODO: più bello
-        if(carte[ordineEffetti[i]].effetto != NESSUNO && carte[ordineEffetti[i]].effetto < PRIMA_ISTANTANEA)
-            usaEffetto(carte[ordineEffetti[i]], arrayGiocatori[ordineEffetti[i]], &punteggi[ordineEffetti[i]], scarti, personaggi, &giocatori, nGiocatori, &moltiplicatoreAumenta);
+    annulla = controllaAnnulla(nGiocatori, carte);
+    if(!annulla) {
+        ordinaEffetti(nGiocatori, ordineEffetti, carte);
+        for (i = 0; i < nGiocatori; i++) {
+            // TODO: più bello
+            if (carte[ordineEffetti[i]].effetto != NESSUNO && carte[ordineEffetti[i]].effetto < PRIMA_ISTANTANEA)
+                usaEffetto(carte[ordineEffetti[i]], arrayGiocatori[ordineEffetti[i]], &punteggi[ordineEffetti[i]],
+                           scarti, personaggi, &giocatori, nGiocatori, &moltiplicatoreAumenta);
+        }
     }
     for(i=0; i<nGiocatori; i++){
         if(punteggi[i].totale > punteggi[max].totale)

@@ -32,6 +32,6 @@ void inverti();
 void salva();
 void dirotta();
 void ordinaEffetti(int nGiocatori, int ordine[nGiocatori], CartaCfu carte[nGiocatori]);
-void scambiaEffetti(GiocatoreCarta*, GiocatoreCarta*);
+bool controllaAnnulla(int nGiocatori, CartaCfu carte[nGiocatori]);
 
 #endif //HAPPY_LITTLE_STUDENTS_CARTEEFFETTO_H

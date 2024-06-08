@@ -261,3 +261,10 @@ void ordinaEffetti(int nGiocatori, int ordine[nGiocatori], CartaCfu carte[nGioca
     }
     ordinaEffetti(nGiocatori - 1, ordine, carte);
 }
+
+bool controllaAnnulla(int nGiocatori, CartaCfu carte[nGiocatori]){
+    for(int i=0; i<nGiocatori; i++)
+        if(carte[i].effetto == ANNULLA)
+            return true;
+    return false;
+}

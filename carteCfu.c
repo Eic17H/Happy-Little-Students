@@ -262,6 +262,13 @@ bool soloIstantanee(Giocatore giocatore){
  * @return Puntatore alla carta selezionata
  */
 CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bool normali){
+
+    // Secondo le regole del gioco, questo non dovrebbe mai succedere
+    if(!istantanee && !effetto && !normali){
+        istantanee = true;
+        effetto = true;
+        normali = true;
+    }
     mostraCarte(*giocatore);
     int carteInMano = contaCarteMano(*giocatore);
     // Puntatori a due carte
