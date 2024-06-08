@@ -235,22 +235,13 @@ void dirotta(){
  * @param nGiocatori Il numero corrente di giocatori
  * @param effetti L'array di coppie giocatore-carta
  */
-void ordinaEffetti(int nGiocatori, GiocatoreCarta effetti[nGiocatori]){
+void ordinaEffetti(int nGiocatori, int ordine[nGiocatori]) {
     if(nGiocatori == 1)
         return;
     int min = 0;
     for(int i=1; i<nGiocatori; i++)
-        if(effetti[i].carta.cfu < effetti[min].carta.cfu)
+        if(effetti[ordine[i]].carta.cfu < effetti[ordine[min]].carta.cfu)
             min = i;
-    scambiaEffetti(&effetti[nGiocatori-1], &effetti[min]);
-    ordinaEffetti(nGiocatori-1, effetti);
-}
-
-/**
- * Scambia due coppie giocatore-carta
- */
-void scambiaEffetti(GiocatoreCarta* a, GiocatoreCarta* b){
-    GiocatoreCarta temp = *a;
-    *a = *b;
-    *b = temp;
+    scambiaInt(&ordine[nGiocatori-1], &ordine[min]);
+    ordinaEffetti(nGiocatori - 1, ordine);
 }

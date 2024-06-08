@@ -75,8 +75,6 @@ void rimuoviGiocatore(Giocatore** giocatori, Giocatore* giocatore, int* nGiocato
     }
 }
 
-// TODO: scartaTutteLeCarte(), in questo momento ci si può softlockare
-
 /**
  * Spareggio per gli sconfitti
  * @param giocatori puntatore al primo giocatore
@@ -85,6 +83,7 @@ void rimuoviGiocatore(Giocatore** giocatori, Giocatore* giocatore, int* nGiocato
  * @return puntatore al giocatore che perde
  */
 // TODO: Colore personaggio
+// TODO: Si è rotto
 Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGiocatori], CartaCfu** scarti){
     printf("\n\n=== SPAREGGIO ===\n\n");
     int punti[nGiocatori], continuare=1, min=0;
@@ -102,7 +101,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
             // consideriamo solo chi partecipa allo spareggio
             if (sconfitti[i] == 1) {
                 punti[i]=0;
-                giocaCarta(giocatore, scarti, &punti[i], NULL);
+                giocaCarta(giocatore, scarti, &punti[i]);
             }
         }
         // trovare il punteggio minimo
@@ -147,6 +146,8 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
  */
 void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo){
 
+    CartaCfu carte[nGiocatori];
+    Giocatore* arrayGiocatori[nGiocatori];
     int moltiplicatoreAumenta = 1;
 
     // Controllo che ci siano giocatori
@@ -154,12 +155,14 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
         return;
 
     int i=0;
+    // Conterrà l'ordine in cui verranno eseguiti gli effetti, relativamente all'ordine dei giocatori
+    int ordineEffetti[nGiocatori];
+    for(i=0; i<nGiocatori; i++)
+        ordineEffetti[i] = i;
 
     // Variabile che scorre la lista di giocatori
     Giocatore* giocatore = giocatori;
-    // TODO: usare la struct
     Punteggio punteggi[nGiocatori];
-    int cfuTurno[nGiocatori];
     // Punteggio minimo e punteggio massimo del turno
     int min=0, max=0;
     // Numero ed elenco di sconfitti, per lo spareggio
@@ -168,9 +171,6 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
     bool sconfitti[nGiocatori];
 
     stampaOstacolo(**carteOstacolo);
-
-    // Conterrà le coppie giocatore-carta per eseguire gli effetti in ordine
-    GiocatoreCarta effetti[nGiocatori];
 
     for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
         // Se il giocatore ha solo carte istantanee, scarta tutta la mano e pesca altre carte
@@ -186,15 +186,15 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
         punteggi[i].aumenta = 0;
         colorePersonaggio(giocatore->personaggio, personaggi);
         printf("= Turno di %s\n", giocatore->nomeUtente);
-        giocaCarta(giocatore, scarti, &punteggi[i].carta, &effetti[i]);
+        giocaCarta(giocatore, scarti, &punteggi[i].carta);
+        arrayGiocatori[i] = giocatore;
+        carte[i] = **scarti;
         printf(RESET);
         calcolaPunteggio(&punteggi[i], moltiplicatoreAumenta);
     }
-    ordinaEffetti(nGiocatori, effetti);
-    // TODO: risolvere mismatch tra l'ordine di effetti[] e l'ordine di punteggi[] (forse non serve)
-    // Magari anziché ordinare effetti[] tengo un altro array che dice l'ordine
+    ordinaEffetti(nGiocatori, ordineEffetti);
     for(i=0; i<nGiocatori; i++){
-        usaEffetto(effetti[i].carta, effetti[i].giocatore, &punteggi[i], scarti, personaggi, &giocatori, nGiocatori, &moltiplicatoreAumenta);
+        usaEffetto(carte[ordineEffetti[i]], arrayGiocatori[ordineEffetti[i]], &punteggi[ordineEffetti[i]], scarti, personaggi, &giocatori, nGiocatori, &moltiplicatoreAumenta);
     }
     for(i=0; i<nGiocatori; i++){
         if(punteggi[i].totale > punteggi[max].totale)

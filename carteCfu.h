@@ -21,7 +21,7 @@ void prendiCarta(Giocatore*, CartaCfu*);
 CartaCfu *selezionaCarta(Giocatore *, bool, bool, bool);
 
 // Subroutine che usano quelle precedenti
-void giocaCarta(Giocatore*, CartaCfu**, int*, GiocatoreCarta*);
+void giocaCarta(Giocatore *, CartaCfu **, int *);
 void pescaCarta(Giocatore*, CartaCfu**, CartaCfu**);
 void pescaRotazione(Giocatore*, CartaCfu**, CartaCfu**);
 void scartaMano(Giocatore*, CartaCfu**, CartaCfu**);

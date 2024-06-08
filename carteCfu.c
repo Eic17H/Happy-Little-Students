@@ -63,7 +63,7 @@ bool haQuestaCarta(Giocatore* giocatore, CartaCfu* carta){
  * @param cfuTurno Puntatore alla variabile che registra i CFU correnti del giocatore
  * @param effetto Puntatore alla struct che contiene informazioni sul giocatore e sulla sua carta
  */
-void giocaCarta(Giocatore *giocatore, CartaCfu **scarti, int *cfuTurno, GiocatoreCarta *effetto){
+void giocaCarta(Giocatore *giocatore, CartaCfu **scarti, int *cfuTurno){
 
     // Il giocatore seleziona una carta dalla propria mano (le carte istantanee non sono ammesse)
     CartaCfu *carta = daiCarta(giocatore, selezionaCarta(giocatore, false, 0, 0));
@@ -75,9 +75,6 @@ void giocaCarta(Giocatore *giocatore, CartaCfu **scarti, int *cfuTurno, Giocator
     }
     // Si aggiungono i CFU della carta scartata al conteggio dei CFU del giocatore
     *cfuTurno += carta->cfu;
-    // Si mettono le informazioni per l'esecuzione degli effetti in ordine
-    effetto->giocatore = giocatore;
-    effetto->carta = *carta;
     // Si mette la carta nella pila degli scarti
     cartaNegliScarti(scarti, carta);
 }

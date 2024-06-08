@@ -89,9 +89,4 @@ struct Punteggio{
     int totale;
 };
 
-struct GiocatoreCarta{
-    CartaCfu carta;
-    Giocatore* giocatore;
-};
-
 #endif //HAPPY_LITTLE_STUDENTS_TIPI_H
