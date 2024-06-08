@@ -155,6 +155,8 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
     for(int i=0; i<nGiocatori-1; i++){
         if(cerca != giocatore)
             avversari[i] = cerca;
+        else
+            i--;
         cerca = cerca->prossimo;
     }
 
