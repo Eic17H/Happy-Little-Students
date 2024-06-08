@@ -66,7 +66,7 @@ bool haQuestaCarta(Giocatore* giocatore, CartaCfu* carta){
 void giocaCarta(Giocatore *giocatore, CartaCfu **scarti, int *cfuTurno){
 
     // Il giocatore seleziona una carta dalla propria mano (le carte istantanee non sono ammesse)
-    CartaCfu *carta = daiCarta(giocatore, selezionaCarta(giocatore, false, 0, 0));
+    CartaCfu *carta = daiCarta(giocatore, selezionaCarta(giocatore, false, true, true));
 
     // In teoria non può succedere, ma è meglio metterla
     if(carta == NULL){
@@ -285,6 +285,12 @@ CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bo
         }else if(scelta>carteInMano){
             sceltaValida = false;
             printf("Hai solo %d carte in mano.\n", carteInMano);
+        }else if(mano[scelta-1]->effetto == NESSUNO && !normali){
+            sceltaValida = false;
+            printf("Non puoi selezionare una carta senza effetto.\n");
+        }else if(mano[scelta-1]->effetto != NESSUNO && mano[scelta-1]->effetto < PRIMA_ISTANTANEA && !effetto){
+            sceltaValida = false;
+            printf("Puoi selezionare solo una carta con effetto.\n");
         }else if(mano[scelta-1]->effetto >= PRIMA_ISTANTANEA && !istantanee){
             sceltaValida = false;
             printf("Non e' la fase delle carte istantanee (%c).\n", SIMBOLO_CARTA_ISTANTANEA);
