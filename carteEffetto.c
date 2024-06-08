@@ -263,6 +263,7 @@ void ordinaEffetti(int nGiocatori, int ordine[nGiocatori], CartaCfu carte[nGioca
 }
 
 bool controllaAnnulla(int nGiocatori, CartaCfu carte[nGiocatori]){
+    // TODO: stampa nome giocatore
     for(int i=0; i<nGiocatori; i++)
         if(carte[i].effetto == ANNULLA)
             return true;
