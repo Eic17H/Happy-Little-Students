@@ -148,6 +148,8 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
 
     CartaCfu carte[nGiocatori];
     Giocatore* arrayGiocatori[nGiocatori];
+
+    // TODO: spostare nel main
     int moltiplicatoreAumenta = 1;
 
     // Controllo che ci siano giocatori
@@ -162,6 +164,8 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
 
     // Variabile che scorre la lista di giocatori
     Giocatore* giocatore = giocatori;
+
+    // TODO: spostare nel main
     Punteggio punteggi[nGiocatori];
     // Punteggio minimo e punteggio massimo del turno
     int min=0, max=0;
@@ -192,9 +196,11 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
         printf(RESET);
         calcolaPunteggio(&punteggi[i], moltiplicatoreAumenta);
     }
-    ordinaEffetti(nGiocatori, ordineEffetti);
+    ordinaEffetti(nGiocatori, ordineEffetti, carte);
     for(i=0; i<nGiocatori; i++){
-        usaEffetto(carte[ordineEffetti[i]], arrayGiocatori[ordineEffetti[i]], &punteggi[ordineEffetti[i]], scarti, personaggi, &giocatori, nGiocatori, &moltiplicatoreAumenta);
+        // TODO: più bello
+        if(carte[ordineEffetti[i]].effetto != NESSUNO && carte[ordineEffetti[i]].effetto < PRIMA_ISTANTANEA)
+            usaEffetto(carte[ordineEffetti[i]], arrayGiocatori[ordineEffetti[i]], &punteggi[ordineEffetti[i]], scarti, personaggi, &giocatori, nGiocatori, &moltiplicatoreAumenta);
     }
     for(i=0; i<nGiocatori; i++){
         if(punteggi[i].totale > punteggi[max].totale)

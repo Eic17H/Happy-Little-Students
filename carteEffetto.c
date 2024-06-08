@@ -66,6 +66,9 @@ void stampaEffetto(CartaCfu carta){
  */
 void
 usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, Personaggio personaggi[4], Giocatore **giocatori, int nGiocatori, int *moltiplicatoreAumenta){
+    coloreGiocatore(giocatore, personaggi);
+    printf("Si attiva l'effetto della carta di %s!\n" RESET, giocatore->nomeUtente);
+    stampaEffetto(carta);
     switch(carta.effetto){
         case NESSUNO:
             debug("NESSUN EFFETTO\n");
@@ -152,6 +155,7 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
     for(int i=0; i<nGiocatori-1; i++){
         if(cerca != giocatore)
             avversari[i] = cerca;
+        cerca = cerca->prossimo;
     }
 
     // Si mostrano gli avversari
@@ -235,13 +239,13 @@ void dirotta(){
  * @param nGiocatori Il numero corrente di giocatori
  * @param effetti L'array di coppie giocatore-carta
  */
-void ordinaEffetti(int nGiocatori, int ordine[nGiocatori]) {
+void ordinaEffetti(int nGiocatori, int ordine[nGiocatori], CartaCfu carte[nGiocatori]){
     if(nGiocatori == 1)
         return;
     int min = 0;
     for(int i=1; i<nGiocatori; i++)
-        if(effetti[ordine[i]].carta.cfu < effetti[ordine[min]].carta.cfu)
+        if(carte[ordine[i]].cfu < carte[ordine[min]].cfu)
             min = i;
     scambiaInt(&ordine[nGiocatori-1], &ordine[min]);
-    ordinaEffetti(nGiocatori - 1, ordine);
+    ordinaEffetti(nGiocatori - 1, ordine, carte);
 }
