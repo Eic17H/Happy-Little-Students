@@ -234,8 +234,8 @@ void dirotta(){
 }
 
 /**
- * Ordina le coppie giocatore-carta per eseguire gli effetti in ordine
- * Selection sort in ordine decrescente di CFU
+ * Ordina un array di indici, sulla base dei CFU della carta associata
+ * Selection sort in ordine decrescente
  * @param nGiocatori Il numero corrente di giocatori
  * @param effetti L'array di coppie giocatore-carta
  */
@@ -243,9 +243,21 @@ void ordinaEffetti(int nGiocatori, int ordine[nGiocatori], CartaCfu carte[nGioca
     if(nGiocatori == 1)
         return;
     int min = 0;
-    for(int i=1; i<nGiocatori; i++)
-        if(carte[ordine[i]].cfu < carte[ordine[min]].cfu)
-            min = i;
-    scambiaInt(&ordine[nGiocatori-1], &ordine[min]);
+
+    // Se c'è un effetto da attivare alla fine del turno, si mette l'effetto alla fine e lo si esclude dall'ordinamento
+    bool fineTurno = false;
+    for(int i=1; i<nGiocatori && !fineTurno; i++)
+        if(carte[ordine[i]].effetto == SCAMBIAP){
+            fineTurno = true;
+            scambiaInt(&ordine[nGiocatori - 1], &ordine[i]);
+        }
+
+    // Se non c'è, si ordinano normalmente
+    if(!fineTurno){
+        for(int i=1; i<nGiocatori; i++)
+            if(carte[ordine[i]].cfu < carte[ordine[min]].cfu)
+                min = i;
+        scambiaInt(&ordine[nGiocatori-1], &ordine[min]);
+    }
     ordinaEffetti(nGiocatori - 1, ordine, carte);
 }
