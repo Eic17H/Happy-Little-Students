@@ -1,7 +1,4 @@
 #include "turno.h"
-#include "carteCfu.h"
-#include "carteOstacolo.h"
-#include "carteEffetto.h"
 
 /** Inizializza i giocatori:
  * nessuna carta CFU,
@@ -39,6 +36,7 @@ Giocatore* vince(Giocatore* giocatori){
     // se rimane un solo giocatore, ha vinto
     if(giocatori->prossimo == NULL){
         printf("%s e' l'ultimo giocatore rimasto.\n", giocatori->nomeUtente);
+        logVince(*giocatori, false);
         return giocatori;
     }
     Giocatore* giocatore = giocatori;
@@ -46,6 +44,7 @@ Giocatore* vince(Giocatore* giocatori){
     for(giocatore = giocatori; giocatore != NULL; giocatore = giocatore->prossimo){
         if(giocatore->cfu >= PUNTI_PER_VINCERE){
             printf("%s ha abbastanza CFU per vincere.\n", giocatore->nomeUtente);
+            logVince(*giocatori, true);
             return giocatore;
         }
     }
@@ -247,6 +246,7 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
         giocatore = arrayGiocatori[min];
     else
         giocatore = spareggio(giocatori, nGiocatori, sconfitti, scarti);
+    logOstacolo(*giocatore, **carteOstacolo);
     pescaOstacolo(giocatore, carteOstacolo);
 }
 

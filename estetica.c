@@ -295,6 +295,7 @@ void stampaSituazione(Giocatore* giocatori, int nGiocatori, Personaggio* persona
     for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
         colorePersonaggio(giocatore->personaggio, personaggi);
         printf("%32s: %2d CFU\t", giocatore->nomeUtente, giocatore->cfu);
+        logCfu(*giocatore);
         for(carta = giocatore->primaOstacolo; carta != NULL; carta = carta->prossima) {
             stampaNomeOstacolo(*carta);
             printf("\t");

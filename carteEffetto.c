@@ -77,48 +77,63 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
             debug("\t\tNESSUN EFFETTO\n");
             break;
         case SCARTAP:
+            logEffettoCarta(*giocatore, carta, "SCARTAP");
             scartaPE(giocatore, punteggio, scarti, false);
             break;
         case RUBA:
+            logEffettoCarta(*giocatore, carta, "RUBA");
             ruba(giocatori, giocatore, personaggi, nGiocatori);
             break;
         case SCAMBIADS:
+            logEffettoCarta(*giocatore, carta, "SCAMBIADS");
             scambiaDS();
             break;
         case SCARTAE:
+            logEffettoCarta(*giocatore, carta, "SCARTAE");
             scartaPE(giocatore, punteggio, scarti, true);
             break;
         case SCARTAC:
+            logEffettoCarta(*giocatore, carta, "SCARTAC");
             scartaC();
             break;
         case SCAMBIAP:
+            logEffettoCarta(*giocatore, carta, "SCAMBIAP");
             scambiaP();
             break;
         case DOPPIOE:
+            logEffettoCarta(*giocatore, carta, "DOPPIOE");
             doppioE(moltiplicatoreAumenta);
             break;
         case SBIRCIA:
+            logEffettoCarta(*giocatore, carta, "SBIRCIA");
             sbircia();
             break;
         case SCAMBIAC:
+            logEffettoCarta(*giocatore, carta, "SCAMBIAC");
             scambiaC();
             break;
         case ANNULLA:
+            logEffettoCarta(*giocatore, carta, "ANNULLA");
             annulla();
             break;
         case AUMENTA:
+            logEffettoCarta(*giocatore, carta, "AUMENTA");
             aumenta();
             break;
         case DIMINUISCI:
+            logEffettoCarta(*giocatore, carta, "DIMINUISCI");
             diminuisci();
             break;
         case INVERTI:
+            logEffettoCarta(*giocatore, carta, "INVERTI");
             inverti();
             break;
         case SALVA:
+            logEffettoCarta(*giocatore, carta, "SALVA");
             salva();
             break;
         case DIROTTA:
+            logEffettoCarta(*giocatore, carta, "DIROTTA");
             dirotta();
             break;
         default:

@@ -12,6 +12,9 @@
 #include "estetica.h"
 #include "utilita.h"
 #include "carteEffetto.h"
+#include "carteCfu.h"
+#include "carteOstacolo.h"
+#include "log.h"
 
 void inizializzaGiocatori(Giocatore*);
 void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio[4], CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo);

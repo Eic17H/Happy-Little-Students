@@ -12,9 +12,11 @@ void creaLog(){
     // Se esiste già, si va a capo per separare questa partita dalla precedente
     }else{
         fclose(fp);
-        fp = fopen("log.txt", "w");
+        fp = fopen("log.txt", "a");
         fprintf(fp, "\n");
     }
+    fclose(fp);
+    fp = fopen("log.txt", "a");
     // Si segna l'inizio della partita
     fprintf(fp, "INIZIO PARTITA\n");
     fclose(fp);
@@ -28,7 +30,7 @@ void logTurno(int nTurno){
 
 void logCartaCfu(Giocatore giocatore, CartaCfu carta){
     FILE *fp = fopen("log.txt", "a");
-    fprintf(fp, "%s gioca %s\n", giocatore.nomeUtente, carta.nome);
+    fprintf(fp, "%s gioca %s (%d CFU)\n", giocatore.nomeUtente, carta.nome, carta.cfu);
     fclose(fp);
 }
 
@@ -45,7 +47,22 @@ void logPescaCfu(Giocatore giocatore, CartaCfu carta){
 }
 
 void logOstacolo(Giocatore giocatore, CartaOstacolo carta){
-    FILE *fp = fopen("log.txt", "w");
+    FILE *fp = fopen("log.txt", "a");
     fprintf(fp, "%s pesca l'ostacolo %s\n", giocatore.nomeUtente, carta.nome);
+    fclose(fp);
+}
+
+void logVince(Giocatore giocatore, bool punti){
+    FILE *fp = fopen("log.txt", "a");
+    if(punti)
+        fprintf(fp, "%s vince perche' ha abbastanza CFU\n", giocatore.nomeUtente);
+    else
+        fprintf(fp, "%s vince perche' e' l'ultimo giocatore rimasto\n", giocatore.nomeUtente);
+    fclose(fp);
+}
+
+void logCfu(Giocatore giocatore){
+    FILE *fp = fopen("log.txt", "a");
+    fprintf(fp, "%s ha %d CFU\n", giocatore.nomeUtente, giocatore.cfu);
     fclose(fp);
 }

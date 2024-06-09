@@ -12,6 +12,7 @@
 #include <stdbool.h>
 #include "tipi.h"
 #include "turno.h"
+#include "log.h"
 
 // Subroutine che gestiscono le fondamenta dello spostamento delle carte
 CartaCfu* daiCarta(Giocatore*, CartaCfu*);

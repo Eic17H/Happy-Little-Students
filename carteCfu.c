@@ -79,6 +79,7 @@ void giocaCarta(Giocatore *giocatore, CartaCfu **scarti, int *cfuTurno){
     }
     // Si aggiungono i CFU della carta scartata al conteggio dei CFU del giocatore
     *cfuTurno += carta->cfu;
+    logCartaCfu(*giocatore, *carta);
     // Si mette la carta nella pila degli scarti
     cartaNegliScarti(scarti, carta);
 }
@@ -132,6 +133,7 @@ void prendiCarta(Giocatore* giocatore, CartaCfu* carta){
  */
 void pescaCarta(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
     debug("\t\tpescaCarta()\n");
+    logPescaCfu(*giocatore, **mazzo);
     // Se è finito il mazzo si mischiano gli scarti
     if(mazzo==NULL){
         mazzo = scarti;

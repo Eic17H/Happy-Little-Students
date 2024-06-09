@@ -13,6 +13,7 @@
 #include "utilita.h"
 #include "estetica.h"
 #include "carteCfu.h"
+#include "log.h"
 
 void stampaEffetto(CartaCfu);
 void usaEffetto(CartaCfu, Giocatore *, Punteggio *, CartaCfu **, Personaggio[4], Giocatore **, int,

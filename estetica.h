@@ -6,6 +6,7 @@
 #include "tipi.h"
 #include "ANSI-color-codes.h"
 #include <string.h>
+#include "log.h"
 
 #endif //HAPPY_LITTLE_STUDENTS_ESTETICA_H
 
