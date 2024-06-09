@@ -11,10 +11,13 @@
 #include "ANSI-color-codes.h"
 #include "carteCfu.h"
 #include "carteOstacolo.h"
+#include "log.h"
 
 int main() {
     srand(time(NULL));
     stampaLogo();
+
+    creaLog();
 
     // Array contenente i quattro personaggi (le plance di gioco)
     Personaggio personaggi[N_PERSONAGGI];
@@ -52,6 +55,7 @@ int main() {
     do{
         // Comincia un turno
         nTurno++;
+        logTurno(nTurno);
         pescaRotazione(giocatori, &carteCfu, &scarti);
 
         // Si stampano le informazioni correnti

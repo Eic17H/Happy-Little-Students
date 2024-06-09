@@ -118,6 +118,12 @@
 		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/letturaFile.h">
 			<Option target="Happy_Little_Students"/>
 		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/log.c">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
+		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/log.h">
+			<Option target="Happy_Little_Students"/>
+		</Unit>
 		<Unit filename="C:/GitHub/Happy-Little-Students/Happy-Little-Students/main.c">
 			<Option target="Happy_Little_Students"/>
 		</Unit>

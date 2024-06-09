@@ -272,6 +272,30 @@ letturaFile.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/letturaFile.c.s
 .PHONY : letturaFile.c.s
 
+log.obj: log.c.obj
+.PHONY : log.obj
+
+# target to build an object file
+log.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/log.c.obj
+.PHONY : log.c.obj
+
+log.i: log.c.i
+.PHONY : log.i
+
+# target to preprocess a source file
+log.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/log.c.i
+.PHONY : log.c.i
+
+log.s: log.c.s
+.PHONY : log.s
+
+# target to generate assembly for a file
+log.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/log.c.s
+.PHONY : log.c.s
+
 main.obj: main.c.obj
 .PHONY : main.obj
 
@@ -371,6 +395,9 @@ help:
 	@echo ... letturaFile.obj
 	@echo ... letturaFile.i
 	@echo ... letturaFile.s
+	@echo ... log.obj
+	@echo ... log.i
+	@echo ... log.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
