@@ -1,12 +1,22 @@
 #include "log.h"
 
 void creaLog(){
+    // Si prova ad aprire il file del log
     FILE *fp = fopen("log.txt", "r");
+
+    // Se non esiste, lo si crea, vuoto
     if(fp == NULL){
         fclose(fp);
         fp = fopen("log.txt", "w");
         fprintf(fp, "");
+    // Se esiste già, si va a capo per separare questa partita dalla precedente
+    }else{
+        fclose(fp);
+        fp = fopen("log.txt", "w");
+        fprintf(fp, "\n");
     }
+    // Si segna l'inizio della partita
+    fprintf(fp, "INIZIO PARTITA\n");
     fclose(fp);
 }
 
