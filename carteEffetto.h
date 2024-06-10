@@ -20,7 +20,7 @@ void usaEffetto(CartaCfu, Giocatore *, Punteggio *, CartaCfu **, Personaggio[4],
                 int *moltiplicatoreAumenta);
 void scartaPE(Giocatore*, Punteggio*, CartaCfu**, bool);
 void ruba(Giocatore**, Giocatore*, Personaggio[N_PERSONAGGI], int);
-void scambiaDS();
+void scambiaDS(Giocatore** giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori);
 void scartaC();
 void scambiaP();
 void doppioE(int *moltiplicatoreAumenta);
@@ -34,5 +34,7 @@ void salva();
 void dirotta();
 void ordinaEffetti(int nGiocatori, int ordine[nGiocatori], CartaCfu carte[nGiocatori]);
 bool controllaAnnulla(int nGiocatori, CartaCfu carte[nGiocatori]);
+void arrayAvversari(Giocatore** giocatori, Giocatore* giocatore, int nGiocatori, Giocatore* avversari[nGiocatori-1]);
+Giocatore* selezionaAvversario(Giocatore** giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori);
 
 #endif //HAPPY_LITTLE_STUDENTS_CARTEEFFETTO_H

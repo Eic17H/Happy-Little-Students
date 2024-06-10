@@ -86,7 +86,7 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
             break;
         case SCAMBIADS:
             logEffettoCarta(*giocatore, carta, "SCAMBIADS");
-            scambiaDS();
+            scambiaDS(giocatori, giocatore, personaggi, nGiocatori);
             break;
         case SCARTAE:
             logEffettoCarta(*giocatore, carta, "SCARTAE");
@@ -167,8 +167,55 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
     debug("\t\truba()\n");
     int scelta = 0;
 
-    // Un array contenente gli avversari
+    // Si seleziona un avversario
+    printf("Seleziona un avversario a cui rubare una carta:\n");
+    Giocatore* avversario = selezionaAvversario(giocatori, giocatore, personaggi, nGiocatori);
+
+    CartaCfu* carta = selezionaCarta(avversario, true, true, true, false);
+    logRuba(*giocatore, *avversario, *carta);
+
+    // Il giocatore seleziona e prende una carta qualunque dalla mano dell'avversario scelto
+    prendiCarta(giocatore, daiCarta(avversario, carta));
+    return;
+}
+
+/**
+ * Scambia questa carta con quella di un altro giocatore, purché senza effetto
+ */
+void scambiaDS(Giocatore** giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
+    debug("\t\tscambiaDS()\n");
+    return;
+
+    // Seleziona un avver-
+    // TODO: rifare, questo è praticamente inutile
+    Giocatore* avversario = selezionaAvversario(giocatori, giocatore, personaggi, nGiocatori);
+
+
+    CartaCfu* carta = selezionaCarta(avversario, true, true, true, false);
+    return;
+}
+
+Giocatore* selezionaAvversario(Giocatore** giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
+
     Giocatore* avversari[nGiocatori - 1];
+    arrayAvversari(giocatori, giocatore, nGiocatori, avversari);
+
+    int scelta = 0;
+    coloreGiocatore(giocatore, personaggi);
+    for(int i=0; i<nGiocatori-1; i++){
+        coloreGiocatore(avversari[i], personaggi);
+        printf("\t%d: %s\n", i+1, avversari[i]->nomeUtente);
+    }
+    scanf("%d", &scelta);
+    while(scelta<1 || scelta>nGiocatori-1){
+        printf("Seleziona un numero tra 1 e %d.\n", nGiocatori-1);
+        scanf("%d", &scelta);
+    }
+    printf(RESET);
+    return avversari[scelta-1];
+}
+
+void arrayAvversari(Giocatore** giocatori, Giocatore* giocatore, int nGiocatori, Giocatore* avversari[nGiocatori-1]){
     Giocatore* cerca = *giocatori;
     for(int i=0; i<nGiocatori-1; i++){
         if(cerca != giocatore)
@@ -177,40 +224,8 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
             i--;
         cerca = cerca->prossimo;
     }
-
-    // Si mostrano gli avversari
-    coloreGiocatore(giocatore, personaggi);
-    printf("%s" RESET ", seleziona un avversario a cui rubare una carta:\n", giocatore->nomeUtente);
-    for(int i=0; i<nGiocatori-1; i++){
-        coloreGiocatore(avversari[i], personaggi);
-        printf("\t%d: %s\n", i+1, avversari[i]->nomeUtente);
-    }
-
-    // Selezione dell'avversario
-    coloreGiocatore(giocatore, personaggi);
-    scanf("%d", &scelta);
-    while(scelta<1 || scelta>nGiocatori-1){
-        printf("Seleziona un numero tra 1 e %d.\n", nGiocatori-1);
-        scanf("%d", &scelta);
-    }
-    printf(RESET);
-    scelta--;
-
-    CartaCfu* carta = selezionaCarta(avversari[scelta], true, true, true, false);
-    logRuba(*giocatore, *avversari[scelta], *carta);
-
-    // Il giocatore seleziona e prende una carta qualunque dalla mano dell'avversario scelto
-    prendiCarta(giocatore, daiCarta(avversari[scelta], carta));
-    return;
 }
 
-/**
- * Scambia questa carta con quella di un altro giocatore, purché senza effetto
- */
-void scambiaDS(){
-    debug("\t\tscambiaDS()\n");
-    return;
-}
 void scartaC(){
     debug("\t\tscartaC()\n");
     return;
