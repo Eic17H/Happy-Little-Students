@@ -66,3 +66,18 @@ void logCfu(Giocatore giocatore){
     fprintf(fp, "%s ha %d CFU\n", giocatore.nomeUtente, giocatore.cfu);
     fclose(fp);
 }
+
+void logRuba(Giocatore ladro, Giocatore vittima, CartaCfu carta){
+    FILE *fp = fopen("log.txt", "a");
+    fprintf(fp, "%s ruba %s a %s\n", ladro.nomeUtente, carta.nome, vittima.nomeUtente);
+    fclose(fp);
+}
+
+void prendiCfu(Giocatore giocatore, int nCfu, bool carte){
+    FILE *fp = fopen("log.txt", "a");
+    if(carte)
+        fprintf(fp, "%s prende %d CFU grazie alle carte giocate\n", giocatore.nomeUtente, nCfu);
+    else
+        fprintf(fp, "%s prende %d CFU grazie alle carte ostacolo\n", giocatore.nomeUtente, nCfu);
+    fclose(fp);
+}

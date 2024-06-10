@@ -237,6 +237,7 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
         if(punteggi[i].totale==punteggi[max].totale){
             colorePersonaggio(arrayGiocatori[i]->personaggio, personaggi);
             printf("%s ha preso %d cfu per le carte giocate.\n" RESET, arrayGiocatori[i]->nomeUtente, punteggi[i].totale);
+            prendiCfu(*arrayGiocatori[i], punteggi[i].totale, true);
             arrayGiocatori[i]->cfu += punteggi[i].totale;
         }
     }

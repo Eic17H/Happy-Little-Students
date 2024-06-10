@@ -105,7 +105,9 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio perso
     Giocatore *giocatore=*giocatori, *giocatorePrec;
     CartaOstacolo *carta;
     int carte[4] = {0, 0, 0, 0};
+    int precedente = 0;
     for(giocatore = *giocatori; giocatore!=NULL; giocatore = giocatore->prossimo){
+        precedente = giocatore->cfu;
         carte[0] = 0;
         carte[1] = 0;
         carte[2] = 0;
@@ -131,6 +133,12 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio perso
                 default:
                     break;
             }
+        }
+        if(giocatore->cfu-precedente != 0){
+            prendiCfu(*giocatore, giocatore->cfu - precedente, false);
+            coloreGiocatore(giocatore, personaggi);
+            printf("%s ha preso %d CFU grazie alle carte ostacolo.\n" RESET, giocatore->nomeUtente,
+                   giocatore->cfu - precedente);
         }
         // TODO: 2 giocatori
         if(troppiOstacoli(carte, *nGiocatori)){

@@ -189,11 +189,18 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
     // Selezione dell'avversario
     coloreGiocatore(giocatore, personaggi);
     scanf("%d", &scelta);
+    while(scelta<1 || scelta>nGiocatori-1){
+        printf("Seleziona un numero tra 1 e %d.\n", nGiocatori-1);
+        scanf("%d", &scelta);
+    }
     printf(RESET);
     scelta--;
 
+    CartaCfu* carta = selezionaCarta(avversari[scelta], true, true, true, false);
+    logRuba(*giocatore, *avversari[scelta], *carta);
+
     // Il giocatore seleziona e prende una carta qualunque dalla mano dell'avversario scelto
-    prendiCarta(giocatore, daiCarta(avversari[scelta], selezionaCarta(avversari[scelta], true, true, true, false)));
+    prendiCarta(giocatore, daiCarta(avversari[scelta], carta));
     return;
 }
 
