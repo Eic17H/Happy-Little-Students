@@ -61,6 +61,8 @@ void stampaEffetto(CartaCfu carta){
     }
 }
 
+// TODO: passa tutti i punteggi
+
 /**
  * Usa l'effetto di una carta cfu
  * @param carta La carta
@@ -118,15 +120,15 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
             break;
         case AUMENTA:
             logEffettoCarta(*giocatore, carta, "AUMENTA");
-            aumenta();
+            //aumentaDiminuisci(giocatore, giocatori, 1, personaggi, punteggio, )
             break;
         case DIMINUISCI:
             logEffettoCarta(*giocatore, carta, "DIMINUISCI");
-            diminuisci();
+            //aumentaDiminuisci();
             break;
         case INVERTI:
             logEffettoCarta(*giocatore, carta, "INVERTI");
-            inverti();
+            //inverti(punteggi);
             break;
         case SALVA:
             logEffettoCarta(*giocatore, carta, "SALVA");
@@ -254,28 +256,62 @@ void scambiaC(){
     debug("\t\tscambiaC()\n");
     return;
 }
+
 void annulla(){
     debug("\t\tannulla()\n");
     return;
 }
-void aumenta(){
+
+// TODO: da finire, orrenda
+void aumentaDiminuisci(Giocatore*giocante, Giocatore **giocatori, int valore, Personaggio personaggi[N_PERSONAGGI], Punteggio punteggi[], int moltiplicatore) {
     debug("\t\taumenta()\n");
+    Giocatore* giocatore;
+    int i, scelta;
+    for(i=1, giocatore = *giocatori; giocatore != NULL; i++, giocatore = giocatore->prossimo){
+        calcolaPunteggio(&punteggi[i-1], moltiplicatore);
+        coloreGiocatore(giocatore, personaggi);
+        printf("%d: %s (%d CFU)\n" RESET, i, giocatore->nomeUtente, punteggi[i-1].totale);
+    }
+    coloreGiocatore(giocante, personaggi);
+    printf("Seleziona un giocatore:\n");
+    scanf("%d", &scelta);
+    punteggi[i-1].aumenta += valore;
+    for(i=1, giocatore = *giocatori; giocatore != NULL; i++, giocatore = giocatore->prossimo){
+        calcolaPunteggio(&punteggi[i-1], moltiplicatore);
+    }
     return;
 }
-void diminuisci(){
-    debug("\t\tdiminuisci()\n");
-    return;
-}
-void inverti(){
+
+// TODO: fa schifo
+void inverti(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta) {
     debug("\t\tinverti()\n");
+    int i, min=0, max=0;
+    for(i=0; i<nGiocatori; i++){
+        calcolaPunteggio(&punteggi[i], moltiplicatoreAumenta);
+        if(punteggi[i].totale>punteggi[max].totale)
+            max = i;
+        if(punteggi[i].totale<punteggi[min].totale)
+            min = i;
+    }
+    Punteggio temp = punteggi[max];
+    punteggi[max] = punteggi[min];
+    punteggi[min] = temp;
     return;
 }
-void salva(){
+
+// TODO: è orrenda
+void salva(bool*devePescare){
     debug("\t\tsalva()\n");
+    devePescare = false;
     return;
 }
-void dirotta(){
+
+// TODO: è orrenda
+void dirotta(Giocatore** giocatori, Giocatore* giocatore, int nGiocatori, Personaggio personaggi[N_PERSONAGGI], CartaOstacolo** ostacoli, bool*devePescare){
     debug("\t\tdirotta()\n");
+    devePescare = false;
+    Giocatore*vittima = selezionaAvversario(giocatori, giocatore, personaggi, nGiocatori);
+    pescaOstacolo(vittima, ostacoli);
     return;
 }
 
