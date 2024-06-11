@@ -17,14 +17,14 @@
 
 void stampaEffetto(CartaCfu);
 void usaEffetto(CartaCfu, Giocatore *, Punteggio *, CartaCfu **, Personaggio[4], Giocatore **, int,
-                int *moltiplicatoreAumenta);
+                int *moltiplicatoreAumenta, int indice, Punteggio punteggi[], CartaCfu**mazzo);
 void scartaPE(Giocatore*, Punteggio*, CartaCfu**, bool);
 void ruba(Giocatore**, Giocatore*, Personaggio[N_PERSONAGGI], int);
 void scambiaDS(Giocatore** giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori);
 void scartaC();
-void scambiaP();
+void scambiaP(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta);
 void doppioE(int *moltiplicatoreAumenta);
-void sbircia();
+void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti);
 void scambiaC();
 void annulla();
 void aumentaDiminuisci(Giocatore*giocante, Giocatore **giocatori, int moltiplicatore, Personaggio personaggi[N_PERSONAGGI], Punteggio punteggi[], int moltiplicatore);
@@ -35,5 +35,7 @@ void ordinaEffetti(int nGiocatori, int ordine[nGiocatori], CartaCfu carte[nGioca
 bool controllaAnnulla(int nGiocatori, CartaCfu carte[nGiocatori]);
 void arrayAvversari(Giocatore** giocatori, Giocatore* giocatore, int nGiocatori, Giocatore* avversari[nGiocatori-1]);
 Giocatore* selezionaAvversario(Giocatore** giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori);
+
+void scambiaPunteggi(Punteggio*a, Punteggio*b);
 
 #endif //HAPPY_LITTLE_STUDENTS_CARTEEFFETTO_H

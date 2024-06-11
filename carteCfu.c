@@ -100,6 +100,7 @@ int contaCarteMano(Giocatore giocatore){
  * @param mazzo Il mazzo da cui pescare
  * @return La carta pescata
  */
+ // TODO: mischiaMazzo
 CartaCfu* cartaDalMazzo(CartaCfu** mazzo){
     debug("\t\tcartaDalMazzo()\n");
     // Gestione di un mazzo vuoto

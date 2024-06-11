@@ -68,7 +68,9 @@ void stampaEffetto(CartaCfu carta){
  * @param carta La carta
  */
 void
-usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, Personaggio personaggi[4], Giocatore **giocatori, int nGiocatori, int *moltiplicatoreAumenta){
+usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, Personaggio personaggi[4],
+           Giocatore **giocatori, int nGiocatori, int *moltiplicatoreAumenta, int indice,
+           Punteggio punteggi[nGiocatori], CartaCfu**mazzo) {
     debug("\t\tusaEffetto()\n");
     coloreGiocatore(giocatore, personaggi);
     printf("\nSi attiva l'effetto della carta di %s!\n" RESET, giocatore->nomeUtente);
@@ -100,7 +102,7 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
             break;
         case SCAMBIAP:
             logEffettoCarta(*giocatore, carta, "SCAMBIAP");
-            scambiaP();
+            scambiaP(nGiocatori, punteggi, *moltiplicatoreAumenta);
             break;
         case DOPPIOE:
             logEffettoCarta(*giocatore, carta, "DOPPIOE");
@@ -108,7 +110,7 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
             break;
         case SBIRCIA:
             logEffettoCarta(*giocatore, carta, "SBIRCIA");
-            sbircia();
+            sbircia(giocatore, mazzo, scarti);
             break;
         case SCAMBIAC:
             logEffettoCarta(*giocatore, carta, "SCAMBIAC");
@@ -232,9 +234,29 @@ void scartaC(){
     debug("\t\tscartaC()\n");
     return;
 }
-void scambiaP(){
+
+void scambiaP(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta){
     debug("\t\tscambiaP()\n");
+    int i, min=0, max=0;
+
+    // Si trovano il punteggio minimo e il punteggio massimo
+    for(i=0; i<nGiocatori; i++){
+        calcolaPunteggio(&punteggi[i], moltiplicatoreAumenta);
+        if(punteggi[i].totale > punteggi[max].totale)
+            max=i;
+        if(punteggi[i].totale < punteggi[min].totale)
+            min=i;
+    }
+
+    // Si scambiano tutti i campi, per evitare che l'effetto si annulli quando vengono ricalcolati i punteggi
+    scambiaPunteggi(&punteggi[min], &punteggi[max]);
     return;
+}
+
+void scambiaPunteggi(Punteggio*a, Punteggio*b){
+    Punteggio temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
 /**
@@ -248,10 +270,39 @@ void doppioE(int *moltiplicatoreAumenta){
     *moltiplicatoreAumenta *= 2;
     return;
 }
-void sbircia(){
+
+void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
     debug("\t\tsbircia()\n");
+    const int nCarte=2;
+    CartaCfu* carte[nCarte];
+
+    // Si pescano le carte, si mettono nell'array e si stampano
+    for(int i=0; i<nCarte; i++){
+        carte[i] = cartaDalMazzo(mazzo);
+        printf("%d:\t%s (%d CFU)\n\t", i+1, carte[i]->nome, carte[i]->cfu);
+        stampaEffetto(*carte[i]);
+    }
+
+    // Input
+    printf("Scegline una: ");
+    int scelta;
+    scanf("%d", &scelta);
+    while(scelta<1 || scelta>nCarte){
+        printf("Immetti un numero tra 1 e %d\n", nCarte);
+        scanf("%d", &scelta);
+    }
+
+    // Si pesca la carta selezionata
+    prendiCarta(giocatore, carte[scelta-1]);
+
+    // Le altre carte si scartano
+    for(int i=0; i<nCarte; i++){
+        if(i != scelta-1)
+            cartaNegliScarti(scarti, carte[i]);
+    }
     return;
 }
+
 void scambiaC(){
     debug("\t\tscambiaC()\n");
     return;
