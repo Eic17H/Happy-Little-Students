@@ -231,7 +231,10 @@ void mostraCarte(Giocatore giocatore){
     int i = 1;
     while(carta != NULL) {
         // Stampa il nome, se è una carta con effetto, e il valore
-        printf("%d: %-32s %c %d CFU :%d\n", i, carta->nome, cartaSpeciale(*carta), carta->cfu, i);
+        if(carta->effetto<PRIMA_ISTANTANEA)
+            printf("%d: %-32s %d CFU :%d %c\n", i, carta->nome, carta->cfu, i, cartaSpeciale(*carta));
+        else
+            printf("%d: %-32s       :%d %c\n", i, carta->nome, i, cartaSpeciale(*carta));
         carta = carta->prossima;
         i++;
     }

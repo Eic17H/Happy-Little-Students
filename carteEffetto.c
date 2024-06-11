@@ -147,7 +147,7 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
     // TODO: spostare
     int i;
     Giocatore* giocatoreCerca;
-    printf("\n");
+    printf(RESET "\nSituazione provvisoria:\n");
     for(i=1, giocatoreCerca = *giocatori; giocatoreCerca != NULL; i++, giocatoreCerca = giocatoreCerca->prossimo){
         calcolaPunteggio(&punteggi[i-1], *moltiplicatoreAumenta);
         coloreGiocatore(giocatoreCerca, personaggi);
@@ -281,6 +281,8 @@ void doppioE(int *moltiplicatoreAumenta){
     return;
 }
 
+
+// TODO: mi sa che non si attiva se c'è uno spareggio
 void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
     debug("\t\tsbircia()\n");
     const int nCarte=2;
