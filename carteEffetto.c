@@ -143,6 +143,17 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
         default:
             break;
     }
+
+    // TODO: spostare
+    int i;
+    Giocatore* giocatoreCerca;
+    printf("\n");
+    for(i=1, giocatoreCerca = *giocatori; giocatoreCerca != NULL; i++, giocatoreCerca = giocatoreCerca->prossimo){
+        calcolaPunteggio(&punteggi[i-1], *moltiplicatoreAumenta);
+        coloreGiocatore(giocatoreCerca, personaggi);
+        printf("%d: %s (%d CFU)\n" RESET, i, giocatoreCerca->nomeUtente, punteggi[i-1].totale);
+    }
+    printf("\n");
 }
 
 /**
@@ -169,7 +180,6 @@ void scartaPE(Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, boo
  */
 void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
     debug("\t\truba()\n");
-    int scelta = 0;
 
     // Si seleziona un avversario
     printf("Seleziona un avversario a cui rubare una carta:\n");
