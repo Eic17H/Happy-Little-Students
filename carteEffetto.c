@@ -122,11 +122,11 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
             break;
         case AUMENTA:
             logEffettoCarta(*giocatore, carta, "AUMENTA");
-            //aumentaDiminuisci(giocatore, giocatori, 1, personaggi, punteggio, )
+            aumentaDiminuisci(giocatore, giocatori, 1, personaggi, punteggi, *moltiplicatoreAumenta);
             break;
         case DIMINUISCI:
             logEffettoCarta(*giocatore, carta, "DIMINUISCI");
-            //aumentaDiminuisci();
+            aumentaDiminuisci(giocatore, giocatori, -1, personaggi, punteggi, *moltiplicatoreAumenta);
             break;
         case INVERTI:
             logEffettoCarta(*giocatore, carta, "INVERTI");
@@ -134,11 +134,11 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
             break;
         case SALVA:
             logEffettoCarta(*giocatore, carta, "SALVA");
-            salva();
+            //salva();
             break;
         case DIROTTA:
             logEffettoCarta(*giocatore, carta, "DIROTTA");
-            dirotta();
+            //dirotta();
             break;
         default:
             break;
@@ -326,7 +326,7 @@ void aumentaDiminuisci(Giocatore*giocante, Giocatore **giocatori, int valore, Pe
     coloreGiocatore(giocante, personaggi);
     printf("Seleziona un giocatore:\n");
     scanf("%d", &scelta);
-    punteggi[i-1].aumenta += valore;
+    punteggi[scelta-1].aumenta += valore;
     for(i=1, giocatore = *giocatori; giocatore != NULL; i++, giocatore = giocatore->prossimo){
         calcolaPunteggio(&punteggi[i-1], moltiplicatore);
     }

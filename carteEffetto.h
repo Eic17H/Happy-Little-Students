@@ -27,7 +27,7 @@ void doppioE(int *moltiplicatoreAumenta);
 void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti);
 void scambiaC();
 void annulla();
-void aumentaDiminuisci(Giocatore*giocante, Giocatore **giocatori, int moltiplicatore, Personaggio personaggi[N_PERSONAGGI], Punteggio punteggi[], int moltiplicatore);
+void aumentaDiminuisci(Giocatore*giocante, Giocatore **giocatori, int valore, Personaggio personaggi[N_PERSONAGGI], Punteggio punteggi[], int moltiplicatore);
 void inverti(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta);
 void salva(bool*devePescare);
 void dirotta(Giocatore** giocatori, Giocatore* giocatore, int nGiocatori, Personaggio personaggi[N_PERSONAGGI], CartaOstacolo** ostacoli, bool*devePescare);
