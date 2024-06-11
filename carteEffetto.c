@@ -130,7 +130,7 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
             break;
         case INVERTI:
             logEffettoCarta(*giocatore, carta, "INVERTI");
-            //inverti(punteggi);
+            inverti(nGiocatori, punteggi, *moltiplicatoreAumenta);
             break;
         case SALVA:
             logEffettoCarta(*giocatore, carta, "SALVA");
@@ -344,9 +344,7 @@ void inverti(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreA
         if(punteggi[i].totale<punteggi[min].totale)
             min = i;
     }
-    Punteggio temp = punteggi[max];
-    punteggi[max] = punteggi[min];
-    punteggi[min] = temp;
+    scambiaPunteggi(&punteggi[min], &punteggi[max]);
     return;
 }
 
