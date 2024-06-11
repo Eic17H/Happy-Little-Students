@@ -57,7 +57,7 @@ void stampaLogo(){
 char cartaSpeciale(CartaCfu carta){
     if(carta.effetto == 0)
         return ' ';
-    else if(carta.effetto>=13)
+    else if(carta.effetto>=PRIMA_ISTANTANEA)
         return SIMBOLO_CARTA_ISTANTANEA;
     else
         return SIMBOLO_CARTA_EFFETTO;
