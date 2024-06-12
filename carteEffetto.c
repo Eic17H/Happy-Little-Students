@@ -317,6 +317,10 @@ void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
 
 void scambiaC(){
     debug("\t\tscambiaC()\n");
+    //stampaAvversari()
+    //selezionaAvversario()
+    //selezionaAvversario()
+    // temp = c1 = c2 = temp;
     return;
 }
 
@@ -325,30 +329,50 @@ void annulla(){
     return;
 }
 
-// TODO: da finire, orrenda
+/**
+ * Aumenta o diminuisce di un certo valore (di default 2) il punteggio del turno di un giocatore a scelta
+ * @param giocante Il giocatore che sta attivando l'effetto
+ * @param giocatori Puntatore al primo giocatore
+ * @param valore Il valore dell'aumento: per le regole del gioco, 1 per AUMENTA e -1 per DIMINUISCI
+ * @param personaggi Array dei personaggi (le plance)
+ * @param punteggi Array dei punteggi provvisori
+ * @param moltiplicatore Il corrente moltiplicatore dell'effetto di AUMENTA e DIMINUISCI
+ */
 void aumentaDiminuisci(Giocatore*giocante, Giocatore **giocatori, int valore, Personaggio personaggi[N_PERSONAGGI], Punteggio punteggi[], int moltiplicatore) {
     debug("\t\taumenta()\n");
     Giocatore* giocatore;
     int i, scelta;
+
+    // TODO: fare questo con una funzione
+    // Si stampano tutti i giocatori
     for(i=1, giocatore = *giocatori; giocatore != NULL; i++, giocatore = giocatore->prossimo){
         calcolaPunteggio(&punteggi[i-1], moltiplicatore);
         coloreGiocatore(giocatore, personaggi);
         printf("%d: %s (%d CFU)\n" RESET, i, giocatore->nomeUtente, punteggi[i-1].totale);
     }
+
+    // Input
     coloreGiocatore(giocante, personaggi);
     printf("Seleziona un giocatore:\n");
     scanf("%d", &scelta);
+
+    // Si applica l'effetto sul punteggio del giocatore scelto e si ricalcola
     punteggi[scelta-1].aumenta += valore;
-    for(i=1, giocatore = *giocatori; giocatore != NULL; i++, giocatore = giocatore->prossimo){
-        calcolaPunteggio(&punteggi[i-1], moltiplicatore);
-    }
+    calcolaPunteggio(&punteggi[scelta-1], moltiplicatore);
     return;
 }
 
-// TODO: fa schifo
+/**
+ * Scambia il punteggio totale minore e quello maggiore
+ * @param nGiocatori
+ * @param punteggi
+ * @param moltiplicatoreAumenta
+ */
 void inverti(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta) {
     debug("\t\tinverti()\n");
     int i, min=0, max=0;
+
+    // Si trovano l'indice del punteggio maggiore e quello del punteggio minore
     for(i=0; i<nGiocatori; i++){
         calcolaPunteggio(&punteggi[i], moltiplicatoreAumenta);
         if(punteggi[i].totale>punteggi[max].totale)
@@ -356,12 +380,14 @@ void inverti(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreA
         if(punteggi[i].totale<punteggi[min].totale)
             min = i;
     }
+
+    // Scambia i due punteggi trovati
     scambiaPunteggi(&punteggi[min], &punteggi[max]);
     return;
 }
 
-// TODO: è orrenda
-void salva(bool*devePescare){
+// TODO: è orrenda, magari invece cambio l'indirizzo di "sconfitto" nella routine e separo usaEffetto() e usaInst() e se sconfitto==NULL nessuno pesca
+void salva(bool* devePescare){
     debug("\t\tsalva()\n");
     devePescare = false;
     return;
