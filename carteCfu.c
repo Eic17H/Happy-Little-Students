@@ -100,12 +100,14 @@ int contaCarteMano(Giocatore giocatore){
  * @param mazzo Il mazzo da cui pescare
  * @return La carta pescata
  */
- // TODO: mischiaMazzo
-CartaCfu* cartaDalMazzo(CartaCfu** mazzo){
+CartaCfu* cartaDalMazzo(CartaCfu** mazzo, CartaCfu** scarti){
     debug("\t\tcartaDalMazzo()\n");
-    // Gestione di un mazzo vuoto
-    if(*mazzo == NULL)
-        return NULL;
+     // Se è finito il mazzo si mischiano gli scarti
+     if(mazzo==NULL){
+         mazzo = scarti;
+         scarti = NULL;
+         mischiaMazzo(mazzo);
+     }
     // La carta in cima al mazzo
     CartaCfu* carta = *mazzo;
     // La cima del mazzo viene spostata alla prossima carta
@@ -135,14 +137,8 @@ void prendiCarta(Giocatore* giocatore, CartaCfu* carta){
 void pescaCarta(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
     debug("\t\tpescaCarta()\n");
     logPescaCfu(*giocatore, **mazzo);
-    // Se è finito il mazzo si mischiano gli scarti
-    if(mazzo==NULL){
-        mazzo = scarti;
-        scarti = NULL;
-        mischiaMazzo(mazzo);
-    }
     // Il giocatore prende la carta in cima al mazzo
-    prendiCarta(giocatore, cartaDalMazzo(mazzo));
+    prendiCarta(giocatore, cartaDalMazzo(mazzo, scarti));
 }
 
 /** Tutti i giocatori pescano a rotazione finché non hanno tutti N_CARTE_MANO carte in mano

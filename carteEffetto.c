@@ -290,7 +290,7 @@ void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
 
     // Si pescano le carte, si mettono nell'array e si stampano
     for(int i=0; i<nCarte; i++){
-        carte[i] = cartaDalMazzo(mazzo);
+        carte[i] = cartaDalMazzo(mazzo, scarti);
         printf("%d:\t%s (%d CFU)\n\t", i+1, carte[i]->nome, carte[i]->cfu);
         stampaEffetto(*carte[i]);
     }
