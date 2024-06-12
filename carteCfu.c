@@ -95,6 +95,18 @@ int contaCarteMano(Giocatore giocatore){
     return conta;
 }
 
+int contaCarteManoNoInst(Giocatore giocatore){
+    debug("\t\tcontaCarteMano()\n");
+    int conta = 0;
+    CartaCfu* carta = giocatore.primaCfu;
+    while(carta != NULL){
+        if(carta->effetto < PRIMA_ISTANTANEA)
+            conta++;
+        carta = carta->prossima;
+    }
+    return conta;
+}
+
 /**
  * Toglie una carta dal mazzo e la restituisce
  * @param mazzo Il mazzo da cui pescare

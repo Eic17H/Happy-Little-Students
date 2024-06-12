@@ -95,7 +95,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
             // i giocatori che non stanno spareggiando avranno un punteggio di default per il calcolo del minimo
             punti[i]=PUNTI_PER_VINCERE+1;
             // perdi automaticamente se non hai più carte in mano
-            if(contaCarteMano(*giocatore)==0)
+            if(contaCarteManoNoInst(*giocatore)==0)
                 return giocatore;
             // consideriamo solo chi partecipa allo spareggio
             if (sconfitti[i] == 1) {
