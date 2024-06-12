@@ -262,7 +262,7 @@ void scartaMano(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
     debug("\t\tscartaMano()\n");
     // Scarta tutte le carte
     while(giocatore->primaCfu != NULL){
-        cartaNegliScarti(scarti, giocatore->primaCfu);
+        cartaNegliScarti(scarti, daiCarta(giocatore, giocatore->primaCfu));
     }
     for(int i=0; i<N_CARTE_MANO; i++){
         pescaCarta(giocatore, mazzo, scarti);
