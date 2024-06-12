@@ -30,7 +30,6 @@ void scartaMano(Giocatore*, CartaCfu**, CartaCfu**);
 // Altre cose utili
 bool haQuestaCarta(Giocatore*, CartaCfu*);
 int contaCarteMano(Giocatore);
-int contaCarteManoNoInst(Giocatore);
 void mischiaMazzo(CartaCfu**);
 void mostraCarte(Giocatore);
 bool soloIstantanee(Giocatore);
