@@ -130,3 +130,18 @@ CartaOstacolo* leggiOstacoli(){
     fclose(fp);
     return mazzo;
 }
+
+// TODO: mettere insieme al resto
+void leggiManoSalvataggio(CartaCfu** mano){
+    FILE* fp = fopen("savegame.sav", "rb");
+    CartaCfu* carta;
+    *mano = malloc(sizeof(CartaCfu));
+    carta = *mano;
+    for(int i=0; i<N_CARTE_MANO-1; i++){
+        fread(carta, sizeof(CartaCfu), 1, fp);
+        carta->prossima = malloc(sizeof(CartaCfu));
+        carta = carta->prossima;
+    }
+    fread(carta, sizeof(CartaCfu), 1, fp);
+    carta->prossima = NULL;
+}
