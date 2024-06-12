@@ -31,12 +31,3 @@ int inputNGiocatori(){
     }while(nGiocatori > 4 || nGiocatori < 2);
     return nGiocatori;
 }
-
-// TODO: rimuovere
-void stampaNomiGiocatori(Giocatore* test){
-    while(test != NULL){
-        printf("%s ", test->nomeUtente);
-        test = test->prossimo;
-    }
-    printf("\n");
-}
