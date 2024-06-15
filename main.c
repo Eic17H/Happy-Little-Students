@@ -41,10 +41,88 @@ int main() {
     mischiaOstacoli(&carteOstacolo);
 
     // Input del numero dei giocatori, input delle informazioni, assegnazione personaggi
-    int nGiocatori = inputNGiocatori();
-    Giocatore *giocatori = inputGiocatori(nGiocatori, 1);
-    inizializzaGiocatori(giocatori);
-    assegnaPersonaggi(giocatori, personaggi);
+    //int nGiocatori = inputNGiocatori();
+    //Giocatore *giocatori = inputGiocatori(nGiocatori, 1);
+    //inizializzaGiocatori(giocatori);
+    //assegnaPersonaggi(giocatori, personaggi);
+
+    FILE* fp = fopen("savegame.sav", "rb");
+    int nGiocatori;
+    fread(&nGiocatori, sizeof(int), 1, fp);
+    Giocatore *giocatori, *giocatore;
+    CartaCfu *carta;
+    CartaOstacolo *ostacolo;
+    int nOstacoli;
+
+    giocatori = malloc(sizeof(Giocatore));
+    giocatore = giocatori;
+    for(int i=0; i<nGiocatori-1; i++){
+        fread(giocatore, sizeof(Giocatore), 1, fp);
+        giocatore->prossimo = malloc(sizeof(Giocatore));
+
+        giocatore->primaCfu = malloc(sizeof(CartaCfu));
+        carta = giocatore->primaCfu;
+        for(int j=0; j<N_CARTE_MANO-1; j++){
+            fread(carta, sizeof(CartaCfu), 1, fp);
+            carta->prossima = malloc(sizeof(CartaCfu));
+            carta = carta->prossima;
+        }
+        fread(carta, sizeof(CartaCfu), 1, fp);
+        carta->prossima = NULL;
+
+        giocatore->primaOstacolo = malloc(sizeof(CartaOstacolo));
+        ostacolo = giocatore->primaOstacolo;
+        fread(&nOstacoli, sizeof(int), 1, fp);
+        for(int j=0; j<nOstacoli-1; j++){
+            fread(ostacolo, sizeof(CartaOstacolo), 1, fp);
+            ostacolo->prossima = malloc(sizeof(CartaOstacolo));
+            ostacolo = ostacolo->prossima;
+        }
+        fread(ostacolo, sizeof(CartaOstacolo), 1, fp);
+        ostacolo->prossima = NULL;
+
+        giocatore = giocatore->prossimo;
+    }
+    fread(giocatore, sizeof(Giocatore), 1, fp);
+    giocatore->prossimo = NULL;
+
+    int nCarte, nScarti, nOstacolis;
+
+    CartaCfu *mazzo, *scartis;
+    CartaOstacolo *ostacolis;
+
+    mazzo = malloc(sizeof(CartaCfu));
+    carta = mazzo;
+    fread(&nCarte, sizeof(CartaCfu), 1, fp);
+    for(int j=0; j<nCarte-1; j++){
+        fread(carta, sizeof(CartaCfu), 1, fp);
+        carta->prossima = malloc(sizeof(CartaCfu));
+        carta = carta->prossima;
+    }
+    fread(carta, sizeof(CartaCfu), 1, fp);
+    carta->prossima = NULL;
+
+    scartis = malloc(sizeof(CartaCfu));
+    carta = scartis;
+    fread(&nCarte, sizeof(CartaCfu), 1, fp);
+    for(int j=0; j<nCarte-1; j++){
+        fread(carta, sizeof(CartaCfu), 1, fp);
+        carta->prossima = malloc(sizeof(CartaCfu));
+        carta = carta->prossima;
+    }
+    fread(carta, sizeof(CartaCfu), 1, fp);
+    carta->prossima = NULL;
+
+    ostacolis = malloc(sizeof(CartaOstacolo));
+    ostacolo = ostacolis;
+    fread(&nCarte, sizeof(CartaOstacolo), 1, fp);
+    for(int j=0; j<nCarte-1; j++){
+        fread(ostacolo, sizeof(CartaOstacolo), 1, fp);
+        ostacolo->prossima = malloc(sizeof(CartaOstacolo));
+        ostacolo = ostacolo->prossima;
+    }
+    fread(ostacolo, sizeof(CartaOstacolo), 1, fp);
+    ostacolo->prossima = NULL;
 
     // Variabile che tiene traccia del conteggio dei turni
     int nTurno = 0;
