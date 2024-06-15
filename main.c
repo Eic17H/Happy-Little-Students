@@ -49,7 +49,6 @@ int main() {
     scanf("%c", &scelta);
     if(scelta == '1'){
         leggiSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno);
-        scriviSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno);
     }else{
         nTurno = 0;
         // Puntatore alla prima carta del mazzo di carte CFU
@@ -81,6 +80,8 @@ int main() {
         nTurno++;
         logTurno(nTurno);
         pescaRotazione(giocatori, &carteCfu, &scarti);
+        scriviSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno);
+        leggiSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno);
 
         // Si stampano le informazioni correnti
         stampaSituazione(giocatori, nGiocatori, personaggi);
@@ -88,6 +89,7 @@ int main() {
 
         // Le due fasi del turno
         faseCfu(giocatori, nGiocatori, personaggi, &carteCfu, &scarti, &carteOstacolo);
+
 
         // Si controlla se qualcuno ha vinto o perso
         controlloOstacoli(&giocatori, &nGiocatori, personaggi);

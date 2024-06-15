@@ -174,7 +174,7 @@ void scriviSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteC
     for(ostacolo = *carteOstacolo; ostacolo != NULL; ostacolo = ostacolo->prossima)
         fwrite(ostacolo, sizeof(CartaOstacolo), 1, fp);
 
-    fwrite(nTurno, sizeof(int), 1, fp);
+    //fwrite(nTurno, sizeof(int), 1, fp);
 
     fclose(fp);
 }
