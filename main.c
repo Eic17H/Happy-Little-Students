@@ -12,6 +12,7 @@
 #include "carteCfu.h"
 #include "carteOstacolo.h"
 #include "log.h"
+#include "salvataggio.h"
 
 int main() {
     srand(time(NULL));
@@ -46,116 +47,13 @@ int main() {
     //inizializzaGiocatori(giocatori);
     //assegnaPersonaggi(giocatori, personaggi);
 
-    FILE* fp = fopen("savegame.sav", "rb");
-    int nGiocatori;
-    fread(&nGiocatori, sizeof(int), 1, fp);
-    Giocatore *giocatori, *giocatore;
-    CartaCfu *carta;
-    CartaOstacolo *ostacolo;
-    int nOstacoli;
-
-    printf("1\n");
-
-    giocatori = malloc(sizeof(Giocatore));
-    giocatore = giocatori;
-    for(int i=0; i<nGiocatori; i++){
-        fread(giocatore, sizeof(Giocatore), 1, fp);
-
-        giocatore->primaCfu = malloc(sizeof(CartaCfu));
-        carta = giocatore->primaCfu;
-        for(int j=0; j<N_CARTE_MANO-1; j++){
-            fread(carta, sizeof(CartaCfu), 1, fp);
-            carta->prossima = malloc(sizeof(CartaCfu));
-            carta = carta->prossima;
-        }
-        fread(carta, sizeof(CartaCfu), 1, fp);
-        carta->prossima = NULL;
-        printf("2\n");
-
-        giocatore->primaOstacolo = malloc(sizeof(CartaOstacolo));
-        ostacolo = giocatore->primaOstacolo;
-        fread(&nOstacoli, sizeof(int), 1, fp);
-        printf("nOstacoli: %d\n", nOstacoli);
-        if(nOstacoli != 0) {
-            for (int j = 0; j < nOstacoli - 1; j++) {
-                fread(ostacolo, sizeof(CartaOstacolo), 1, fp);
-                stampaOstacolo(*ostacolo);
-                ostacolo->prossima = malloc(sizeof(CartaOstacolo));
-                ostacolo = ostacolo->prossima;
-            }
-            fread(ostacolo, sizeof(CartaOstacolo), 1, fp);
-            stampaOstacolo(*ostacolo);
-            ostacolo->prossima = NULL;
-        }
-        else
-            giocatore->primaOstacolo = NULL;
-        printf("3\n");
-
-        printf("%s\n", giocatore->nomeUtente);
-        if(i==nGiocatori-1)
-            giocatore->prossimo = NULL;
-        else{
-            giocatore->prossimo = malloc(sizeof(Giocatore));
-            giocatore = giocatore->prossimo;
-        }
-    }
-    printf("4\n");
-
-    int nCarte, nScarti, nOstacolis;
-
-    CartaCfu *mazzo, *scartis;
-    CartaOstacolo *ostacolis;
-
-    mazzo = malloc(sizeof(CartaCfu));
-    carta = mazzo;
-    fread(&nCarte, sizeof(int), 1, fp);
-    printf("nCarte: %d\n", nCarte);
-    for(int j=0; j<nCarte; j++){
-        fread(carta, sizeof(CartaCfu), 1, fp);
-        printf("%s\n", carta->nome);
-        if(j == nCarte-1)
-            carta->prossima = NULL;
-        else {
-            carta->prossima = malloc(sizeof(CartaCfu));
-            carta = carta->prossima;
-        }
-    }
-    printf("5\n");
-
-    scartis = malloc(sizeof(CartaCfu));
-    carta = scartis;
-    fread(&nCarte, sizeof(int), 1, fp);
-    printf("nCarte: %d\n", nCarte);
-    for(int j=0; j<nCarte; j++){
-        fread(carta, sizeof(CartaCfu), 1, fp);
-        if(j == nCarte-1)
-            carta->prossima = NULL;
-        else
-            carta = carta->prossima = malloc(sizeof(CartaCfu));
-    }
-    printf("6\n");
-
-    ostacolis = malloc(sizeof(CartaOstacolo));
-    ostacolo = ostacolis;
-    fread(&nCarte, sizeof(int), 1, fp);
-    printf("nCarte: %d\n", nCarte);
-    for(int j=0; j<nCarte-1; j++){
-        fread(ostacolo, sizeof(CartaOstacolo), 1, fp);
-        ostacolo->prossima = malloc(sizeof(CartaOstacolo));
-        ostacolo = ostacolo->prossima;
-    }
-    fread(ostacolo, sizeof(CartaOstacolo), 1, fp);
-    ostacolo->prossima = NULL;
-    printf("7\n");
-
-    fclose(fp);
-
-    carteCfu = mazzo;
-    scarti = scartis;
-    carteOstacolo = ostacolis;
+    Giocatore *giocatori;
 
     // Variabile che tiene traccia del conteggio dei turni
     int nTurno = 0;
+
+    int nGiocatori;
+    leggiSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno);
 
     int numeriPlancia[PUNTI_PER_VINCERE];
     leggiNumeriPlancia(numeriPlancia);

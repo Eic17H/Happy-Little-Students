@@ -320,6 +320,30 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/main.c.s
 .PHONY : main.c.s
 
+salvataggio.obj: salvataggio.c.obj
+.PHONY : salvataggio.obj
+
+# target to build an object file
+salvataggio.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/salvataggio.c.obj
+.PHONY : salvataggio.c.obj
+
+salvataggio.i: salvataggio.c.i
+.PHONY : salvataggio.i
+
+# target to preprocess a source file
+salvataggio.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/salvataggio.c.i
+.PHONY : salvataggio.c.i
+
+salvataggio.s: salvataggio.c.s
+.PHONY : salvataggio.s
+
+# target to generate assembly for a file
+salvataggio.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Happy_Little_Students.dir\build.make CMakeFiles/Happy_Little_Students.dir/salvataggio.c.s
+.PHONY : salvataggio.c.s
+
 turno.obj: turno.c.obj
 .PHONY : turno.obj
 
@@ -401,6 +425,9 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... salvataggio.obj
+	@echo ... salvataggio.i
+	@echo ... salvataggio.s
 	@echo ... turno.obj
 	@echo ... turno.i
 	@echo ... turno.s
