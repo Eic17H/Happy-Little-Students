@@ -25,36 +25,53 @@ int main() {
     leggiPersonaggi(personaggi);
 
     // Puntatore alla prima carta del mazzo di carte CFU
-    CartaCfu* carteCfu = leggiCarte();
+    CartaCfu* carteCfu;
     // Puntatore alla prima carta degli scarti CFU
-    CartaCfu* scarti = NULL;
+    CartaCfu* scarti;
     // Puntatore generico a una carta CFU
-    CartaCfu* cartaCfu = carteCfu;
+    CartaCfu* cartaCfu;
 
     // Puntatore alla prima carta del mazzo di carte ostacolo
-    CartaOstacolo* carteOstacolo = leggiOstacoli();
+    CartaOstacolo* carteOstacolo;
 
     // Puntatore al giocatore che ha vinto
     Giocatore* vincitore = NULL;
 
-    // Si mischiano le carte
-    mischiaMazzo(&carteCfu);
-    mischiaOstacoli(&carteOstacolo);
-
-    // Input del numero dei giocatori, input delle informazioni, assegnazione personaggi
-    //int nGiocatori = inputNGiocatori();
-    //Giocatore *giocatori = inputGiocatori(nGiocatori, 1);
-    //inizializzaGiocatori(giocatori);
-    //assegnaPersonaggi(giocatori, personaggi);
-
     Giocatore *giocatori;
 
     // Variabile che tiene traccia del conteggio dei turni
-    int nTurno = 0;
+    int nTurno;
 
     int nGiocatori;
-    leggiSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno);
-    scriviSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno);
+
+    char scelta;
+    printf("Vuoi caricare il file di salvataggio? 1 per sì, no altrimenti\n");
+    scanf("%c", &scelta);
+    if(scelta == '1'){
+        leggiSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno);
+        scriviSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno);
+    }else{
+        nTurno = 0;
+        // Puntatore alla prima carta del mazzo di carte CFU
+        carteCfu = leggiCarte();
+        // Puntatore alla prima carta degli scarti CFU
+        scarti = NULL;
+        // Puntatore generico a una carta CFU
+        cartaCfu = carteCfu;
+
+        // Puntatore alla prima carta del mazzo di carte ostacolo
+        carteOstacolo = leggiOstacoli();
+
+        // Si mischiano le carte
+        mischiaMazzo(&carteCfu);
+        mischiaOstacoli(&carteOstacolo);
+
+        // Input del numero dei giocatori, input delle informazioni, assegnazione personaggi
+        nGiocatori = inputNGiocatori();
+        giocatori = inputGiocatori(nGiocatori, 1);
+        inizializzaGiocatori(giocatori);
+        assegnaPersonaggi(giocatori, personaggi);
+    }
 
     int numeriPlancia[PUNTI_PER_VINCERE];
     leggiNumeriPlancia(numeriPlancia);
