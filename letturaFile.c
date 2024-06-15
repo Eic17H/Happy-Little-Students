@@ -131,5 +131,3 @@ CartaOstacolo* leggiOstacoli(){
     fclose(fp);
     return mazzo;
 }
-
-

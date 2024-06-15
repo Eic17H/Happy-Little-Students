@@ -54,6 +54,7 @@ int main() {
 
     int nGiocatori;
     leggiSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno);
+    scriviSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno);
 
     int numeriPlancia[PUNTI_PER_VINCERE];
     leggiNumeriPlancia(numeriPlancia);

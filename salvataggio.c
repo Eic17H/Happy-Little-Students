@@ -115,3 +115,66 @@ void leggiSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCf
 
     fclose(fp);
 }
+
+void scriviSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno){
+
+    Giocatore *giocatore = *giocatori;
+    int nCarte, nOstacoli;
+    CartaCfu *carta;
+    CartaOstacolo *ostacolo;
+
+    FILE *fp = fopen("savegame.sav", "wb");
+
+    // Si scrive il numero di giocatori
+    fwrite(nGiocatori, sizeof(int), 1, fp);
+
+    // Per ogni giocatore:
+    for(int i=0; i<*nGiocatori; i++){
+        // Si scrive il giocatore
+        fwrite(giocatore, sizeof(Giocatore), 1, fp);
+
+        // Si scrivono le carte cfu
+        carta = giocatore->primaCfu;
+        for(carta = giocatore->primaCfu; carta != NULL; carta = carta->prossima)
+            fwrite(carta, sizeof(CartaCfu), 1, fp);
+
+        // Si trova e si scrive il numero di ostacoli
+        nOstacoli = 0;
+        for(ostacolo = giocatore->primaOstacolo; ostacolo != NULL; ostacolo = ostacolo->prossima)
+            nOstacoli++;
+        fwrite(&nOstacoli, sizeof(int), 1, fp);
+
+        // Si scrivono gli ostacoli
+        for(ostacolo = giocatore->primaOstacolo; ostacolo != NULL; ostacolo = ostacolo->prossima)
+            fwrite(ostacolo, sizeof(CartaOstacolo), 1, fp);
+
+        giocatore = giocatore->prossimo;
+    }
+
+    // Per ognuno dei mazzi, si trova e si scrive il numero di carte e poi si scrive la lista in ordine
+
+    nCarte = 0;
+    for(carta = *carteCfu; carta != NULL; carta = carta->prossima)
+        nCarte++;
+    fwrite(&nCarte, sizeof(int), 1, fp);
+    for(carta = *carteCfu; carta != NULL; carta = carta->prossima)
+        fwrite(carta, sizeof(CartaCfu), 1, fp);
+
+    nCarte = 0;
+    for(carta = *scarti; carta != NULL; carta = carta->prossima)
+        nCarte++;
+    fwrite(&nCarte, sizeof(int), 1, fp);
+    for(carta = *scarti; carta != NULL; carta = carta->prossima)
+        fwrite(carta, sizeof(CartaCfu), 1, fp);
+
+    nCarte = 0;
+    for(ostacolo = *carteOstacolo; ostacolo != NULL; ostacolo = ostacolo->prossima)
+        nCarte++;
+    fwrite(&nCarte, sizeof(int), 1, fp);
+    for(ostacolo = *carteOstacolo; ostacolo != NULL; ostacolo = ostacolo->prossima)
+        fwrite(ostacolo, sizeof(CartaOstacolo), 1, fp);
+
+    fwrite(nTurno, sizeof(int), 1, fp);
+
+    fclose(fp);
+}
