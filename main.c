@@ -54,11 +54,12 @@ int main() {
     CartaOstacolo *ostacolo;
     int nOstacoli;
 
+    printf("1\n");
+
     giocatori = malloc(sizeof(Giocatore));
     giocatore = giocatori;
-    for(int i=0; i<nGiocatori-1; i++){
+    for(int i=0; i<nGiocatori; i++){
         fread(giocatore, sizeof(Giocatore), 1, fp);
-        giocatore->prossimo = malloc(sizeof(Giocatore));
 
         giocatore->primaCfu = malloc(sizeof(CartaCfu));
         carta = giocatore->primaCfu;
@@ -69,22 +70,36 @@ int main() {
         }
         fread(carta, sizeof(CartaCfu), 1, fp);
         carta->prossima = NULL;
+        printf("2\n");
 
         giocatore->primaOstacolo = malloc(sizeof(CartaOstacolo));
         ostacolo = giocatore->primaOstacolo;
         fread(&nOstacoli, sizeof(int), 1, fp);
-        for(int j=0; j<nOstacoli-1; j++){
+        printf("nOstacoli: %d\n", nOstacoli);
+        if(nOstacoli != 0) {
+            for (int j = 0; j < nOstacoli - 1; j++) {
+                fread(ostacolo, sizeof(CartaOstacolo), 1, fp);
+                stampaOstacolo(*ostacolo);
+                ostacolo->prossima = malloc(sizeof(CartaOstacolo));
+                ostacolo = ostacolo->prossima;
+            }
             fread(ostacolo, sizeof(CartaOstacolo), 1, fp);
-            ostacolo->prossima = malloc(sizeof(CartaOstacolo));
-            ostacolo = ostacolo->prossima;
+            stampaOstacolo(*ostacolo);
+            ostacolo->prossima = NULL;
         }
-        fread(ostacolo, sizeof(CartaOstacolo), 1, fp);
-        ostacolo->prossima = NULL;
+        else
+            giocatore->primaOstacolo = NULL;
+        printf("3\n");
 
-        giocatore = giocatore->prossimo;
+        printf("%s\n", giocatore->nomeUtente);
+        if(i==nGiocatori-1)
+            giocatore->prossimo = NULL;
+        else{
+            giocatore->prossimo = malloc(sizeof(Giocatore));
+            giocatore = giocatore->prossimo;
+        }
     }
-    fread(giocatore, sizeof(Giocatore), 1, fp);
-    giocatore->prossimo = NULL;
+    printf("4\n");
 
     int nCarte, nScarti, nOstacolis;
 
@@ -93,29 +108,37 @@ int main() {
 
     mazzo = malloc(sizeof(CartaCfu));
     carta = mazzo;
-    fread(&nCarte, sizeof(CartaCfu), 1, fp);
-    for(int j=0; j<nCarte-1; j++){
+    fread(&nCarte, sizeof(int), 1, fp);
+    printf("nCarte: %d\n", nCarte);
+    for(int j=0; j<nCarte; j++){
         fread(carta, sizeof(CartaCfu), 1, fp);
-        carta->prossima = malloc(sizeof(CartaCfu));
-        carta = carta->prossima;
+        printf("%s\n", carta->nome);
+        if(j == nCarte-1)
+            carta->prossima = NULL;
+        else {
+            carta->prossima = malloc(sizeof(CartaCfu));
+            carta = carta->prossima;
+        }
     }
-    fread(carta, sizeof(CartaCfu), 1, fp);
-    carta->prossima = NULL;
+    printf("5\n");
 
     scartis = malloc(sizeof(CartaCfu));
     carta = scartis;
-    fread(&nCarte, sizeof(CartaCfu), 1, fp);
-    for(int j=0; j<nCarte-1; j++){
+    fread(&nCarte, sizeof(int), 1, fp);
+    printf("nCarte: %d\n", nCarte);
+    for(int j=0; j<nCarte; j++){
         fread(carta, sizeof(CartaCfu), 1, fp);
-        carta->prossima = malloc(sizeof(CartaCfu));
-        carta = carta->prossima;
+        if(j == nCarte-1)
+            carta->prossima = NULL;
+        else
+            carta = carta->prossima = malloc(sizeof(CartaCfu));
     }
-    fread(carta, sizeof(CartaCfu), 1, fp);
-    carta->prossima = NULL;
+    printf("6\n");
 
     ostacolis = malloc(sizeof(CartaOstacolo));
     ostacolo = ostacolis;
-    fread(&nCarte, sizeof(CartaOstacolo), 1, fp);
+    fread(&nCarte, sizeof(int), 1, fp);
+    printf("nCarte: %d\n", nCarte);
     for(int j=0; j<nCarte-1; j++){
         fread(ostacolo, sizeof(CartaOstacolo), 1, fp);
         ostacolo->prossima = malloc(sizeof(CartaOstacolo));
@@ -123,6 +146,13 @@ int main() {
     }
     fread(ostacolo, sizeof(CartaOstacolo), 1, fp);
     ostacolo->prossima = NULL;
+    printf("7\n");
+
+    fclose(fp);
+
+    carteCfu = mazzo;
+    scarti = scartis;
+    carteOstacolo = ostacolis;
 
     // Variabile che tiene traccia del conteggio dei turni
     int nTurno = 0;
