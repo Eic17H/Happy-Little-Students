@@ -206,7 +206,7 @@ bool esisteSalvataggio(char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]){
 }
 
 void inizializzaSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, Personaggio personaggi[N_PERSONAGGI]){
-    *nTurno = 0;
+    *nTurno = 1;
     // Puntatore alla prima carta del mazzo di carte CFU
     *carteCfu = leggiCarte();
     // Puntatore alla prima carta degli scarti CFU

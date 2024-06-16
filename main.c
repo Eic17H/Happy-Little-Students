@@ -70,7 +70,6 @@ int main() {
 
     do{
         // Comincia un turno
-        nTurno++;
         logTurno(nTurno);
         pescaRotazione(giocatori, &carteCfu, &scarti);
         scriviSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, nomeFile);
@@ -86,6 +85,7 @@ int main() {
         controlloOstacoli(&giocatori, &nGiocatori, personaggi);
         vincitore = vince(giocatori);
         // Se non ha vinto nessuno, si continua a giocare
+        nTurno++;
     }while(vincitore == NULL);
 
     // Se qualcuno ha vinto si esce dal loop
