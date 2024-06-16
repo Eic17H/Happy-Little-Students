@@ -220,4 +220,6 @@ void inizializzaSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **c
     *giocatori = inputGiocatori(*nGiocatori, 1);
     inizializzaGiocatori(*giocatori);
     assegnaPersonaggi(*giocatori, personaggi);
+    mischiaMazzo(carteCfu);
+    mischiaOstacoli(carteOstacolo);
 }

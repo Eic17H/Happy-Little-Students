@@ -10,6 +10,8 @@
 #include "letturaFile.h"
 #include "input.h"
 #include "turno.h"
+#include "carteCfu.h"
+#include "carteOstacolo.h"
 
 void leggiSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, char nomeSav[LUNG_NOMI]);
 void scriviSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, char nomeSav[LUNG_NOMI]);

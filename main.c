@@ -57,17 +57,13 @@ int main() {
     if(esisteSalvataggio(nomeFile)){
         printf("Vuoi caricare il file di salvataggio? 1 per sì, no altrimenti\n");
         scanf("%c", &scelta);
-    }else{
+    }else
         scelta = '0';
-    }
-    if(scelta == '1'){
+
+    if(scelta == '1')
         leggiSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, nomeFile);
-    }else{
+    else
         inizializzaSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, personaggi);
-        // Si mischiano le carte
-        mischiaMazzo(&carteCfu);
-        mischiaOstacoli(&carteOstacolo);
-    }
 
     int numeriPlancia[PUNTI_PER_VINCERE];
     leggiNumeriPlancia(numeriPlancia);
@@ -85,7 +81,6 @@ int main() {
 
         // Le due fasi del turno
         faseCfu(giocatori, nGiocatori, personaggi, &carteCfu, &scarti, &carteOstacolo);
-
 
         // Si controlla se qualcuno ha vinto o perso
         controlloOstacoli(&giocatori, &nGiocatori, personaggi);
