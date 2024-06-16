@@ -13,5 +13,6 @@
 // 15 è un sole, ma non è monospaziato
 #define SIMBOLO_CARTA_EFFETTO '*'
 #define SIMBOLO_CARTA_ISTANTANEA '!'
+#define ESTENSIONE_SAV ".sav"
 
 #endif //HAPPY_LITTLE_STUDENTS_COSTANTI_H

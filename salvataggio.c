@@ -1,7 +1,8 @@
 #include "salvataggio.h"
 
-void leggiSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno){
-    FILE* fp = fopen("savegame.sav", "rb");
+void leggiSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]){
+
+    FILE* fp = fopen(nomeFile, "rb");
 
     // Puntatori che si useranno per scorrere la lista
     Giocatore *giocatore;
@@ -116,14 +117,14 @@ void leggiSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCf
     fclose(fp);
 }
 
-void scriviSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno){
+void scriviSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]){
 
     Giocatore *giocatore = *giocatori;
     int nCarte, nOstacoli;
     CartaCfu *carta;
     CartaOstacolo *ostacolo;
 
-    FILE *fp = fopen("savegame.sav", "wb");
+    FILE *fp = fopen(nomeFile, "wb");
 
     // Si scrive il numero di giocatori
     fwrite(nGiocatori, sizeof(int), 1, fp);
@@ -174,7 +175,49 @@ void scriviSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteC
     for(ostacolo = *carteOstacolo; ostacolo != NULL; ostacolo = ostacolo->prossima)
         fwrite(ostacolo, sizeof(CartaOstacolo), 1, fp);
 
-    //fwrite(nTurno, sizeof(int), 1, fp);
+    fwrite(nTurno, sizeof(int), 1, fp);
 
     fclose(fp);
+}
+
+void nomePartita(char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]){
+    nomeFile[LUNG_NOMI-1] = 0;
+    printf("Dai un nome alla partita:\n");
+    scanf("%s", nomeFile);
+    while(nomeFile[LUNG_NOMI-1] != 0){
+        printf("E' un nome troppo lungo!\nMassimo %d caratteri.\n", LUNG_NOMI);
+        nomeFile[LUNG_NOMI-1] = 0;
+        scanf("%s", nomeFile);
+    }
+    getchar();
+    strcat(nomeFile, ESTENSIONE_SAV);
+}
+
+bool esisteSalvataggio(char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]){
+    FILE *fp;
+    fp = fopen(nomeFile, "rb");
+    if(fp==NULL){
+        fclose(fp);
+        return false;
+    }else{
+        fclose(fp);
+        return true;
+    }
+}
+
+void inizializzaSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, Personaggio personaggi[N_PERSONAGGI]){
+    *nTurno = 0;
+    // Puntatore alla prima carta del mazzo di carte CFU
+    *carteCfu = leggiCarte();
+    // Puntatore alla prima carta degli scarti CFU
+    *scarti = NULL;
+
+    // Puntatore alla prima carta del mazzo di carte ostacolo
+    *carteOstacolo = leggiOstacoli();
+
+    // Input del numero dei giocatori, input delle informazioni, assegnazione personaggi
+    *nGiocatori = inputNGiocatori();
+    *giocatori = inputGiocatori(*nGiocatori, 1);
+    inizializzaGiocatori(*giocatori);
+    assegnaPersonaggi(*giocatori, personaggi);
 }

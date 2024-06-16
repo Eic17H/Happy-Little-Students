@@ -13,7 +13,4 @@
 
 void scambiaInt(int*, int*);
 
-// TODO: probabilmente inutile
-char numeroOI(int);
-
 #endif //HAPPY_LITTLE_STUDENTS_UTILITA_H

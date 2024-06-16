@@ -28,8 +28,6 @@ int main() {
     CartaCfu* carteCfu;
     // Puntatore alla prima carta degli scarti CFU
     CartaCfu* scarti;
-    // Puntatore generico a una carta CFU
-    CartaCfu* cartaCfu;
 
     // Puntatore alla prima carta del mazzo di carte ostacolo
     CartaOstacolo* carteOstacolo;
@@ -44,32 +42,31 @@ int main() {
 
     int nGiocatori;
 
+    /** TODO:
+     * Ultimi effetti delle carte
+     * Menù di scelta per ogni turno (easy)
+     * Pareggio di 4 giocatori (easy)
+     * Ultime cose 2 giocatori (easy credo)
+     * Selezione personaggi (easy credo)
+     */
+
     char scelta;
-    printf("Vuoi caricare il file di salvataggio? 1 per sì, no altrimenti\n");
-    scanf("%c", &scelta);
-    if(scelta == '1'){
-        leggiSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno);
+    char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)];
+    nomePartita(nomeFile);
+
+    if(esisteSalvataggio(nomeFile)){
+        printf("Vuoi caricare il file di salvataggio? 1 per sì, no altrimenti\n");
+        scanf("%c", &scelta);
     }else{
-        nTurno = 0;
-        // Puntatore alla prima carta del mazzo di carte CFU
-        carteCfu = leggiCarte();
-        // Puntatore alla prima carta degli scarti CFU
-        scarti = NULL;
-        // Puntatore generico a una carta CFU
-        cartaCfu = carteCfu;
-
-        // Puntatore alla prima carta del mazzo di carte ostacolo
-        carteOstacolo = leggiOstacoli();
-
+        scelta = '0';
+    }
+    if(scelta == '1'){
+        leggiSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, nomeFile);
+    }else{
+        inizializzaSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, personaggi);
         // Si mischiano le carte
         mischiaMazzo(&carteCfu);
         mischiaOstacoli(&carteOstacolo);
-
-        // Input del numero dei giocatori, input delle informazioni, assegnazione personaggi
-        nGiocatori = inputNGiocatori();
-        giocatori = inputGiocatori(nGiocatori, 1);
-        inizializzaGiocatori(giocatori);
-        assegnaPersonaggi(giocatori, personaggi);
     }
 
     int numeriPlancia[PUNTI_PER_VINCERE];
@@ -80,8 +77,7 @@ int main() {
         nTurno++;
         logTurno(nTurno);
         pescaRotazione(giocatori, &carteCfu, &scarti);
-        scriviSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno);
-        leggiSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno);
+        scriviSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, nomeFile);
 
         // Si stampano le informazioni correnti
         stampaSituazione(giocatori, nGiocatori, personaggi);
