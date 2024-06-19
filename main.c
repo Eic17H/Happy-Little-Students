@@ -69,6 +69,13 @@ int main() {
     leggiNumeriPlancia(numeriPlancia);
 
     do{
+        /**
+         * Idea:
+         * 1. Menù di scelta per ciascuno, carte scelte in un array
+         * 2. Fase CFU: si rivelano le carte a tutti
+         * 3. Fase delle carte istantanee: si chiede
+         * 4. Si rivela lo sconfitto, scelta per le carte istantanee
+         */
         // Comincia un turno
         logTurno(nTurno);
         pescaRotazione(giocatori, &carteCfu, &scarti);
