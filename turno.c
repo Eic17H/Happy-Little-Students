@@ -208,6 +208,7 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
                            scarti, personaggi, &giocatori, nGiocatori, &moltiplicatoreAumenta, i, punteggi, carteCfu);
         }
     }
+    // TODO: carte, arrayGiocatori, punteggi, ordineEffetti[i], nGiocatori, carteCfu, scarti, personaggi, &moltiplicatoreAumenta
 
     // Trova punteggio minimo e massimo
     for(i=0; i<nGiocatori; i++){

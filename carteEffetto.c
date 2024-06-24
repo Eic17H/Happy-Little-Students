@@ -88,7 +88,7 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
             logEffettoCarta(*giocatore, carta, "RUBA");
             ruba(giocatori, giocatore, personaggi, nGiocatori);
             break;
-        case SCAMBIADS:
+        case SCAMBIADS: // TODO
             logEffettoCarta(*giocatore, carta, "SCAMBIADS");
             scambiaDS(giocatori, giocatore, personaggi, nGiocatori);
             break;
@@ -112,7 +112,7 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
             logEffettoCarta(*giocatore, carta, "SBIRCIA");
             sbircia(giocatore, mazzo, scarti);
             break;
-        case SCAMBIAC:
+        case SCAMBIAC: // TODO
             logEffettoCarta(*giocatore, carta, "SCAMBIAC");
             scambiaC();
             break;
@@ -132,11 +132,11 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
             logEffettoCarta(*giocatore, carta, "INVERTI");
             inverti(nGiocatori, punteggi, *moltiplicatoreAumenta);
             break;
-        case SALVA:
+        case SALVA: // TODO
             logEffettoCarta(*giocatore, carta, "SALVA");
             //salva();
             break;
-        case DIROTTA:
+        case DIROTTA: // TODO
             logEffettoCarta(*giocatore, carta, "DIROTTA");
             //dirotta();
             break;
@@ -171,7 +171,7 @@ void scartaPE(Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, boo
 }
 
 /**
- * Scambia questa carta con quella di un altro giocatore, purché senza effetto
+ * Guarda la mano di un collega e ruba una carta a scelta.
  * @param giocatori Puntatore alla lista di giocatori
  * @param giocatore Giocatore che sta rubando
  * @param personaggi Array dei personaggi
