@@ -98,7 +98,7 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
             break;
         case SCARTAC:
             logEffettoCarta(*giocatore, carta, "SCARTAC");
-            scartaC();
+            scartaC(giocatore, scarti);
             break;
         case SCAMBIAP:
             logEffettoCarta(*giocatore, carta, "SCAMBIAP");
@@ -168,7 +168,6 @@ void scartaPE(Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, boo
     CartaCfu* carta = daiCarta(giocatore, selezionaCarta(giocatore, false, true, !soloEffetto, false));
     punteggio->carta += carta->cfu;
     cartaNegliScarti(scarti, carta);
-    return;
 }
 
 /**
@@ -190,7 +189,6 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
 
     // Il giocatore seleziona e prende una carta qualunque dalla mano dell'avversario scelto
     prendiCarta(giocatore, daiCarta(avversario, carta));
-    return;
 }
 
 /**
@@ -206,7 +204,6 @@ void scambiaDS(Giocatore** giocatori, Giocatore* giocatore, Personaggio personag
 
 
     CartaCfu* carta = selezionaCarta(avversario, true, true, true, false);
-    return;
 }
 
 Giocatore* selezionaAvversario(Giocatore** giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
@@ -240,9 +237,29 @@ void arrayAvversari(Giocatore** giocatori, Giocatore* giocatore, int nGiocatori,
     }
 }
 
-void scartaC(){
+// TODO: più bello
+void scartaC(Giocatore *giocatore, CartaCfu** scarti) {
     debug("\t\tscartaC()\n");
-    return;
+    const int nCarte = 3;
+    CartaCfu* carta;
+    char continua='1';
+    // va avanti per 3 carte o finché non decide di smettere. può annullare l'azione
+    for(int i=0; i<nCarte && continua!='0'; i++){
+        carta = daiCarta(giocatore, selezionaCarta(giocatore, true, true, true, true));
+        if(carta==NULL){
+            i--;
+            printf("Vuoi terminare l'effetto?\n0 per no, qualunque altro tasto per sì\n");
+            scanf("%c", &continua);
+            getchar();
+        }else
+        {
+            cartaNegliScarti(scarti, carta);
+        if(i<nCarte-1){
+            printf("Vuoi scartare un'altra carta?\n0 per no, qualunque altro tasto per sì\n");
+            scanf("%c", &continua);
+            getchar();
+        }}
+    }
 }
 
 void scambiaP(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta){
@@ -260,7 +277,6 @@ void scambiaP(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatore
 
     // Si scambiano tutti i campi, per evitare che l'effetto si annulli quando vengono ricalcolati i punteggi
     scambiaPunteggi(&punteggi[min], &punteggi[max]);
-    return;
 }
 
 void scambiaPunteggi(Punteggio*a, Punteggio*b){
@@ -278,7 +294,6 @@ void doppioE(int *moltiplicatoreAumenta){
         return;
     debug("\t\tdoppioE()\n");
     *moltiplicatoreAumenta *= 2;
-    return;
 }
 
 
@@ -312,7 +327,6 @@ void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
         if(i != scelta-1)
             cartaNegliScarti(scarti, carte[i]);
     }
-    return;
 }
 
 void scambiaC(){
@@ -321,12 +335,10 @@ void scambiaC(){
     //selezionaAvversario()
     //selezionaAvversario()
     // temp = c1 = c2 = temp;
-    return;
 }
 
 void annulla(){
     debug("\t\tannulla()\n");
-    return;
 }
 
 /**
@@ -359,7 +371,6 @@ void aumentaDiminuisci(Giocatore*giocante, Giocatore **giocatori, int valore, Pe
     // Si applica l'effetto sul punteggio del giocatore scelto e si ricalcola
     punteggi[scelta-1].aumenta += valore;
     calcolaPunteggio(&punteggi[scelta-1], moltiplicatore);
-    return;
 }
 
 /**
@@ -383,14 +394,12 @@ void inverti(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreA
 
     // Scambia i due punteggi trovati
     scambiaPunteggi(&punteggi[min], &punteggi[max]);
-    return;
 }
 
 // TODO: è orrenda, magari invece cambio l'indirizzo di "sconfitto" nella routine e separo usaEffetto() e usaInst() e se sconfitto==NULL nessuno pesca
 void salva(bool* devePescare){
     debug("\t\tsalva()\n");
     devePescare = false;
-    return;
 }
 
 // TODO: è orrenda
@@ -399,7 +408,6 @@ void dirotta(Giocatore** giocatori, Giocatore* giocatore, int nGiocatori, Person
     devePescare = false;
     Giocatore*vittima = selezionaAvversario(giocatori, giocatore, personaggi, nGiocatori);
     pescaOstacolo(vittima, ostacoli);
-    return;
 }
 
 /**

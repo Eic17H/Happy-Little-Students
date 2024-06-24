@@ -21,7 +21,7 @@ void usaEffetto(CartaCfu, Giocatore *, Punteggio *, CartaCfu **, Personaggio[4],
 void scartaPE(Giocatore*, Punteggio*, CartaCfu**, bool);
 void ruba(Giocatore**, Giocatore*, Personaggio[N_PERSONAGGI], int);
 void scambiaDS(Giocatore** giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori);
-void scartaC();
+void scartaC(Giocatore *giocatore, CartaCfu**);
 void scambiaP(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta);
 void doppioE(int *moltiplicatoreAumenta);
 void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti);
