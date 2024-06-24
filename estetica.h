@@ -8,8 +8,6 @@
 #include <string.h>
 #include "log.h"
 
-#endif //HAPPY_LITTLE_STUDENTS_ESTETICA_H
-
 void stampaLogo();
 char cartaSpeciale(CartaCfu);
 void coloreOstacoli(TipoOstacolo);
@@ -24,3 +22,5 @@ void coloreNumero(int);
 void colorePersonaggio(Personaggio, Personaggio[N_PERSONAGGI]);
 void coloreGiocatore(Giocatore*, Personaggio[N_PERSONAGGI]);
 void stampaSituazione(Giocatore*, int, Personaggio*);
+
+#endif //HAPPY_LITTLE_STUDENTS_ESTETICA_H

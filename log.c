@@ -81,3 +81,9 @@ void prendiCfu(Giocatore giocatore, int nCfu, bool carte){
         fprintf(fp, "%s prende %d CFU grazie alle carte ostacolo\n", giocatore.nomeUtente, nCfu);
     fclose(fp);
 }
+
+void logTesto(char string[256]){
+    FILE *fp = fopen("log.txt", "a");
+    fprintf(fp, "%s", string);
+    fclose(fp);
+}

@@ -67,77 +67,76 @@ void stampaEffetto(CartaCfu carta){
  * Usa l'effetto di una carta cfu
  * @param carta La carta
  */
-void
-usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, Personaggio personaggi[4],
-           Giocatore **giocatori, int nGiocatori, int *moltiplicatoreAumenta, int indice,
-           Punteggio punteggi[nGiocatori], CartaCfu**mazzo) {
+ // TODO: non compilare niente, è tutto rotto. cambia tutte le subroutine perché usino l'array anziché la lista
+// (int nGiocatori, CartaCfu carte[nGiocatori], Giocatore giocatori[nGiocatori], Punteggio punteggi[nGiocatori], int indice, CartaCfu** mazzo, CartaCfu** scarti, Personaggio personaggi[N_PERSONAGGI], int* moltiplicatoreAumenta)
+void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGiocatori[nGiocatori], Giocatore** giocatori, Punteggio punteggi[nGiocatori], int indice, CartaCfu** mazzo, CartaCfu** scarti, Personaggio personaggi[N_PERSONAGGI], int* moltiplicatoreAumenta){
     debug("\t\tusaEffetto()\n");
-    coloreGiocatore(giocatore, personaggi);
-    printf("\nSi attiva l'effetto della carta di %s!\n" RESET, giocatore->nomeUtente);
-    stampaEffetto(carta);
+    coloreGiocatore(arrayGiocatori[indice], personaggi);
+    printf("\nSi attiva l'effetto della carta di %s!\n" RESET, arrayGiocatori[indice]->nomeUtente);
+    stampaEffetto(carte[indice]);
     printf("\n");
-    switch(carta.effetto){
+    switch(carte[indice].effetto){
         case NESSUNO:
             debug("\t\tNESSUN EFFETTO\n");
             break;
         case SCARTAP:
-            logEffettoCarta(*giocatore, carta, "SCARTAP");
-            scartaPE(giocatore, punteggio, scarti, false);
+            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SCARTAP");
+            scartaPE(arrayGiocatori[indice], &punteggi[indice], scarti, false);
             break;
         case RUBA:
-            logEffettoCarta(*giocatore, carta, "RUBA");
-            ruba(giocatori, giocatore, personaggi, nGiocatori);
+            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "RUBA");
+            ruba(giocatori, arrayGiocatori[indice], personaggi, nGiocatori);
             break;
         case SCAMBIADS: // TODO
-            logEffettoCarta(*giocatore, carta, "SCAMBIADS");
-            scambiaDS(giocatori, giocatore, personaggi, nGiocatori);
+            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SCAMBIADS");
+            scambiaDS(giocatori, arrayGiocatori[indice], personaggi, nGiocatori);
             break;
         case SCARTAE:
-            logEffettoCarta(*giocatore, carta, "SCARTAE");
-            scartaPE(giocatore, punteggio, scarti, true);
+            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SCARTAE");
+            scartaPE(arrayGiocatori[indice], &punteggi[indice], scarti, true);
             break;
         case SCARTAC:
-            logEffettoCarta(*giocatore, carta, "SCARTAC");
-            scartaC(giocatore, scarti);
+            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SCARTAC");
+            scartaC(arrayGiocatori[indice], scarti);
             break;
         case SCAMBIAP:
-            logEffettoCarta(*giocatore, carta, "SCAMBIAP");
+            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SCAMBIAP");
             scambiaP(nGiocatori, punteggi, *moltiplicatoreAumenta);
             break;
         case DOPPIOE:
-            logEffettoCarta(*giocatore, carta, "DOPPIOE");
+            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "DOPPIOE");
             doppioE(moltiplicatoreAumenta);
             break;
         case SBIRCIA:
-            logEffettoCarta(*giocatore, carta, "SBIRCIA");
-            sbircia(giocatore, mazzo, scarti);
+            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SBIRCIA");
+            sbircia(arrayGiocatori[indice], mazzo, scarti);
             break;
         case SCAMBIAC: // TODO
-            logEffettoCarta(*giocatore, carta, "SCAMBIAC");
+            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SCAMBIAC");
             scambiaC();
             break;
         case ANNULLA:
-            logEffettoCarta(*giocatore, carta, "ANNULLA");
+            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "ANNULLA");
             annulla();
             break;
         case AUMENTA:
-            logEffettoCarta(*giocatore, carta, "AUMENTA");
-            aumentaDiminuisci(giocatore, giocatori, 1, personaggi, punteggi, *moltiplicatoreAumenta);
+            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "AUMENTA");
+            aumentaDiminuisci(arrayGiocatori[indice], giocatori, 1, personaggi, punteggi, *moltiplicatoreAumenta);
             break;
         case DIMINUISCI:
-            logEffettoCarta(*giocatore, carta, "DIMINUISCI");
-            aumentaDiminuisci(giocatore, giocatori, -1, personaggi, punteggi, *moltiplicatoreAumenta);
+            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "DIMINUISCI");
+            aumentaDiminuisci(arrayGiocatori[indice], giocatori, -1, personaggi, punteggi, *moltiplicatoreAumenta);
             break;
         case INVERTI:
-            logEffettoCarta(*giocatore, carta, "INVERTI");
+            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "INVERTI");
             inverti(nGiocatori, punteggi, *moltiplicatoreAumenta);
             break;
         case SALVA: // TODO
-            logEffettoCarta(*giocatore, carta, "SALVA");
+            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SALVA");
             //salva();
             break;
         case DIROTTA: // TODO
-            logEffettoCarta(*giocatore, carta, "DIROTTA");
+            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "DIROTTA");
             //dirotta();
             break;
         default:
@@ -165,9 +164,11 @@ usaEffetto(CartaCfu carta, Giocatore *giocatore, Punteggio *punteggio, CartaCfu 
  */
 void scartaPE(Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, bool soloEffetto) {
     debug("\t\tscartaPE()\n");
-    CartaCfu* carta = daiCarta(giocatore, selezionaCarta(giocatore, false, true, !soloEffetto, false));
-    punteggio->carta += carta->cfu;
-    cartaNegliScarti(scarti, carta);
+    CartaCfu* carta = daiCarta(giocatore, selezionaCarta(giocatore, false, true, !soloEffetto, true));
+    if(carta != NULL){
+        punteggio->carta += carta->cfu;
+        cartaNegliScarti(scarti, carta);
+    }
 }
 
 /**
@@ -242,23 +243,17 @@ void scartaC(Giocatore *giocatore, CartaCfu** scarti) {
     debug("\t\tscartaC()\n");
     const int nCarte = 3;
     CartaCfu* carta;
-    char continua='1';
+    int continua=1;
     // va avanti per 3 carte o finché non decide di smettere. può annullare l'azione
-    for(int i=0; i<nCarte && continua!='0'; i++){
+    for(int i=0; i<nCarte && continua!=0; i++){
         carta = daiCarta(giocatore, selezionaCarta(giocatore, true, true, true, true));
         if(carta==NULL){
             i--;
-            printf("Vuoi terminare l'effetto?\n0 per no, qualunque altro tasto per sì\n");
-            scanf("%c", &continua);
+            printf("Vuoi terminare l'effetto?\n0 per si', qualunque altro numero per no\n");
+            scanf("%d", &continua);
             getchar();
         }else
-        {
             cartaNegliScarti(scarti, carta);
-        if(i<nCarte-1){
-            printf("Vuoi scartare un'altra carta?\n0 per no, qualunque altro tasto per sì\n");
-            scanf("%c", &continua);
-            getchar();
-        }}
     }
 }
 

@@ -79,18 +79,25 @@ int main() {
         // Comincia un turno
         logTurno(nTurno);
         pescaRotazione(giocatori, &carteCfu, &scarti);
+        logTesto("pescaRotazione()\n");
         scriviSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, nomeFile);
+        logTesto("scriviSalvataggio()\n");
 
         // Si stampano le informazioni correnti
         stampaSituazione(giocatori, nGiocatori, personaggi);
+        logTesto("stampaSituazione()\n");
         stampaPlancia(giocatori, nGiocatori, numeriPlancia, personaggi);
+        logTesto("stampaPlancia()\n");
 
         // Le due fasi del turno
         faseCfu(giocatori, nGiocatori, personaggi, &carteCfu, &scarti, &carteOstacolo);
+        logTesto("faseCfu()\n");
 
         // Si controlla se qualcuno ha vinto o perso
         controlloOstacoli(&giocatori, &nGiocatori, personaggi);
+        logTesto("controlloOstacoli()\n");
         vincitore = vince(giocatori);
+        logTesto("vince()\n");
         // Se non ha vinto nessuno, si continua a giocare
         nTurno++;
     }while(vincitore == NULL);

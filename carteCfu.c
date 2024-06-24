@@ -90,6 +90,7 @@ int contaCarteMano(Giocatore giocatore){
     CartaCfu* carta = giocatore.primaCfu;
     while(carta != NULL){
         conta++;
+        debug("\t\t\t\t%d carte in mano: %s\n", conta, carta->nome);
         carta = carta->prossima;
     }
     return conta;
@@ -110,10 +111,18 @@ CartaCfu* cartaDalMazzo(CartaCfu** mazzo, CartaCfu** scarti){
      }
     // La carta in cima al mazzo
     CartaCfu* carta = *mazzo;
-    // La cima del mazzo viene spostata alla prossima carta
-    *mazzo = carta->prossima;
+
+    // La cima del mazzo viene spostata alla prossima carta, se esiste
+     if(carta->prossima != NULL) {
+         *mazzo = (*mazzo)->prossima;
+         carta->prossima = NULL;
+     }else{
+         mazzo = scarti;
+         scarti = NULL;
+         mischiaMazzo(mazzo);
+     }
+
     // La carta da togliere dal mazzo non è più collegata al mazzo
-    carta->prossima = NULL;
     return carta;
 }
 
@@ -136,9 +145,10 @@ void prendiCarta(Giocatore* giocatore, CartaCfu* carta){
  */
 void pescaCarta(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
     debug("\t\tpescaCarta()\n");
-    logPescaCfu(*giocatore, **mazzo);
+    CartaCfu* carta = cartaDalMazzo(mazzo, scarti);
+    logPescaCfu(*giocatore, *carta);
     // Il giocatore prende la carta in cima al mazzo
-    prendiCarta(giocatore, cartaDalMazzo(mazzo, scarti));
+    prendiCarta(giocatore, carta);
 }
 
 /** Tutti i giocatori pescano a rotazione finché non hanno tutti N_CARTE_MANO carte in mano
