@@ -87,9 +87,9 @@ void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGioc
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "RUBA");
             ruba(giocatori, arrayGiocatori[indice], personaggi, nGiocatori);
             break;
-        case SCAMBIADS: // TODO
+        case SCAMBIADS:
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SCAMBIADS");
-            scambiaDS(giocatori, arrayGiocatori[indice], personaggi, nGiocatori);
+            scambiaDS(arrayGiocatori, carte, arrayGiocatori[indice], personaggi, nGiocatori);
             break;
         case SCARTAE:
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SCARTAE");
@@ -142,10 +142,16 @@ void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGioc
         default:
             break;
     }
-
-    // TODO: spostare
     int i;
     Giocatore* giocatoreCerca;
+
+    for(i=1, giocatoreCerca = *giocatori; giocatoreCerca != NULL; i++, giocatoreCerca = giocatoreCerca->prossimo){
+        calcolaPunteggio(&punteggi[i-1], *moltiplicatoreAumenta);
+    }
+
+    // TODO: messaggio annulla
+
+    // TODO: spostare
     printf(RESET "\nSituazione provvisoria:\n");
     for(i=1, giocatoreCerca = *giocatori; giocatoreCerca != NULL; i++, giocatoreCerca = giocatoreCerca->prossimo){
         calcolaPunteggio(&punteggi[i-1], *moltiplicatoreAumenta);
@@ -195,16 +201,30 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
 /**
  * Scambia questa carta con quella di un altro giocatore, purché senza effetto
  */
-void scambiaDS(Giocatore** giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
+void scambiaDS(Giocatore* giocatori[], CartaCfu carte[], Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
     debug("\t\tscambiaDS()\n");
-    return;
+    int scelta = -1;
+    int indice;
 
-    // Seleziona un avver-
-    // TODO: rifare, questo è praticamente inutile
-    Giocatore* avversario = selezionaAvversario(giocatori, giocatore, personaggi, nGiocatori);
-
-
-    CartaCfu* carta = selezionaCarta(avversario, true, true, true, false);
+    for(int i=0; i<nGiocatori; i++){
+        if(giocatori[i] != giocatore){
+            coloreGiocatore(giocatori[i], personaggi);
+            printf("%d: %32s - %32s (%2d CFU) %c\n" RESET, i, giocatori[i]->nomeUtente, carte[i].nome, carte[i].cfu, cartaSpeciale(carte[i]));
+        }else
+            indice = i;
+    }
+    printf("0 per annullare\n");
+    printf("Seleziona: ");
+    scanf("%d", &scelta);
+    while(scelta < 0 || scelta > nGiocatori || giocatori[scelta] == giocatore || carte[scelta].effetto != NESSUNO){
+        printf("Riseleziona: ");
+        scanf("%d", &scelta);
+    }
+    if(scelta != 0) {
+        CartaCfu temp = carte[indice];
+        carte[indice] = carte[scelta];
+        carte[scelta] = temp;
+    }
 }
 
 Giocatore* selezionaAvversario(Giocatore** giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
@@ -243,14 +263,14 @@ void scartaC(Giocatore *giocatore, CartaCfu** scarti) {
     debug("\t\tscartaC()\n");
     const int nCarte = 3;
     CartaCfu* carta;
-    int continua=1;
+    char continua='1';
     // va avanti per 3 carte o finché non decide di smettere. può annullare l'azione
-    for(int i=0; i<nCarte && continua!=0; i++){
+    for(int i=0; i<nCarte && continua!='0'; i++){
         carta = daiCarta(giocatore, selezionaCarta(giocatore, true, true, true, false));
         if(carta==NULL){
             i--;
             printf("Vuoi terminare l'effetto?\n0 per si', qualunque altro numero per no\n");
-            scanf("%d", &continua);
+            scanf("%c", &continua);
             getchar();
         }else
             cartaNegliScarti(scarti, carta);
