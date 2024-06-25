@@ -61,14 +61,10 @@ void stampaEffetto(CartaCfu carta){
     }
 }
 
-// TODO: passa tutti i punteggi
-
 /**
  * Usa l'effetto di una carta cfu
  * @param carta La carta
  */
- // TODO: si attiva solo la carta del primo giocatore
-// (int nGiocatori, CartaCfu carte[nGiocatori], Giocatore giocatori[nGiocatori], Punteggio punteggi[nGiocatori], int indice, CartaCfu** mazzo, CartaCfu** scarti, Personaggio personaggi[N_PERSONAGGI], int* moltiplicatoreAumenta)
 void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGiocatori[nGiocatori], Giocatore** giocatori, Punteggio punteggi[nGiocatori], int indice, CartaCfu** mazzo, CartaCfu** scarti, Personaggio personaggi[N_PERSONAGGI], int* moltiplicatoreAumenta){
     debug("\t\tusaEffetto()\n");
     coloreGiocatore(arrayGiocatori[indice], personaggi);
@@ -264,7 +260,7 @@ void scartaC(Giocatore *giocatore, CartaCfu** scarti) {
     const int nCarte = 3;
     CartaCfu* carta;
     char continua='1';
-    // va avanti per 3 carte o finché non decide di smettere. può annullare l'azione
+    // Va avanti per 3 carte o finché non decide di smettere. Può annullare l'azione
     for(int i=0; i<nCarte && continua!='0'; i++){
         carta = daiCarta(giocatore, selezionaCarta(giocatore, true, true, true, false));
         if(carta==NULL){
@@ -414,7 +410,7 @@ void inverti(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreA
 // TODO: è orrenda, magari invece cambio l'indirizzo di "sconfitto" nella routine e separo usaEffetto() e usaInst() e se sconfitto==NULL nessuno pesca
 void salva(bool* devePescare){
     debug("\t\tsalva()\n");
-    devePescare = false;
+    *devePescare = false;
 }
 
 // TODO: è orrenda
