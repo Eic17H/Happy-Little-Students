@@ -18,7 +18,7 @@ void stampaEffetto(CartaCfu carta){
             printf("Guarda la mano di un collega e ruba una carta a scelta.\n");
             break;
         case SCAMBIADS:
-            printf("Scambia questa carta con quella di un altro giocatore, purche' senza effetto.\n");
+            printf("(Parzialmente implementato) Scambia questa carta con quella di un altro giocatore, purche' senza effetto.\n");
             break;
         case SCARTAE:
             printf("Scarta una" YEL " carta CFU punto " RESET "con" CYN " effetto " RESET "e aggiungi il suo punteggio a quello del turno.\n");
@@ -36,7 +36,7 @@ void stampaEffetto(CartaCfu carta){
             printf("Guarda due carte in cima al mazzo, prendine una e scarta l'altra.\n");
             break;
         case SCAMBIAC:
-            printf("Scambia la carta punto giocata nel turno da un giocatore G1 con quella di un giocatore G2, con G1 e G2 scelti dal giocatore che ha giocato la carta.\n");
+            printf("(Non ancora implementato) Scambia la carta punto giocata nel turno da un giocatore G1 con quella di un giocatore G2, con G1 e G2 scelti dal giocatore che ha giocato la carta.\n");
             break;
         case ANNULLA:
             printf("Annulla gli" CYN " effetti " RESET "di tutte le carte punto durante il turno.\n");
@@ -202,10 +202,12 @@ void scambiaDS(Giocatore* giocatori[], CartaCfu carte[], Giocatore* giocatore, P
     int scelta = -1;
     int indice;
 
+    // TODO: array avversari
+
     for(int i=0; i<nGiocatori; i++){
         if(giocatori[i] != giocatore){
             coloreGiocatore(giocatori[i], personaggi);
-            printf("%d: %32s - %32s (%2d CFU) %c\n" RESET, i, giocatori[i]->nomeUtente, carte[i].nome, carte[i].cfu, cartaSpeciale(carte[i]));
+            printf("%d: %32s - %32s (%2d CFU) %c\n" RESET, i+1, giocatori[i]->nomeUtente, carte[i].nome, carte[i].cfu, cartaSpeciale(carte[i]));
         }else
             indice = i;
     }
@@ -262,12 +264,12 @@ void scartaC(Giocatore *giocatore, CartaCfu** scarti) {
     char continua='1';
     // Va avanti per 3 carte o finché non decide di smettere. Può annullare l'azione
     for(int i=0; i<nCarte && continua!='0'; i++){
-        carta = daiCarta(giocatore, selezionaCarta(giocatore, true, true, true, false));
+        carta = daiCarta(giocatore, selezionaCarta(giocatore, true, true, true, true));
+        getchar();
         if(carta==NULL){
             i--;
             printf("Vuoi terminare l'effetto?\n0 per si', qualunque altro numero per no\n");
             scanf("%c", &continua);
-            getchar();
         }else
             cartaNegliScarti(scarti, carta);
     }

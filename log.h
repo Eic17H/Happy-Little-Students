@@ -9,7 +9,7 @@ void logTurno(int nTurno);
 void logCartaCfu(Giocatore giocatore, CartaCfu carta);
 void logEffettoCarta(Giocatore giocatore, CartaCfu carta, char effetto[]);
 void logPescaCfu(Giocatore giocatore, CartaCfu carta);
-void creaLog();
+void creaLog(char nome[LUNG_NOMI]);
 void logVince(Giocatore giocatore, bool punti);
 void logCfu(Giocatore giocatore);
 void logOstacolo(Giocatore giocatore, CartaOstacolo carta);

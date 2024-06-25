@@ -1,6 +1,6 @@
 #include "log.h"
 
-void creaLog(){
+void creaLog(char nome[LUNG_NOMI]){
     // Si prova ad aprire il file del log
     FILE *fp = fopen("log.txt", "r");
 
@@ -18,7 +18,7 @@ void creaLog(){
     fclose(fp);
     fp = fopen("log.txt", "a");
     // Si segna l'inizio della partita
-    fprintf(fp, "INIZIO PARTITA\n");
+    fprintf(fp, "INIZIO PARTITA: %s\n", nome);
     fclose(fp);
 }
 

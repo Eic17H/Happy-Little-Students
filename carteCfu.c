@@ -265,7 +265,7 @@ void scartaMano(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
 bool soloIstantanee(Giocatore giocatore){
     debug("\t\tsoloIstantanee()\n");
     bool soloIstantanee = true;
-    for(CartaCfu* carta = giocatore.primaCfu; carta != NULL; carta = carta->prossima)
+    for(CartaCfu* carta = giocatore.primaCfu; soloIstantanee==true && carta != NULL; carta = carta->prossima)
         if(carta->effetto < PRIMA_ISTANTANEA)
             soloIstantanee = false;
     return soloIstantanee;

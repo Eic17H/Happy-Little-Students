@@ -18,8 +18,6 @@ int main() {
     srand(time(NULL));
     stampaLogo();
 
-    creaLog();
-
     // Array contenente i quattro personaggi (le plance di gioco)
     Personaggio personaggi[N_PERSONAGGI];
     leggiPersonaggi(personaggi);
@@ -67,6 +65,8 @@ int main() {
 
     int numeriPlancia[PUNTI_PER_VINCERE];
     leggiNumeriPlancia(numeriPlancia);
+
+    creaLog(nomeFile);
 
     do{
         /**

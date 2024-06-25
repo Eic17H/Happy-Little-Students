@@ -174,10 +174,14 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
     int nSconfitti = 0;
     // Vero se il personaggio in quella posizione deve spareggiare, falso altrimenti
     bool sconfitti[nGiocatori];
+    bool continua = 0;
+    char scelta = '0';
+    CartaCfu *carta;
 
     stampaOstacolo(**carteOstacolo);
 
     for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
+        continua = 0;
         // Se il giocatore ha solo carte istantanee, scarta tutta la mano e pesca altre carte
         while(soloIstantanee(*giocatore)){
             printf("%s ha solo carte istantanee, scarta tutta la sua mano.\n", giocatore->nomeUtente);
@@ -191,6 +195,29 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
         punteggi[i].aumenta = 0;
         colorePersonaggio(giocatore->personaggio, personaggi);
         printf("= Turno di %s\n", giocatore->nomeUtente);
+        while(!continua){
+            getchar();
+            coloreGiocatore(giocatore, personaggi);
+            printf("1: Gioca una carta\n");
+            printf("2: Visualizza informazioni sulle carte\n");
+            scanf("%c", &scelta);
+            printf(RESET);
+            switch (scelta) {
+                case '1':
+                    continua = true;
+                    break;
+                case '2':
+                    carta = selezionaCarta(giocatore, true, true, true, false);
+                    printf("Valore: %d CFU\nEffetto:\n", carta->cfu);
+                    stampaEffetto(*carta);
+                    printf("\n");
+                    break;
+                default:
+                    printf("Seleziona un'opzione!\n");
+                    break;
+            }
+        }
+        coloreGiocatore(giocatore, personaggi);
         giocaCarta(giocatore, scarti, &punteggi[i].carta);
         arrayGiocatori[i] = giocatore;
         carte[i] = **scarti;
@@ -206,6 +233,8 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
             if (carte[ordineEffetti[i]].effetto > NESSUNO && carte[ordineEffetti[i]].effetto < PRIMA_ISTANTANEA)
                 usaEffetto(nGiocatori, carte, arrayGiocatori, &giocatori, punteggi, ordineEffetti[i], carteCfu, scarti, personaggi, &moltiplicatoreAumenta);
         }
+    }else{
+        printf(CYN "\nGli effetti secondari delle carte sono stati annullati\n\n" RESET);
     }
     // TODO: carte, arrayGiocatori, punteggi, ordineEffetti[i], nGiocatori, carteCfu, scarti, personaggi, &moltiplicatoreAumenta
 
