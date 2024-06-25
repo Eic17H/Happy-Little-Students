@@ -203,7 +203,7 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
         ordinaEffetti(nGiocatori, ordineEffetti, carte);
         for (i = 0; i < nGiocatori; i++) {
             // TODO: più bello
-            if (carte[ordineEffetti[i]].effetto != NESSUNO && carte[ordineEffetti[i]].effetto < PRIMA_ISTANTANEA)
+            if (carte[ordineEffetti[i]].effetto < PRIMA_ISTANTANEA)
                 usaEffetto(nGiocatori, carte, arrayGiocatori, &giocatori, punteggi, ordineEffetti[i], carteCfu, scarti, personaggi, &moltiplicatoreAumenta);
         }
     }

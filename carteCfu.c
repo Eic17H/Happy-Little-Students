@@ -102,27 +102,20 @@ int contaCarteMano(Giocatore giocatore){
  * @return La carta pescata
  */
 CartaCfu* cartaDalMazzo(CartaCfu** mazzo, CartaCfu** scarti){
-    debug("\t\tcartaDalMazzo()\n");
-     // Se è finito il mazzo si mischiano gli scarti
-     if(mazzo==NULL){
-         mazzo = scarti;
-         scarti = NULL;
-         mischiaMazzo(mazzo);
-     }
-    // La carta in cima al mazzo
-    CartaCfu* carta = *mazzo;
-
-    // La cima del mazzo viene spostata alla prossima carta, se esiste
-     if(carta->prossima != NULL) {
-         *mazzo = (*mazzo)->prossima;
-         carta->prossima = NULL;
-     }else{
-         mazzo = scarti;
-         scarti = NULL;
-         mischiaMazzo(mazzo);
-     }
-
-    // La carta da togliere dal mazzo non è più collegata al mazzo
+    if(*mazzo == NULL && *scarti == NULL){
+        logTesto("ERRORE: Mazzo e scarti vuoti.\n");
+        printf("ERRORE: Mazzo e scarti vuoti.\n");
+        exit(-1);
+    }
+    if(*mazzo == NULL){
+        printf(BLU "Si rimescolano gli scarti nel mazzo\n" RESET);
+        *mazzo = *scarti;
+        *scarti = NULL;
+        mischiaMazzo(mazzo);
+    }
+    CartaCfu *carta = *mazzo;
+    *mazzo = carta->prossima;
+    carta->prossima = NULL;
     return carta;
 }
 
@@ -148,6 +141,7 @@ void pescaCarta(Giocatore* giocatore, CartaCfu** mazzo, CartaCfu** scarti){
     CartaCfu* carta = cartaDalMazzo(mazzo, scarti);
     logPescaCfu(*giocatore, *carta);
     // Il giocatore prende la carta in cima al mazzo
+    carta->prossima = NULL;
     prendiCarta(giocatore, carta);
 }
 

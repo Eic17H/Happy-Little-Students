@@ -9,7 +9,7 @@
 
 // TODO: rimuovere tutti gli utilizzi
 // "printf" per attivare, "//" per disattivare (senza virgolette)
-#define debug printf
+#define debug //
 
 void scambiaInt(int*, int*);
 

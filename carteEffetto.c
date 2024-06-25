@@ -67,7 +67,7 @@ void stampaEffetto(CartaCfu carta){
  * Usa l'effetto di una carta cfu
  * @param carta La carta
  */
- // TODO: non compilare niente, è tutto rotto. cambia tutte le subroutine perché usino l'array anziché la lista
+ // TODO: si attiva solo la carta del primo giocatore
 // (int nGiocatori, CartaCfu carte[nGiocatori], Giocatore giocatori[nGiocatori], Punteggio punteggi[nGiocatori], int indice, CartaCfu** mazzo, CartaCfu** scarti, Personaggio personaggi[N_PERSONAGGI], int* moltiplicatoreAumenta)
 void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGiocatori[nGiocatori], Giocatore** giocatori, Punteggio punteggi[nGiocatori], int indice, CartaCfu** mazzo, CartaCfu** scarti, Personaggio personaggi[N_PERSONAGGI], int* moltiplicatoreAumenta){
     debug("\t\tusaEffetto()\n");
@@ -246,7 +246,7 @@ void scartaC(Giocatore *giocatore, CartaCfu** scarti) {
     int continua=1;
     // va avanti per 3 carte o finché non decide di smettere. può annullare l'azione
     for(int i=0; i<nCarte && continua!=0; i++){
-        carta = daiCarta(giocatore, selezionaCarta(giocatore, true, true, true, true));
+        carta = daiCarta(giocatore, selezionaCarta(giocatore, true, true, true, false));
         if(carta==NULL){
             i--;
             printf("Vuoi terminare l'effetto?\n0 per si', qualunque altro numero per no\n");
