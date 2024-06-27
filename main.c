@@ -68,6 +68,8 @@ int main() {
 
     creaLog(nomeFile);
 
+    Punteggio punteggi[nGiocatori];
+
     do{
         /**
          * Idea:
@@ -78,6 +80,7 @@ int main() {
          */
         // Comincia un turno
         logTurno(nTurno);
+        resetPunteggi(nGiocatori, punteggi);
         pescaRotazione(giocatori, &carteCfu, &scarti);
         scriviSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, nomeFile);
 
@@ -86,7 +89,7 @@ int main() {
         stampaPlancia(giocatori, nGiocatori, numeriPlancia, personaggi);
 
         // Le due fasi del turno
-        faseCfu(giocatori, nGiocatori, personaggi, &carteCfu, &scarti, &carteOstacolo);
+        faseCfu(giocatori, personaggi, nGiocatori, &carteCfu, &scarti, &carteOstacolo, punteggi);
 
         // Si controlla se qualcuno ha vinto o perso
         controlloOstacoli(&giocatori, &nGiocatori, personaggi);

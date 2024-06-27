@@ -143,7 +143,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
  * @param scarti pila degli scarti
  * @param carteOstacolo mazzo degli ostacoli
  */
-void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo){
+void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori]){
     int i=0;
 
     // Un array per le carte giocate e uno per i giocatori, utili per mantenere l'ordine nelle subroutine
@@ -165,16 +165,13 @@ void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio personaggi[4], Ca
     // Variabile che scorre la lista di giocatori
     Giocatore* giocatore = giocatori;
 
-    // TODO: spostare nel main
-    Punteggio punteggi[nGiocatori];
-
     // Punteggio minimo e punteggio massimo del turno
     int min=0, max=0;
     // Numero ed elenco di sconfitti, per lo spareggio
     int nSconfitti = 0;
     // Vero se il personaggio in quella posizione deve spareggiare, falso altrimenti
     bool sconfitti[nGiocatori];
-    bool continua = 0;
+    bool continua = false;
     char scelta = '0';
     CartaCfu *carta;
 
@@ -285,4 +282,14 @@ void calcolaPunteggio(Punteggio *punteggio, int moltiplicatoreAumenta){
     punteggio->totale += punteggio->carta;
     punteggio->totale += punteggio->personaggio;
     punteggio->totale += punteggio->aumenta * 2 * moltiplicatoreAumenta;
+}
+
+
+void resetPunteggi(int nGiocatori, Punteggio punteggi[]){
+    for(int i=0; i<nGiocatori; i++){
+        punteggi[i].totale=0;
+        punteggi[i].carta=0;
+        punteggi[i].aumenta=0;
+        punteggi[i].personaggio=0;
+    }
 }

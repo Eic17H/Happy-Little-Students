@@ -17,11 +17,14 @@
 #include "log.h"
 
 void inizializzaGiocatori(Giocatore*);
-void faseCfu(Giocatore *giocatori, int nGiocatori, Personaggio[4], CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo);
+void faseCfu(Giocatore *giocatori, Personaggio[4], int nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti,
+             CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori]);
 Giocatore* vince(Giocatore*);
 Giocatore* spareggio(Giocatore*, int, bool[], CartaCfu**);
 void assegnaPersonaggi(Giocatore*, Personaggio*);
 void rimuoviGiocatore(Giocatore**, Giocatore*, int*);
 void calcolaPunteggio(Punteggio *punteggio, int moltiplicatoreAumenta);
+void resetPunteggi(int, Punteggio[]);
+
 
 #endif //HAPPY_LITTLE_STUDENTS_TURNO_H
