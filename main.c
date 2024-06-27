@@ -86,7 +86,7 @@ int main() {
 
         // TODO: abbellire le stampe
         // Le due fasi del turno
-        faseCfu(giocatori, personaggi, nGiocatori, &carteCfu, &scarti, &carteOstacolo, punteggi, &moltiplicatoreAumenta);
+        faseCfu(&giocatori, personaggi, &nGiocatori, &carteCfu, &scarti, &carteOstacolo, punteggi, &moltiplicatoreAumenta);
         faseIstantanee(giocatori, personaggi, nGiocatori, &scarti, &carteOstacolo, punteggi, moltiplicatoreAumenta);
         // TODO: lo spareggio va qua
 

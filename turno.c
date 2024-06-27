@@ -33,6 +33,7 @@ void assegnaPersonaggi(Giocatore* giocatori, Personaggio* personaggi){
  * @return NULL se nessuno ha vinto, il vincitore se qualcuno ha vinto
  */
 Giocatore* vince(Giocatore* giocatori){
+    // TODO: più vincitori
     // se rimane un solo giocatore, ha vinto
     if(giocatori->prossimo == NULL){
         printf("%s e' l'ultimo giocatore rimasto.\n", giocatori->nomeUtente);
@@ -143,38 +144,38 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
  * @param scarti pila degli scarti
  * @param carteOstacolo mazzo degli ostacoli
  */
-void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int *moltiplicatoreAumenta){
+void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int *moltiplicatoreAumenta){
     int i=0;
 
     // Un array per le carte giocate e uno per i giocatori, serviranno per l'ordine degli effetti
-    CartaCfu carte[nGiocatori];
-    Giocatore* arrayGiocatori[nGiocatori];
+    CartaCfu carte[*nGiocatori];
+    Giocatore* arrayGiocatori[*nGiocatori];
 
     // Conterrà l'ordine in cui verranno eseguiti gli effetti, relativamente all'ordine dei giocatori
-    int ordineEffetti[nGiocatori];
-    for(i=0; i<nGiocatori; i++)
+    int ordineEffetti[*nGiocatori];
+    for(i=0; i<*nGiocatori; i++)
         ordineEffetti[i] = i;
 
     // Controllo che ci siano giocatori
-    if(giocatori == NULL || nGiocatori<=0)
+    if(*giocatori == NULL || *nGiocatori<=0)
         return;
 
     // Variabile che scorre la lista di giocatori
-    Giocatore* giocatore = giocatori;
+    Giocatore* giocatore = *giocatori;
 
     // Punteggio minimo e punteggio massimo del turno
     int min=0, max=0;
     // Numero ed elenco di sconfitti, per lo spareggio
     int nSconfitti = 0;
     // Vero se il personaggio in quella posizione deve spareggiare, falso altrimenti
-    bool sconfitti[nGiocatori];
+    bool sconfitti[*nGiocatori];
     bool continua = false;
     char scelta = '0';
     CartaCfu *carta;
 
     stampaOstacolo(**carteOstacolo);
 
-    for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
+    for(giocatore=*giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
         continua = 0;
         // Se il giocatore ha solo carte istantanee, scarta tutta la mano e pesca altre carte
         while(soloIstantanee(*giocatore)){
@@ -189,6 +190,7 @@ void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, Ca
             coloreGiocatore(giocatore, personaggi);
             printf("1: Gioca una carta\n");
             printf("2: Visualizza informazioni sulle carte\n");
+            printf("3: Arrenditi\n");
             scanf("%c", &scelta);
             getchar();
             printf(RESET);
@@ -198,6 +200,12 @@ void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, Ca
                     break;
                 case '2':
                     stampaCfu(*selezionaCarta(giocatore, true, true, true, false));
+                    break;
+                case '3':
+                    rimuoviGiocatore(giocatori, giocatore, nGiocatori);
+                    // Se quando si è arreso erano rimasti solo due giocatori, l'altro vince
+                    if(*nGiocatori == 1)
+                        return;
                     break;
                 default:
                     printf("Seleziona un'opzione!\n");
@@ -212,20 +220,20 @@ void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, Ca
     }
 
     // Attiva gli effetti solo se non ci sono carte annulla
-    if(!controllaAnnulla(nGiocatori, carte)){
+    if(!controllaAnnulla(*nGiocatori, carte)){
         // Le carte con più CFU vengono attivate prima
-        ordinaEffetti(nGiocatori, ordineEffetti, carte);
-        for (i = 0; i < nGiocatori; i++) {
+        ordinaEffetti(*nGiocatori, ordineEffetti, carte);
+        for (i = 0; i < *nGiocatori; i++) {
             // TODO: più bello
             if (carte[ordineEffetti[i]].effetto > NESSUNO && carte[ordineEffetti[i]].effetto < PRIMA_ISTANTANEA)
-                usaEffetto(nGiocatori, carte, arrayGiocatori, &giocatori, punteggi, ordineEffetti[i], carteCfu, scarti, personaggi, moltiplicatoreAumenta);
+                usaEffetto(*nGiocatori, carte, arrayGiocatori, giocatori, punteggi, ordineEffetti[i], carteCfu, scarti, personaggi, moltiplicatoreAumenta);
         }
     }else{
         printf(UCYN "\nGli effetti secondari delle carte sono stati annullati\n\n" RESET);
     }
 
     // Trova punteggio minimo e massimo
-    for(i=0; i<nGiocatori; i++){
+    for(i=0; i<*nGiocatori; i++){
         calcolaPunteggio(&punteggi[i], *moltiplicatoreAumenta);
         if(punteggi[i].totale > punteggi[max].totale)
             max = i;
@@ -234,7 +242,7 @@ void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, Ca
     }
 
     // Controlla chi ha il punteggio minore
-    for(i=0; i<nGiocatori; i++){
+    for(i=0; i<*nGiocatori; i++){
         if(punteggi[i].totale == punteggi[min].totale){
             nSconfitti++;
             sconfitti[i] = 1;
@@ -242,13 +250,13 @@ void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, Ca
             sconfitti[i] = 0;
     }
 
-    if(nSconfitti == nGiocatori){
+    if(nSconfitti == *nGiocatori){
         // rimettiOstacoloNelMazzo();
         return;
     }
 
     // Dà i punti ai vincitori
-    for(i=0; i<nGiocatori; i++){
+    for(i=0; i<*nGiocatori; i++){
         if(punteggi[i].totale==punteggi[max].totale){
             colorePersonaggio(arrayGiocatori[i]->personaggio, personaggi);
             printf("%s ha preso %d cfu per le carte giocate.\n" RESET, arrayGiocatori[i]->nomeUtente, punteggi[i].totale);
@@ -261,7 +269,7 @@ void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, Ca
     if(nSconfitti==1)
         giocatore = arrayGiocatori[min];
     else
-        giocatore = spareggio(giocatori, nGiocatori, sconfitti, scarti);
+        giocatore = spareggio(*giocatori, *nGiocatori, sconfitti, scarti);
     logOstacolo(*giocatore, **carteOstacolo);
     pescaOstacolo(giocatore, carteOstacolo);
 }
