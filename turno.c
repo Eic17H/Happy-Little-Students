@@ -170,6 +170,7 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
     // Vero se il personaggio in quella posizione deve spareggiare, falso altrimenti
     bool sconfitti[*nGiocatori];
     bool continua = false;
+    bool arrende = false;
     char scelta = '0';
     CartaCfu *carta;
 
@@ -185,6 +186,7 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
         coloreGiocatore(giocatore, personaggi);
         printf("= Turno di %s\n", giocatore->nomeUtente);
         continua = false;
+        arrende = false;
         getchar();
         while(!continua){
             coloreGiocatore(giocatore, personaggi);
@@ -202,21 +204,27 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
                     stampaCfu(*selezionaCarta(giocatore, true, true, true, false));
                     break;
                 case '3':
-                    rimuoviGiocatore(giocatori, giocatore, nGiocatori);
-                    // Se quando si è arreso erano rimasti solo due giocatori, l'altro vince
-                    if(*nGiocatori == 1)
-                        return;
+                    continua = true;
+                    arrende = true;
+                    printf("\n");
                     break;
                 default:
                     printf("Seleziona un'opzione!\n");
                     break;
             }
         }
-        coloreGiocatore(giocatore, personaggi);
-        giocaCarta(giocatore, scarti, &punteggi[i].carta);
-        arrayGiocatori[i] = giocatore;
-        carte[i] = **scarti;
-        printf(RESET);
+        if(arrende){
+            rimuoviGiocatore(giocatori, giocatore, nGiocatori);
+            // Se quando si è arreso erano rimasti solo due giocatori, l'altro vince
+            if(*nGiocatori == 1)
+                return;
+        }else{
+            coloreGiocatore(giocatore, personaggi);
+            giocaCarta(giocatore, scarti, &punteggi[i].carta);
+            arrayGiocatori[i] = giocatore;
+            carte[i] = **scarti;
+            printf(RESET);
+        }
     }
 
     // Attiva gli effetti solo se non ci sono carte annulla

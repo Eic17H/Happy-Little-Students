@@ -14,6 +14,8 @@
 #include "log.h"
 #include "salvataggio.h"
 
+// TODO: controllare e spostare tutti i getchar()
+
 int main() {
     srand(time(NULL));
     stampaLogo();

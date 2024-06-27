@@ -16,5 +16,6 @@ void logOstacolo(Giocatore giocatore, CartaOstacolo carta);
 void logRuba(Giocatore ladro, Giocatore vittima, CartaCfu carta);
 void prendiCfu(Giocatore giocatore, int nCfu, bool carte);
 void logTesto(char string[256]);
+void logArrende(Giocatore giocatore);
 
 #endif //HAPPY_LITTLE_STUDENTS_LOG_H

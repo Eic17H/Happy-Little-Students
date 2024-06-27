@@ -87,3 +87,9 @@ void logTesto(char string[256]){
     fprintf(fp, "%s", string);
     fclose(fp);
 }
+
+void logArrende(Giocatore giocatore){
+    FILE *fp = fopen("log.txt", "a");
+    fprintf(fp, "%s si arrende\n", giocatore.nomeUtente);
+    fclose(fp);
+}
