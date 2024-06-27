@@ -83,9 +83,10 @@ int main() {
         stampaSituazione(giocatori, nGiocatori, personaggi);
         stampaPlancia(giocatori, nGiocatori, numeriPlancia, personaggi);
 
+        // TODO: abbellire le stampe
         // Le due fasi del turno
         faseCfu(giocatori, personaggi, nGiocatori, &carteCfu, &scarti, &carteOstacolo, punteggi, &moltiplicatoreAumenta);
-        faseIstantanee(giocatori, personaggi, nGiocatori, &carteOstacolo, punteggi, moltiplicatoreAumenta);
+        faseIstantanee(giocatori, personaggi, nGiocatori, &scarti, &carteOstacolo, punteggi, moltiplicatoreAumenta);
         // TODO: lo spareggio va qua
 
         // Si controlla se qualcuno ha vinto o perso

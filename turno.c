@@ -184,12 +184,13 @@ void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, Ca
         coloreGiocatore(giocatore, personaggi);
         printf("= Turno di %s\n", giocatore->nomeUtente);
         continua = false;
+        getchar();
         while(!continua){
             coloreGiocatore(giocatore, personaggi);
             printf("1: Gioca una carta\n");
             printf("2: Visualizza informazioni sulle carte\n");
-            getchar();
             scanf("%c", &scelta);
+            getchar();
             printf(RESET);
             switch (scelta) {
                 case '1':
@@ -265,18 +266,17 @@ void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, Ca
     pescaOstacolo(giocatore, carteOstacolo);
 }
 
-void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocatori, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta){
+void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta){
     Giocatore* giocatore = giocatori;
     Giocatore* arrayGiocatori[nGiocatori];
     int i=0;
     char scelta = '0';
     CartaCfu *carta;
-    // TODO: stampaGiocatori()
-    for(i=1, giocatore=giocatori; giocatore!=NULL; i++, giocatore=giocatore->prossimo){
-        coloreGiocatore(giocatore, personaggi);
-        printf("%d: %s \t (%d CFU)\n" RESET, i, giocatore->nomeUtente, punteggi[i-1].totale);
-        arrayGiocatori[i-1] = giocatore;
+    // TODO: arrayGiocatori(bool soloAvversari)
+    for(i, giocatore=giocatori; giocatore!=NULL; i++, giocatore=giocatore->prossimo){
+        arrayGiocatori[i] = giocatore;
     }
+    stampaGiocatori(giocatori, punteggi, personaggi);
     getchar();
     printf("Qualcuno vuole giocare una carta istantanea?\n0 per nessuno.\n");
     scanf("%c", &scelta);
@@ -284,14 +284,24 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
         if(scelta<'0' || scelta>nGiocatori+'0'){
             printf(BRED "Seleziona un'opzione\n" RESET);
         }else if(scelta != '0'){
-            carta = selezionaCarta(arrayGiocatori[scelta-'1'], true, false, false, true);
+            getchar();
+            carta = daiCarta(arrayGiocatori[scelta-'1'], selezionaCarta(arrayGiocatori[scelta-'1'], true, false, false, true));
             if(carta != NULL){
+                stampaEffetto(*carta);
                 usaIstantanea(*carta, nGiocatori, scelta-'1', arrayGiocatori, punteggi, personaggi, moltiplicatoreAumenta);
             }
         }
-        // stampaGiocatori()
+        cartaNegliScarti(scarti, carta);
+        stampaGiocatori(giocatori, punteggi, personaggi);
         printf("Qualcuno vuole giocare una carta istantanea?\n0 per terminare.\n");
         scanf("%c", &scelta);
+    }
+}
+
+void stampaGiocatori(Giocatore* giocatori, Punteggio punteggi[], Personaggio personaggi[N_PERSONAGGI]){
+    for(int i=1; giocatori!=NULL; i++, giocatori=giocatori->prossimo){
+        coloreGiocatore(giocatori, personaggi);
+        printf("%d: %s \t (%d CFU)\n" RESET, i, giocatori->nomeUtente, punteggi[i-1].totale);
     }
 }
 

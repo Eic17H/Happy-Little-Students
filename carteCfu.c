@@ -278,13 +278,16 @@ bool soloIstantanee(Giocatore giocatore){
  * @param istantanee Vero se sono permesse le istantanee, falso altrimenti
  * @param effetto Vero se sono permesse le carte punto con effetto, falso altrimenti
  * @param normali Vero se sono permesse le carte senza effetto, falso altrimenti
- * @return Puntatore alla carta selezionata
+ * @param annulla Vero se si può annullare la scelta, falso altrimenti
+ * @return Puntatore alla carta selezionata, NULL se si annulla
  */
 CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bool normali, bool annulla) {
     debug("\t\tselezionaCarta()\n");
 
-    // Secondo le regole del gioco, questo non dovrebbe mai succedere
+    // Secondo le regole del gioco, questo non dovrebbe mai succedere. Restituisce NULL solo se la chiamata lo può gestire
     if(!istantanee && !effetto && !normali){
+        if(annulla)
+            return NULL;
         istantanee = true;
         effetto = true;
         normali = true;
@@ -295,7 +298,7 @@ CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bo
     int carteInMano = contaCarteMano(*giocatore);
     // Puntatori a due carte
     CartaCfu *carta = giocatore->primaCfu;
-    int scelta=0;
+    char scelta='0';
 
     // Un array contenente le carte del giocatore
     CartaCfu* mano[carteInMano];
@@ -307,11 +310,12 @@ CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bo
     bool sceltaValida = false;
     while(!sceltaValida){
         sceltaValida = true;
-        scanf("%d", &scelta);
+        scanf("%c", &scelta);
+        scelta -= '0';
         if(scelta==0){
             if(annulla)
                 return NULL;
-            else {
+            else{
                 sceltaValida = false;
                 printf("Le carte sono numerate a partire da 1.\n");
             }
@@ -326,7 +330,7 @@ CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bo
             printf("Non puoi selezionare una carta senza effetto.\n");
         }else if(mano[scelta-1]->effetto != NESSUNO && mano[scelta-1]->effetto < PRIMA_ISTANTANEA && !effetto){
             sceltaValida = false;
-            printf("Puoi selezionare solo una carta con effetto.\n");
+            printf("Non puoi selezionare una carta cfu con effetto.\n");
         }else if(mano[scelta-1]->effetto >= PRIMA_ISTANTANEA && !istantanee){
             sceltaValida = false;
             printf("Non e' la fase delle carte istantanee (%c).\n", SIMBOLO_CARTA_ISTANTANEA);
