@@ -2,6 +2,26 @@
 #include "carteEffetto.h"
 
 /**
+ * Stampa le informazioni di una carta cfu (nome, valore, effetto)
+ * @param carta
+ */
+void stampaCfu(CartaCfu carta){
+    stampaNomeCfu(carta);
+    stampaEffetto(carta);
+}
+
+/**
+ * Stampa il nome e il valore (se applicabile) di una carta cfu
+ * @param carta
+ */
+void stampaNomeCfu(CartaCfu carta){
+    if(carta.effetto<PRIMA_ISTANTANEA)
+        printf("%s (%d CFU)\n", carta.nome, carta.cfu);
+    else
+        printf("%s (istantanea)\n", carta.nome);
+}
+
+/**
  * Stampa la descrizione dell'effetto di una carta cfu
  * @param carta La carta
  */
@@ -59,6 +79,7 @@ void stampaEffetto(CartaCfu carta){
         default:
             break;
     }
+    printf("\n");
 }
 
 /**

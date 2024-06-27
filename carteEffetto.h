@@ -15,6 +15,8 @@
 #include "carteCfu.h"
 #include "log.h"
 
+void stampaCfu(CartaCfu);
+void stampaNomeCfu(CartaCfu);
 void stampaEffetto(CartaCfu);
 void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGiocatori[nGiocatori], Giocatore** giocatori, Punteggio punteggi[nGiocatori], int indice, CartaCfu** mazzo, CartaCfu** scarti, Personaggio personaggi[N_PERSONAGGI], int* moltiplicatoreAumenta);
 void scartaPE(Giocatore*, Punteggio*, CartaCfu**, bool);

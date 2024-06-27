@@ -70,6 +70,8 @@ int main() {
 
     Punteggio punteggi[nGiocatori];
 
+    int moltiplicatoreAumenta = 1;
+
     do{
         /**
          * Idea:
@@ -80,7 +82,7 @@ int main() {
          */
         // Comincia un turno
         logTurno(nTurno);
-        resetPunteggi(nGiocatori, punteggi);
+        resetPunteggi(nGiocatori, punteggi, &moltiplicatoreAumenta);
         pescaRotazione(giocatori, &carteCfu, &scarti);
         scriviSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, nomeFile);
 
@@ -89,7 +91,7 @@ int main() {
         stampaPlancia(giocatori, nGiocatori, numeriPlancia, personaggi);
 
         // Le due fasi del turno
-        faseCfu(giocatori, personaggi, nGiocatori, &carteCfu, &scarti, &carteOstacolo, punteggi);
+        faseCfu(giocatori, personaggi, nGiocatori, &carteCfu, &scarti, &carteOstacolo, punteggi, &moltiplicatoreAumenta);
 
         // Si controlla se qualcuno ha vinto o perso
         controlloOstacoli(&giocatori, &nGiocatori, personaggi);

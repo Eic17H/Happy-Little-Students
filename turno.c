@@ -143,10 +143,10 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
  * @param scarti pila degli scarti
  * @param carteOstacolo mazzo degli ostacoli
  */
-void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori]){
+void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int *moltiplicatoreAumenta) {
     int i=0;
 
-    // Un array per le carte giocate e uno per i giocatori, utili per mantenere l'ordine nelle subroutine
+    // Un array per le carte giocate e uno per i giocatori, serviranno per l'ordine degli effetti
     CartaCfu carte[nGiocatori];
     Giocatore* arrayGiocatori[nGiocatori];
 
@@ -154,9 +154,6 @@ void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, Ca
     int ordineEffetti[nGiocatori];
     for(i=0; i<nGiocatori; i++)
         ordineEffetti[i] = i;
-
-    // TODO: spostare nel main
-    int moltiplicatoreAumenta = 1;
 
     // Controllo che ci siano giocatori
     if(giocatori == NULL || nGiocatori<=0)
@@ -184,30 +181,22 @@ void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, Ca
             printf("%s ha solo carte istantanee, scarta tutta la sua mano.\n", giocatore->nomeUtente);
             scartaMano(giocatore, carteCfu, scarti);
         }
-        // Il punteggio dato dalla carta per ora è 0
-        punteggi[i].carta = 0;
-        // Si legge il bonus/malus
-        punteggi[i].personaggio = giocatore->personaggio.ostacoli[(**carteOstacolo).tipo-1];
-        // Si parte senza aumenta/diminuisci
-        punteggi[i].aumenta = 0;
-        colorePersonaggio(giocatore->personaggio, personaggi);
+        coloreGiocatore(giocatore, personaggi);
         printf("= Turno di %s\n", giocatore->nomeUtente);
+        continua = false;
         while(!continua){
-            getchar();
             coloreGiocatore(giocatore, personaggi);
             printf("1: Gioca una carta\n");
             printf("2: Visualizza informazioni sulle carte\n");
             scanf("%c", &scelta);
+            getchar();
             printf(RESET);
             switch (scelta) {
                 case '1':
                     continua = true;
                     break;
                 case '2':
-                    carta = selezionaCarta(giocatore, true, true, true, false);
-                    printf("Valore: %d CFU\nEffetto:\n", carta->cfu);
-                    stampaEffetto(*carta);
-                    printf("\n");
+                    stampaCfu(*selezionaCarta(giocatore, true, true, true, false));
                     break;
                 default:
                     printf("Seleziona un'opzione!\n");
@@ -228,7 +217,7 @@ void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, Ca
         for (i = 0; i < nGiocatori; i++) {
             // TODO: più bello
             if (carte[ordineEffetti[i]].effetto > NESSUNO && carte[ordineEffetti[i]].effetto < PRIMA_ISTANTANEA)
-                usaEffetto(nGiocatori, carte, arrayGiocatori, &giocatori, punteggi, ordineEffetti[i], carteCfu, scarti, personaggi, &moltiplicatoreAumenta);
+                usaEffetto(nGiocatori, carte, arrayGiocatori, &giocatori, punteggi, ordineEffetti[i], carteCfu, scarti, personaggi, moltiplicatoreAumenta);
         }
     }else{
         printf(CYN "\nGli effetti secondari delle carte sono stati annullati\n\n" RESET);
@@ -237,7 +226,7 @@ void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, Ca
 
     // Trova punteggio minimo e massimo
     for(i=0; i<nGiocatori; i++){
-        calcolaPunteggio(&punteggi[i], moltiplicatoreAumenta);
+        calcolaPunteggio(&punteggi[i], *moltiplicatoreAumenta);
         if(punteggi[i].totale > punteggi[max].totale)
             max = i;
         if(punteggi[i].totale < punteggi[min].totale)
@@ -285,11 +274,12 @@ void calcolaPunteggio(Punteggio *punteggio, int moltiplicatoreAumenta){
 }
 
 
-void resetPunteggi(int nGiocatori, Punteggio punteggi[]){
+void resetPunteggi(int nGiocatori, Punteggio punteggi[], int *moltiplicatore){
     for(int i=0; i<nGiocatori; i++){
         punteggi[i].totale=0;
         punteggi[i].carta=0;
         punteggi[i].aumenta=0;
         punteggi[i].personaggio=0;
     }
+    *moltiplicatore = 1;
 }

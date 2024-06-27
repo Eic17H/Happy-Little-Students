@@ -19,7 +19,7 @@ CartaCfu* daiCarta(Giocatore*, CartaCfu*);
 void cartaNegliScarti(CartaCfu**, CartaCfu*);
 CartaCfu* cartaDalMazzo(CartaCfu**, CartaCfu**);
 void prendiCarta(Giocatore*, CartaCfu*);
-CartaCfu *selezionaCarta(Giocatore *, bool, bool, bool, bool annulla);
+CartaCfu *selezionaCarta(Giocatore* giocatore, bool istantanee, bool effetto, bool normali, bool annulla);
 
 // Subroutine che usano quelle precedenti
 void giocaCarta(Giocatore *, CartaCfu **, int *);
