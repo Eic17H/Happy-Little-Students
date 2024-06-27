@@ -17,7 +17,7 @@ void stampaDescOstacolo(CartaOstacolo);
 void stampaNomeOstacolo(CartaOstacolo);
 void stampaPlancia(Giocatore *, int, int[50], Personaggio[N_PERSONAGGI]);
 void segnalino(Giocatore*, int, int[]);
-void leggiNumeriPlancia(int[]);
+bool leggiNumeriPlancia(int[]);
 void coloreNumero(int);
 void colorePersonaggio(Personaggio, Personaggio[N_PERSONAGGI]);
 void coloreGiocatore(Giocatore*, Personaggio[N_PERSONAGGI]);

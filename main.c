@@ -64,7 +64,7 @@ int main() {
         inizializzaSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, personaggi);
 
     int numeriPlancia[PUNTI_PER_VINCERE];
-    leggiNumeriPlancia(numeriPlancia);
+    bool planciaOk = leggiNumeriPlancia(numeriPlancia);
 
     creaLog(nomeFile);
 
@@ -81,7 +81,8 @@ int main() {
 
         // Si stampano le informazioni correnti
         stampaSituazione(giocatori, nGiocatori, personaggi);
-        stampaPlancia(giocatori, nGiocatori, numeriPlancia, personaggi);
+        if(planciaOk)
+            stampaPlancia(giocatori, nGiocatori, numeriPlancia, personaggi);
 
         // TODO: abbellire le stampe
         // Le due fasi del turno

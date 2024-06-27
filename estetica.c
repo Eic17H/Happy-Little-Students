@@ -111,9 +111,12 @@ void stampaDescOstacolo(CartaOstacolo carta){
 /**
  * Legge i numeri che segnano il valore di una casella in plancia.txt, e li mette in un array
  * @param numeri Array dei numeri, letti da sinistra a destra, dall'alto verso il basso
+ * TODO: aggiungere i magic number dentro il file, gestire l'assenza
  */
-void leggiNumeriPlancia(int numeri[PUNTI_PER_VINCERE]){
+bool leggiNumeriPlancia(int numeri[PUNTI_PER_VINCERE]){
     FILE *fp = fopen("plancia.txt", "r");
+    if(fp == NULL)
+        return false;
     char c;
     int i=0, letti=0;
     do{
@@ -124,6 +127,7 @@ void leggiNumeriPlancia(int numeri[PUNTI_PER_VINCERE]){
             i++;
         }
     }while(i<PUNTI_PER_VINCERE && letti>=0);
+    return true;
 }
 
 /**
