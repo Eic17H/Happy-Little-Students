@@ -73,13 +73,6 @@ int main() {
     int moltiplicatoreAumenta = 1;
 
     do{
-        /**
-         * Idea:
-         * 1. Menù di scelta per ciascuno, carte scelte in un array
-         * 2. Fase CFU: si rivelano le carte a tutti
-         * 3. Fase delle carte istantanee: si chiede
-         * 4. Si rivela lo sconfitto, scelta per le carte istantanee
-         */
         // Comincia un turno
         logTurno(nTurno);
         resetPunteggi(nGiocatori, punteggi, &moltiplicatoreAumenta);
@@ -92,11 +85,15 @@ int main() {
 
         // Le due fasi del turno
         faseCfu(giocatori, personaggi, nGiocatori, &carteCfu, &scarti, &carteOstacolo, punteggi, &moltiplicatoreAumenta);
+        faseIstantanee(giocatori, personaggi, nGiocatori, &carteOstacolo, punteggi, moltiplicatoreAumenta);
+        // TODO: lo spareggio va qua
 
         // Si controlla se qualcuno ha vinto o perso
         controlloOstacoli(&giocatori, &nGiocatori, personaggi);
         vincitore = vince(giocatori);
+
         // Se non ha vinto nessuno, si continua a giocare
+        // È alla fine per evitare che il numero aumenti se si carica un salvataggio ma non si termina un turno
         nTurno++;
     }while(vincitore == NULL);
 

@@ -143,7 +143,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
  * @param scarti pila degli scarti
  * @param carteOstacolo mazzo degli ostacoli
  */
-void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int *moltiplicatoreAumenta) {
+void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int *moltiplicatoreAumenta){
     int i=0;
 
     // Un array per le carte giocate e uno per i giocatori, serviranno per l'ordine degli effetti
@@ -188,8 +188,8 @@ void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, Ca
             coloreGiocatore(giocatore, personaggi);
             printf("1: Gioca una carta\n");
             printf("2: Visualizza informazioni sulle carte\n");
-            scanf("%c", &scelta);
             getchar();
+            scanf("%c", &scelta);
             printf(RESET);
             switch (scelta) {
                 case '1':
@@ -220,9 +220,8 @@ void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, Ca
                 usaEffetto(nGiocatori, carte, arrayGiocatori, &giocatori, punteggi, ordineEffetti[i], carteCfu, scarti, personaggi, moltiplicatoreAumenta);
         }
     }else{
-        printf(CYN "\nGli effetti secondari delle carte sono stati annullati\n\n" RESET);
+        printf(UCYN "\nGli effetti secondari delle carte sono stati annullati\n\n" RESET);
     }
-    // TODO: carte, arrayGiocatori, punteggi, ordineEffetti[i], nGiocatori, carteCfu, scarti, personaggi, &moltiplicatoreAumenta
 
     // Trova punteggio minimo e massimo
     for(i=0; i<nGiocatori; i++){
@@ -264,6 +263,36 @@ void faseCfu(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, Ca
         giocatore = spareggio(giocatori, nGiocatori, sconfitti, scarti);
     logOstacolo(*giocatore, **carteOstacolo);
     pescaOstacolo(giocatore, carteOstacolo);
+}
+
+void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocatori, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta){
+    Giocatore* giocatore = giocatori;
+    Giocatore* arrayGiocatori[nGiocatori];
+    int i=0;
+    char scelta = '0';
+    CartaCfu *carta;
+    // TODO: stampaGiocatori()
+    for(i=1, giocatore=giocatori; giocatore!=NULL; i++, giocatore=giocatore->prossimo){
+        coloreGiocatore(giocatore, personaggi);
+        printf("%d: %s \t (%d CFU)\n" RESET, i, giocatore->nomeUtente, punteggi[i-1].totale);
+        arrayGiocatori[i-1] = giocatore;
+    }
+    getchar();
+    printf("Qualcuno vuole giocare una carta istantanea?\n0 per nessuno.\n");
+    scanf("%c", &scelta);
+    while(scelta!='0'){
+        if(scelta<'0' || scelta>nGiocatori+'0'){
+            printf(BRED "Seleziona un'opzione\n" RESET);
+        }else if(scelta != '0'){
+            carta = selezionaCarta(arrayGiocatori[scelta-'1'], true, false, false, true);
+            if(carta != NULL){
+                usaIstantanea(*carta, nGiocatori, scelta-'1', arrayGiocatori, punteggi, personaggi, moltiplicatoreAumenta);
+            }
+        }
+        // stampaGiocatori()
+        printf("Qualcuno vuole giocare una carta istantanea?\n0 per terminare.\n");
+        scanf("%c", &scelta);
+    }
 }
 
 void calcolaPunteggio(Punteggio *punteggio, int moltiplicatoreAumenta){

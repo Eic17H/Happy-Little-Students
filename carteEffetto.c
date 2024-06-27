@@ -136,18 +136,6 @@ void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGioc
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "ANNULLA");
             annulla();
             break;
-        case AUMENTA:
-            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "AUMENTA");
-            aumentaDiminuisci(arrayGiocatori[indice], giocatori, 1, personaggi, punteggi, *moltiplicatoreAumenta);
-            break;
-        case DIMINUISCI:
-            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "DIMINUISCI");
-            aumentaDiminuisci(arrayGiocatori[indice], giocatori, -1, personaggi, punteggi, *moltiplicatoreAumenta);
-            break;
-        case INVERTI:
-            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "INVERTI");
-            inverti(nGiocatori, punteggi, *moltiplicatoreAumenta);
-            break;
         case SALVA: // TODO
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SALVA");
             //salva();
@@ -235,7 +223,8 @@ void scambiaDS(Giocatore* giocatori[], CartaCfu carte[], Giocatore* giocatore, P
     printf("0 per annullare\n");
     printf("Seleziona: ");
     scanf("%d", &scelta);
-    while(scelta < 0 || scelta > nGiocatori || giocatori[scelta] == giocatore || carte[scelta].effetto != NESSUNO){
+    // TODO: rifare: serve un modo per escludere il giocante
+    while(scelta<0 || scelta>nGiocatori+1 || giocatori[scelta-1]==giocatore || carte[scelta-1].effetto!=NESSUNO){
         printf("Riseleziona: ");
         scanf("%d", &scelta);
     }
@@ -340,7 +329,7 @@ void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
     // Si pescano le carte, si mettono nell'array e si stampano
     for(int i=0; i<nCarte; i++){
         carte[i] = cartaDalMazzo(mazzo, scarti);
-        printf("%d:\t%s (%d CFU)\n\t", i+1, carte[i]->nome, carte[i]->cfu);
+        stampaCfu(*carte[i]);
         stampaEffetto(*carte[i]);
     }
 
@@ -373,75 +362,6 @@ void scambiaC(){
 
 void annulla(){
     debug("\t\tannulla()\n");
-}
-
-/**
- * Aumenta o diminuisce di un certo valore (di default 2) il punteggio del turno di un giocatore a scelta
- * @param giocante Il giocatore che sta attivando l'effetto
- * @param giocatori Puntatore al primo giocatore
- * @param valore Il valore dell'aumento: per le regole del gioco, 1 per AUMENTA e -1 per DIMINUISCI
- * @param personaggi Array dei personaggi (le plance)
- * @param punteggi Array dei punteggi provvisori
- * @param moltiplicatore Il corrente moltiplicatore dell'effetto di AUMENTA e DIMINUISCI
- */
-void aumentaDiminuisci(Giocatore*giocante, Giocatore **giocatori, int valore, Personaggio personaggi[N_PERSONAGGI], Punteggio punteggi[], int moltiplicatore) {
-    debug("\t\taumenta()\n");
-    Giocatore* giocatore;
-    int i, scelta;
-
-    // TODO: fare questo con una funzione
-    // Si stampano tutti i giocatori
-    for(i=1, giocatore = *giocatori; giocatore != NULL; i++, giocatore = giocatore->prossimo){
-        calcolaPunteggio(&punteggi[i-1], moltiplicatore);
-        coloreGiocatore(giocatore, personaggi);
-        printf("%d: %s (%d CFU)\n" RESET, i, giocatore->nomeUtente, punteggi[i-1].totale);
-    }
-
-    // Input
-    coloreGiocatore(giocante, personaggi);
-    printf("Seleziona un giocatore:\n");
-    scanf("%d", &scelta);
-
-    // Si applica l'effetto sul punteggio del giocatore scelto e si ricalcola
-    punteggi[scelta-1].aumenta += valore;
-    calcolaPunteggio(&punteggi[scelta-1], moltiplicatore);
-}
-
-/**
- * Scambia il punteggio totale minore e quello maggiore
- * @param nGiocatori
- * @param punteggi
- * @param moltiplicatoreAumenta
- */
-void inverti(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta) {
-    debug("\t\tinverti()\n");
-    int i, min=0, max=0;
-
-    // Si trovano l'indice del punteggio maggiore e quello del punteggio minore
-    for(i=0; i<nGiocatori; i++){
-        calcolaPunteggio(&punteggi[i], moltiplicatoreAumenta);
-        if(punteggi[i].totale>punteggi[max].totale)
-            max = i;
-        if(punteggi[i].totale<punteggi[min].totale)
-            min = i;
-    }
-
-    // Scambia i due punteggi trovati
-    scambiaPunteggi(&punteggi[min], &punteggi[max]);
-}
-
-// TODO: è orrenda, magari invece cambio l'indirizzo di "sconfitto" nella routine e separo usaEffetto() e usaInst() e se sconfitto==NULL nessuno pesca
-void salva(bool* devePescare){
-    debug("\t\tsalva()\n");
-    *devePescare = false;
-}
-
-// TODO: è orrenda
-void dirotta(Giocatore** giocatori, Giocatore* giocatore, int nGiocatori, Personaggio personaggi[N_PERSONAGGI], CartaOstacolo** ostacoli, bool*devePescare){
-    debug("\t\tdirotta()\n");
-    devePescare = false;
-    Giocatore*vittima = selezionaAvversario(giocatori, giocatore, personaggi, nGiocatori);
-    pescaOstacolo(vittima, ostacoli);
 }
 
 /**

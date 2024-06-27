@@ -15,10 +15,11 @@
 #include "carteCfu.h"
 #include "carteOstacolo.h"
 #include "log.h"
+#include "carteIstantanee.h"
 
 void inizializzaGiocatori(Giocatore*);
-void faseCfu(Giocatore *giocatori, Personaggio[4], int nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti,
-             CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int *moltiplicatoreAumenta);
+void faseCfu(Giocatore *giocatori, Personaggio[4], int nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int *moltiplicatoreAumenta);
+void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocatori, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta);
 Giocatore* vince(Giocatore*);
 Giocatore* spareggio(Giocatore*, int, bool[], CartaCfu**);
 void assegnaPersonaggi(Giocatore*, Personaggio*);

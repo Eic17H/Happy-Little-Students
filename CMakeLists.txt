@@ -26,4 +26,6 @@ add_executable(Happy_Little_Students main.c
         log.c
         log.h
         salvataggio.c
-        salvataggio.h)
+        salvataggio.h
+        carteIstantanee.c
+        carteIstantanee.h)
