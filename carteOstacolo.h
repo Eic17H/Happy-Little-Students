@@ -11,5 +11,8 @@ void mischiaOstacoli(CartaOstacolo**);
 
 bool troppiOstacoli(int[4], int nGiocatori);
 void controlloOstacoli(Giocatore**, int*, Personaggio[]);
+void rimettiOstacoloNelMazzo(CartaOstacolo* mazzo, CartaOstacolo* ostacolo);
+CartaOstacolo* togliOstacolo(CartaOstacolo** mazzo);
+void annullaOstacolo(CartaOstacolo** mazzo);
 
 #endif //HAPPY_LITTLE_STUDENTS_CARTEOSTACOLO_H

@@ -20,6 +20,13 @@ void pescaOstacolo(Giocatore* giocatore, CartaOstacolo** mazzo){
     giocatore->primaOstacolo = carta;
 }
 
+CartaOstacolo* togliOstacolo(CartaOstacolo** mazzo){
+    CartaOstacolo* carta = *mazzo;
+    *mazzo = carta->prossima;
+    carta->prossima = NULL;
+    return carta;
+}
+
 /** Mischia il mazzo degli ostacoli
  * @param mazzo puntatore al mazzo degli ostacoli, che a sua volta è un puntatore alla sua prima carta
  */
@@ -157,4 +164,24 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio perso
             rimuoviGiocatore(giocatori, giocatore, nGiocatori);
         }
     }
+}
+
+/**
+ * Rimette un ostacolo in fondo al mazzo
+ * @param mazzo Prima carta del mazzo (puntatore a struct)
+ * @param ostacolo Carta da mettere nel mazzo (puntatore a struct)
+ */
+void rimettiOstacoloNelMazzo(CartaOstacolo* mazzo, CartaOstacolo* ostacolo){
+    CartaOstacolo* carta;
+    for(carta = mazzo; carta->prossima != NULL; carta = carta->prossima);
+    carta->prossima = ostacolo;
+    ostacolo->prossima = NULL;
+}
+
+/**
+ * La carta ostacolo di questo turno viene rimessa in fondo al mazzo
+ * @param mazzo Prima carta del mazzo, quella da mettere in fondo (puntatore a struct)
+ */
+void annullaOstacolo(CartaOstacolo** mazzo){
+    rimettiOstacoloNelMazzo(*mazzo, togliOstacolo(mazzo));
 }

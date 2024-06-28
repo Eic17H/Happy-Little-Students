@@ -73,12 +73,15 @@ int main() {
     Punteggio punteggi[nGiocatori];
 
     int moltiplicatoreAumenta = 1;
+    getchar();
 
     do{
         // Comincia un turno
         logTurno(nTurno);
         resetPunteggi(nGiocatori, punteggi, &moltiplicatoreAumenta);
         pescaRotazione(giocatori, &carteCfu, &scarti);
+
+        // È importante salvare dopo aver pescato, il formato richiede che si abbiano 5 carte in mano
         scriviSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, nomeFile);
 
         // Si stampano le informazioni correnti
@@ -87,18 +90,18 @@ int main() {
             stampaPlancia(giocatori, nGiocatori, numeriPlancia, personaggi);
 
         // TODO: abbellire le stampe
-        // Le due fasi del turno
+        // Le due fasi del turno, l'eventuale spareggio e la pesca dell'ostacolo
         faseCfu(&giocatori, personaggi, &nGiocatori, &carteCfu, &scarti, &carteOstacolo, punteggi, &moltiplicatoreAumenta);
         faseIstantanee(giocatori, personaggi, nGiocatori, &scarti, &carteOstacolo, punteggi, moltiplicatoreAumenta);
-        // TODO: lo spareggio va qua
+        fineTurno(&giocatori, personaggi, nGiocatori, &scarti, &carteOstacolo, punteggi, moltiplicatoreAumenta);
 
         // Si controlla se qualcuno ha vinto o perso
         controlloOstacoli(&giocatori, &nGiocatori, personaggi);
         vincitore = vince(giocatori);
 
-        // Se non ha vinto nessuno, si continua a giocare
         // È alla fine per evitare che il numero aumenti se si carica un salvataggio ma non si termina un turno
         nTurno++;
+        // Se non ha vinto nessuno, si continua a giocare
     }while(vincitore == NULL);
 
     // Se qualcuno ha vinto si esce dal loop

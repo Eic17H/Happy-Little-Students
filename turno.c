@@ -33,7 +33,7 @@ void assegnaPersonaggi(Giocatore* giocatori, Personaggio* personaggi){
  * @return NULL se nessuno ha vinto, il vincitore se qualcuno ha vinto
  */
 Giocatore* vince(Giocatore* giocatori){
-    // TODO: più vincitori
+    // TODO: più vincitori: se qualcuno ha vinto restituisce vero e rimuove tutti i non-vincitori dal gioco
     // se rimane un solo giocatore, ha vinto
     if(giocatori->prossimo == NULL){
         printf("%s e' l'ultimo giocatore rimasto.\n", giocatori->nomeUtente);
@@ -187,7 +187,6 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
         printf("= Turno di %s\n", giocatore->nomeUtente);
         continua = false;
         arrende = false;
-        getchar();
         while(!continua){
             coloreGiocatore(giocatore, personaggi);
             printf("1: Gioca una carta\n");
@@ -240,46 +239,8 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
         printf(UCYN "\nGli effetti secondari delle carte sono stati annullati\n\n" RESET);
     }
 
-    // Trova punteggio minimo e massimo
-    for(i=0; i<*nGiocatori; i++){
+    for(i=0; i<*nGiocatori; i++)
         calcolaPunteggio(&punteggi[i], *moltiplicatoreAumenta);
-        if(punteggi[i].totale > punteggi[max].totale)
-            max = i;
-        if(punteggi[i].totale < punteggi[min].totale)
-            min = i;
-    }
-
-    // Controlla chi ha il punteggio minore
-    for(i=0; i<*nGiocatori; i++){
-        if(punteggi[i].totale == punteggi[min].totale){
-            nSconfitti++;
-            sconfitti[i] = 1;
-        }else
-            sconfitti[i] = 0;
-    }
-
-    if(nSconfitti == *nGiocatori){
-        // rimettiOstacoloNelMazzo();
-        return;
-    }
-
-    // Dà i punti ai vincitori
-    for(i=0; i<*nGiocatori; i++){
-        if(punteggi[i].totale==punteggi[max].totale){
-            colorePersonaggio(arrayGiocatori[i]->personaggio, personaggi);
-            printf("%s ha preso %d cfu per le carte giocate.\n" RESET, arrayGiocatori[i]->nomeUtente, punteggi[i].totale);
-            prendiCfu(*arrayGiocatori[i], punteggi[i].totale, true);
-            arrayGiocatori[i]->cfu += punteggi[i].totale;
-        }
-    }
-
-    // Se ci sono più giocatori con il punteggio minore, si spareggia
-    if(nSconfitti==1)
-        giocatore = arrayGiocatori[min];
-    else
-        giocatore = spareggio(*giocatori, *nGiocatori, sconfitti, scarti);
-    logOstacolo(*giocatore, **carteOstacolo);
-    pescaOstacolo(giocatore, carteOstacolo);
 }
 
 void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta){
@@ -292,26 +253,87 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
     for(i, giocatore=giocatori; giocatore!=NULL; i++, giocatore=giocatore->prossimo){
         arrayGiocatori[i] = giocatore;
     }
+    printf("Qualcuno vuole giocare una carta istantanea?\n");
     stampaGiocatori(giocatori, punteggi, personaggi);
-    getchar();
-    printf("Qualcuno vuole giocare una carta istantanea?\n0 per nessuno.\n");
+    printf("0 per terminare.\n");
     scanf("%c", &scelta);
-    while(scelta!='0'){
-        if(scelta<'0' || scelta>nGiocatori+'0'){
+    getchar();
+    // Leggo un carattere per evitare problemi con scanf, ha una sola cifra quindi funziona, poi sottraggo l'offset tra valore vero e valore ASCII
+    scelta -= '0';
+
+    // TODO: c'è qualche problema con l'input
+    while(scelta!=0){
+        if(scelta<0 || scelta>nGiocatori){
             printf(BRED "Seleziona un'opzione\n" RESET);
-        }else if(scelta != '0'){
-            getchar();
-            carta = daiCarta(arrayGiocatori[scelta-'1'], selezionaCarta(arrayGiocatori[scelta-'1'], true, false, false, true));
+        }else{
+            // L'input parte da 1
+            scelta-=1;
+            carta = daiCarta(arrayGiocatori[scelta], selezionaCarta(arrayGiocatori[scelta], true, false, false, true));
             if(carta != NULL){
                 stampaEffetto(*carta);
-                usaIstantanea(*carta, nGiocatori, scelta-'1', arrayGiocatori, punteggi, personaggi, moltiplicatoreAumenta);
+                usaIstantanea(*carta, nGiocatori, scelta, arrayGiocatori, punteggi, personaggi, moltiplicatoreAumenta);
+                cartaNegliScarti(scarti, carta);
             }
         }
-        cartaNegliScarti(scarti, carta);
+        printf("Qualcuno vuole giocare una carta istantanea?\n");
         stampaGiocatori(giocatori, punteggi, personaggi);
-        printf("Qualcuno vuole giocare una carta istantanea?\n0 per terminare.\n");
+        printf("0 per terminare.\n");
         scanf("%c", &scelta);
+        getchar();
+        scelta -= '0';
     }
+}
+
+void fineTurno(Giocatore **giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta){
+    // Trova punteggio minimo e massimo
+    int i=0, min=0, max=0, nSconfitti=0;
+    bool sconfitto[nGiocatori];
+    Giocatore* giocatore;
+    for(i=0; i<nGiocatori; i++){
+        calcolaPunteggio(&punteggi[i], moltiplicatoreAumenta);
+        if(punteggi[i].totale > punteggi[max].totale)
+            max = i;
+        if(punteggi[i].totale < punteggi[min].totale)
+            min = i;
+    }
+
+    // Controlla chi ha il punteggio minore
+    for(i=0; i<nGiocatori; i++){
+        calcolaPunteggio(&punteggi[i], moltiplicatoreAumenta);
+        if(punteggi[i].totale == punteggi[min].totale) {
+            sconfitto[i] = true;
+            nSconfitti++;
+        }
+        else
+            sconfitto[i] = false;
+    }
+
+    // Se tutti pareggiano, si rimette l'ostacolo in fondo al mazzo
+    if(nSconfitti == nGiocatori){
+        annullaOstacolo(carteOstacolo);
+        return;
+    }
+
+    // Dà i punti ai vincitori
+    for(giocatore = *giocatori, i=0; i<nGiocatori; giocatore = giocatore->prossimo, i++){
+        if(punteggi[i].totale==punteggi[max].totale){
+            colorePersonaggio(giocatore->personaggio, personaggi);
+            printf("%s ha preso %d cfu per le carte giocate.\n" RESET, giocatore->nomeUtente, punteggi[i].totale);
+            prendiCfu(*giocatore, punteggi[i].totale, true);
+            giocatore->cfu += punteggi[i].totale;
+        }
+    }
+
+    // Eventuale spareggio, pesca dell'ostacolo
+    if(nSconfitti==1) {
+        giocatore = *giocatori;
+        for(i=0; i<min; i++)
+            giocatore = giocatore->prossimo;
+    }else
+        giocatore = spareggio(*giocatori, nGiocatori, sconfitto, scarti);
+    logOstacolo(*giocatore, **carteOstacolo);
+    // TODO: aggiornare la funzione
+    pescaOstacolo(giocatore, carteOstacolo);
 }
 
 void stampaGiocatori(Giocatore* giocatori, Punteggio punteggi[], Personaggio personaggi[N_PERSONAGGI]){

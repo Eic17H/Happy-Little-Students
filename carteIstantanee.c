@@ -48,13 +48,13 @@ void aumentaDiminuisci(int nGiocatori, int indice, int valore, Giocatore* giocat
     // Input
     coloreGiocatore(giocatori[indice], personaggi);
     printf("Seleziona un giocatore:\n");
-    getchar();
     scanf("%c", &scelta);
+    getchar();
     scelta -= '1';
     while(scelta<0 || scelta>nGiocatori){
         printf(URED "Seleziona un giocatore!!\n" RESET);
-        getchar();
         scanf("%c", &scelta);
+        getchar();
         scelta -= '1';
     }
 

@@ -154,8 +154,6 @@ void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGioc
         calcolaPunteggio(&punteggi[i-1], *moltiplicatoreAumenta);
     }
 
-    // TODO: messaggio annulla
-
     // TODO: spostare
     printf(RESET "\nSituazione provvisoria:\n");
     for(i=1, giocatoreCerca = *giocatori; giocatoreCerca != NULL; i++, giocatoreCerca = giocatoreCerca->prossimo){
@@ -275,11 +273,11 @@ void scartaC(Giocatore *giocatore, CartaCfu** scarti) {
     // Va avanti per 3 carte o finché non decide di smettere. Può annullare l'azione
     for(int i=0; i<nCarte && continua!='0'; i++){
         carta = daiCarta(giocatore, selezionaCarta(giocatore, true, true, true, true));
-        getchar();
         if(carta==NULL){
             i--;
             printf("Vuoi terminare l'effetto?\n0 per si', qualunque altro numero per no\n");
             scanf("%c", &continua);
+            getchar();
         }else
             cartaNegliScarti(scarti, carta);
     }
