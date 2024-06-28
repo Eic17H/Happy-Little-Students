@@ -306,7 +306,7 @@ CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bo
         mano[i] = carta;
     }
 
-    printf("Quale vuoi giocare?\n");
+    printf("Seleziona: ");
     bool sceltaValida = false;
     while(!sceltaValida){
         sceltaValida = false;

@@ -221,10 +221,12 @@ void scambiaDS(Giocatore* giocatori[], CartaCfu carte[], Giocatore* giocatore, P
     printf("0 per annullare\n");
     printf("Seleziona: ");
     scanf("%d", &scelta);
+    getchar();
     // TODO: rifare: serve un modo per escludere il giocante
     while(scelta<0 || scelta>nGiocatori+1 || giocatori[scelta-1]==giocatore || carte[scelta-1].effetto!=NESSUNO){
         printf("Riseleziona: ");
         scanf("%d", &scelta);
+        getchar();
     }
     if(scelta != 0) {
         CartaCfu temp = carte[indice];
@@ -245,9 +247,11 @@ Giocatore* selezionaAvversario(Giocatore** giocatori, Giocatore* giocatore, Pers
         printf("\t%d: %s\n", i+1, avversari[i]->nomeUtente);
     }
     scanf("%d", &scelta);
+    getchar();
     while(scelta<1 || scelta>nGiocatori-1){
         printf("Seleziona un numero tra 1 e %d.\n", nGiocatori-1);
         scanf("%d", &scelta);
+        getchar();
     }
     printf(RESET);
     return avversari[scelta-1];
@@ -335,9 +339,11 @@ void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
     printf("Scegline una: ");
     int scelta;
     scanf("%d", &scelta);
+    getchar();
     while(scelta<1 || scelta>nCarte){
         printf("Immetti un numero tra 1 e %d\n", nCarte);
         scanf("%d", &scelta);
+        getchar();
     }
 
     // Si pesca la carta selezionata
