@@ -220,13 +220,11 @@ void scambiaDS(Giocatore* giocatori[], CartaCfu carte[], Giocatore* giocatore, P
     }
     printf("0 per annullare\n");
     printf("Seleziona: ");
-    scanf("%d", &scelta);
-    getchar();
-    // TODO: rifare: serve un modo per escludere il giocante
+    scelta = inputCifra();
+    // TODO: rifare: serve un modo per escludere il giocante, e "Riseleziona" è da cambiare
     while(scelta<0 || scelta>nGiocatori+1 || giocatori[scelta-1]==giocatore || carte[scelta-1].effetto!=NESSUNO){
         printf("Riseleziona: ");
-        scanf("%d", &scelta);
-        getchar();
+        scelta = inputCifra();
     }
     if(scelta != 0) {
         CartaCfu temp = carte[indice];
@@ -246,12 +244,10 @@ Giocatore* selezionaAvversario(Giocatore** giocatori, Giocatore* giocatore, Pers
         coloreGiocatore(avversari[i], personaggi);
         printf("\t%d: %s\n", i+1, avversari[i]->nomeUtente);
     }
-    scanf("%d", &scelta);
-    getchar();
+    scelta = inputCifra();
     while(scelta<1 || scelta>nGiocatori-1){
         printf("Seleziona un numero tra 1 e %d.\n", nGiocatori-1);
-        scanf("%d", &scelta);
-        getchar();
+        scelta = inputCifra();
     }
     printf(RESET);
     return avversari[scelta-1];
@@ -273,15 +269,14 @@ void scartaC(Giocatore *giocatore, CartaCfu** scarti) {
     debug("\t\tscartaC()\n");
     const int nCarte = 3;
     CartaCfu* carta;
-    char continua='1';
+    int continua=1;
     // Va avanti per 3 carte o finché non decide di smettere. Può annullare l'azione
-    for(int i=0; i<nCarte && continua!='0'; i++){
+    for(int i=0; i<nCarte && continua!=0; i++){
         carta = daiCarta(giocatore, selezionaCarta(giocatore, true, true, true, true));
         if(carta==NULL){
             i--;
             printf("Vuoi terminare l'effetto?\n0 per si', qualunque altro numero per no\n");
-            scanf("%c", &continua);
-            getchar();
+            continua = inputCifra();
         }else
             cartaNegliScarti(scarti, carta);
     }
@@ -338,12 +333,10 @@ void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
     // Input
     printf("Scegline una: ");
     int scelta;
-    scanf("%d", &scelta);
-    getchar();
+    scelta = inputCifra();
     while(scelta<1 || scelta>nCarte){
         printf("Immetti un numero tra 1 e %d\n", nCarte);
-        scanf("%d", &scelta);
-        getchar();
+        scelta = inputCifra();
     }
 
     // Si pesca la carta selezionata

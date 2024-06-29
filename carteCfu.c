@@ -298,7 +298,7 @@ CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bo
     int carteInMano = contaCarteMano(*giocatore);
     // Puntatori a due carte
     CartaCfu *carta = giocatore->primaCfu;
-    char scelta='0';
+    int scelta=0;
 
     // Un array contenente le carte del giocatore
     CartaCfu* mano[carteInMano];
@@ -310,11 +310,8 @@ CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bo
     bool sceltaValida = false;
     while(!sceltaValida){
         sceltaValida = false;
-        scanf("%c", &scelta);
-        getchar();
-        scelta -= '0';
-        printf("AAAAAAAAAAAA %d\n", scelta);
-        // Si ripete se almeno una delle condizioni è vera
+        scelta = inputCifra();
+        // Si ripete l'input se almeno una delle condizioni è vera
         if(scelta==0){
             if(annulla)
                 return NULL;

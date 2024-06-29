@@ -167,11 +167,8 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
     int min=0, max=0;
     // Numero ed elenco di sconfitti, per lo spareggio
     int nSconfitti = 0;
-    // Vero se il personaggio in quella posizione deve spareggiare, falso altrimenti
-    bool sconfitti[*nGiocatori];
     bool continua = false;
     bool arrende = false;
-    char scelta = '0';
     CartaCfu *carta;
 
     stampaOstacolo(**carteOstacolo);
@@ -192,10 +189,8 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
             printf("1: Gioca una carta\n");
             printf("2: Visualizza informazioni sulle carte\n");
             printf("3: Arrenditi\n");
-            scanf("%c", &scelta);
-            getchar();
             printf(RESET);
-            switch (scelta) {
+            switch(inputCifra()){
                 case '1':
                     continua = true;
                     break;
@@ -244,25 +239,22 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
 }
 
 void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta){
+    // TODO: permettere di leggere gli effetti delle carte (magari con vediMano() che ti fa stampaEffetto() e selezionaCarta())
     Giocatore* giocatore = giocatori;
     Giocatore* arrayGiocatori[nGiocatori];
     int i=0;
-    char scelta = '0';
+    int scelta = 1;
     CartaCfu *carta;
     // TODO: arrayGiocatori(bool soloAvversari)
     for(i, giocatore=giocatori; giocatore!=NULL; i++, giocatore=giocatore->prossimo){
         arrayGiocatori[i] = giocatore;
     }
-    printf("Qualcuno vuole giocare una carta istantanea?\n");
-    stampaGiocatori(giocatori, punteggi, personaggi);
-    printf("0 per terminare.\n");
-    scanf("%c", &scelta);
-    getchar();
-    // Leggo un carattere per evitare problemi con scanf, ha una sola cifra quindi funziona, poi sottraggo l'offset tra valore vero e valore ASCII
-    scelta -= '0';
 
-    // TODO: c'è qualche problema con l'input
     while(scelta!=0){
+        printf("Qualcuno vuole giocare una carta istantanea?\n");
+        stampaGiocatori(giocatori, punteggi, personaggi);
+        printf("0 per terminare.\n");
+        scelta = inputCifra();
         if(scelta<0 || scelta>nGiocatori){
             printf(BRED "Seleziona un'opzione\n" RESET);
         }else{
@@ -275,12 +267,6 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
                 cartaNegliScarti(scarti, carta);
             }
         }
-        printf("Qualcuno vuole giocare una carta istantanea?\n");
-        stampaGiocatori(giocatori, punteggi, personaggi);
-        printf("0 per terminare.\n");
-        scanf("%c", &scelta);
-        getchar();
-        scelta -= '0';
     }
 }
 

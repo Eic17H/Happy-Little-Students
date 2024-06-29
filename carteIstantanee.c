@@ -35,7 +35,7 @@ void usaIstantanea(CartaCfu carta, int nGiocatori, int indice, Giocatore* arrayG
 void aumentaDiminuisci(int nGiocatori, int indice, int valore, Giocatore* giocatori[nGiocatori], Punteggio punteggi[nGiocatori], Personaggio personaggi[N_PERSONAGGI], int moltiplicatore){
     debug("\t\taumenta()\n");
     int i;
-    char scelta;
+    int scelta;
 
     // TODO: fare questo con una funzione
     // Si stampano tutti i giocatori
@@ -48,14 +48,10 @@ void aumentaDiminuisci(int nGiocatori, int indice, int valore, Giocatore* giocat
     // Input
     coloreGiocatore(giocatori[indice], personaggi);
     printf("Seleziona un giocatore:\n");
-    scanf("%c", &scelta);
-    getchar();
-    scelta -= '1';
+    scelta = inputCifra()-1;
     while(scelta<0 || scelta>nGiocatori){
         printf(URED "Seleziona un giocatore!!\n" RESET);
-        scanf("%c", &scelta);
-        getchar();
-        scelta -= '1';
+        scelta = inputCifra()-1;
     }
 
     // Si applica l'effetto sul punteggio del giocatore scelto e si ricalcola

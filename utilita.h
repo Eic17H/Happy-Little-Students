@@ -12,5 +12,6 @@
 #define debug //
 
 void scambiaInt(int*, int*);
+int inputCifra();
 
 #endif //HAPPY_LITTLE_STUDENTS_UTILITA_H
