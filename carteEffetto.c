@@ -56,7 +56,7 @@ void stampaEffetto(CartaCfu carta){
             printf("Guarda due carte in cima al mazzo, prendine una e scarta l'altra.\n");
             break;
         case SCAMBIAC:
-            printf("(Non ancora implementato) Scambia la carta punto giocata nel turno da un giocatore G1 con quella di un giocatore G2, con G1 e G2 scelti dal giocatore che ha giocato la carta.\n");
+            printf("Scambia la carta punto giocata nel turno da un giocatore G1 con quella di un giocatore G2, con G1 e G2 scelti dal giocatore che ha giocato la carta.\n");
             break;
         case ANNULLA:
             printf("Annulla gli" CYN " effetti " RESET "di tutte le carte punto durante il turno.\n");

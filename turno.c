@@ -191,13 +191,13 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
             printf("3: Arrenditi\n");
             printf(RESET);
             switch(inputCifra()){
-                case '1':
+                case 1:
                     continua = true;
                     break;
-                case '2':
+                case 2:
                     stampaCfu(*selezionaCarta(giocatore, true, true, true, false));
                     break;
-                case '3':
+                case 3:
                     continua = true;
                     arrende = true;
                     printf("\n");
@@ -250,11 +250,14 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
         arrayGiocatori[i] = giocatore;
     }
 
+
+    printf("Qualcuno vuole giocare una carta istantanea?\n");
+    stampaGiocatori(giocatori, punteggi, personaggi);
+    printf("0 per terminare.\n");
+    scelta = inputCifra();
+
     while(scelta!=0){
-        printf("Qualcuno vuole giocare una carta istantanea?\n");
-        stampaGiocatori(giocatori, punteggi, personaggi);
-        printf("0 per terminare.\n");
-        scelta = inputCifra();
+        // TODO: crasha qui
         if(scelta<0 || scelta>nGiocatori){
             printf(BRED "Seleziona un'opzione\n" RESET);
         }else{
@@ -267,6 +270,10 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
                 cartaNegliScarti(scarti, carta);
             }
         }
+        printf("Qualcun altro vuole giocare una carta istantanea?\n");
+        stampaGiocatori(giocatori, punteggi, personaggi);
+        printf("0 per terminare.\n");
+        scelta = inputCifra();
     }
 }
 
