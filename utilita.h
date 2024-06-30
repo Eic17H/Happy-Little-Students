@@ -13,5 +13,6 @@
 
 void scambiaInt(int*, int*);
 int inputCifra();
+void stampaNomeGiocatoreColore(Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI]);
 
 #endif //HAPPY_LITTLE_STUDENTS_UTILITA_H

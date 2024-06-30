@@ -26,7 +26,7 @@ void scartaC(Giocatore *giocatore, CartaCfu**);
 void scambiaP(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta);
 void doppioE(int *moltiplicatoreAumenta);
 void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti);
-void scambiaC();
+void scambiaC(int, Giocatore**, CartaCfu*, Personaggio*, int);
 void annulla();
 void ordinaEffetti(int nGiocatori, int ordine[nGiocatori], CartaCfu carte[nGiocatori]);
 bool controllaAnnulla(int nGiocatori, CartaCfu carte[nGiocatori]);

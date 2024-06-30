@@ -128,9 +128,9 @@ void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGioc
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SBIRCIA");
             sbircia(arrayGiocatori[indice], mazzo, scarti);
             break;
-        case SCAMBIAC: // TODO
+        case SCAMBIAC:
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SCAMBIAC");
-            scambiaC();
+            scambiaC(nGiocatori, arrayGiocatori, carte, personaggi, indice);
             break;
         case ANNULLA:
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "ANNULLA");
@@ -349,12 +349,38 @@ void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
     }
 }
 
-void scambiaC(){
+/**
+ * Scambia la carta punto giocata nel turno da un giocatore G1 con quella di un giocatore G2, con G1 e G2 scelti dal giocatore che ha giocato la carta SCAMBIAC
+ * @param nGiocatori Il numero corrente di giocatori
+ * @param giocatori L'array dei giocatori correnti
+ * @param carte Le carte cfu punto giocate in questo turno
+ * @param personaggi L'array dei personaggi (serve per i colori)
+ * @param indice L'indice del giocatore che ha giocato la carta SCAMBIAC
+ */
+void scambiaC(int nGiocatori, Giocatore* giocatori[nGiocatori], CartaCfu carte[nGiocatori], Personaggio personaggi[N_PERSONAGGI], int indice){
     debug("\t\tscambiaC()\n");
-    //stampaAvversari()
-    //selezionaAvversario()
-    //selezionaAvversario()
-    // temp = c1 = c2 = temp;
+    int selezionati[2] = {-1, -1};
+    for(int i=0; i<nGiocatori; i++){
+        coloreGiocatore(giocatori[i], personaggi);
+        printf("%d: %32s - %32s (%2d CFU)\n" RESET, i+1, giocatori[i]->nomeUtente, carte[i].nome, carte[i].cfu);
+    }
+    for(int i=0; i<2; i++){
+        coloreGiocatore(giocatori[indice], personaggi);
+        printf("Seleziona il %do giocatore: ", i+1);
+        selezionati[i] = inputCifra();
+        if(selezionati[i]<1 || selezionati[i]>nGiocatori){
+            printf(URED "Input invalido\n" RESET);
+            i--;
+        }
+    }
+    CartaCfu temp = carte[selezionati[0]];
+    carte[selezionati[0]] = carte[selezionati[1]];
+    carte[selezionati[1]] = temp;
+    printf("Le carte giocata da ");
+    stampaNomeGiocatoreColore(giocatori[selezionati[0]], personaggi);
+    printf(" e da ");
+    stampaNomeGiocatoreColore(giocatori[selezionati[1]], personaggi);
+    printf(RESET " sono state scambiate!\n");
 }
 
 void annulla(){

@@ -28,3 +28,13 @@ int inputCifra(){
         return -1;
     return c - '0';
 }
+
+/**
+ * Stampa il nome di un giocatore con il colore del suo personaggio
+ * @param giocatore Il giocatore
+ * @param personaggi L'array dei personaggi
+ */
+void stampaNomeGiocatoreColore(Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI]){
+    coloreGiocatore(giocatore, personaggi);
+    printf("%s" RESET, giocatore->nomeUtente);
+}
