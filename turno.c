@@ -257,7 +257,6 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
     scelta = inputCifra();
 
     while(scelta!=0){
-        // TODO: crasha qui
         if(scelta<0 || scelta>nGiocatori){
             printf(BRED "Seleziona un'opzione\n" RESET);
         }else{
@@ -324,9 +323,14 @@ void fineTurno(Giocatore **giocatori, Personaggio personaggi[4], int nGiocatori,
             giocatore = giocatore->prossimo;
     }else
         giocatore = spareggio(*giocatori, nGiocatori, sconfitto, scarti);
-    logOstacolo(*giocatore, **carteOstacolo);
-    // TODO: aggiornare la funzione
-    pescaOstacolo(giocatore, carteOstacolo);
+
+    salvaDirotta(nGiocatori, *giocatori, &giocatore, personaggi);
+    if(giocatore != NULL) {
+        logOstacolo(*giocatore, **carteOstacolo);
+        pescaOstacolo(giocatore, carteOstacolo);
+    }else{
+        annullaOstacolo(carteOstacolo);
+    }
 }
 
 void stampaGiocatori(Giocatore* giocatori, Punteggio punteggi[], Personaggio personaggi[N_PERSONAGGI]){

@@ -192,7 +192,7 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
 
     // Si seleziona un avversario
     printf("Seleziona un avversario a cui rubare una carta:\n");
-    Giocatore* avversario = selezionaAvversario(giocatori, giocatore, personaggi, nGiocatori);
+    Giocatore* avversario = selezionaAvversario(*giocatori, giocatore, personaggi, nGiocatori);
 
     CartaCfu* carta = selezionaCarta(avversario, true, true, true, false);
     logRuba(*giocatore, *avversario, *carta);
@@ -233,13 +233,22 @@ void scambiaDS(Giocatore* giocatori[], CartaCfu carte[], Giocatore* giocatore, P
     }
 }
 
-Giocatore* selezionaAvversario(Giocatore** giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
+/**
+ * Permette a un giocatore di selezionare uno degli avversari
+ * @param giocatori Primo giocatore nella lista
+ * @param giocatore Giocatore che deve selezionare (da escludere dalla lista)
+ * @param personaggi Array dei personaggi (per i colori)
+ * @param nGiocatori Numero corrente di giocatori
+ * @return Il giocatore selezionato
+ */
+Giocatore* selezionaAvversario(Giocatore* giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
 
     Giocatore* avversari[nGiocatori - 1];
     arrayAvversari(giocatori, giocatore, nGiocatori, avversari);
 
     int scelta = 0;
     coloreGiocatore(giocatore, personaggi);
+    printf("%s" RESET ", seleziona un avversario:\n", giocatore->nomeUtente);
     for(int i=0; i<nGiocatori-1; i++){
         coloreGiocatore(avversari[i], personaggi);
         printf("\t%d: %s\n", i+1, avversari[i]->nomeUtente);
@@ -253,8 +262,8 @@ Giocatore* selezionaAvversario(Giocatore** giocatori, Giocatore* giocatore, Pers
     return avversari[scelta-1];
 }
 
-void arrayAvversari(Giocatore** giocatori, Giocatore* giocatore, int nGiocatori, Giocatore* avversari[nGiocatori-1]){
-    Giocatore* cerca = *giocatori;
+void arrayAvversari(Giocatore* giocatori, Giocatore* giocatore, int nGiocatori, Giocatore* avversari[nGiocatori-1]){
+    Giocatore* cerca = giocatori;
     for(int i=0; i<nGiocatori-1; i++){
         if(cerca != giocatore)
             avversari[i] = cerca;

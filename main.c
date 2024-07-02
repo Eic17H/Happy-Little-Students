@@ -14,8 +14,6 @@
 #include "log.h"
 #include "salvataggio.h"
 
-// TODO: controllare e spostare tutti i getchar()
-
 int main() {
     srand(time(NULL));
     stampaLogo();
@@ -105,7 +103,7 @@ int main() {
     }while(vincitore == NULL);
 
     // Se qualcuno ha vinto si esce dal loop
-    colorePersonaggio(vincitore->personaggio, personaggi);
+    coloreGiocatore(vincitore, personaggi);
     printf("Ha vinto %s!" RESET, vincitore->nomeUtente);
     free(carteCfu);
     free(scarti);

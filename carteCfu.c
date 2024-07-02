@@ -318,7 +318,7 @@ CartaCfu *selezionaCarta(Giocatore *giocatore, bool istantanee, bool effetto, bo
             else
                 printf("Le carte sono numerate a partire da 1.\n");
         }
-        else if(scelta<0 || scelta>9)
+        else if(scelta<0)
             printf("Immetti un numero\n");
         else if(scelta-0>carteInMano)
             printf("Hai solo %d carte in mano.\n", carteInMano);

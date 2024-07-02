@@ -13,8 +13,8 @@ void leggiPersonaggi(Personaggio* lista){
 
     // Leggere dal file
     for(int i=0; i<N_PERSONAGGI; i++){
-        for (int j = 0; j<4; j++){
-            fscanf(fp, "%i", &(lista[i].ostacoli[j]));
+        for (int j = 0; j<N_TIPI_OSTACOLI; j++){
+            fscanf(fp, "%d", &(lista[i].ostacoli[j]));
         }
         fscanf(fp, "%s", (&lista[i])->nome);
     }

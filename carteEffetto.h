@@ -30,8 +30,8 @@ void scambiaC(int, Giocatore**, CartaCfu*, Personaggio*, int);
 void annulla();
 void ordinaEffetti(int nGiocatori, int ordine[nGiocatori], CartaCfu carte[nGiocatori]);
 bool controllaAnnulla(int nGiocatori, CartaCfu carte[nGiocatori]);
-void arrayAvversari(Giocatore** giocatori, Giocatore* giocatore, int nGiocatori, Giocatore* avversari[nGiocatori-1]);
-Giocatore* selezionaAvversario(Giocatore** giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori);
+void arrayAvversari(Giocatore* giocatori, Giocatore* giocatore, int nGiocatori, Giocatore* avversari[nGiocatori-1]);
+Giocatore* selezionaAvversario(Giocatore* giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori);
 
 void scambiaPunteggi(Punteggio*a, Punteggio*b);
 

@@ -82,16 +82,66 @@ void inverti(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreA
     scambiaPunteggi(&punteggi[min], &punteggi[max]);
 }
 
-// TODO: è orrenda, magari invece cambio l'indirizzo di "sconfitto" nella routine e separo usaEffetto() e usaInst() e se sconfitto==NULL nessuno pesca
-void salva(bool* devePescare){
-    debug("\t\tsalva()\n");
-    *devePescare = false;
-}
-
-// TODO: è orrenda
-void dirotta(Giocatore** giocatori, Giocatore* giocatore, int nGiocatori, Personaggio personaggi[N_PERSONAGGI], CartaOstacolo** ostacoli, bool*devePescare){
-    debug("\t\tdirotta()\n");
-    devePescare = false;
-    Giocatore*vittima = selezionaAvversario(giocatori, giocatore, personaggi, nGiocatori);
-    pescaOstacolo(vittima, ostacoli);
+/**
+ * Permette di giocare una carta Salva o una carta Dirotta
+ * @param nGiocatori Il numero corrente di giocatori
+ * @param giocatori Puntatore al primo giocatore nella lista
+ * @param sconfitto Il giocatore che deve salvarsi
+ * @param personaggi
+ */
+void salvaDirotta(int nGiocatori, Giocatore* giocatori, Giocatore** sconfitto, Personaggio personaggi[N_PERSONAGGI]){
+    CartaCfu *salva=NULL, *dirotta=NULL, *carta=NULL;
+    int scelta=-1;
+    // Si trovano la carta annulla e la carta dirotta, se esistono
+    for(carta=(*sconfitto)->primaCfu; carta!=NULL; carta=carta->prossima){
+        if(carta->effetto == SALVA)
+            salva = carta;
+        if(carta->effetto == DIROTTA)
+            dirotta = carta;
+    }
+    // Se ci sono entrambe, ha due opzioni
+    if(salva!=NULL && dirotta!=NULL){
+        printf("Puoi usare %s per rimettere l'ostacolo nel mazzo, o %s per darlo a un altro giocatore!\n", salva->nome, dirotta->nome);
+        printf("0: Pesca l'ostacolo\n1: Salva\n2: Dirotta\n");
+        printf("Seleziona: ");
+        scelta = inputCifra();
+        while(scelta<0 || scelta>2){
+            printf("Seleziona un'opzione\n");
+            printf("Seleziona: ");
+            scelta = inputCifra();
+        }
+    }else if(salva!=NULL){
+        printf("Puoi usare %s per rimettere l'ostacolo nel mazzo!\n", salva->nome);
+        printf("0: Pesca l'ostacolo\n1: Salva\n");
+        printf("Seleziona: ");
+        scelta = inputCifra();
+        while(scelta<0 || scelta>1){
+            printf("Seleziona un'opzione\n");
+            printf("Seleziona: ");
+            scelta = inputCifra();
+        }
+    }else if(dirotta!=NULL){
+        printf("Puoi usare %s per dare l'ostacolo a un altro giocatore!\n", dirotta->nome);
+        printf("0: Pesca l'ostacolo\n1:Dirotta\n");
+        printf("Seleziona: ");
+        scelta = inputCifra();
+        while(scelta<0 || scelta>1){
+            printf("Seleziona un'opzione\n");
+            printf("Seleziona: ");
+            scelta = inputCifra();
+        }
+        // L'input per dirotta in questo caso è 1, ma il valore è 2
+        if(scelta==1)
+            scelta = 2;
+    }
+    switch(scelta){
+        case 1:
+            *sconfitto = NULL;
+            break;
+        case 2:
+            *sconfitto = selezionaAvversario(giocatori, *sconfitto, personaggi, nGiocatori);
+            break;
+        default:
+            break;
+    }
 }

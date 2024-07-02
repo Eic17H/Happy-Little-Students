@@ -22,5 +22,6 @@
 void usaIstantanea(CartaCfu carta, int nGiocatori, int indice, Giocatore* arrayGiocatori[nGiocatori], Punteggio punteggi[nGiocatori], Personaggio personaggi[N_PERSONAGGI], int moltiplicatoreAumenta);
 void aumentaDiminuisci(int nGiocatori, int indice, int valore, Giocatore* giocatori[nGiocatori], Punteggio punteggi[nGiocatori], Personaggio personaggi[N_PERSONAGGI], int moltiplicatore);
 void inverti(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta);
+void salvaDirotta(int nGiocatori, Giocatore* giocatori, Giocatore** sconfitto, Personaggio personaggi[N_PERSONAGGI]);
 
 #endif //HAPPY_LITTLE_STUDENTS_CARTEISTANTANEE_H
