@@ -28,34 +28,69 @@ void assegnaPersonaggi(Giocatore* giocatori, Personaggio* personaggi){
 }
 
 /**
- * controlla se qualcuno ha vinto
+ * Controlla se qualcuno ha vinto. Se qualcuno ha vinto, rimuove tutti i giocatori che non hanno vinto
  * @param giocatori puntatore al primo giocatore
  * @return NULL se nessuno ha vinto, il vincitore se qualcuno ha vinto
  */
-Giocatore* vince(Giocatore* giocatori){
-    // TODO: più vincitori: se qualcuno ha vinto restituisce vero e rimuove tutti i non-vincitori dal gioco
-    // se rimane un solo giocatore, ha vinto
-    if(giocatori->prossimo == NULL){
-        printf("%s e' l'ultimo giocatore rimasto.\n", giocatori->nomeUtente);
-        logVince(*giocatori, false);
-        return giocatori;
+bool vince(Giocatore** giocatori, int* nGiocatori){
+    // Se rimane un solo giocatore, ha vinto
+    if((*giocatori)->prossimo == NULL){
+        printf("%s e' l'ultimo giocatore rimasto.\n", (*giocatori)->nomeUtente);
+        logVince(**giocatori, false);
+        return true;
     }
-    Giocatore* giocatore = giocatori;
-    // se ha abbastanza punti, ha vinto
-    for(giocatore = giocatori; giocatore != NULL; giocatore = giocatore->prossimo){
-        if(giocatore->cfu >= PUNTI_PER_VINCERE){
-            printf("%s ha abbastanza CFU per vincere.\n", giocatore->nomeUtente);
-            logVince(*giocatori, true);
-            return giocatore;
+
+    // Controlla se c'è almeno un giocatore con abbastanza punti per vincere. Aggiunge ciascun vincitore al log
+    Giocatore* giocatore = *giocatori;
+    bool trovato = false;
+    for(giocatore = *giocatori; giocatore != NULL; giocatore = giocatore->prossimo){
+        if(giocatore->cfu >= PUNTI_PER_VINCERE) {
+            logVince(**giocatori, true);
+            trovato = true;
         }
     }
-    return NULL;
+
+    // Se almeno un giocatore ha vinto, rimuove tutti quelli che non hanno vinto
+    if(trovato)
+        for(giocatore = *giocatori; giocatore != NULL; giocatore = giocatore->prossimo)
+            if(giocatore->cfu < PUNTI_PER_VINCERE)
+                rimuoviGiocatore(giocatori, giocatore, nGiocatori);
+
+    return trovato;
+}
+
+void stampaVincitori(Giocatore* giocatori, Personaggio personaggi[N_PERSONAGGI]){
+    // Non dovrebbe poter succedere, ma per sicurezza lo gestisco
+    if(giocatori == NULL){
+        printf(RED "Errore: la partita è terminata senza nessun vincitore.\n" RESET);
+        return;
+    }
+
+    // Stampo il nome del primo vincitore
+    stampaNomeGiocatoreColore(giocatori, personaggi);
+    // Se non ci sono altri vincitori, il verbo è al singolare
+    if(giocatori->prossimo == NULL)
+        printf(" ha vinto!\n");
+    // Altrimenti, stampo "e" e le virgole, e il verbo è al plurale
+    else{
+        while(giocatori->prossimo != NULL){
+            giocatori = giocatori->prossimo;
+            // Se sto per stampare l'ultimo, stampo "e", altrimenti una virgola.
+            if(giocatori->prossimo == NULL)
+                printf("e ");
+            else
+                printf(", ");
+            stampaNomeGiocatoreColore(giocatori, personaggi);
+        }
+        printf(" hanno vinto!\n");
+    }
 }
 
 /**
  * Rimuove un giocatore
  * @param giocatori Puntatore alla lista di giocatori, che a sua volta è un puntatore
  * @param giocatore Il giocatore da eliminare
+ * @param nGiocatori Puntatore al numero corrente di giocatori
  */
 void rimuoviGiocatore(Giocatore** giocatori, Giocatore* giocatore, int* nGiocatori){
     // Non rimuovere l'ultimo giocatore rimasto
@@ -85,9 +120,13 @@ void rimuoviGiocatore(Giocatore** giocatori, Giocatore* giocatore, int* nGiocato
 // TODO: Colore personaggio
 // TODO: Si è rotto
 Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGiocatori], CartaCfu** scarti){
-    printf("\n\n=== SPAREGGIO ===\n\n");
-    int punti[nGiocatori], continuare=1, min=0;
+    // Contiene il punteggio di spareggio di ciascun giocatore
+    int punti[nGiocatori];
+    int continuare=1;
+    int min=0;
     Giocatore* giocatore = giocatori;
+
+    printf("\n\n=== SPAREGGIO ===\n\n");
     while(continuare!=0){
         continuare=1;
         giocatore = giocatori;
@@ -111,6 +150,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
                     min=i;
             }
         }
+        // TODO: rendere un int perché questa è good practice mascherata da bad practice
         // controllare se ci sono due giocatori col punteggio minimo
         // c'è almeno un giocatore col punteggio minimo
         // se ce n'è solo uno, continuare sarà 0, altrimenti sarà diverso da 0
@@ -147,7 +187,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
 void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[*nGiocatori], int *moltiplicatoreAumenta){
     int i=0;
 
-    // Un array per le carte giocate e uno per i giocatori, serviranno per l'ordine degli effetti
+    // Un array per le carte giocate e uno per i giocatori, per attivare gli effetti nell'ordine giusto
     CartaCfu carte[*nGiocatori];
     Giocatore* arrayGiocatori[*nGiocatori];
 
@@ -238,6 +278,16 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
         calcolaPunteggio(&punteggi[i], *moltiplicatoreAumenta);
 }
 
+/**
+ * La fase delle carte istantanee, seconda fase del turno
+ * @param giocatori Puntatore al primo giocatore
+ * @param personaggi Array dei personaggi (serve per i colori)
+ * @param nGiocatori Numero corrente di giocatori
+ * @param scarti Puntatore al mazzo degli scarti, a sua volta puntatore alla carta in cima
+ * @param carteOstacolo Puntatore al mazzo degli ostacoli, a sua volta puntatore alla carta in cima
+ * @param punteggi Array dei punteggi provvisori
+ * @param moltiplicatoreAumenta Valore corrente del moltiplicatore dell'effetto delle carte aumenta e diminuisci
+ */
 void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta){
     // TODO: permettere di leggere gli effetti delle carte (magari con vediMano() che ti fa stampaEffetto() e selezionaCarta())
     Giocatore* giocatore = giocatori;
@@ -245,8 +295,9 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
     int i=0;
     int scelta = 1;
     CartaCfu *carta;
-    // TODO: arrayGiocatori(bool soloAvversari)
-    for(i, giocatore=giocatori; giocatore!=NULL; i++, giocatore=giocatore->prossimo){
+    // TODO: arrayGiocatori(bool soloAvversari) (forse)
+    // È più efficiente scorrere la lista solo una volta, all'inizio
+    for(i=0, giocatore=giocatori; giocatore!=NULL; i++, giocatore=giocatore->prossimo){
         arrayGiocatori[i] = giocatore;
     }
 
@@ -256,11 +307,12 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
     printf("0 per terminare.\n");
     scelta = inputCifra();
 
+    // TODO: la seleziona, fa vedere l'effetto, poi chiede sei sicuro s/n
     while(scelta!=0){
         if(scelta<0 || scelta>nGiocatori){
             printf(BRED "Seleziona un'opzione\n" RESET);
         }else{
-            // L'input parte da 1
+            // L'input parte da 1, ma gli indici partono da 0
             scelta-=1;
             carta = daiCarta(arrayGiocatori[scelta], selezionaCarta(arrayGiocatori[scelta], true, false, false, true));
             if(carta != NULL){
@@ -268,15 +320,25 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
                 usaIstantanea(*carta, nGiocatori, scelta, arrayGiocatori, punteggi, personaggi, moltiplicatoreAumenta);
                 cartaNegliScarti(scarti, carta);
             }
+            printf("Qualcun altro vuole giocare una carta istantanea?\n");
+            stampaGiocatori(giocatori, punteggi, personaggi);
+            printf("0 per terminare.\n");
         }
-        printf("Qualcun altro vuole giocare una carta istantanea?\n");
-        stampaGiocatori(giocatori, punteggi, personaggi);
-        printf("0 per terminare.\n");
         scelta = inputCifra();
     }
 }
 
-void fineTurno(Giocatore **giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta){
+/**
+ * Fase finale del turno, dove si assegnano i punti, si spareggia, e si pescano gli ostacoli
+ * @param giocatori Puntatore al primo giocatore
+ * @param personaggi Array dei personaggi (serve per i colori)
+ * @param nGiocatori Numero corrente di giocatori
+ * @param scarti Puntatore al mazzo degli scarti, a sua volta puntatore alla carta in cima
+ * @param carteOstacolo Puntatore al mazzo degli ostacoli, a sua volta puntatore alla carta in cima
+ * @param punteggi Array dei punteggi provvisori
+ * @param moltiplicatoreAumenta Moltiplicatore corrente delle carte aumenta e diminuisci (serve per ricalcolare i punteggi)
+ */
+void fineTurno(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta){
     // Trova punteggio minimo e massimo
     int i=0, min=0, max=0, nSconfitti=0;
     bool sconfitto[nGiocatori];
@@ -307,9 +369,9 @@ void fineTurno(Giocatore **giocatori, Personaggio personaggi[4], int nGiocatori,
     }
 
     // Dà i punti ai vincitori
-    for(giocatore = *giocatori, i=0; i<nGiocatori; giocatore = giocatore->prossimo, i++){
+    for(giocatore = giocatori, i=0; i<nGiocatori; giocatore = giocatore->prossimo, i++){
         if(punteggi[i].totale==punteggi[max].totale){
-            colorePersonaggio(giocatore->personaggio, personaggi);
+            coloreGiocatore(giocatore, personaggi);
             printf("%s ha preso %d cfu per le carte giocate.\n" RESET, giocatore->nomeUtente, punteggi[i].totale);
             prendiCfu(*giocatore, punteggi[i].totale, true);
             giocatore->cfu += punteggi[i].totale;
@@ -318,13 +380,16 @@ void fineTurno(Giocatore **giocatori, Personaggio personaggi[4], int nGiocatori,
 
     // Eventuale spareggio, pesca dell'ostacolo
     if(nSconfitti==1) {
-        giocatore = *giocatori;
+        giocatore = giocatori;
         for(i=0; i<min; i++)
             giocatore = giocatore->prossimo;
     }else
-        giocatore = spareggio(*giocatori, nGiocatori, sconfitto, scarti);
+        giocatore = spareggio(giocatori, nGiocatori, sconfitto, scarti);
 
-    salvaDirotta(nGiocatori, *giocatori, &giocatore, personaggi);
+    // Si permette di giocare una carta salva o dirotta
+    salvaDirotta(nGiocatori, giocatori, &giocatore, personaggi);
+
+    // Se il giocatore si è salvato, il puntatore è NULL
     if(giocatore != NULL) {
         logOstacolo(*giocatore, **carteOstacolo);
         pescaOstacolo(giocatore, carteOstacolo);
@@ -333,6 +398,12 @@ void fineTurno(Giocatore **giocatori, Personaggio personaggi[4], int nGiocatori,
     }
 }
 
+/**
+ * Stampa nome e punteggio provvisorio di ciascun giocatore
+ * @param giocatori Puntatore al primo giocatore
+ * @param punteggi Array dei punteggi provvisori
+ * @param personaggi Array dei personaggi (serve per i colori)
+ */
 void stampaGiocatori(Giocatore* giocatori, Punteggio punteggi[], Personaggio personaggi[N_PERSONAGGI]){
     for(int i=1; giocatori!=NULL; i++, giocatori=giocatori->prossimo){
         coloreGiocatore(giocatori, personaggi);
@@ -340,6 +411,11 @@ void stampaGiocatori(Giocatore* giocatori, Punteggio punteggi[], Personaggio per
     }
 }
 
+/**
+ * Calcola il punteggio provvisorio
+ * @param punteggio Array dei punteggi provvisori (contiene informazioni sui punti ottenuti in modi diversi)
+ * @param moltiplicatoreAumenta Moltiplicatore corrente delle carte aumenta e diminuisci
+ */
 void calcolaPunteggio(Punteggio *punteggio, int moltiplicatoreAumenta){
     punteggio->totale = 0;
     punteggio->totale += punteggio->carta;
@@ -347,7 +423,12 @@ void calcolaPunteggio(Punteggio *punteggio, int moltiplicatoreAumenta){
     punteggio->totale += punteggio->aumenta * 2 * moltiplicatoreAumenta;
 }
 
-
+/**
+ * Inizializza i punteggi provvisori a 0, e il moltiplicatore delle carte aumenta e diminuisci a 1
+ * @param nGiocatori Numero corrente di giocatori
+ * @param punteggi Array dei punteggi provvisori
+ * @param moltiplicatore Puntatore al moltiplicatore delle carte aumenta e diminuisci
+ */
 void resetPunteggi(int nGiocatori, Punteggio punteggi[], int *moltiplicatore){
     for(int i=0; i<nGiocatori; i++){
         punteggi[i].totale=0;

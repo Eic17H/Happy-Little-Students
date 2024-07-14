@@ -13,6 +13,8 @@
 #include "carteOstacolo.h"
 #include "log.h"
 #include "salvataggio.h"
+// TODO: avvisare che non puoi giocare dirotta e salva quando vuoi
+// TODO: log istantanee
 
 int main() {
     srand(time(NULL));
@@ -90,21 +92,22 @@ int main() {
         // TODO: abbellire le stampe
         // Le due fasi del turno, l'eventuale spareggio e la pesca dell'ostacolo
         faseCfu(&giocatori, personaggi, &nGiocatori, &carteCfu, &scarti, &carteOstacolo, punteggi, &moltiplicatoreAumenta);
-        faseIstantanee(giocatori, personaggi, nGiocatori, &scarti, &carteOstacolo, punteggi, moltiplicatoreAumenta);
-        fineTurno(&giocatori, personaggi, nGiocatori, &scarti, &carteOstacolo, punteggi, moltiplicatoreAumenta);
-
-        // Si controlla se qualcuno ha vinto o perso
-        controlloOstacoli(&giocatori, &nGiocatori, personaggi);
-        vincitore = vince(giocatori);
+        // Non si continua il turno se si sono arresi tutti
+        if(nGiocatori > 1) {
+            faseIstantanee(giocatori, personaggi, nGiocatori, &scarti, &carteOstacolo, punteggi, moltiplicatoreAumenta);
+            fineTurno(giocatori, personaggi, nGiocatori, &scarti, &carteOstacolo, punteggi, moltiplicatoreAumenta);
+            // Si controlla se qualcuno ha vinto o perso
+            controlloOstacoli(&giocatori, &nGiocatori, personaggi);
+        }
 
         // È alla fine per evitare che il numero aumenti se si carica un salvataggio ma non si termina un turno
         nTurno++;
         // Se non ha vinto nessuno, si continua a giocare
-    }while(vincitore == NULL);
+    }while(!vince(&giocatori, &nGiocatori));
 
     // Se qualcuno ha vinto si esce dal loop
-    coloreGiocatore(vincitore, personaggi);
-    printf("Ha vinto %s!" RESET, vincitore->nomeUtente);
+    stampaVincitori(giocatori, personaggi);
+    // TODO: freeare le intere liste credo
     free(carteCfu);
     free(scarti);
     free(carteOstacolo);

@@ -136,14 +136,6 @@ void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGioc
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "ANNULLA");
             annulla();
             break;
-        case SALVA: // TODO
-            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SALVA");
-            //salva();
-            break;
-        case DIROTTA: // TODO
-            logEffettoCarta(*arrayGiocatori[indice], carte[indice], "DIROTTA");
-            //dirotta();
-            break;
         default:
             break;
     }
@@ -209,7 +201,7 @@ void scambiaDS(Giocatore* giocatori[], CartaCfu carte[], Giocatore* giocatore, P
     int scelta = -1;
     int indice;
 
-    // TODO: array avversari
+    // TODO: array avversari (o magari no)
 
     for(int i=0; i<nGiocatori; i++){
         if(giocatori[i] != giocatore){
@@ -262,6 +254,7 @@ Giocatore* selezionaAvversario(Giocatore* giocatori, Giocatore* giocatore, Perso
     return avversari[scelta-1];
 }
 
+// TODO: togliere forse
 void arrayAvversari(Giocatore* giocatori, Giocatore* giocatore, int nGiocatori, Giocatore* avversari[nGiocatori-1]){
     Giocatore* cerca = giocatori;
     for(int i=0; i<nGiocatori-1; i++){
@@ -278,14 +271,16 @@ void scartaC(Giocatore *giocatore, CartaCfu** scarti) {
     debug("\t\tscartaC()\n");
     const int nCarte = 3;
     CartaCfu* carta;
-    int continua=1;
+    int finito=0;
+
     // Va avanti per 3 carte o finché non decide di smettere. Può annullare l'azione
-    for(int i=0; i<nCarte && continua!=0; i++){
+    for(int i=0; i<nCarte && finito!=1; i++){
         carta = daiCarta(giocatore, selezionaCarta(giocatore, true, true, true, true));
+        // Se la carta è NULL, vuole dire che ha scelto annulla, quindi si chiede conferma
         if(carta==NULL){
             i--;
-            printf("Vuoi terminare l'effetto?\n0 per si', qualunque altro numero per no\n");
-            continua = inputCifra();
+            printf("Vuoi terminare l'effetto?\n1 per si', qualunque altro tasto per no\n");
+            finito = inputCifra();
         }else
             cartaNegliScarti(scarti, carta);
     }
@@ -336,7 +331,6 @@ void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
     for(int i=0; i<nCarte; i++){
         carte[i] = cartaDalMazzo(mazzo, scarti);
         stampaCfu(*carte[i]);
-        stampaEffetto(*carte[i]);
     }
 
     // Input

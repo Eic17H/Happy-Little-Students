@@ -20,8 +20,9 @@
 void inizializzaGiocatori(Giocatore*);
 void faseCfu(Giocatore **giocatori, Personaggio[4], int *nGiocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[*nGiocatori], int *moltiplicatoreAumenta);
 void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta);
-void fineTurno(Giocatore **giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta);
-Giocatore* vince(Giocatore*);
+void fineTurno(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta);
+bool vince(Giocatore**, int*);
+void stampaVincitori(Giocatore* giocatori, Personaggio personaggi[N_PERSONAGGI]);
 Giocatore* spareggio(Giocatore*, int, bool[], CartaCfu**);
 void assegnaPersonaggi(Giocatore*, Personaggio*);
 void rimuoviGiocatore(Giocatore**, Giocatore*, int*);

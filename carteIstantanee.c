@@ -134,6 +134,7 @@ void salvaDirotta(int nGiocatori, Giocatore* giocatori, Giocatore** sconfitto, P
         if(scelta==1)
             scelta = 2;
     }
+    // TODO: log
     switch(scelta){
         case 1:
             *sconfitto = NULL;
