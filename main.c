@@ -13,7 +13,6 @@
 #include "carteOstacolo.h"
 #include "log.h"
 #include "salvataggio.h"
-// TODO: avvisare che non puoi giocare dirotta e salva quando vuoi
 // TODO: log istantanee
 
 int main() {
@@ -43,9 +42,6 @@ int main() {
     int nGiocatori;
 
     /** TODO:
-     * Ultimi effetti delle carte
-     * Menù di scelta per ogni turno (easy)
-     * Pareggio di 4 giocatori (easy)
      * Ultime cose 2 giocatori (easy credo)
      * Selezione personaggi (easy credo)
      */

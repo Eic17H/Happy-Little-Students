@@ -106,7 +106,7 @@ void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGioc
             break;
         case SCAMBIADS:
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SCAMBIADS");
-            scambiaDS(arrayGiocatori, carte, arrayGiocatori[indice], personaggi, nGiocatori);
+            scambiaDS(giocatori, carte, arrayGiocatori[indice], personaggi, nGiocatori);
             break;
         case SCARTAE:
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SCARTAE");
@@ -195,29 +195,46 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
 
 /**
  * Scambia questa carta con quella di un altro giocatore, purché senza effetto
+ * @param giocatori Puntatore alla lista di giocatori
+ * @param carte Array delle carte appena giocate
+ * @param giocante Giocatore che ha attivato l'effetto
+ * @param personaggi Array dei personaggi (serve per i colori)
+ * @param nGiocatori Numero corrente di giocatori
  */
-void scambiaDS(Giocatore* giocatori[], CartaCfu carte[], Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
+void scambiaDS(Giocatore** giocatori, CartaCfu carte[], Giocatore* giocante, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
     debug("\t\tscambiaDS()\n");
     int scelta = -1;
-    int indice;
+    int indice = -1;
+    int i=0;
+    Giocatore* giocatore = *giocatori;
 
-    // TODO: array avversari (o magari no)
-
-    for(int i=0; i<nGiocatori; i++){
-        if(giocatori[i] != giocatore){
-            coloreGiocatore(giocatori[i], personaggi);
-            printf("%d: %32s - %32s (%2d CFU) %c\n" RESET, i+1, giocatori[i]->nomeUtente, carte[i].nome, carte[i].cfu, cartaSpeciale(carte[i]));
-        }else
+    // Si stampano le informazioni di tutti gli avversari e delle loro carte
+    for(i=1, giocatore=*giocatori; giocatore != NULL; giocatore = giocatore->prossimo){
+        if(giocatore != giocante){
+            coloreGiocatore(giocatore, personaggi);
+            printf("%d: %32s - %32s (%2d CFU) %c\n" RESET, i+1, giocatore->nomeUtente, carte[i].nome, carte[i].cfu, cartaSpeciale(carte[i]));
+        }else{
+            // Si salta il giocatore, e tornando indietro si evita che l'input salti un numero
+            // Sapere la posizione del giocatore serve poi per sapere dove si salta un numero
             indice = i;
+            i--;
+        }
     }
     printf("0 per annullare\n");
     printf("Seleziona: ");
     scelta = inputCifra();
-    // TODO: rifare: serve un modo per escludere il giocante, e "Riseleziona" è da cambiare
-    while(scelta<0 || scelta>nGiocatori+1 || giocatori[scelta-1]==giocatore || carte[scelta-1].effetto!=NESSUNO){
+
+    // L'input è invalido se si seleziona un numero negativo, un giocatore che non esiste, o una carta senza effetto
+    while(scelta<0 || scelta>nGiocatori-1 || carte[scelta-1].effetto!=NESSUNO){
         printf("Riseleziona: ");
         scelta = inputCifra();
     }
+
+    // Nell'input salto il giocatore, quindi, rispetto all'array, dopo il giocatore c'è un offset di 1
+    if(scelta >= indice)
+        scelta++;
+
+    // Se la scelta è 0, allora ha annullato e non si fa nulla
     if(scelta != 0) {
         CartaCfu temp = carte[indice];
         carte[indice] = carte[scelta];
@@ -234,36 +251,39 @@ void scambiaDS(Giocatore* giocatori[], CartaCfu carte[], Giocatore* giocatore, P
  * @return Il giocatore selezionato
  */
 Giocatore* selezionaAvversario(Giocatore* giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
+    int scelta = -1;
+    int indice = -1;
+    int i=0;
+    Giocatore* cerca = giocatori;
 
-    Giocatore* avversari[nGiocatori - 1];
-    arrayAvversari(giocatori, giocatore, nGiocatori, avversari);
-
-    int scelta = 0;
-    coloreGiocatore(giocatore, personaggi);
-    printf("%s" RESET ", seleziona un avversario:\n", giocatore->nomeUtente);
-    for(int i=0; i<nGiocatori-1; i++){
-        coloreGiocatore(avversari[i], personaggi);
-        printf("\t%d: %s\n", i+1, avversari[i]->nomeUtente);
+    // Si stampano gli avversari
+    for(i=1, cerca=giocatori; cerca != NULL; cerca = cerca->prossimo, i++){
+        if(cerca != giocatore){
+            coloreGiocatore(cerca, personaggi);
+            printf("%d: %32s\n" RESET, i, cerca->nomeUtente);
+        }else{
+            // Si salta il giocatore, e tornando indietro si evita che l'input salti un numero
+            // Sapere la posizione del giocatore serve poi per sapere dove si salta un numero
+            indice = i;
+            i--;
+        }
     }
+    printf("Seleziona: ");
     scelta = inputCifra();
+
+    // L'input è invalido se si seleziona un numero negativo o un giocatore che non esiste
     while(scelta<1 || scelta>nGiocatori-1){
-        printf("Seleziona un numero tra 1 e %d.\n", nGiocatori-1);
+        printf("Riseleziona: ");
         scelta = inputCifra();
     }
-    printf(RESET);
-    return avversari[scelta-1];
-}
 
-// TODO: togliere forse
-void arrayAvversari(Giocatore* giocatori, Giocatore* giocatore, int nGiocatori, Giocatore* avversari[nGiocatori-1]){
-    Giocatore* cerca = giocatori;
-    for(int i=0; i<nGiocatori-1; i++){
-        if(cerca != giocatore)
-            avversari[i] = cerca;
-        else
-            i--;
-        cerca = cerca->prossimo;
-    }
+    // Nell'input salto il giocatore, quindi, rispetto alla lista, dal giocatore in poi c'è un offset di 1
+    if(scelta >= indice)
+        scelta++;
+
+    // Scorro finché cerca non è l'i-esimo avversario
+    for(i=1, cerca=giocatori; i<scelta; i++, cerca=cerca->prossimo);
+    return cerca;
 }
 
 // TODO: più bello
@@ -320,8 +340,12 @@ void doppioE(int *moltiplicatoreAumenta){
     *moltiplicatoreAumenta *= 2;
 }
 
-
-// TODO: mi sa che non si attiva se c'è uno spareggio
+/**
+ * Guarda due carte in cima al mazzo, prendine una e scarta l’altra
+ * @param giocatore Il giocatore che ha attivato l'effetto
+ * @param mazzo Puntatore al mazzo delle carte CFU da pescare
+ * @param scarti Puntatore al mazzo degli scarti delle carte CFU
+ */
 void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
     debug("\t\tsbircia()\n");
     const int nCarte=2;

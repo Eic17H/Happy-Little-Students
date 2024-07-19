@@ -18,6 +18,10 @@ void usaIstantanea(CartaCfu carta, int nGiocatori, int indice, Giocatore* arrayG
             logEffettoCarta(*arrayGiocatori[indice], carta, "INVERTI");
             inverti(nGiocatori, punteggi, moltiplicatoreAumenta);
             break;
+        case SALVA:
+        case DIROTTA:
+            printf("Questa carta si può usare solo quando stai per pescare una carta ostacolo.\n");
+            break;
         default:
             break;
     }

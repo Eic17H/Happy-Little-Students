@@ -118,17 +118,17 @@ void rimuoviGiocatore(Giocatore** giocatori, Giocatore* giocatore, int* nGiocato
  * @return puntatore al giocatore che perde
  */
 // TODO: Colore personaggio
-// TODO: Si è rotto
 Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGiocatori], CartaCfu** scarti){
     // Contiene il punteggio di spareggio di ciascun giocatore
     int punti[nGiocatori];
-    int continuare=1;
+    int spareggianti=nGiocatori;
     int min=0;
+    int i=0;
     Giocatore* giocatore = giocatori;
 
+    // Si continua a spareggiare finché non ne rimane solo uno
     printf("\n\n=== SPAREGGIO ===\n\n");
-    while(continuare!=0){
-        continuare=1;
+    while(spareggianti>1){
         giocatore = giocatori;
         // scorriamo tutti i giocatori
         for (int i = 0; i < nGiocatori; i++, giocatore = giocatore->prossimo) {
@@ -150,31 +150,22 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
                     min=i;
             }
         }
-        // TODO: rendere un int perché questa è good practice mascherata da bad practice
-        // controllare se ci sono due giocatori col punteggio minimo
-        // c'è almeno un giocatore col punteggio minimo
-        // se ce n'è solo uno, continuare sarà 0, altrimenti sarà diverso da 0
-        continuare = -1;
+
+        // Si ricontrolla ogni giocatore, se non sta spareggiando si indica nell'array, se sta spareggiando lo si conta
+        spareggianti = 0;
         for (int i = 0; i < nGiocatori; i++) {
             if (sconfitti[i] == 1){
                 if(punti[i]==punti[min])
-                    continuare++;
+                    spareggianti++;
                 else
                     sconfitti[i] = 0;
             }
         }
     }
-    giocatore = giocatori;
     // trovato il punteggio minimo, vediamo di chi è
-    for (int i = 0; i < nGiocatori; i++, giocatore = giocatore->prossimo)
-        if(i==min) {
+    for(i = 0, giocatore=giocatori; i<nGiocatori; i++, giocatore = giocatore->prossimo)
+        if(i==min)
             return giocatore;
-        }
-    for (int i = 0; i < min; i++)
-        giocatore = giocatore->prossimo;
-    for(int i=0; i<nGiocatori; i++)
-        sconfitti[i] = 0;
-    return giocatore;
 }
 
 /** La fase delle carte CFU
@@ -265,8 +256,8 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
     if(!controllaAnnulla(*nGiocatori, carte)){
         // Le carte con più CFU vengono attivate prima
         ordinaEffetti(*nGiocatori, ordineEffetti, carte);
-        for (i = 0; i < *nGiocatori; i++) {
-            // TODO: più bello
+        for (i = 0; i < *nGiocatori; i++){
+            // Se la carta ha un effetto e non è istantanea, attiva l'effetto
             if (carte[ordineEffetti[i]].effetto > NESSUNO && carte[ordineEffetti[i]].effetto < PRIMA_ISTANTANEA)
                 usaEffetto(*nGiocatori, carte, arrayGiocatori, giocatori, punteggi, ordineEffetti[i], carteCfu, scarti, personaggi, moltiplicatoreAumenta);
         }
@@ -289,13 +280,12 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
  * @param moltiplicatoreAumenta Valore corrente del moltiplicatore dell'effetto delle carte aumenta e diminuisci
  */
 void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocatori, CartaCfu **scarti, CartaOstacolo **carteOstacolo, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta){
-    // TODO: permettere di leggere gli effetti delle carte (magari con vediMano() che ti fa stampaEffetto() e selezionaCarta())
     Giocatore* giocatore = giocatori;
     Giocatore* arrayGiocatori[nGiocatori];
     int i=0;
     int scelta = 1;
     CartaCfu *carta;
-    // TODO: arrayGiocatori(bool soloAvversari) (forse)
+
     // È più efficiente scorrere la lista solo una volta, all'inizio
     for(i=0, giocatore=giocatori; giocatore!=NULL; i++, giocatore=giocatore->prossimo){
         arrayGiocatori[i] = giocatore;
@@ -307,18 +297,24 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
     printf("0 per terminare.\n");
     scelta = inputCifra();
 
-    // TODO: la seleziona, fa vedere l'effetto, poi chiede sei sicuro s/n
     while(scelta!=0){
         if(scelta<0 || scelta>nGiocatori){
             printf(BRED "Seleziona un'opzione\n" RESET);
         }else{
             // L'input parte da 1, ma gli indici partono da 0
-            scelta-=1;
-            carta = daiCarta(arrayGiocatori[scelta], selezionaCarta(arrayGiocatori[scelta], true, false, false, true));
-            if(carta != NULL){
-                stampaEffetto(*carta);
-                usaIstantanea(*carta, nGiocatori, scelta, arrayGiocatori, punteggi, personaggi, moltiplicatoreAumenta);
-                cartaNegliScarti(scarti, carta);
+            scelta--;
+            // La carta viene selezionata
+            carta = selezionaCarta(arrayGiocatori[scelta], true, false, false, true);
+            stampaCfu(*carta);
+            printf("Vuoi usare questa carta? 1 per si', qualunque altro tasto per no\nSeleziona: ");
+            if(inputCifra()==1){
+                // Solo se il giocatore conferma la scelta, la carta viene rimossa dalla mano e attivata
+                carta = daiCarta(arrayGiocatori[scelta], carta);
+                if (carta != NULL){
+                    stampaEffetto(*carta);
+                    usaIstantanea(*carta, nGiocatori, scelta, arrayGiocatori, punteggi, personaggi, moltiplicatoreAumenta);
+                    cartaNegliScarti(scarti, carta);
+                }
             }
             printf("Qualcun altro vuole giocare una carta istantanea?\n");
             stampaGiocatori(giocatori, punteggi, personaggi);

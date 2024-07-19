@@ -105,7 +105,12 @@ bool troppiOstacoli(int carte[4], int nGiocatori){
     return false;
 }
 
-// TODO: ricomunicare i punti guadagnati
+/**
+ * Controlla quanti ostacoli hanno i giocatori, assegna i punti, e squalifica chi ha perso
+ * @param giocatori Puntatore alla lista dei giocatori
+ * @param nGiocatori Puntatore al numero di giocatori
+ * @param personaggi Array dei personaggi
+ */
 void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio personaggi[N_PERSONAGGI]){
     if((*giocatori)->prossimo == NULL)
         return;
@@ -147,7 +152,7 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio perso
             printf("%s ha preso %d CFU grazie alle carte ostacolo.\n" RESET, giocatore->nomeUtente,
                    giocatore->cfu - precedente);
         }
-        // TODO: 2 giocatori
+        // TODO: 2 giocatori (forse)
         if(troppiOstacoli(carte, *nGiocatori)){
             // Testo rosso
             printf(BHRED "\n\n");

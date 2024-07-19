@@ -193,7 +193,6 @@ void stampaPlancia(Giocatore *giocatori, int nGiocatori, int numeri[50], Persona
          */
 
         casella = rig*7+col;
-        // TODO: colore personaggio
         switch(c){
             case 'A':
                 coloreGiocatore(arrayGiocatori[0], personaggi);
@@ -261,8 +260,6 @@ void coloreNumero(int n){
  * @param personaggi L'array dei personaggi
  */
 void colorePersonaggio(Personaggio personaggio, Personaggio personaggi[N_PERSONAGGI]){
-    // TODO: in effetti faccio scegliere che personaggio prendere, ignorando i colori nell'inserimento del nome utente
-    // TODO: consistenza, forse
     // I personaggi partono da 0, ma i giocatori sono numerati da 1
     for(int i=0; i<N_PERSONAGGI; i++){
         if(strcmp(personaggio.nome, personaggi[i].nome) == 0)

@@ -273,7 +273,6 @@ bool soloIstantanee(Giocatore giocatore){
 
 /**
  * Mostra un menù per selezionare una carta dalla mano di un giocatore, e restituisce la carta selezionata
- * (Devo decidere se tenerla)
  * @param giocatore Il giocatore di cui si deve selezionare una carta
  * @param istantanee Vero se sono permesse le istantanee, falso altrimenti
  * @param effetto Vero se sono permesse le carte punto con effetto, falso altrimenti
