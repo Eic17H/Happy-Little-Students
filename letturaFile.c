@@ -24,12 +24,14 @@ void leggiPersonaggi(Personaggio* lista){
 }
 
 // TODO: rifare
-void stampaPersonaggi(Personaggio test[]){
+void stampaPersonaggi(Personaggio personaggi[]){
     for(int i=0; i<N_PERSONAGGI; i++) {
+        colorePersonaggio(personaggi[i], personaggi);
         for (int j = 0; j < 4; j++)
-            printf("%i ", test[i].ostacoli[j]);
-        printf("%s\n", test[i].nome);
+            printf("%i ", personaggi[i].ostacoli[j]);
+        printf("%s\n", personaggi[i].nome);
     }
+    printf(RESET "\n");
 }
 
 /** La funzione leggiCarte restituisce una lista di carte lette da carte.txt

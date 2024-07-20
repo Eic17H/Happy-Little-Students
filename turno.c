@@ -303,15 +303,18 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
             scelta--;
             // La carta viene selezionata
             carta = selezionaCarta(arrayGiocatori[scelta], true, false, false, true);
-            stampaCfu(*carta);
-            printf("Vuoi usare questa carta? 1 per si', qualunque altro tasto per no\nSeleziona: ");
-            if(inputCifra()==1){
-                // Solo se il giocatore conferma la scelta, la carta viene rimossa dalla mano e attivata
-                carta = daiCarta(arrayGiocatori[scelta], carta);
-                if (carta != NULL){
-                    stampaEffetto(*carta);
-                    usaIstantanea(*carta, nGiocatori, scelta, arrayGiocatori, punteggi, personaggi, moltiplicatoreAumenta);
-                    cartaNegliScarti(scarti, carta);
+            if(carta!=NULL) {
+                stampaCfu(*carta);
+                printf("Vuoi usare questa carta? 1 per si', qualunque altro tasto per no\nSeleziona: ");
+                if (inputCifra() == 1) {
+                    // Solo se il giocatore conferma la scelta, la carta viene rimossa dalla mano e attivata
+                    carta = daiCarta(arrayGiocatori[scelta], carta);
+                    // Ricontrollo che non sia NULL dopo daiCarta(). Non dovrebbe essere possibile, ma è meglio evitare
+                    if (carta != NULL) {
+                        stampaEffetto(*carta);
+                        usaIstantanea(*carta, nGiocatori, scelta, arrayGiocatori, punteggi, personaggi, moltiplicatoreAumenta);
+                        cartaNegliScarti(scarti, carta);
+                    }
                 }
             }
             printf("Qualcun altro vuole giocare una carta istantanea?\n");

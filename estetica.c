@@ -110,23 +110,51 @@ void stampaDescOstacolo(CartaOstacolo carta){
 
 /**
  * Legge i numeri che segnano il valore di una casella in plancia.txt, e li mette in un array
+ * Controlla anche che la plancia esista e che sia adatta alle regole del gioco
  * @param numeri Array dei numeri, letti da sinistra a destra, dall'alto verso il basso
  * TODO: aggiungere i magic number dentro il file, gestire l'assenza
  */
 bool leggiNumeriPlancia(int numeri[PUNTI_PER_VINCERE]){
+    // Apre il file e controlla se esiste
     FILE *fp = fopen("plancia.txt", "r");
     if(fp == NULL)
         return false;
-    char c;
-    int i=0, letti=0;
+
+    int i=0, letti=0, nGiocatori;
+    int min=PUNTI_PER_VINCERE, max=0;
+    char c='\0';
+
+    // Il primo carattere indica quanti giocatori al massimo prevede la plancia. Se non bastano, la plancia non è adatta
+    fscanf(fp, "%d", &nGiocatori);
+    if(nGiocatori < N_PERSONAGGI)
+        return false;
+
+    // Si saltano le prossime 5 righe
+    for(i=0; i<5; i++)
+        while(c != '\n')
+            fscanf(fp, "%c", &c);
+
     do{
         letti=fscanf(fp, "%c", &c);
         if(c>='0' && c<='9'){
             fseek(fp, -1, SEEK_CUR);
             fscanf(fp, "%d", &numeri[i]);
+            if(numeri[i]>max)
+                max=numeri[i];
+            if(numeri[i]<min)
+                min=numeri[i];
             i++;
         }
     }while(i<PUNTI_PER_VINCERE && letti>=0);
+
+    return true;
+
+    // Il minimo può essere 0 o 1, il massimo può essere il punteggio massimo o uno in meno
+    if(min!=0 && min!=1)
+        return false;
+    if(max!=PUNTI_PER_VINCERE && max!=PUNTI_PER_VINCERE-1)
+        return false;
+
     return true;
 }
 
@@ -137,14 +165,40 @@ bool leggiNumeriPlancia(int numeri[PUNTI_PER_VINCERE]){
  * @param numeri Array contenente l'ordine in cui si trovano le caselle (letto dal file della plancia)
  */
 void stampaPlancia(Giocatore *giocatori, int nGiocatori, int numeri[50], Personaggio personaggi[N_PERSONAGGI]){
+    /*
+     * Nel file ci sono:
+     * Numero massimo di giocatori
+     * Segnalini per ciascuno slot giocatore
+     * Caratteri per riga di testo
+     * Larghezza di una casella in caratteri
+     * Altezza di una casella in caratteri
+     * La plancia
+     */
+
+    // Il file non è essenziale per il funzionamento del gioco
     FILE *fp = fopen("plancia.txt", "r");
     if(fp == NULL)
-        exit(-1);
+        return;
+
     // Una riga del txt è di 51 caratteri, sono 3 righe per casella + 1 riga per il bordo
-    int letto;
-    char c;
-    letto = fscanf(fp, "%c", &c);
+    int letto, nGiocatoriMax;
     int cont=1, col, rig, casella;
+    bool stampato=false;
+    char c;
+
+    // Il primo carattere indica quanti giocatori al massimo prevede la plancia. Se non bastano, la plancia non è adatta
+    fscanf(fp, "%d", &nGiocatoriMax);
+    char segnalini[nGiocatoriMax];
+    fscanf(fp, "%c", &c);
+    for(int i=0; i<nGiocatoriMax; i++)
+        fscanf(fp, "%c", &segnalini[i]);
+
+    // Si saltano le prossime 4 righe
+    for(int i=0; i<4; i++) {
+        while (c != '\n')
+            letto = fscanf(fp, "%c", &c);
+        letto = fscanf(fp, "%c", &c);
+    }
 
     // Un array che contiene i giocatori, per non dover scrivere segnalino(*(*giocatori).prossimo, rig+col);
     Giocatore *arrayGiocatori[N_PERSONAGGI], *giocatore=giocatori;
@@ -193,31 +247,17 @@ void stampaPlancia(Giocatore *giocatori, int nGiocatori, int numeri[50], Persona
          */
 
         casella = rig*7+col;
-        switch(c){
-            case 'A':
-                coloreGiocatore(arrayGiocatori[0], personaggi);
-                segnalino(arrayGiocatori[0], casella, numeri);
+        stampato=false;
+        for(int i=0; i<nGiocatoriMax && !stampato; i++){
+            if(c==segnalini[i]){
+                coloreGiocatore(arrayGiocatori[i], personaggi);
+                segnalino(arrayGiocatori[i], casella, numeri);
                 printf(RESET);
-                break;
-            case 'B':
-                coloreGiocatore(arrayGiocatori[1], personaggi);
-                segnalino(arrayGiocatori[1], casella, numeri);
-                printf(RESET);
-                break;
-            case 'C':
-                coloreGiocatore(arrayGiocatori[2], personaggi);
-                segnalino(arrayGiocatori[2], casella, numeri);
-                printf(RESET);
-                break;
-            case 'D':
-                coloreGiocatore(arrayGiocatori[3], personaggi);
-                segnalino(arrayGiocatori[3], casella, numeri);
-                printf(RESET);
-                break;
-            default:
-                printf(RESET "%c", c);
-                break;
+                stampato=true;
+            }
         }
+        if(!stampato)
+            printf(RESET "%c", c);
         letto = fscanf(fp, "%c", &c);
         cont++;
     }

@@ -34,6 +34,7 @@ int main() {
     // Puntatore al giocatore che ha vinto
     Giocatore* vincitore = NULL;
 
+    // Lista dei giocatori
     Giocatore *giocatori;
 
     // Variabile che tiene traccia del conteggio dei turni
@@ -51,7 +52,7 @@ int main() {
     nomePartita(nomeFile);
 
     if(esisteSalvataggio(nomeFile)){
-        printf("Vuoi caricare il file di salvataggio? 1 per sì, no altrimenti\n");
+        printf("Vuoi caricare il file di salvataggio? 1 per si', no altrimenti\n");
         scanf("%c", &scelta);
     }else
         scelta = '0';
