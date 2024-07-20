@@ -169,6 +169,8 @@ void stampaSituazione(Giocatore* giocatori, int nGiocatori, Personaggio* persona
     CartaOstacolo *carta;
     int i=0, continua=0;
 
+    printf("\n");
+
     // Nomi
     for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
         colorePersonaggio(giocatore->personaggio, personaggi);

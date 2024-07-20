@@ -16,14 +16,29 @@ void inizializzaGiocatori(Giocatore* giocatori){
     }
 }
 
-// TODO: input
-void assegnaPersonaggi(Giocatore* giocatori, Personaggio* personaggi){
+/**
+ * Permette ai giocatori di selezionare, in ordine, il proprio personaggio
+ * @param giocatori Puntatore al primo giocatore
+ * @param personaggi Array dei personaggi letti dal file
+ */
+void assegnaPersonaggi(Giocatore* giocatori, Personaggio personaggi[N_PERSONAGGI]){
     Giocatore *giocatore = giocatori;
-    int i=0;
-    while(giocatore != NULL){
+    bool selezionati[N_PERSONAGGI] = {false};
+    int i=0, scelta=-1;
+
+    // Si scorre la lista di giocatori, e si fa scegliere un personaggio, ripetendo l'input se non e' valido
+    for(i=0, giocatore=giocatori; giocatore != NULL; i++, giocatore=giocatore->prossimo){
+        printf("%s, seleziona un personaggio (1-%d): ", giocatore->nomeUtente, N_PERSONAGGI);
+        scelta = inputCifra()-1;
+        while(scelta<0 || scelta>=N_PERSONAGGI || selezionati[scelta]){
+            if(scelta<0 || scelta>=N_PERSONAGGI)
+                printf("Seleziona un'opzione\n");
+            else if(selezionati[scelta])
+                printf("Questo personaggio e' gia' stato selezionato\n");
+            scelta = inputCifra()-1;
+        }
+        selezionati[scelta] = true;
         giocatore->personaggio = personaggi[i];
-        giocatore = giocatore->prossimo;
-        i++;
     }
 }
 
@@ -198,14 +213,14 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
     int min=0, max=0;
     // Numero ed elenco di sconfitti, per lo spareggio
     int nSconfitti = 0;
-    bool continua = false;
+    bool selezionato = false;
     bool arrende = false;
     CartaCfu *carta;
 
     stampaOstacolo(**carteOstacolo);
 
     for(giocatore=*giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
-        continua = 0;
+        punteggi[i].personaggio = giocatore->personaggio.ostacoli[(**carteOstacolo).tipo-1];
         // Se il giocatore ha solo carte istantanee, scarta tutta la mano e pesca altre carte
         while(soloIstantanee(*giocatore)){
             printf("%s ha solo carte istantanee, scarta tutta la sua mano.\n", giocatore->nomeUtente);
@@ -213,9 +228,9 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
         }
         coloreGiocatore(giocatore, personaggi);
         printf("= Turno di %s\n", giocatore->nomeUtente);
-        continua = false;
+        selezionato = false;
         arrende = false;
-        while(!continua){
+        while(!selezionato){
             coloreGiocatore(giocatore, personaggi);
             printf("1: Gioca una carta\n");
             printf("2: Visualizza informazioni sulle carte\n");
@@ -223,13 +238,13 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
             printf(RESET);
             switch(inputCifra()){
                 case 1:
-                    continua = true;
+                    selezionato = true;
                     break;
                 case 2:
                     stampaCfu(*selezionaCarta(giocatore, true, true, true, false));
                     break;
                 case 3:
-                    continua = true;
+                    selezionato = true;
                     arrende = true;
                     printf("\n");
                     break;

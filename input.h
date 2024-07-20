@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "estetica.h"
+#include "utilita.h"
 
 Giocatore* inputGiocatori(int, int);
 int inputNGiocatori();

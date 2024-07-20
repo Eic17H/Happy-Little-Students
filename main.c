@@ -27,19 +27,14 @@ int main() {
     CartaCfu* carteCfu;
     // Puntatore alla prima carta degli scarti CFU
     CartaCfu* scarti;
-
     // Puntatore alla prima carta del mazzo di carte ostacolo
     CartaOstacolo* carteOstacolo;
-
-    // Puntatore al giocatore che ha vinto
-    Giocatore* vincitore = NULL;
-
-    // Lista dei giocatori
+    // Puntatore al primo giocatore nella lista
     Giocatore *giocatori;
 
     // Variabile che tiene traccia del conteggio dei turni
     int nTurno;
-
+    // Variabile che tiene traccia del numero di giocatori (cambia se perdono o si arrendono)
     int nGiocatori;
 
     /** TODO:
@@ -47,27 +42,31 @@ int main() {
      * Selezione personaggi (easy credo)
      */
 
-    char scelta;
+    int scelta;
+
+    // Caricamento o inizializzazione del file di salvataggio e del log
+
     char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)];
     nomePartita(nomeFile);
 
     if(esisteSalvataggio(nomeFile)){
         printf("Vuoi caricare il file di salvataggio? 1 per si', no altrimenti\n");
-        scanf("%c", &scelta);
-    }else
-        scelta = '0';
+        scelta = inputCifra();
+    }else{
+        scelta = 0;
+    }
 
-    if(scelta == '1')
+    if(scelta == 1)
         leggiSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, nomeFile);
     else
         inizializzaSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, personaggi);
 
     creaLog(nomeFile);
 
+    // Conterrà i punteggi provvisori durante i turni
     Punteggio punteggi[nGiocatori];
-
+    // Tiene traccia delle carte che cambiano il valore delle carte Aumenta e Diminuisci
     int moltiplicatoreAumenta = 1;
-    getchar();
 
     do{
         // Comincia un turno

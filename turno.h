@@ -24,7 +24,7 @@ void fineTurno(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, 
 bool vince(Giocatore**, int*);
 void stampaVincitori(Giocatore* giocatori, Personaggio personaggi[N_PERSONAGGI]);
 Giocatore* spareggio(Giocatore*, int, bool[], CartaCfu**);
-void assegnaPersonaggi(Giocatore*, Personaggio*);
+void assegnaPersonaggi(Giocatore*, Personaggio[N_PERSONAGGI]);
 void rimuoviGiocatore(Giocatore**, Giocatore*, int*);
 void calcolaPunteggio(Punteggio *punteggio, int moltiplicatoreAumenta);
 void resetPunteggi(int, Punteggio[], int*);

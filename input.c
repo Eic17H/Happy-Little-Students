@@ -13,6 +13,7 @@ Giocatore* inputGiocatori(int nGiocatori, int nGiocatore){
     printf("Giocatore %d:\n", nGiocatore);
     printf("=== INSERIRE NOME UTENTE ===\n");
     scanf("%s", giocatori->nomeUtente);
+    getchar();
     giocatori->prossimo = inputGiocatori(nGiocatori-1, nGiocatore+1);
     printf(RESET);
     return giocatori;
@@ -22,11 +23,10 @@ Giocatore* inputGiocatori(int nGiocatori, int nGiocatore){
  * @return il numero di giocatori
  */
 int inputNGiocatori(){
-    int nGiocatori;
-    do{
+    int nGiocatori=-1;
+    while(nGiocatori > 4 || nGiocatori < 2){
         printf("Numero di giocatori (da 2 a 4):\n");
-        scanf("%d", &nGiocatori);
-        getc(NULL);
-    }while(nGiocatori > 4 || nGiocatori < 2);
+        nGiocatori = inputCifra();
+    }
     return nGiocatori;
 }

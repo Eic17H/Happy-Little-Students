@@ -23,15 +23,30 @@ void leggiPersonaggi(Personaggio* lista){
     fclose(fp);
 }
 
-// TODO: rifare
+/**
+ * Stampa le informazioni sui personaggi
+ * @param personaggi
+ */
 void stampaPersonaggi(Personaggio personaggi[]){
+    printf("\n\n\nOgni personaggio ha un bonus e un malus\n");
+    printf("I bonus e i malus sono legati al tipo di ostacolo mostrato all'inizio del turno\n");
+    printf("Se il tuo personaggio ha un malus legato a quel tipo,\nil tuo punteggio provvisorio sara' minore di quello che dovrebbe essere\n");
+    printf("Nel caso dei bonus, sara' maggiore.\n");
     for(int i=0; i<N_PERSONAGGI; i++) {
         colorePersonaggio(personaggi[i], personaggi);
-        for (int j = 0; j < 4; j++)
-            printf("%i ", personaggi[i].ostacoli[j]);
-        printf("%s\n", personaggi[i].nome);
+        printf("%i: %32s: ", i+1, personaggi[i].nome);
+        for (int j = 0; j < N_TIPI_OSTACOLI; j++)
+            if(personaggi[i].ostacoli[j] > 0){
+                coloreOstacoli(j+1);
+                printf("Bonus ");
+            }
+        for (int j = 0; j < N_TIPI_OSTACOLI; j++)
+            if(personaggi[i].ostacoli[j] < 0){
+                coloreOstacoli(j+1);
+                printf("Malus\n");
+            }
     }
-    printf(RESET "\n");
+    printf(RESET "\n\n");
 }
 
 /** La funzione leggiCarte restituisce una lista di carte lette da carte.txt
