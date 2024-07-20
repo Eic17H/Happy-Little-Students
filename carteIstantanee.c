@@ -94,7 +94,9 @@ void inverti(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreA
  */
 void salvaDirotta(int nGiocatori, Giocatore* giocatori, Giocatore** sconfitto, Personaggio personaggi[N_PERSONAGGI]){
     CartaCfu *salva=NULL, *dirotta=NULL, *carta=NULL;
+    Giocatore *vittima=NULL;
     int scelta=-1;
+
     // Si trovano la carta annulla e la carta dirotta, se esistono
     for(carta=(*sconfitto)->primaCfu; carta!=NULL; carta=carta->prossima){
         if(carta->effetto == SALVA)
@@ -102,6 +104,11 @@ void salvaDirotta(int nGiocatori, Giocatore* giocatori, Giocatore** sconfitto, P
         if(carta->effetto == DIROTTA)
             dirotta = carta;
     }
+
+    // Se non ha nessuna delle due carte, non può fare niente
+    if(salva == NULL && dirotta == NULL)
+        return;
+
     // Se ci sono entrambe, ha due opzioni
     if(salva!=NULL && dirotta!=NULL){
         printf("Puoi usare %s per rimettere l'ostacolo nel mazzo, o %s per darlo a un altro giocatore!\n", salva->nome, dirotta->nome);
@@ -133,17 +140,20 @@ void salvaDirotta(int nGiocatori, Giocatore* giocatori, Giocatore** sconfitto, P
             printf("Seleziona: ");
             scelta = inputCifra();
         }
-        // L'input per dirotta in questo caso è 1, ma il valore è 2
+        // L'input per dirotta in questo caso è 1, ma il valore deve essere comunque 2
         if(scelta==1)
             scelta = 2;
     }
-    // TODO: log
+
     switch(scelta){
         case 1:
             *sconfitto = NULL;
+            logSalva(**sconfitto, *salva);
             break;
         case 2:
-            *sconfitto = selezionaAvversario(giocatori, *sconfitto, personaggi, nGiocatori);
+            vittima = selezionaAvversario(giocatori, *sconfitto, personaggi, nGiocatori);
+            logDirotta(**sconfitto, *dirotta, *vittima);
+            *sconfitto = vittima;
             break;
         default:
             break;

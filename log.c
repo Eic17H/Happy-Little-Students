@@ -93,3 +93,15 @@ void logArrende(Giocatore giocatore){
     fprintf(fp, "%s si arrende\n", giocatore.nomeUtente);
     fclose(fp);
 }
+
+void logSalva(Giocatore giocatore, CartaCfu carta){
+    FILE *fp = fopen("log.txt", "a");
+    fprintf(fp, "%s si salva usando la carta %s\n", giocatore.nomeUtente, carta.nome);
+    fclose(fp);
+}
+
+void logDirotta(Giocatore giocatore, CartaCfu carta, Giocatore vittima){
+    FILE *fp = fopen("log.txt", "a");
+    fprintf(fp, "%s da' l'ostacolo a %s usando la carta %s\n", giocatore.nomeUtente, vittima.nomeUtente, carta.nome);
+    fclose(fp);
+}
