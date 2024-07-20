@@ -5,9 +5,9 @@
  * @param giocatore puntatore al giocatore che deve pescare
  * @param mazzo puntatore al "mazzo", che a sua volta è un puntatore alla carta in cima
  */
-void pescaOstacolo(Giocatore* giocatore, CartaOstacolo** mazzo){
-    // TODO: colore personaggio
-    printf("%s pesca la carta ostacolo.\n", giocatore->nomeUtente);
+void pescaOstacolo(Giocatore* giocatore, CartaOstacolo** mazzo, Personaggio personaggi[N_PERSONAGGI]){
+    stampaNomeGiocatoreColore(giocatore, personaggi);
+    printf(" pesca la carta ostacolo.\n");
     // Si mette il puntatore alla carta in cima in una variabile
     CartaOstacolo *carta;
     carta = *mazzo;

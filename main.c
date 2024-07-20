@@ -39,7 +39,6 @@ int main() {
 
     /** TODO:
      * Ultime cose 2 giocatori (easy credo)
-     * Selezione personaggi (easy credo)
      */
 
     int scelta;

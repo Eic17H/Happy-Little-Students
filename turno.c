@@ -127,13 +127,14 @@ void rimuoviGiocatore(Giocatore** giocatori, Giocatore* giocatore, int* nGiocato
 
 /**
  * Spareggio per gli sconfitti
- * @param giocatori puntatore al primo giocatore
- * @param nGiocatori numero di giocatori
- * @param sconfitti array degli spareggianti
- * @return puntatore al giocatore che perde
+ * @param giocatori Puntatore al primo giocatore
+ * @param nGiocatori Numero corrente di giocatori
+ * @param sconfitti Determina se ciascun giocatore sta spareggiando
+ * @param scarti Puntatore al mazzo degli scarti
+ * @param personaggi Array dei personaggi (serve per i colori)
+ * @return Il giocatore che ha perso lo spareggio
  */
-// TODO: Colore personaggio
-Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGiocatori], CartaCfu** scarti){
+Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGiocatori], CartaCfu** scarti, Personaggio personaggi[N_PERSONAGGI]){
     // Contiene il punteggio di spareggio di ciascun giocatore
     int punti[nGiocatori];
     int spareggianti=nGiocatori;
@@ -146,7 +147,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
     while(spareggianti>1){
         giocatore = giocatori;
         // scorriamo tutti i giocatori
-        for (int i = 0; i < nGiocatori; i++, giocatore = giocatore->prossimo) {
+        for (i = 0; i < nGiocatori; i++, giocatore = giocatore->prossimo) {
             // i giocatori che non stanno spareggiando avranno un punteggio di default per il calcolo del minimo
             punti[i]=PUNTI_PER_VINCERE+1;
             // perdi automaticamente se non hai più carte in mano
@@ -155,11 +156,12 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
             // consideriamo solo chi partecipa allo spareggio
             if (sconfitti[i] == 1) {
                 punti[i]=0;
+                coloreGiocatore(giocatore, personaggi);
                 giocaCarta(giocatore, scarti, &punti[i]);
             }
         }
         // trovare il punteggio minimo
-        for (int i = 0; i < nGiocatori; i++) {
+        for (i = 0; i < nGiocatori; i++) {
             if (sconfitti[i] == 1){
                 if(punti[i]<punti[min])
                     min=i;
@@ -396,7 +398,7 @@ void fineTurno(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, 
         for(i=0; i<min; i++)
             giocatore = giocatore->prossimo;
     }else
-        giocatore = spareggio(giocatori, nGiocatori, sconfitto, scarti);
+        giocatore = spareggio(giocatori, nGiocatori, sconfitto, scarti, personaggi);
 
     // Si permette di giocare una carta salva o dirotta
     salvaDirotta(nGiocatori, giocatori, &giocatore, personaggi);

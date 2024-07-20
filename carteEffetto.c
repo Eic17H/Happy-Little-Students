@@ -146,7 +146,7 @@ void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGioc
         calcolaPunteggio(&punteggi[i-1], *moltiplicatoreAumenta);
     }
 
-    // TODO: spostare
+    // Ogni volta che si attiva un effetto, stampo di nuovo le informazioni aggiornate
     printf(RESET "\nSituazione provvisoria:\n");
     for(i=1, giocatoreCerca = *giocatori; giocatoreCerca != NULL; i++, giocatoreCerca = giocatoreCerca->prossimo){
         calcolaPunteggio(&punteggi[i-1], *moltiplicatoreAumenta);
