@@ -1,5 +1,15 @@
 #include "salvataggio.h"
 
+/**
+ * Salva la partita dentro un file binario
+ * @param nGiocatori Puntatore al numero corrente di giocatori
+ * @param giocatori Puntatore alla lista di giocatori
+ * @param carteCfu Puntatore al mazzo delle carte cfu
+ * @param scarti Puntatore al mazzo degli scarti
+ * @param carteOstacolo Puntatore al mazzo degli ostacoli
+ * @param nTurno Puntatore al numero del turno
+ * @param nomeFile Nome del file (inclusa l'estensione .sav)
+ */
 void leggiSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]){
 
     FILE* fp = fopen(nomeFile, "rb");
@@ -117,6 +127,16 @@ void leggiSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCf
     fclose(fp);
 }
 
+/**
+ * Salva la partita dentro un file binario
+ * @param nGiocatori Puntatore al numero corrente di giocatori
+ * @param giocatori Puntatore alla lista di giocatori
+ * @param carteCfu Puntatore al mazzo delle carte cfu
+ * @param scarti Puntatore al mazzo degli scarti
+ * @param carteOstacolo Puntatore al mazzo degli ostacoli
+ * @param nTurno Puntatore al numero del turno
+ * @param nomeFile Nome del file (inclusa l'estensione .sav)
+ */
 void scriviSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]){
 
     Giocatore *giocatore = *giocatori;
@@ -180,12 +200,16 @@ void scriviSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteC
     fclose(fp);
 }
 
+/**
+ * Permette di immettere il nome della partita, controllando che non sia troppo lungo
+ * @param nomeFile
+ */
 void nomePartita(char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]){
     nomeFile[LUNG_NOMI-1] = 0;
     printf("Dai un nome alla partita:\n");
     scanf("%s", nomeFile);
     while(nomeFile[LUNG_NOMI-1] != 0){
-        printf("E' un nome troppo lungo!\nMassimo %d caratteri.\n", LUNG_NOMI);
+        printf("E' un nome troppo lungo!\nMassimo %d caratteri.\n", LUNG_NOMI-1);
         nomeFile[LUNG_NOMI-1] = 0;
         scanf("%s", nomeFile);
     }
@@ -193,6 +217,11 @@ void nomePartita(char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]){
     strcat(nomeFile, ESTENSIONE_SAV);
 }
 
+/**
+ * Dato un nome, restituisce vero se un salvataggio con quel nome esiste, falso altrimenti
+ * @param nomeFile Nome del file (inclusa estensione .sav)
+ * @return Vero o falso, a seconda della presenza del file
+ */
 bool esisteSalvataggio(char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]){
     FILE *fp;
     fp = fopen(nomeFile, "rb");
@@ -205,6 +234,16 @@ bool esisteSalvataggio(char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]){
     }
 }
 
+/**
+ * Assegna valori default alle variabili quando si inizia una nuova partita
+ * @param nGiocatori Puntatore alla variabile che conterrà il numero di giocatori
+ * @param giocatori Puntatore alla lista di giocatori
+ * @param carteCfu Puntatore al mazzo delle carte cfu
+ * @param scarti Puntatore al mazzo degli scarti
+ * @param carteOstacolo Puntatore al mazzo degli ostacoli
+ * @param nTurno Puntatore alla variabile che conterrà il numero del turno
+ * @param personaggi Array dei personaggi letti dal file
+ */
 void inizializzaSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, Personaggio personaggi[N_PERSONAGGI]){
     *nTurno = 1;
     // Puntatore alla prima carta del mazzo di carte CFU
