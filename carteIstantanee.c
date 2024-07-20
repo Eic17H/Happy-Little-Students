@@ -41,7 +41,6 @@ void aumentaDiminuisci(int nGiocatori, int indice, int valore, Giocatore* giocat
     int i;
     int scelta;
 
-    // TODO: fare questo con una funzione
     // Si stampano tutti i giocatori
     for(i=0; i<nGiocatori; i++){
         calcolaPunteggio(&punteggi[i], moltiplicatore);

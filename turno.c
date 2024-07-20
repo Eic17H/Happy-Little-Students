@@ -253,7 +253,7 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
     }
 
     // Attiva gli effetti solo se non ci sono carte annulla
-    if(!controllaAnnulla(*nGiocatori, carte)){
+    if(!controllaAnnulla(*nGiocatori, *giocatori, carte, personaggi)){
         // Le carte con più CFU vengono attivate prima
         ordinaEffetti(*nGiocatori, ordineEffetti, carte);
         for (i = 0; i < *nGiocatori; i++){
@@ -261,8 +261,6 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
             if (carte[ordineEffetti[i]].effetto > NESSUNO && carte[ordineEffetti[i]].effetto < PRIMA_ISTANTANEA)
                 usaEffetto(*nGiocatori, carte, arrayGiocatori, giocatori, punteggi, ordineEffetti[i], carteCfu, scarti, personaggi, moltiplicatoreAumenta);
         }
-    }else{
-        printf(UCYN "\nGli effetti secondari delle carte sono stati annullati\n\n" RESET);
     }
 
     for(i=0; i<*nGiocatori; i++)

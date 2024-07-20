@@ -6,7 +6,6 @@
  * @return puntatore al primo giocatore
  */
 Giocatore* inputGiocatori(int nGiocatori, int nGiocatore){
-    coloreNumero(nGiocatore);
     if(nGiocatori==0)
         return NULL;
     Giocatore* giocatori = malloc(sizeof(Giocatore));

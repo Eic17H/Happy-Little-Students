@@ -286,7 +286,11 @@ Giocatore* selezionaAvversario(Giocatore* giocatori, Giocatore* giocatore, Perso
     return cerca;
 }
 
-// TODO: più bello
+/**
+ * Scarta da uno a tre carte dalla tua mano
+ * @param giocatore Il giocatore che ha attivato l'effetto
+ * @param scarti Puntatore alla pila degli scarti
+ */
 void scartaC(Giocatore *giocatore, CartaCfu** scarti) {
     debug("\t\tscartaC()\n");
     const int nCarte = 3;
@@ -444,11 +448,24 @@ void ordinaEffetti(int nGiocatori, int ordine[nGiocatori], CartaCfu carte[nGioca
     ordinaEffetti(nGiocatori - 1, ordine, carte);
 }
 
-bool controllaAnnulla(int nGiocatori, CartaCfu carte[nGiocatori]){
+/**
+ * Controlla se qualcuno ha giocato una carta che annulla gli effetti secondari delle altre carte
+ * @param nGiocatori Il numero corrente di giocatori
+ * @param giocatori Lista dei giocatori (puntatore al primo giocatore)
+ * @param carte Array delle carte giocate nella fase cfu di questo turno
+ * @param personaggi Array dei personaggi (serve per i colori)
+ * @return
+ */
+bool controllaAnnulla(int nGiocatori, Giocatore* giocatori, CartaCfu carte[nGiocatori], Personaggio personaggi[N_PERSONAGGI]){
     debug("\t\tcontrollaAnnulla()\n");
-    // TODO: stampa nome giocatore
-    for(int i=0; i<nGiocatori; i++)
-        if(carte[i].effetto == ANNULLA)
+    int i=0;
+    Giocatore* giocatore = giocatori;
+    for(i=0, giocatore = giocatori; i<nGiocatori; i++, giocatore = giocatore->prossimo)
+        if(carte[i].effetto == ANNULLA){
+            printf(UCYN "\nLa carta di " RESET);
+            stampaNomeGiocatoreColore(giocatore, personaggi);
+            printf(UCYN " annulla gli effetti secondari di tutte le altre carte!\n\n" RESET);
             return true;
+        }
     return false;
 }

@@ -29,7 +29,7 @@ void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti);
 void scambiaC(int, Giocatore**, CartaCfu*, Personaggio*, int);
 void annulla();
 void ordinaEffetti(int nGiocatori, int ordine[nGiocatori], CartaCfu carte[nGiocatori]);
-bool controllaAnnulla(int nGiocatori, CartaCfu carte[nGiocatori]);
+bool controllaAnnulla(int nGiocatori, Giocatore* giocatori, CartaCfu carte[nGiocatori], Personaggio personaggi[N_PERSONAGGI]);
 Giocatore* selezionaAvversario(Giocatore* giocatori, Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori);
 
 void scambiaPunteggi(Punteggio*a, Punteggio*b);

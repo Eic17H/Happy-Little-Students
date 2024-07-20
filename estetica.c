@@ -233,7 +233,10 @@ void segnalino(Giocatore *giocatore, int casella, int caselle[PUNTI_PER_VINCERE]
         printf(" ");
 }
 
-// TODO: usare i personaggi anziché il numero
+/**
+ * Assegna indirettamente i colori ai personaggi
+ * @param n L'n-esimo colore viene associato all'n-esimo personaggio (personaggi[n-1] nell'array)
+ */
 void coloreNumero(int n){
     switch(n){
         case 1:
