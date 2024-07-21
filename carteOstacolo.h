@@ -8,7 +8,7 @@
 
 void pescaOstacolo(Giocatore*, CartaOstacolo**, Personaggio[N_PERSONAGGI]);
 void mischiaOstacoli(CartaOstacolo**);
-bool troppiOstacoli(int[4], int nGiocatori);
+bool troppiOstacoli(int[4]);
 void controlloOstacoli(Giocatore**, int*, Personaggio[N_PERSONAGGI]);
 void rimettiOstacoloNelMazzo(CartaOstacolo* mazzo, CartaOstacolo* ostacolo);
 CartaOstacolo* togliOstacolo(CartaOstacolo** mazzo);

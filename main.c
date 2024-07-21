@@ -37,10 +37,6 @@ int main() {
     // Variabile che tiene traccia del numero di giocatori (cambia se perdono o si arrendono)
     int nGiocatori;
 
-    /** TODO:
-     * Ultime cose 2 giocatori (easy credo)
-     */
-
     int scelta;
 
     // Caricamento o inizializzazione del file di salvataggio e del log

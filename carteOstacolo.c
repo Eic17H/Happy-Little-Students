@@ -20,6 +20,11 @@ void pescaOstacolo(Giocatore* giocatore, CartaOstacolo** mazzo, Personaggio pers
     giocatore->primaOstacolo = carta;
 }
 
+/**
+ * Rimuove la carta in cima al mazzo degli ostacoli e la restituisce
+ * @param mazzo Puntatore al mazzo degli ostacoli
+ * @return La carta che era in cima al mazzo
+ */
 CartaOstacolo* togliOstacolo(CartaOstacolo** mazzo){
     CartaOstacolo* carta = *mazzo;
     *mazzo = carta->prossima;
@@ -74,32 +79,31 @@ void mischiaOstacoli(CartaOstacolo** mazzo){
         carta->prossima = carte[random[i]];
         carta = carta->prossima;
     }
+    // L'ultima carta della lista non punta a niente
     carta->prossima = NULL;
 }
 
-bool troppiOstacoli(int carte[4], int nGiocatori){
-    int limite;
-    if(nGiocatori == 2)
-        limite = OSTACOLI_PER_PERDERE_2GIOCATORI;
-    else
-        limite = OSTACOLI_PER_PERDERE;
-    // Per rendere più leggibili le espressioni sotto
-    int limiteMiste = limite/(N_TIPI_OSTACOLI-1);
+/**
+ * Controlla se un giocatore ha abbastanza carte ostacolo per perdere
+ * @param carte L'array delle carte ostacolo del giocatore
+ * @return Vero se ha perso, falso altrimenti
+ */
+bool troppiOstacoli(int carte[4]){
 
-    // Tre/sei carte dello stesso colore (le carte esame contano in ogni caso)
-    if(carte[STUDIO-1]+carte[ESAME-1]>=limite)
+    // Tre carte dello stesso colore (le carte esame contano in ogni caso)
+    if(carte[STUDIO-1]+carte[ESAME-1]>=N_TIPI_OSTACOLI)
         return true;
-    if(carte[SOPRAVVIVENZA-1]+carte[ESAME-1]>=limite)
+    if(carte[SOPRAVVIVENZA-1]+carte[ESAME-1]>=N_TIPI_OSTACOLI)
         return true;
-    if(carte[SOCIALE-1]+carte[ESAME-1]>=limite)
+    if(carte[SOCIALE-1]+carte[ESAME-1]>=N_TIPI_OSTACOLI)
         return true;
 
-    // Tre/sei carte di colore diverso (considerando le carte esame come ciascun colore)
-    if(carte[STUDIO-1]+carte[ESAME-1]>=limiteMiste && carte[SOPRAVVIVENZA-1]>=limiteMiste && carte[SOCIALE-1]>=limiteMiste)
+    // Tre carte di colore diverso (considerando le carte esame come ciascun colore)
+    if(carte[STUDIO-1]+carte[ESAME-1]>=1 && carte[SOPRAVVIVENZA-1]>=1 && carte[SOCIALE-1]>=1)
         return true;
-    if(carte[STUDIO-1]>=limiteMiste && carte[SOPRAVVIVENZA-1]+carte[ESAME-1]>=limiteMiste && carte[SOCIALE-1]>=limiteMiste)
+    if(carte[STUDIO-1]>=1 && carte[SOPRAVVIVENZA-1]+carte[ESAME-1]>=1 && carte[SOCIALE-1]>=1)
         return true;
-    if(carte[STUDIO-1]>=limiteMiste && carte[SOPRAVVIVENZA-1]>=limiteMiste && carte[SOCIALE-1]+carte[ESAME-1]>=limiteMiste)
+    if(carte[STUDIO-1]>=1 && carte[SOPRAVVIVENZA-1]>=1 && carte[SOCIALE-1]+carte[ESAME-1]>=1)
         return true;
 
     return false;
@@ -153,7 +157,7 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio perso
                    giocatore->cfu - precedente);
         }
         // TODO: 2 giocatori (forse)
-        if(troppiOstacoli(carte, *nGiocatori)){
+        if(troppiOstacoli(carte)){
             // Testo rosso
             printf(BHRED "\n\n");
             // Abbastanza "=" per raggiungere la lunghezza del nome del giocatore

@@ -11,8 +11,9 @@
  */
 void stampaLogo(){
     FILE *fp = fopen("immagine.txt", "r");
+    // Il file non è necessario per il funzionamento del gioco
     if(fp == NULL)
-        exit(-1);
+        return;
     char c;
     int letto;
     letto = fscanf(fp, "%c", &c);
@@ -186,6 +187,7 @@ void stampaSituazione(Giocatore* giocatori, int nGiocatori, Personaggio* persona
     printf("\n\n");
 }
 
+// TODO: rimuovere (non so per che situazione sia stata fatta)
 void aiuto(int scelta){
     switch(scelta){
         case 0:
