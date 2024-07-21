@@ -55,37 +55,60 @@ enum TipoOstacolo {
 };
 
 struct CartaCfu{
+    // Nome della carta
     char nome[LUNG_NOMI];
+    // Valore della carta (ignorato per le carte istantanee)
     int cfu;
+    // Effetto della carta (inclusi gli effetti istantanei)
     enum EffettoCarta effetto;
+    // Puntatore alla prossima carta nel mazzo o nella mano
     struct CartaCfu *prossima;
 };
 
 struct CartaOstacolo{
+    // Nome della carta
     char nome[LUNG_NOMI];
+    // Descrizione della carta
     char descrizione[LUNG_DESCR];
+    // Tipo dell'ostacolo
     enum TipoOstacolo tipo;
+    // Puntatore alla prossima carta, nel mazzo o nel gruppo di ostacoli del giocatore
     struct CartaOstacolo *prossima;
 };
 
 struct Personaggio{
+    // Nome del personaggio
     char nome[LUNG_NOMI];
+    // Lista di bonus e malus per ciascun tipo di ostacolo
     int ostacoli[N_TIPI_OSTACOLI];
 };
 
 struct Giocatore{
+    // Nome utente (immesso da tastiera)
     char nomeUtente[LUNG_NOMI];
+    // Personaggio (selezionato all'inizio della partita)
     struct Personaggio personaggio;
+    // Cfu correnti (0 all'inizio della partita)
     int cfu;
+    // Puntatore alla prima carta cfu in mano
     struct CartaCfu *primaCfu;
+    // Puntatore alla prima carta ostacolo pescata
     struct CartaOstacolo *primaOstacolo;
+    // Puntatore al prossimo giocatore nella lista
     struct Giocatore *prossimo;
 };
 
+/**
+ * Tiene traccia del punteggio provvisorio di un giocatore durante il turno, separando i punti per metodo di ottenimento
+ */
 struct Punteggio{
+    // Punti ottenuti dalla carta giocata in questo turno
     int carta;
+    // Punti ottenuti o persi dal bonus o malus del personaggio
     int personaggio;
+    // Numero delle carte "diminuisci" attive sul giocatore, sottratto dal numero di carte "aumenta"
     int aumenta;
+    // Punti totali (da ricalcolare con una funzione prima di essere letto)
     int totale;
 };
 

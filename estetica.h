@@ -11,7 +11,6 @@
 void stampaLogo();
 char cartaSpeciale(CartaCfu);
 void coloreOstacoli(TipoOstacolo);
-
 void stampaOstacolo(CartaOstacolo);
 void stampaDescOstacolo(CartaOstacolo);
 void stampaNomeOstacolo(CartaOstacolo);

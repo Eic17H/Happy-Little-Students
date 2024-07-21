@@ -257,6 +257,7 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
         }
         if(arrende){
             rimuoviGiocatore(giocatori, giocatore, nGiocatori);
+            logArrende(*giocatore);
             // Se quando si è arreso erano rimasti solo due giocatori, l'altro vince
             if(*nGiocatori == 1)
                 return;
@@ -443,7 +444,7 @@ void calcolaPunteggio(Punteggio *punteggio, int moltiplicatoreAumenta){
  * @param punteggi Array dei punteggi provvisori
  * @param moltiplicatore Puntatore al moltiplicatore delle carte aumenta e diminuisci
  */
-void resetPunteggi(int nGiocatori, Punteggio punteggi[], int *moltiplicatore){
+void resetPunteggi(int nGiocatori, Punteggio punteggi[nGiocatori], int *moltiplicatore){
     for(int i=0; i<nGiocatori; i++){
         punteggi[i].totale=0;
         punteggi[i].carta=0;

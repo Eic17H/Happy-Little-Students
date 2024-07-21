@@ -85,7 +85,7 @@ void mischiaOstacoli(CartaOstacolo** mazzo){
 
 /**
  * Controlla se un giocatore ha abbastanza carte ostacolo per perdere
- * @param carte L'array delle carte ostacolo del giocatore
+ * @param carte L'array del conteggio di ciascun tipo di ostacolo
  * @return Vero se ha perso, falso altrimenti
  */
 bool troppiOstacoli(int carte[4]){
@@ -156,7 +156,6 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio perso
             printf("%s ha preso %d CFU grazie alle carte ostacolo.\n" RESET, giocatore->nomeUtente,
                    giocatore->cfu - precedente);
         }
-        // TODO: 2 giocatori (forse)
         if(troppiOstacoli(carte)){
             // Testo rosso
             printf(BHRED "\n\n");

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "tipi.h"
 #include <stdbool.h>
+#include <string.h>
 
 void logTurno(int nTurno);
 void logCartaCfu(Giocatore giocatore, CartaCfu carta);

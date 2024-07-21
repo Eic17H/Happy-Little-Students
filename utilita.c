@@ -7,8 +7,8 @@
 
 /**
  * Scambia due interi
- * @param a
- * @param b
+ * @param a Puntatore al primo intero
+ * @param b Puntatore al secondo intero
  */
 void scambiaInt(int* a, int* b){
     int temp = *a;

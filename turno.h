@@ -27,7 +27,7 @@ Giocatore* spareggio(Giocatore*, int, bool[], CartaCfu**, Personaggio personaggi
 void assegnaPersonaggi(Giocatore*, Personaggio[N_PERSONAGGI]);
 void rimuoviGiocatore(Giocatore**, Giocatore*, int*);
 void calcolaPunteggio(Punteggio *punteggio, int moltiplicatoreAumenta);
-void resetPunteggi(int, Punteggio[], int*);
+void resetPunteggi(int nGiocatori, Punteggio[nGiocatori], int*);
 void stampaGiocatori(Giocatore* giocatori, Punteggio punteggi[], Personaggio personaggi[N_PERSONAGGI]);
 
 
