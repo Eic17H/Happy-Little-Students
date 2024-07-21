@@ -151,7 +151,7 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio perso
             }
         }
         if(giocatore->cfu-precedente != 0){
-            prendiCfu(*giocatore, giocatore->cfu - precedente, false);
+            logPrendiCfu(*giocatore, giocatore->cfu - precedente, false);
             coloreGiocatore(giocatore, personaggi);
             printf("%s ha preso %d CFU grazie alle carte ostacolo.\n" RESET, giocatore->nomeUtente,
                    giocatore->cfu - precedente);

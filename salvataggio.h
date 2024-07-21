@@ -13,6 +13,7 @@
 #include "carteCfu.h"
 #include "carteOstacolo.h"
 
+void iniziaSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)], Personaggio personaggi[N_PERSONAGGI]);
 void leggiSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, char nomeSav[LUNG_NOMI]);
 void scriviSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, char nomeSav[LUNG_NOMI]);
 void nomePartita(char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]);

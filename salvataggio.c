@@ -1,6 +1,32 @@
 #include "salvataggio.h"
 
 /**
+ * Se esiste un salvataggio con il nome selezionato, chiede se caricarlo.
+ * Se si è deciso di non caricare il salvataggio, o se non esiste, inizializza le variabili
+ * @param nGiocatori Puntatore al numero corrente di giocatori
+ * @param giocatori Puntatore alla lista di giocatori
+ * @param carteCfu Puntatore al mazzo delle carte cfu
+ * @param scarti Puntatore al mazzo degli scarti
+ * @param carteOstacolo Puntatore al mazzo degli ostacoli
+ * @param nTurno Puntatore al numero del turno
+ * @param nomeFile Nome del file (inclusa l'estensione .sav)
+ * @param personaggi Array dei personaggi letti dal file
+ */
+void iniziaSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)], Personaggio personaggi[N_PERSONAGGI]){
+    int scelta=0;
+    if(esisteSalvataggio(nomeFile)){
+        printf("Vuoi caricare il file di salvataggio? 1 per si', no altrimenti\n");
+        scelta = inputCifra();
+    }else{
+        scelta = 0;
+    }
+    if(scelta==1)
+        leggiSalvataggio(nGiocatori, giocatori, carteCfu, scarti, carteOstacolo, nTurno, nomeFile);
+    else
+        inizializzaSalvataggio(nGiocatori, giocatori, carteCfu, scarti, carteOstacolo, nTurno, personaggi);
+}
+
+/**
  * Salva la partita dentro un file binario
  * @param nGiocatori Puntatore al numero corrente di giocatori
  * @param giocatori Puntatore alla lista di giocatori

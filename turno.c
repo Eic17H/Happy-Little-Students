@@ -388,7 +388,7 @@ void fineTurno(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, 
         if(punteggi[i].totale==punteggi[max].totale){
             coloreGiocatore(giocatore, personaggi);
             printf("%s ha preso %d cfu per le carte giocate.\n" RESET, giocatore->nomeUtente, punteggi[i].totale);
-            prendiCfu(*giocatore, punteggi[i].totale, true);
+            logPrendiCfu(*giocatore, punteggi[i].totale, true);
             giocatore->cfu += punteggi[i].totale;
         }
     }
@@ -407,7 +407,7 @@ void fineTurno(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, 
     // Se il giocatore si è salvato, il puntatore è NULL
     if(giocatore != NULL) {
         logOstacolo(*giocatore, **carteOstacolo);
-        pescaOstacolo(giocatore, carteOstacolo);
+        pescaOstacolo(giocatore, carteOstacolo, personaggi);
     }else{
         annullaOstacolo(carteOstacolo);
     }

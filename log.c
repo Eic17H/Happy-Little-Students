@@ -1,7 +1,7 @@
 #include "log.h"
 
 /**
- * Segnala l'inizio della partita nel file log.txt, creandolo se non essite già
+ * Segnala l'inizio della partita nel file log.txt, creandolo se non esiste già
  * @param nome Nome della partita (inclusa l'estensione)
  */
 void creaLog(char nome[LUNG_NOMI+strlen(ESTENSIONE_SAV)]){
@@ -123,7 +123,7 @@ void logRuba(Giocatore ladro, Giocatore vittima, CartaCfu carta){
  * @param nCfu Quanti CFU ha guadagnato
  * @param carte Vero se sono dovuti alle carte CFU, falso se sono dovuti alle carte ostacolo
  */
-void prendiCfu(Giocatore giocatore, int nCfu, bool carte){
+void logPrendiCfu(Giocatore giocatore, int nCfu, bool carte){
     FILE *fp = fopen("log.txt", "a");
     if(carte)
         fprintf(fp, "%s prende %d CFU grazie alle carte giocate\n", giocatore.nomeUtente, nCfu);

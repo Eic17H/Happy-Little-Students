@@ -15,7 +15,7 @@ void logVince(Giocatore giocatore, bool punti);
 void logCfu(Giocatore giocatore);
 void logOstacolo(Giocatore giocatore, CartaOstacolo carta);
 void logRuba(Giocatore ladro, Giocatore vittima, CartaCfu carta);
-void prendiCfu(Giocatore giocatore, int nCfu, bool carte);
+void logPrendiCfu(Giocatore giocatore, int nCfu, bool carte);
 void logTesto(char string[256]);
 void logArrende(Giocatore giocatore);
 void logSalva(Giocatore giocatore, CartaCfu carta);
