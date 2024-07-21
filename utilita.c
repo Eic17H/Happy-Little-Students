@@ -38,3 +38,50 @@ void stampaNomeGiocatoreColore(Giocatore* giocatore, Personaggio personaggi[N_PE
     coloreGiocatore(giocatore, personaggi);
     printf("%s" RESET, giocatore->nomeUtente);
 }
+
+/**
+ * Dealloca una lista di carte cfu
+ * @param mazzo La lista da deallocare
+ */
+void freeCfu(CartaCfu** mazzo){
+    CartaCfu* prima = *mazzo;
+    CartaCfu* seconda = prima->prossima;
+    while(prima != NULL){
+        if(prima->prossima != NULL)
+            seconda = prima->prossima;
+        free(prima);
+        prima = seconda;
+    }
+}
+
+/**
+ * Dealloca una lista di carte ostacolo
+ * @param mazzo La lista da deallocare
+ */
+void freeOstacoli(CartaOstacolo** mazzo){
+    CartaOstacolo* prima = *mazzo;
+    CartaOstacolo* seconda = prima->prossima;
+    while(prima != NULL){
+        if(prima->prossima != NULL)
+            seconda = prima->prossima;
+        free(prima);
+        prima = seconda;
+    }
+}
+
+/**
+ * Dealloca una lista di giocatori e le liste associate a ciascun giocatore
+ * @param lista La lista da deallocare
+ */
+void freeGiocatori(Giocatore** lista){
+    Giocatore* primo = *lista;
+    Giocatore* secondo = primo->prossimo;
+    while(primo != NULL){
+        if(primo->prossimo != NULL)
+            secondo = primo->prossimo;
+        freeCfu(&(primo->primaCfu));
+        freeOstacoli(&(primo->primaOstacolo));
+        free(primo);
+        primo = secondo;
+    }
+}

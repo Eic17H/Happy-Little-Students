@@ -62,7 +62,7 @@ int main() {
         // Le due fasi del turno, l'eventuale spareggio e la pesca dell'ostacolo
         faseCfu(&giocatori, personaggi, &nGiocatori, &carteCfu, &scarti, &carteOstacolo, punteggi, &moltiplicatoreAumenta);
         // Non si continua il turno se si sono arresi tutti
-        if(nGiocatori > 1) {
+        if(nGiocatori > 1){
             faseIstantanee(giocatori, personaggi, nGiocatori, &scarti, &carteOstacolo, punteggi, moltiplicatoreAumenta);
             fineTurno(giocatori, personaggi, nGiocatori, &scarti, &carteOstacolo, punteggi, moltiplicatoreAumenta);
             // Si controlla se qualcuno ha vinto o perso
@@ -76,11 +76,12 @@ int main() {
 
     // Se qualcuno ha vinto si esce dal loop
     stampaVincitori(giocatori, personaggi);
-    // TODO: freeare le intere liste credo
-    free(carteCfu);
-    free(scarti);
-    free(carteOstacolo);
-    free(giocatori);
+
+    // Si deallocano le liste
+    freeCfu(&carteCfu);
+    freeCfu(&scarti);
+    freeOstacoli(&carteOstacolo);
+    freeGiocatori(&giocatori);
 
     // Evita che l'andata a capo già inserita sia presa dal prossimo getchar()
     getchar();
