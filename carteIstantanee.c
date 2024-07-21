@@ -147,8 +147,8 @@ void salvaDirotta(int nGiocatori, Giocatore* giocatori, Giocatore** sconfitto, P
 
     switch(scelta){
         case 1:
-            *sconfitto = NULL;
             logSalva(**sconfitto, *salva);
+            *sconfitto = NULL;
             break;
         case 2:
             vittima = selezionaAvversario(giocatori, *sconfitto, personaggi, nGiocatori);
