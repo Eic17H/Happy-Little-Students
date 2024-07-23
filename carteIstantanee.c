@@ -20,7 +20,8 @@ void usaIstantanea(CartaCfu carta, int nGiocatori, int indice, Giocatore* arrayG
             break;
         case SALVA:
         case DIROTTA:
-            printf("Questa carta si può usare solo quando stai per pescare una carta ostacolo.\n");
+            coloreProblema();
+            printf("Questa carta si puo' usare solo quando stai per pescare una carta ostacolo.\n\n\n" RESET);
             break;
         default:
             break;
@@ -133,7 +134,7 @@ void salvaDirotta(int nGiocatori, Giocatore* giocatori, Giocatore** sconfitto, P
         }
     }else if(dirotta!=NULL){
         printf("Puoi usare %s per dare l'ostacolo a un altro giocatore!\n", dirotta->nome);
-        printf("0: Pesca l'ostacolo\n1:Dirotta\n");
+        printf("0: Pesca l'ostacolo\n1: Dirotta\n");
         printf("Seleziona: ");
         scelta = inputCifra();
         while(scelta<0 || scelta>1){

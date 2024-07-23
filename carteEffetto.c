@@ -193,6 +193,7 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
     prendiCarta(giocatore, daiCarta(avversario, carta));
 }
 
+// TODO: AAAAAAAAAAAA ho fatto un casino con gli indici, non so come fare
 /**
  * Scambia questa carta con quella di un altro giocatore, purché senza effetto
  * @param giocatori Puntatore alla lista di giocatori
@@ -209,7 +210,7 @@ void scambiaDS(Giocatore** giocatori, CartaCfu carte[], Giocatore* giocante, Per
     Giocatore* giocatore = *giocatori;
 
     // Si stampano le informazioni di tutti gli avversari e delle loro carte
-    for(i=1, giocatore=*giocatori; giocatore != NULL; giocatore = giocatore->prossimo){
+    for(i=0, giocatore=*giocatori; giocatore != NULL; i++, giocatore = giocatore->prossimo){
         if(giocatore != giocante){
             coloreGiocatore(giocatore, personaggi);
             printf("%d: %32s - %32s (%2d CFU) %c\n" RESET, i+1, giocatore->nomeUtente, carte[i].nome, carte[i].cfu, cartaSpeciale(carte[i]));
@@ -358,6 +359,7 @@ void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
     // Si pescano le carte, si mettono nell'array e si stampano
     for(int i=0; i<nCarte; i++){
         carte[i] = cartaDalMazzo(mazzo, scarti);
+        printf("%d: ", i+1);
         stampaCfu(*carte[i]);
     }
 

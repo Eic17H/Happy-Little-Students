@@ -195,3 +195,10 @@ void coloreErrore(){
 void coloreComunicazioni(){
     printf(UCYN);
 }
+
+/**
+ * Il colore usato quando il giocatore prova a fare qualcosa che non può fare, o quando succede qualcosa di sfavorevole
+ */
+void coloreProblema(){
+    printf(RED);
+}

@@ -239,7 +239,6 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
             printf("1: Gioca una carta\n");
             printf("2: Visualizza informazioni sulle carte\n");
             printf("3: Arrenditi\n");
-            printf(RESET);
             switch(inputCifra()){
                 case 1:
                     selezionato = true;

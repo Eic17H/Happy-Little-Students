@@ -158,7 +158,8 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio perso
         }
         if(troppiOstacoli(carte)){
             // Testo rosso
-            printf(RED "\n\n");
+            coloreProblema();
+            printf("\n\n");
             // Abbastanza "=" per raggiungere la lunghezza del nome del giocatore
             for(int i=0; i<strlen(giocatore->nomeUtente); i++)
                 printf("=");

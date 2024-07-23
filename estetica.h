@@ -21,5 +21,6 @@ void coloreGiocatore(Giocatore*, Personaggio[N_PERSONAGGI]);
 void stampaSituazione(Giocatore*, int, Personaggio*);
 void coloreErrore();
 void coloreComunicazioni();
+void coloreProblema();
 
 #endif //HAPPY_LITTLE_STUDENTS_ESTETICA_H

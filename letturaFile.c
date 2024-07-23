@@ -35,6 +35,9 @@ void stampaPersonaggi(Personaggio personaggi[]){
     printf("I bonus e i malus sono legati al tipo di ostacolo mostrato all'inizio del turno\n");
     printf("Se il tuo personaggio ha un malus legato a quel tipo,\nil tuo punteggio provvisorio sara' minore di quello che dovrebbe essere\n");
     printf("Nel caso dei bonus, sara' maggiore.\n");
+    printf("Le carte ostacolo ");
+    coloreOstacoli(ESAME);
+    printf("esame" RESET " sono piu' rare e piu' pericolose.\n");
     for(int i=0; i<N_PERSONAGGI; i++) {
         colorePersonaggio(personaggi[i], personaggi);
         printf("%i: %32s: ", i+1, personaggi[i].nome);
