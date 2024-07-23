@@ -158,7 +158,7 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio perso
         }
         if(troppiOstacoli(carte)){
             // Testo rosso
-            printf(BHRED "\n\n");
+            printf(RED "\n\n");
             // Abbastanza "=" per raggiungere la lunghezza del nome del giocatore
             for(int i=0; i<strlen(giocatore->nomeUtente); i++)
                 printf("=");
@@ -192,4 +192,33 @@ void rimettiOstacoloNelMazzo(CartaOstacolo* mazzo, CartaOstacolo* ostacolo){
  */
 void annullaOstacolo(CartaOstacolo** mazzo){
     rimettiOstacoloNelMazzo(*mazzo, togliOstacolo(mazzo));
+}
+
+/**
+ * Stampa nome e descrizione di una carta ostacolo
+ * @param carta La carta da stampare
+ */
+void stampaOstacolo(CartaOstacolo carta){
+    stampaNomeOstacolo(carta);
+    printf("\n");
+    stampaDescOstacolo(carta);
+    printf("\n\n");
+}
+
+/**
+ * Stampa il nome di una carta ostacolo
+ * @param carta La carta da stampare
+ */
+void stampaNomeOstacolo(CartaOstacolo carta){
+    coloreOstacoli(carta.tipo);
+    printf("%s" RESET, carta.nome);
+}
+
+/**
+ * Stampa la descrizione di una carta ostacolo
+ * @param carta La carta da stampare
+ */
+void stampaDescOstacolo(CartaOstacolo carta){
+    coloreOstacoli(carta.tipo);
+    printf("%s" RESET, carta.descrizione);
 }

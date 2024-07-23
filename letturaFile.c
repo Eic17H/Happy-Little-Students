@@ -8,8 +8,11 @@ void leggiPersonaggi(Personaggio* lista){
     // Aprire il file personaggi.txt
     FILE *fp;
     fp = fopen("personaggi.txt", "r");
-    if(fp == NULL)
+    if(fp == NULL){
+        coloreErrore();
+        printf("Errore: impossibile aprire personaggi.txt\n" RESET);
         exit(-1);
+    }
 
     // Leggere dal file
     for(int i=0; i<N_PERSONAGGI; i++){
@@ -60,8 +63,11 @@ CartaCfu* leggiCarte(){
     char nome[LUNG_NOMI];
     CartaCfu *mazzo, *carta, *prossima;
     fp = fopen("carte.txt", "r");
-    if(fp == NULL)
+    if(fp == NULL){
+        coloreErrore();
+        printf("Errore: impossibile aprire carte.txt\n" RESET);
         exit(-1);
+    }
 
     mazzo = (CartaCfu*) malloc(sizeof(CartaCfu));
     carta = mazzo;
@@ -100,8 +106,11 @@ CartaOstacolo* leggiOstacoli(){
     // Apertura file
     FILE *fp;
     fp = fopen("ostacoli.txt", "r");
-    if(fp == NULL)
+    if(fp == NULL){
+        coloreErrore();
+        printf("Errore: impossibile aprire ostacoli.txt\n" RESET);
         exit(-1);
+    }
     // I tipi partono da 1
     TipoOstacolo tipo = 1;
 

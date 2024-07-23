@@ -1,4 +1,5 @@
 #include "turno.h"
+#include "carteOstacolo.h"
 
 /** Inizializza i giocatori:
  * nessuna carta CFU,
@@ -77,7 +78,8 @@ bool vince(Giocatore** giocatori, int* nGiocatori){
 void stampaVincitori(Giocatore* giocatori, Personaggio personaggi[N_PERSONAGGI]){
     // Non dovrebbe poter succedere, ma per sicurezza lo gestisco
     if(giocatori == NULL){
-        printf(RED "Errore: la partita è terminata senza nessun vincitore.\n" RESET);
+        coloreErrore();
+        printf("Errore: la partita è terminata senza nessun vincitore.\n" RESET);
         return;
     }
 
@@ -315,7 +317,8 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
 
     while(scelta!=0){
         if(scelta<0 || scelta>nGiocatori){
-            printf(BRED "Seleziona un'opzione\n" RESET);
+            coloreErrore();
+            printf("Seleziona un'opzione\n" RESET);
         }else{
             // L'input parte da 1, ma gli indici partono da 0
             scelta--;

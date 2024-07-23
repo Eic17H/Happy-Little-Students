@@ -132,13 +132,6 @@ void logPrendiCfu(Giocatore giocatore, int nCfu, bool carte){
     fclose(fp);
 }
 
-// TODO: rimuovere
-void logTesto(char string[256]){
-    FILE *fp = fopen("log.txt", "a");
-    fprintf(fp, "%s", string);
-    fclose(fp);
-}
-
 /**
  * Segna nel log che un giocatore si è arreso
  * @param giocatore Il giocatore che si è arreso

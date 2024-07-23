@@ -3,6 +3,7 @@
 
 #include "turno.h"
 #include "tipi.h"
+#include "estetica.h"
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -13,5 +14,8 @@ void controlloOstacoli(Giocatore**, int*, Personaggio[N_PERSONAGGI]);
 void rimettiOstacoloNelMazzo(CartaOstacolo* mazzo, CartaOstacolo* ostacolo);
 CartaOstacolo* togliOstacolo(CartaOstacolo** mazzo);
 void annullaOstacolo(CartaOstacolo** mazzo);
+void stampaOstacolo(CartaOstacolo);
+void stampaNomeOstacolo(CartaOstacolo);
+void stampaDescOstacolo(CartaOstacolo);
 
 #endif //HAPPY_LITTLE_STUDENTS_CARTEOSTACOLO_H

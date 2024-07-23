@@ -3,8 +3,6 @@
 //
 
 #include "estetica.h"
-#include "utilita.h"
-#include "carteEffetto.h"
 
 /**
  * Stampa il logo leggendolo da immagine.txt e logo.txt
@@ -41,7 +39,7 @@ void stampaLogo(){
 
     fp = fopen("logo.txt", "r");
     if(fp == NULL)
-        exit(-1);
+        return;
     letto = fscanf(fp, "%c", &c);
     while(letto>=0){
         printf("%c", c);
@@ -90,23 +88,6 @@ void coloreOstacoli(TipoOstacolo tipo){
             printf(RESET);
             break;
     }
-}
-
-void stampaOstacolo(CartaOstacolo carta){
-    stampaNomeOstacolo(carta);
-    printf("\n");
-    stampaDescOstacolo(carta);
-    printf("\n\n");
-}
-
-void stampaNomeOstacolo(CartaOstacolo carta){
-    coloreOstacoli(carta.tipo);
-    printf("%s" RESET, carta.nome);
-}
-
-void stampaDescOstacolo(CartaOstacolo carta){
-    coloreOstacoli(carta.tipo);
-    printf("%s" RESET, carta.descrizione);
 }
 
 /**
@@ -201,3 +182,16 @@ void aiuto(int scelta){
     }
 }
 
+/**
+ * Il colore usato per gli errori
+ */
+void coloreErrore(){
+    printf(URED);
+}
+
+/**
+ * Il colore usato per le comunicazioni importanti
+ */
+void coloreComunicazioni(){
+    printf(UCYN);
+}

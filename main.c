@@ -1,3 +1,4 @@
+// Lorenzo Derosas 60/61/66478
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -5,19 +6,17 @@
 #include "tipi.h"
 #include "letturaFile.h"
 #include "turno.h"
-#include "input.h"
 #include "estetica.h"
 #include "utilita.h"
-#include "ANSI-color-codes.h"
 #include "carteCfu.h"
 #include "carteOstacolo.h"
 #include "log.h"
 #include "salvataggio.h"
-// TODO: log istantanee
 
 int main() {
     srand(time(NULL));
     stampaLogo();
+    
 
     // Array contenente i quattro personaggi (le plance di gioco)
     Personaggio personaggi[N_PERSONAGGI];
@@ -35,7 +34,6 @@ int main() {
     int nGiocatori;
 
     // Caricamento o inizializzazione del file di salvataggio e del log
-    bool caricareSalvataggio=false;
     char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)];
     nomePartita(nomeFile);
     iniziaSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, nomeFile, personaggi);
@@ -52,13 +50,12 @@ int main() {
         resetPunteggi(nGiocatori, punteggi, &moltiplicatoreAumenta);
         pescaRotazione(giocatori, &carteCfu, &scarti);
 
-        // È importante salvare dopo aver pescato, il formato richiede che si abbiano 5 carte in mano
+        // È importante che il salvataggio avvenga dopo la pesca a rotazione, il formato richiede che si abbiano 5 carte in mano
         scriviSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, nomeFile);
 
         // Si stampano le informazioni correnti
         stampaSituazione(giocatori, nGiocatori, personaggi);
 
-        // TODO: abbellire le stampe
         // Le due fasi del turno, l'eventuale spareggio e la pesca dell'ostacolo
         faseCfu(&giocatori, personaggi, &nGiocatori, &carteCfu, &scarti, &carteOstacolo, punteggi, &moltiplicatoreAumenta);
         // Non si continua il turno se si sono arresi tutti

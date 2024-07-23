@@ -74,7 +74,8 @@ void giocaCarta(Giocatore *giocatore, CartaCfu **scarti, int *cfuTurno){
 
     // In teoria non può succedere, ma è meglio metterla
     if(carta == NULL){
-        printf(HRED "Errore: il giocatore sta provando a usare una carta non presente nella sua mano.\n" RESET);
+        coloreErrore();
+        printf("Errore: il giocatore sta provando a usare una carta non presente nella sua mano.\n" RESET);
         return;
     }
     // Si aggiungono i CFU della carta scartata al conteggio dei CFU del giocatore
@@ -103,12 +104,13 @@ int contaCarteMano(Giocatore giocatore){
  */
 CartaCfu* cartaDalMazzo(CartaCfu** mazzo, CartaCfu** scarti){
     if(*mazzo == NULL && *scarti == NULL){
-        logTesto("ERRORE: Mazzo e scarti vuoti.\n");
-        printf("ERRORE: Mazzo e scarti vuoti.\n");
+        printf("ERRORE: Il mazzo e gli scarti sono vuoti.\n");
+        getchar();
         exit(-1);
     }
     if(*mazzo == NULL){
-        printf(BLU "Si rimescolano gli scarti nel mazzo\n" RESET);
+        coloreComunicazioni();
+        printf("Si rimescolano gli scarti nel mazzo\n" RESET);
         *mazzo = *scarti;
         *scarti = NULL;
         mischiaMazzo(mazzo);

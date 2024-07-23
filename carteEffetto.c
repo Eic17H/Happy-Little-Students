@@ -38,7 +38,7 @@ void stampaEffetto(CartaCfu carta){
             printf("Guarda la mano di un collega e ruba una carta a scelta.\n");
             break;
         case SCAMBIADS:
-            printf("(Parzialmente implementato) Scambia questa carta con quella di un altro giocatore, purche' senza effetto.\n");
+            printf("Scambia questa carta con quella di un altro giocatore, purche' senza effetto.\n");
             break;
         case SCARTAE:
             printf("Scarta una" YEL " carta CFU punto " RESET "con" CYN " effetto " RESET "e aggiungi il suo punteggio a quello del turno.\n");
@@ -400,7 +400,8 @@ void scambiaC(int nGiocatori, Giocatore* giocatori[nGiocatori], CartaCfu carte[n
         printf("Seleziona il %do giocatore: ", i+1);
         selezionati[i] = inputCifra();
         if(selezionati[i]<1 || selezionati[i]>nGiocatori){
-            printf(URED "Input invalido\n" RESET);
+            coloreErrore();
+            printf("Input invalido\n" RESET);
             i--;
         }
     }
@@ -462,9 +463,11 @@ bool controllaAnnulla(int nGiocatori, Giocatore* giocatori, CartaCfu carte[nGioc
     Giocatore* giocatore = giocatori;
     for(i=0, giocatore = giocatori; i<nGiocatori; i++, giocatore = giocatore->prossimo)
         if(carte[i].effetto == ANNULLA){
-            printf(UCYN "\nLa carta di " RESET);
+            coloreComunicazioni();
+            printf("\nLa carta di " RESET);
             stampaNomeGiocatoreColore(giocatore, personaggi);
-            printf(UCYN " annulla gli effetti secondari di tutte le altre carte!\n\n" RESET);
+            coloreComunicazioni();
+            printf(" annulla gli effetti secondari di tutte le altre carte!\n\n" RESET);
             return true;
         }
     return false;
