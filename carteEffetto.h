@@ -21,7 +21,7 @@ void stampaEffetto(CartaCfu);
 void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGiocatori[nGiocatori], Giocatore** giocatori, Punteggio punteggi[nGiocatori], int indice, CartaCfu** mazzo, CartaCfu** scarti, Personaggio personaggi[N_PERSONAGGI], int* moltiplicatoreAumenta);
 void scartaPE(Giocatore*, Punteggio*, CartaCfu**, bool);
 void ruba(Giocatore**, Giocatore*, Personaggio[N_PERSONAGGI], int);
-void scambiaDS(Giocatore** giocatori, CartaCfu carte[], Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori);
+void scambiaDS(Giocatore** giocatori, CartaCfu carte[], Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori, Punteggio punteggi[nGiocatori]);
 void scartaC(Giocatore *giocatore, CartaCfu**);
 void scambiaP(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta);
 void doppioE(int *moltiplicatoreAumenta);

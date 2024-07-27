@@ -33,5 +33,6 @@ int contaCarteMano(Giocatore);
 void mischiaMazzo(CartaCfu**);
 void mostraCarte(Giocatore);
 bool soloIstantanee(Giocatore);
+void scambiaCarte(CartaCfu*, CartaCfu*);
 
 #endif //HAPPY_LITTLE_STUDENTS_CARTECFU_H

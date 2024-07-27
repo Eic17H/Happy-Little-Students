@@ -271,6 +271,15 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
         }
     }
 
+    // Stampo la situazione sui punteggi prima di passare all'attivazione degli effetti
+    printf(RESET "\nSituazione provvisoria:\n");
+    for(i=1, giocatore = *giocatori; giocatore != NULL; i++, giocatore = giocatore->prossimo){
+        calcolaPunteggio(&punteggi[i-1], *moltiplicatoreAumenta);
+        coloreGiocatore(giocatore, personaggi);
+        printf("%d: %s (%d CFU)\n" RESET, i, giocatore->nomeUtente, punteggi[i-1].totale);
+    }
+    printf("\n");
+
     // Attiva gli effetti solo se non ci sono carte annulla
     if(!controllaAnnulla(*nGiocatori, *giocatori, carte, personaggi)){
         // Le carte con più CFU vengono attivate prima

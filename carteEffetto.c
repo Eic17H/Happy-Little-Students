@@ -106,7 +106,7 @@ void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGioc
             break;
         case SCAMBIADS:
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SCAMBIADS");
-            scambiaDS(giocatori, carte, arrayGiocatori[indice], personaggi, nGiocatori);
+            scambiaDS(giocatori, carte, arrayGiocatori[indice], personaggi, nGiocatori, punteggi);
             break;
         case SCARTAE:
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SCARTAE");
@@ -202,45 +202,48 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
  * @param personaggi Array dei personaggi (serve per i colori)
  * @param nGiocatori Numero corrente di giocatori
  */
-void scambiaDS(Giocatore** giocatori, CartaCfu carte[], Giocatore* giocante, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
+void scambiaDS(Giocatore** giocatori, CartaCfu carte[], Giocatore* giocante, Personaggio personaggi[N_PERSONAGGI], int nGiocatori, Punteggio punteggi[nGiocatori]){
     debug("\t\tscambiaDS()\n");
     int scelta = -1;
     int indice = -1;
-    int i=0;
+    // i si usa per scorrere l'array, j per il codice dell'input
+    int i=0, j=1;
     Giocatore* giocatore = *giocatori;
 
     // Si stampano le informazioni di tutti gli avversari e delle loro carte
-    for(i=0, giocatore=*giocatori; giocatore != NULL; i++, giocatore = giocatore->prossimo){
+    for(i=0, j=1, giocatore=*giocatori; giocatore != NULL; i++, giocatore = giocatore->prossimo){
         if(giocatore != giocante){
             coloreGiocatore(giocatore, personaggi);
-            printf("%d: %32s - %32s (%2d CFU) %c\n" RESET, i+1, giocatore->nomeUtente, carte[i].nome, carte[i].cfu, cartaSpeciale(carte[i]));
+            printf("%d: %32s - %32s (%2d CFU) %c %d\n" RESET, j, giocatore->nomeUtente, carte[i].nome, carte[i].cfu, cartaSpeciale(carte[i]), carte[i].effetto);
+            j++;
         }else{
-            // Si salta il giocatore, e tornando indietro si evita che l'input salti un numero
             // Sapere la posizione del giocatore serve poi per sapere dove si salta un numero
             indice = i;
-            i--;
         }
     }
     printf("0 per annullare\n");
     printf("Seleziona: ");
-    scelta = inputCifra();
+    scelta = inputCifra()-1;
 
-    // L'input è invalido se si seleziona un numero negativo, un giocatore che non esiste, o una carta senza effetto
-    while(scelta<0 || scelta>nGiocatori-1 || carte[scelta-1].effetto!=NESSUNO){
-        printf("Riseleziona: ");
-        scelta = inputCifra();
-    }
+    // Un input di 0 diventa un valore di -1, quindi non si fa più nulla
+    if(scelta == -1)
+        return;
 
     // Nell'input salto il giocatore, quindi, rispetto all'array, dopo il giocatore c'è un offset di 1
     if(scelta >= indice)
         scelta++;
 
-    // Se la scelta è 0, allora ha annullato e non si fa nulla
-    if(scelta != 0) {
-        CartaCfu temp = carte[indice];
-        carte[indice] = carte[scelta];
-        carte[scelta] = temp;
+    // L'input è invalido se si seleziona un numero negativo, un giocatore che non esiste, o una carta senza effetto
+    while(scelta<0 || scelta>nGiocatori-1 || carte[scelta].effetto!=NESSUNO){
+        printf("Riseleziona: ");
+        scelta = inputCifra()-1;
+        if(scelta >= indice)
+            scelta++;
     }
+
+    // Si scambiano le carte e i loro contributi ai punteggi
+    scambiaCarte(&carte[indice], &carte[scelta]);
+    scambiaInt(&(punteggi[indice].carta), &(punteggi[scelta].carta));
 }
 
 /**

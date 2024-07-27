@@ -274,6 +274,17 @@ bool soloIstantanee(Giocatore giocatore){
 }
 
 /**
+ * Scambia due carte cfu
+ * @param a Una carta
+ * @param b L'altra carta
+ */
+void scambiaCarte(CartaCfu* a, CartaCfu* b){
+    CartaCfu temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+/**
  * Mostra un menù per selezionare una carta dalla mano di un giocatore, e restituisce la carta selezionata
  * @param giocatore Il giocatore di cui si deve selezionare una carta
  * @param istantanee Vero se sono permesse le istantanee, falso altrimenti
