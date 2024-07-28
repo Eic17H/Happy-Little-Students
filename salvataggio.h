@@ -26,7 +26,7 @@ void scriviSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteC
 void nomePartita(char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]);
 bool esisteSalvataggio(char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]);
 void inizializzaSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, Personaggio personaggi[N_PERSONAGGI]);
-void inizializzaGiocatori(Giocatore*);
-void assegnaPersonaggi(Giocatore*, Personaggio[N_PERSONAGGI]);
+void inizializzaGiocatori(Giocatore* giocatori);
+void assegnaPersonaggi(Giocatore* giocatori, Personaggio personaggi[N_PERSONAGGI]);
 
 #endif //HAPPY_LITTLE_STUDENTS_SALVATAGGIO_H

@@ -7,7 +7,4 @@
 #include "estetica.h"
 #include "utilita.h"
 
-Giocatore* inputGiocatori(int, int);
-int inputNGiocatori();
-
 #endif //HAPPY_LITTLE_STUDENTS_INPUT_H

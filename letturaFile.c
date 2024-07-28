@@ -2,9 +2,9 @@
 #include "salvataggio.h"
 
 /** La funzione leggiPersonaggi legge i personaggi da personaggi.txt e li mette in un array dichiarato nel main.
- * @param lista puntatore all'array
+ * @param personaggi puntatore all'array
  */
-void leggiPersonaggi(Personaggio* lista){
+void leggiPersonaggi(Personaggio personaggi[N_PERSONAGGI]){
     // Aprire il file personaggi.txt
     FILE *fp;
     fp = fopen("personaggi.txt", "r");
@@ -17,9 +17,9 @@ void leggiPersonaggi(Personaggio* lista){
     // Leggere dal file
     for(int i=0; i<N_PERSONAGGI; i++){
         for (int j = 0; j<N_TIPI_OSTACOLI; j++){
-            fscanf(fp, "%d", &(lista[i].ostacoli[j]));
+            fscanf(fp, "%d", &(personaggi[i].ostacoli[j]));
         }
-        fscanf(fp, "%s", (&lista[i])->nome);
+        fscanf(fp, "%s", (&personaggi[i])->nome);
     }
 
     // Chiudere il file
@@ -30,7 +30,7 @@ void leggiPersonaggi(Personaggio* lista){
  * Stampa le informazioni sui personaggi
  * @param personaggi
  */
-void stampaPersonaggi(Personaggio personaggi[]){
+void stampaPersonaggi(Personaggio personaggi[N_PERSONAGGI]){
     printf("\n\n\nOgni personaggio ha un bonus e un malus\n");
     printf("I bonus e i malus sono legati al tipo di ostacolo mostrato all'inizio del turno\n");
     printf("Se il tuo personaggio ha un malus legato a quel tipo,\nil tuo punteggio provvisorio sara' minore di quello che dovrebbe essere\n");

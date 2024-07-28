@@ -297,10 +297,9 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
                         carta = daiCarta(arrayGiocatori[scelta], carta);
                         printf(RESET);
                         // Ricontrollo che non sia NULL dopo daiCarta(). Non dovrebbe essere possibile, ma è meglio evitare
-                        if (carta != NULL) {
+                        if(carta != NULL) {
                             stampaEffetto(*carta);
-                            usaIstantanea(*carta, nGiocatori, scelta, arrayGiocatori, punteggi, personaggi,
-                                          moltiplicatoreAumenta);
+                            usaIstantanea(*carta, nGiocatori, scelta, arrayGiocatori, punteggi, personaggi, moltiplicatoreAumenta);
                             cartaNegliScarti(scarti, carta);
                         }
                     }

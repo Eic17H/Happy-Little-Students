@@ -18,9 +18,11 @@
 #include <stdio.h>
 #include "estetica.h"
 
-void stampaSituazione(Giocatore*, int, Personaggio*);
+void stampaSituazione(Giocatore* giocatori, Personaggio personaggi[N_PERSONAGGI]);
 char cartaSpeciale(CartaCfu);
 void stampaVincitori(Giocatore* giocatori, Personaggio personaggi[N_PERSONAGGI]);
 void stampaGiocatori(Giocatore* giocatori, Punteggio punteggi[], Personaggio personaggi[N_PERSONAGGI]);
+Giocatore* inputGiocatori(int nGiocatori, int nGiocatore);
+int inputNGiocatori();
 
 #endif //HAPPY_LITTLE_STUDENTS_INTERFACCIA_H

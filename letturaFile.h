@@ -7,8 +7,8 @@
 #include "tipi.h"
 #include "costanti.h"
 
-void leggiPersonaggi(Personaggio*);
-void stampaPersonaggi(Personaggio*);
+void leggiPersonaggi(Personaggio personaggi[N_PERSONAGGI]);
+void stampaPersonaggi(Personaggio personaggi[N_PERSONAGGI]);
 CartaCfu* leggiCarte();
 CartaOstacolo* leggiOstacoli();
 

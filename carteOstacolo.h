@@ -7,10 +7,10 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-void pescaOstacolo(Giocatore*, CartaOstacolo**, Personaggio[N_PERSONAGGI]);
-void mischiaOstacoli(CartaOstacolo**);
-bool troppiOstacoli(int[4]);
-void controlloOstacoli(Giocatore**, int*, Personaggio[N_PERSONAGGI]);
+void pescaOstacolo(Giocatore* giocatore, CartaOstacolo** mazzo, Personaggio personaggi[N_PERSONAGGI]);
+void mischiaOstacoli(CartaOstacolo** mazzo);
+bool troppiOstacoli(int carte[4]);
+void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio personaggi[N_PERSONAGGI]);
 void rimettiOstacoloNelMazzo(CartaOstacolo* mazzo, CartaOstacolo* ostacolo);
 CartaOstacolo* togliOstacolo(CartaOstacolo** mazzo);
 void annullaOstacolo(CartaOstacolo** mazzo);

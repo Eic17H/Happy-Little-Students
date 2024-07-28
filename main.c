@@ -55,7 +55,7 @@ int main() {
         scriviSalvataggio(&nGiocatori, &giocatori, &carteCfu, &scarti, &carteOstacolo, &nTurno, nomeFile);
 
         // Si stampano le informazioni correnti
-        stampaSituazione(giocatori, nGiocatori, personaggi);
+        stampaSituazione(giocatori, personaggi);
 
         // Le due fasi del turno, l'eventuale spareggio e la pesca dell'ostacolo
         faseCfu(&giocatori, personaggi, &nGiocatori, &carteCfu, &scarti, &carteOstacolo, punteggi, &moltiplicatoreAumenta);
