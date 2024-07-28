@@ -191,8 +191,9 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
         }
         if(arrende){
             logArrende(*giocatore);
+            arrendi(giocatori, giocatore, nGiocatori, i, punteggi);
+            // Se i non torna indietro, nell'array c'è una posizione inutilizzata
             i--;
-            rimuoviGiocatore(giocatori, giocatore, nGiocatori);
             // Se quando si è arreso erano rimasti solo due giocatori, l'altro vince
             if(*nGiocatori == 1)
                 return;
@@ -228,6 +229,22 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
 
     for(i=0; i<*nGiocatori; i++)
         calcolaPunteggio(&punteggi[i], *moltiplicatoreAumenta);
+}
+
+/**
+ * Permette a un giocatore di arrendersi
+ * @param giocatori Lista dei giocatori
+ * @param giocatore Il giocatore che si sta arrendendo
+ * @param nGiocatori Puntatore al numero di giocatori rimasti
+ * @param indice Indice corrispondente al giocatore
+ * @param punteggi Array dei punteggi provvisori dei giocatori
+ */
+void arrendi(Giocatore** giocatori, Giocatore* giocatore, int* nGiocatori, int indice, Punteggio punteggi[*nGiocatori]){
+    rimuoviGiocatore(giocatori, giocatore, nGiocatori);
+    // I punteggi provvisori successivi al giocatore devono tornare indietro di un indice
+    for(int i=indice; i<*nGiocatori-1; i++){
+        punteggi[i] = punteggi[i+1];
+    }
 }
 
 /**

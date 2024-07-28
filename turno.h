@@ -27,6 +27,7 @@ Giocatore* spareggio(Giocatore*, int, bool[], CartaCfu**, Personaggio personaggi
 void rimuoviGiocatore(Giocatore**, Giocatore*, int*);
 void calcolaPunteggio(Punteggio *punteggio, int moltiplicatoreAumenta);
 void resetPunteggi(int nGiocatori, Punteggio[nGiocatori], int*);
+void arrendi(Giocatore** giocatori, Giocatore* giocatore, int* nGiocatori, int indice, Punteggio punteggi[*nGiocatori]);
 
 
 #endif //HAPPY_LITTLE_STUDENTS_TURNO_H
