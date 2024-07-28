@@ -26,7 +26,6 @@ void stampaNomeCfu(CartaCfu carta){
  * @param carta La carta
  */
 void stampaEffetto(CartaCfu carta){
-    debug("\t\tstampaEffetto()\n");
     switch(carta.effetto){
         case NESSUNO:
             printf("Nessun effetto.\n");
@@ -87,14 +86,13 @@ void stampaEffetto(CartaCfu carta){
  * @param carta La carta
  */
 void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGiocatori[nGiocatori], Giocatore** giocatori, Punteggio punteggi[nGiocatori], int indice, CartaCfu** mazzo, CartaCfu** scarti, Personaggio personaggi[N_PERSONAGGI], int* moltiplicatoreAumenta){
-    debug("\t\tusaEffetto()\n");
+
     coloreGiocatore(arrayGiocatori[indice], personaggi);
     printf("\nSi attiva l'effetto della carta di %s!\n" RESET, arrayGiocatori[indice]->nomeUtente);
     stampaEffetto(carte[indice]);
     printf("\n");
     switch(carte[indice].effetto){
         case NESSUNO:
-            debug("\t\tNESSUN EFFETTO\n");
             break;
         case SCARTAP:
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SCARTAP");
@@ -164,7 +162,7 @@ void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGioc
  * @param soloEffetto Vero se sono permesse solo le carte con un effetto, falso altrimenti
  */
 void scartaPE(Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, bool soloEffetto) {
-    debug("\t\tscartaPE()\n");
+
     CartaCfu* carta = daiCarta(giocatore, selezionaCarta(giocatore, false, true, !soloEffetto, true));
     if(carta != NULL){
         punteggio->carta += carta->cfu;
@@ -180,7 +178,6 @@ void scartaPE(Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, boo
  * @param nGiocatori Numero corrente di giocatori
  */
 void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_PERSONAGGI], int nGiocatori){
-    debug("\t\truba()\n");
 
     // Si seleziona un avversario
     printf("Seleziona un avversario a cui rubare una carta:\n");
@@ -203,7 +200,7 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
  * @param nGiocatori Numero corrente di giocatori
  */
 void scambiaDS(Giocatore** giocatori, CartaCfu carte[], Giocatore* giocante, Personaggio personaggi[N_PERSONAGGI], int nGiocatori, Punteggio punteggi[nGiocatori]){
-    debug("\t\tscambiaDS()\n");
+
     int scelta = -1;
     int indice = -1;
     // i si usa per scorrere l'array, j per il codice dell'input
@@ -296,7 +293,7 @@ Giocatore* selezionaAvversario(Giocatore* giocatori, Giocatore* giocatore, Perso
  * @param scarti Puntatore alla pila degli scarti
  */
 void scartaC(Giocatore *giocatore, CartaCfu** scarti) {
-    debug("\t\tscartaC()\n");
+
     const int nCarte = 3;
     CartaCfu* carta;
     int finito=0;
@@ -315,7 +312,7 @@ void scartaC(Giocatore *giocatore, CartaCfu** scarti) {
 }
 
 void scambiaP(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta){
-    debug("\t\tscambiaP()\n");
+
     int i, min=0, max=0;
 
     // Si trovano il punteggio minimo e il punteggio massimo
@@ -344,7 +341,6 @@ void scambiaPunteggi(Punteggio*a, Punteggio*b){
 void doppioE(int *moltiplicatoreAumenta){
     if(moltiplicatoreAumenta == NULL)
         return;
-    debug("\t\tdoppioE()\n");
     *moltiplicatoreAumenta *= 2;
 }
 
@@ -355,7 +351,7 @@ void doppioE(int *moltiplicatoreAumenta){
  * @param scarti Puntatore al mazzo degli scarti delle carte CFU
  */
 void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
-    debug("\t\tsbircia()\n");
+
     const int nCarte=2;
     CartaCfu* carte[nCarte];
 
@@ -394,7 +390,7 @@ void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
  * @param indice L'indice del giocatore che ha giocato la carta SCAMBIAC
  */
 void scambiaC(int nGiocatori, Giocatore* giocatori[nGiocatori], CartaCfu carte[nGiocatori], Personaggio personaggi[N_PERSONAGGI], int indice){
-    debug("\t\tscambiaC()\n");
+
     int selezionati[2] = {-1, -1};
     for(int i=0; i<nGiocatori; i++){
         coloreGiocatore(giocatori[i], personaggi);
@@ -421,7 +417,7 @@ void scambiaC(int nGiocatori, Giocatore* giocatori[nGiocatori], CartaCfu carte[n
 }
 
 void annulla(){
-    debug("\t\tannulla()\n");
+    return;
 }
 
 /**
@@ -431,7 +427,7 @@ void annulla(){
  * @param effetti L'array di coppie giocatore-carta
  */
 void ordinaEffetti(int nGiocatori, int ordine[nGiocatori], CartaCfu carte[nGiocatori]){
-    debug("\t\tordinaEffetti()\n");
+
     if(nGiocatori == 1)
         return;
     int min = 0;
@@ -463,7 +459,7 @@ void ordinaEffetti(int nGiocatori, int ordine[nGiocatori], CartaCfu carte[nGioca
  * @return
  */
 bool controllaAnnulla(int nGiocatori, Giocatore* giocatori, CartaCfu carte[nGiocatori], Personaggio personaggi[N_PERSONAGGI]){
-    debug("\t\tcontrollaAnnulla()\n");
+
     int i=0;
     Giocatore* giocatore = giocatori;
     for(i=0, giocatore = giocatori; i<nGiocatori; i++, giocatore = giocatore->prossimo)

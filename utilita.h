@@ -7,10 +7,6 @@
 #include "tipi.h"
 #include <stdlib.h>
 
-// TODO: rimuovere tutti gli utilizzi
-// "printf" per attivare, "//" per disattivare (senza virgolette)
-#define debug //
-
 void scambiaInt(int*, int*);
 int inputCifra();
 void freeCfu(CartaCfu** mazzo);

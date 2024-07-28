@@ -38,7 +38,7 @@ void usaIstantanea(CartaCfu carta, int nGiocatori, int indice, Giocatore* arrayG
  * @param moltiplicatore Il corrente moltiplicatore dell'effetto di AUMENTA e DIMINUISCI
  */
 void aumentaDiminuisci(int nGiocatori, int indice, int valore, Giocatore* giocatori[nGiocatori], Punteggio punteggi[nGiocatori], Personaggio personaggi[N_PERSONAGGI], int moltiplicatore){
-    debug("\t\taumenta()\n");
+
     int i;
     int scelta;
 
@@ -71,7 +71,7 @@ void aumentaDiminuisci(int nGiocatori, int indice, int valore, Giocatore* giocat
  * @param moltiplicatoreAumenta
  */
 void inverti(int nGiocatori, Punteggio punteggi[nGiocatori], int moltiplicatoreAumenta){
-    debug("\t\tinverti()\n");
+
     int i, min=0, max=0;
 
     // Si trovano l'indice del punteggio maggiore e quello del punteggio minore
