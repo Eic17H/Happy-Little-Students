@@ -164,3 +164,29 @@ void logDirotta(Giocatore giocatore, CartaCfu carta, Giocatore vittima){
     fprintf(fp, "%s da' l'ostacolo a %s usando la carta %s\n", giocatore.nomeUtente, vittima.nomeUtente, carta.nome);
     fclose(fp);
 }
+
+/**
+ * Segna nel log che un giocatore ha scartato una carta cfu (istantanea o punto)
+ * @param giocatore Il giocatore che ha scartato la carta
+ * @param carta La carta scartata
+ */
+void logScarta(Giocatore giocatore, CartaCfu carta){
+    FILE *fp = fopen("log.txt", "a");
+    fprintf(fp, "%s scarta la carta %s\n", giocatore.nomeUtente, carta.nome);
+    fclose(fp);
+}
+
+/**
+ * Segna nel log che un giocatore ha aumentato o diminuito il punteggio di un altro giocatore
+ * @param giocatore Il giocatore che ha giocato la carta per aumentare o diminuire il punteggio
+ * @param vittima Il giocatore che subisce l'aumento o la diminuzione
+ * @param valore Il valore con cui è stata chiamata la funzione che attiva la carta (positivo per aumentare, negativo per diminuire, 0 non fa niente)
+ */
+void logAumentaDiminuisci(Giocatore giocatore, Giocatore vittima, int valore){
+    FILE *fp = fopen("log.txt", "a");
+    if(valore>0)
+        fprintf(fp, "%s aumenta il punteggio di %s\n", giocatore.nomeUtente, vittima.nomeUtente);
+    if(valore<0)
+        fprintf(fp, "%s diminuisce il punteggio di %s\n", giocatore.nomeUtente, vittima.nomeUtente);
+    fclose(fp);
+}

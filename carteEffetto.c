@@ -166,6 +166,7 @@ void scartaPE(Giocatore *giocatore, Punteggio *punteggio, CartaCfu **scarti, boo
 
     CartaCfu* carta = daiCarta(giocatore, selezionaCarta(giocatore, false, true, !soloEffetto, true));
     if(carta != NULL){
+        logScarta(*giocatore, *carta);
         punteggio->carta += carta->cfu;
         cartaNegliScarti(scarti, carta);
     }
@@ -211,7 +212,7 @@ void scambiaDS(Giocatore** giocatori, CartaCfu carte[], Giocatore* giocante, Per
     for(i=0, j=1, giocatore=*giocatori; giocatore != NULL; i++, giocatore = giocatore->prossimo){
         if(giocatore != giocante){
             coloreGiocatore(giocatore, personaggi);
-            printf("%d: %32s - %32s (%2d CFU) %c %d\n" RESET, j, giocatore->nomeUtente, carte[i].nome, carte[i].cfu, cartaSpeciale(carte[i]), carte[i].effetto);
+            printf("%d: %32s - %32s (%2d CFU) %c\n" RESET, j, giocatore->nomeUtente, carte[i].nome, carte[i].cfu, cartaSpeciale(carte[i]));
             j++;
         }else{
             // Sapere la posizione del giocatore serve poi per sapere dove si salta un numero
@@ -372,6 +373,7 @@ void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
     }
 
     // Si pesca la carta selezionata
+    logPescaCfu(*giocatore, *carte[scelta-1]);
     prendiCarta(giocatore, carte[scelta-1]);
 
     // Le altre carte si scartano

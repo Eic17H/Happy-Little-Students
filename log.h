@@ -19,5 +19,7 @@ void logPrendiCfu(Giocatore giocatore, int nCfu, bool carte);
 void logArrende(Giocatore giocatore);
 void logSalva(Giocatore giocatore, CartaCfu carta);
 void logDirotta(Giocatore giocatore, CartaCfu carta, Giocatore vittima);
+void logScarta(Giocatore giocatore, CartaCfu carta);
+void logAumentaDiminuisci(Giocatore giocatore, Giocatore vittima, int valore);
 
 #endif //HAPPY_LITTLE_STUDENTS_LOG_H

@@ -62,6 +62,7 @@ void aumentaDiminuisci(int nGiocatori, int indice, int valore, Giocatore* giocat
     printf(RESET);
 
     // Si applica l'effetto sul punteggio del giocatore scelto e si ricalcola
+    logAumentaDiminuisci(*giocatori[indice], *giocatori[scelta], valore);
     punteggi[scelta].aumenta += valore;
     calcolaPunteggio(&punteggi[scelta], moltiplicatore);
 }
