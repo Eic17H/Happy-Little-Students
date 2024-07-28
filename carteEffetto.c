@@ -297,6 +297,7 @@ void scartaC(Giocatore *giocatore, CartaCfu** scarti) {
     // Va avanti per 3 carte o finché non decide di smettere. Può annullare l'azione
     for(int i=0; i<nCarte && finito!=1; i++){
         carta = daiCarta(giocatore, selezionaCarta(giocatore, true, true, true, true));
+        logScarta(*giocatore, *carta);
         // Se la carta è NULL, vuole dire che ha scelto annulla, quindi si chiede conferma
         if(carta==NULL){
             i--;
@@ -453,11 +454,11 @@ void ordinaEffetti(int nGiocatori, int ordine[nGiocatori], CartaCfu carte[nGioca
  * @return
  */
 bool controllaAnnulla(int nGiocatori, Giocatore* giocatori, CartaCfu carte[nGiocatori], Personaggio personaggi[N_PERSONAGGI]){
-
     int i=0;
     Giocatore* giocatore = giocatori;
     for(i=0, giocatore = giocatori; i<nGiocatori; i++, giocatore = giocatore->prossimo)
         if(carte[i].effetto == ANNULLA){
+            logEffettoCarta(*giocatore, carte[i], "ANNULLA");
             coloreComunicazioni();
             printf("\nLa carta di " RESET);
             stampaNomeGiocatoreColore(giocatore, personaggi);

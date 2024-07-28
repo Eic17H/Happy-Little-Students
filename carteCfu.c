@@ -108,6 +108,7 @@ CartaCfu* cartaDalMazzo(CartaCfu** mazzo, CartaCfu** scarti){
     if(*mazzo == NULL){
         coloreComunicazioni();
         printf("Si rimescolano gli scarti nel mazzo\n" RESET);
+        logRimescola();
         *mazzo = *scarti;
         *scarti = NULL;
         mischiaMazzo(mazzo);

@@ -190,3 +190,12 @@ void logAumentaDiminuisci(Giocatore giocatore, Giocatore vittima, int valore){
         fprintf(fp, "%s diminuisce il punteggio di %s\n", giocatore.nomeUtente, vittima.nomeUtente);
     fclose(fp);
 }
+
+/**
+ * Segna nel log che si rimescolano gli scarti nel mazzo
+ */
+void logRimescola(){
+    FILE *fp = fopen("log.txt", "a");
+        fprintf(fp, "Si rimescolano gli scarti nel mazzo\n");
+    fclose(fp);
+}

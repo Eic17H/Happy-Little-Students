@@ -293,15 +293,18 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
                 printf("Vuoi usare questa carta? 1 per si', qualunque altro tasto per no\nSeleziona: ");
                 if (inputCifra() == 1) {
                     // Solo se il giocatore conferma la scelta, e se la carta si può usare, la carta viene rimossa dalla mano e attivata
-                    if(carta->effetto < PRIMA_SOLO_SCONFITTO) {
+                    if(carta->effetto < PRIMA_SOLO_SCONFITTO){
                         carta = daiCarta(arrayGiocatori[scelta], carta);
                         printf(RESET);
                         // Ricontrollo che non sia NULL dopo daiCarta(). Non dovrebbe essere possibile, ma è meglio evitare
-                        if(carta != NULL) {
+                        if(carta != NULL){
                             stampaEffetto(*carta);
                             usaIstantanea(*carta, nGiocatori, scelta, arrayGiocatori, punteggi, personaggi, moltiplicatoreAumenta);
                             cartaNegliScarti(scarti, carta);
                         }
+                    }else{
+                        coloreProblema();
+                        printf("Questa carta si puo' usare solo quando stai per pescare una carta ostacolo.\n\n\n" RESET);
                     }
                 }
             }
