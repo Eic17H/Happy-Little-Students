@@ -133,7 +133,6 @@ void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGioc
             break;
         case ANNULLA:
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "ANNULLA");
-            annulla();
             break;
         default:
             break;
@@ -391,35 +390,37 @@ void sbircia(Giocatore *giocatore, CartaCfu **mazzo, CartaCfu **scarti) {
  * @param personaggi L'array dei personaggi (serve per i colori)
  * @param indice L'indice del giocatore che ha giocato la carta SCAMBIAC
  */
-void scambiaC(int nGiocatori, Giocatore* giocatori[nGiocatori], CartaCfu carte[nGiocatori], Personaggio personaggi[N_PERSONAGGI], int indice){
+void scambiaC(int nGiocatori, Giocatore* giocatori[nGiocatori], CartaCfu carte[nGiocatori], Personaggio personaggi[N_PERSONAGGI], int indice, Punteggio punteggi[nGiocatori]){
 
     int selezionati[2] = {-1, -1};
     for(int i=0; i<nGiocatori; i++){
         coloreGiocatore(giocatori[i], personaggi);
         printf("%d: %32s - %32s (%2d CFU)\n" RESET, i+1, giocatori[i]->nomeUtente, carte[i].nome, carte[i].cfu);
     }
+
     for(int i=0; i<2; i++){
         coloreGiocatore(giocatori[indice], personaggi);
         printf("Seleziona il %do giocatore: ", i+1);
-        selezionati[i] = inputCifra();
-        if(selezionati[i]<1 || selezionati[i]>nGiocatori){
+        selezionati[i] = inputCifra()-1;
+        if(selezionati[i]<0 || selezionati[i]>nGiocatori-1){
+            if(selezionati[i]<0)
+                printf("AAAAAAAAAAAAA\n");
+            if(selezionati[i]>nGiocatori-1)
+                printf("BBBBBBBBBBBBB\n");
+            printf("%d\n", selezionati[i]);
             coloreErrore();
             printf("Input invalido\n" RESET);
             i--;
         }
     }
-    CartaCfu temp = carte[selezionati[0]];
-    carte[selezionati[0]] = carte[selezionati[1]];
-    carte[selezionati[1]] = temp;
-    printf("Le carte giocata da ");
+    // Si scambiano le carte e i loro contributi ai punteggi dei giocatori
+    scambiaCarte(&carte[selezionati[0]], &carte[selezionati[1]]);
+    scambiaInt(&(punteggi[selezionati[0]].carta), &(punteggi[selezionati[1]].carta));
+    printf(RESET "Le carte giocate da ");
     stampaNomeGiocatoreColore(giocatori[selezionati[0]], personaggi);
     printf(" e da ");
     stampaNomeGiocatoreColore(giocatori[selezionati[1]], personaggi);
-    printf(RESET " sono state scambiate!\n");
-}
-
-void annulla(){
-    return;
+    printf(" sono state scambiate!\n");
 }
 
 /**

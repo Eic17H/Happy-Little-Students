@@ -190,8 +190,9 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
             }
         }
         if(arrende){
-            rimuoviGiocatore(giocatori, giocatore, nGiocatori);
             logArrende(*giocatore);
+            i--;
+            rimuoviGiocatore(giocatori, giocatore, nGiocatori);
             // Se quando si è arreso erano rimasti solo due giocatori, l'altro vince
             if(*nGiocatori == 1)
                 return;
@@ -252,7 +253,7 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
     }
 
 
-    printf("\nQualcuno vuole giocare una carta istantanea?\n");
+    printf(RESET "\nQualcuno vuole giocare una carta istantanea?\n");
     stampaGiocatori(giocatori, punteggi, personaggi);
     printf("0 per terminare.\n");
     scelta = inputCifra();
@@ -283,7 +284,7 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
                     }
                 }
             }
-            printf("\nQualcun altro vuole giocare una carta istantanea?\n");
+            printf(RESET "\nQualcun altro vuole giocare una carta istantanea?\n");
             stampaGiocatori(giocatori, punteggi, personaggi);
             printf("0 per terminare.\n");
         }

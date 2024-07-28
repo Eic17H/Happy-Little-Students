@@ -114,6 +114,7 @@ void salvaDirotta(int nGiocatori, Giocatore* giocatori, Giocatore** sconfitto, P
     if(salva == NULL && dirotta == NULL)
         return;
 
+    printf("\n");
     stampaNomeGiocatoreColore(*sconfitto, personaggi);
     printf(", hai perso il turno");
 
