@@ -129,7 +129,7 @@ void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGioc
             break;
         case SCAMBIAC:
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "SCAMBIAC");
-            scambiaC(nGiocatori, arrayGiocatori, carte, personaggi, indice);
+            scambiaC(nGiocatori, arrayGiocatori, carte, personaggi, indice, punteggi);
             break;
         case ANNULLA:
             logEffettoCarta(*arrayGiocatori[indice], carte[indice], "ANNULLA");
@@ -139,10 +139,6 @@ void usaEffetto(int nGiocatori, CartaCfu carte[nGiocatori], Giocatore* arrayGioc
     }
     int i;
     Giocatore* giocatoreCerca;
-
-    for(i=1, giocatoreCerca = *giocatori; giocatoreCerca != NULL; i++, giocatoreCerca = giocatoreCerca->prossimo){
-        calcolaPunteggio(&punteggi[i-1], *moltiplicatoreAumenta);
-    }
 
     // Ogni volta che si attiva un effetto, stampo di nuovo le informazioni aggiornate
     printf(RESET "\nSituazione provvisoria:\n");
@@ -403,11 +399,6 @@ void scambiaC(int nGiocatori, Giocatore* giocatori[nGiocatori], CartaCfu carte[n
         printf("Seleziona il %do giocatore: ", i+1);
         selezionati[i] = inputCifra()-1;
         if(selezionati[i]<0 || selezionati[i]>nGiocatori-1){
-            if(selezionati[i]<0)
-                printf("AAAAAAAAAAAAA\n");
-            if(selezionati[i]>nGiocatori-1)
-                printf("BBBBBBBBBBBBB\n");
-            printf("%d\n", selezionati[i]);
             coloreErrore();
             printf("Input invalido\n" RESET);
             i--;

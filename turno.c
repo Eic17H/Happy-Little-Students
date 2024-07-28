@@ -279,25 +279,30 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
     while(scelta!=0){
         if(scelta<0 || scelta>nGiocatori){
             coloreErrore();
-            printf("Seleziona un'opzione\n" RESET);
+            printf("Seleziona un'opzione\n");
         }else{
             // L'input parte da 1, ma gli indici partono da 0
             scelta--;
             // La carta viene selezionata
             coloreGiocatore(arrayGiocatori[scelta], personaggi);
             carta = selezionaCarta(arrayGiocatori[scelta], true, false, false, true);
+            printf(RESET);
             if(carta!=NULL) {
                 stampaCfu(*carta);
+                coloreGiocatore(arrayGiocatori[scelta], personaggi);
                 printf("Vuoi usare questa carta? 1 per si', qualunque altro tasto per no\nSeleziona: ");
                 if (inputCifra() == 1) {
                     // Solo se il giocatore conferma la scelta, e se la carta si può usare, la carta viene rimossa dalla mano e attivata
-                    if(carta->effetto < PRIMA_SOLO_SCONFITTO)
+                    if(carta->effetto < PRIMA_SOLO_SCONFITTO) {
                         carta = daiCarta(arrayGiocatori[scelta], carta);
-                    // Ricontrollo che non sia NULL dopo daiCarta(). Non dovrebbe essere possibile, ma è meglio evitare
-                    if (carta != NULL) {
-                        stampaEffetto(*carta);
-                        usaIstantanea(*carta, nGiocatori, scelta, arrayGiocatori, punteggi, personaggi, moltiplicatoreAumenta);
-                        cartaNegliScarti(scarti, carta);
+                        printf(RESET);
+                        // Ricontrollo che non sia NULL dopo daiCarta(). Non dovrebbe essere possibile, ma è meglio evitare
+                        if (carta != NULL) {
+                            stampaEffetto(*carta);
+                            usaIstantanea(*carta, nGiocatori, scelta, arrayGiocatori, punteggi, personaggi,
+                                          moltiplicatoreAumenta);
+                            cartaNegliScarti(scarti, carta);
+                        }
                     }
                 }
             }
