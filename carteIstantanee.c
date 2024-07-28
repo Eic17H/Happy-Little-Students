@@ -56,8 +56,10 @@ void aumentaDiminuisci(int nGiocatori, int indice, int valore, Giocatore* giocat
     while(scelta<0 || scelta>nGiocatori){
         coloreErrore();
         printf("Seleziona un giocatore!!\n" RESET);
+        coloreGiocatore(giocatori[indice], personaggi);
         scelta = inputCifra()-1;
     }
+    printf(RESET);
 
     // Si applica l'effetto sul punteggio del giocatore scelto e si ricalcola
     punteggi[scelta].aumenta += valore;
@@ -111,9 +113,12 @@ void salvaDirotta(int nGiocatori, Giocatore* giocatori, Giocatore** sconfitto, P
     if(salva == NULL && dirotta == NULL)
         return;
 
+    stampaNomeGiocatoreColore(*sconfitto, personaggi);
+    printf(", hai perso il turno");
+
     // Se ci sono entrambe, ha due opzioni
     if(salva!=NULL && dirotta!=NULL){
-        printf("Puoi usare %s per rimettere l'ostacolo nel mazzo, o %s per darlo a un altro giocatore!\n", salva->nome, dirotta->nome);
+        printf(", ma puoi usare %s per rimettere l'ostacolo nel mazzo, o %s per darlo a un altro giocatore!\n", salva->nome, dirotta->nome);
         printf("0: Pesca l'ostacolo\n1: Salva\n2: Dirotta\n");
         printf("Seleziona: ");
         scelta = inputCifra();
@@ -123,7 +128,7 @@ void salvaDirotta(int nGiocatori, Giocatore* giocatori, Giocatore** sconfitto, P
             scelta = inputCifra();
         }
     }else if(salva!=NULL){
-        printf("Puoi usare %s per rimettere l'ostacolo nel mazzo!\n", salva->nome);
+        printf(", ma puoi usare %s per rimettere l'ostacolo nel mazzo!\n", salva->nome);
         printf("0: Pesca l'ostacolo\n1: Salva\n");
         printf("Seleziona: ");
         scelta = inputCifra();
@@ -133,7 +138,7 @@ void salvaDirotta(int nGiocatori, Giocatore* giocatori, Giocatore** sconfitto, P
             scelta = inputCifra();
         }
     }else if(dirotta!=NULL){
-        printf("Puoi usare %s per dare l'ostacolo a un altro giocatore!\n", dirotta->nome);
+        printf(", ma puoi usare %s per dare l'ostacolo a un altro giocatore!\n", dirotta->nome);
         printf("0: Pesca l'ostacolo\n1: Dirotta\n");
         printf("Seleziona: ");
         scelta = inputCifra();

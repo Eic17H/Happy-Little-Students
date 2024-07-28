@@ -12,6 +12,7 @@
 #include "carteOstacolo.h"
 #include "log.h"
 #include "salvataggio.h"
+#include "interfaccia.h"
 
 int main() {
     srand(time(NULL));

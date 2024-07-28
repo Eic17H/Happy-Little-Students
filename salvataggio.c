@@ -1,3 +1,6 @@
+#include "interfaccia.h"
+#include "carteOstacolo.h"
+#include "turno.h"
 #include "salvataggio.h"
 
 /**
@@ -288,4 +291,46 @@ void inizializzaSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **c
     assegnaPersonaggi(*giocatori, personaggi);
     mischiaMazzo(carteCfu);
     mischiaOstacoli(carteOstacolo);
+}
+
+/** Inizializza i giocatori:
+ * nessuna carta CFU,
+ * nessuna carta ostacolo,
+ * 0 CFU
+ * @param giocatori puntatore al primo giocatore
+ */
+void inizializzaGiocatori(Giocatore* giocatori){
+    Giocatore* giocatore = giocatori;
+    while(giocatore != NULL){
+        giocatore->primaCfu = NULL;
+        giocatore->primaOstacolo = NULL;
+        giocatore->cfu = 0;
+        giocatore = giocatore->prossimo;
+    }
+}
+
+/**
+ * Permette ai giocatori di selezionare, in ordine, il proprio personaggio
+ * @param giocatori Puntatore al primo giocatore
+ * @param personaggi Array dei personaggi letti dal file
+ */
+void assegnaPersonaggi(Giocatore* giocatori, Personaggio personaggi[N_PERSONAGGI]){
+    Giocatore *giocatore = giocatori;
+    bool selezionati[N_PERSONAGGI] = {false};
+    int i=0, scelta=-1;
+
+    // Si scorre la lista di giocatori, e si fa scegliere un personaggio, ripetendo l'input se non e' valido
+    for(i=0, giocatore=giocatori; giocatore != NULL; i++, giocatore=giocatore->prossimo){
+        printf("%s, seleziona un personaggio (1-%d): ", giocatore->nomeUtente, N_PERSONAGGI);
+        scelta = inputCifra()-1;
+        while(scelta<0 || scelta>=N_PERSONAGGI || selezionati[scelta]){
+            if(scelta<0 || scelta>=N_PERSONAGGI)
+                printf("Seleziona un'opzione\n");
+            else if(selezionati[scelta])
+                printf("Questo personaggio e' gia' stato selezionato\n");
+            scelta = inputCifra()-1;
+        }
+        selezionati[scelta] = true;
+        giocatore->personaggio = personaggi[i];
+    }
 }

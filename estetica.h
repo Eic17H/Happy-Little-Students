@@ -12,13 +12,10 @@
 #include "carteOstacolo.h"
 
 void stampaLogo();
-char cartaSpeciale(CartaCfu);
 void coloreOstacoli(TipoOstacolo);
-
 void coloreNumero(int);
 void colorePersonaggio(Personaggio, Personaggio[N_PERSONAGGI]);
 void coloreGiocatore(Giocatore*, Personaggio[N_PERSONAGGI]);
-void stampaSituazione(Giocatore*, int, Personaggio*);
 void coloreErrore();
 void coloreComunicazioni();
 void coloreProblema();

@@ -8,6 +8,7 @@
 #define N_CARTE_MANO 5
 #define PUNTI_PER_VINCERE 50
 #define PRIMA_ISTANTANEA AUMENTA // Da AUMENTA in poi gli effetti sono istantanei
+#define PRIMA_SOLO_SCONFITTO SALVA // Da SALVA in poi le carte istantanee si possono usare solo se hai perso il turno
 #define SIMBOLO_CARTA_EFFETTO '*'
 #define SIMBOLO_CARTA_ISTANTANEA '!'
 #define ESTENSIONE_SAV ".sav"

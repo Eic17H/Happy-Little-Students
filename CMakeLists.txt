@@ -28,4 +28,6 @@ add_executable(Happy_Little_Students main.c
         salvataggio.c
         salvataggio.h
         carteIstantanee.c
-        carteIstantanee.h)
+        carteIstantanee.h
+        interfaccia.c
+        interfaccia.h)

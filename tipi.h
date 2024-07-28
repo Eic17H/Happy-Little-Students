@@ -35,9 +35,9 @@ enum EffettoCarta {
     SCAMBIAC,
     // Annulla gli effetti di tutte le carte punto durante il turno
     ANNULLA,
-    // Aumenta di 2 CFU il punteggio del turno di un giocatore a scelta
+    // Aumenta di 2 CFU il punteggio del turno di un giocatore a scelta (istantanea)
     AUMENTA,
-    // Diminuisci di 2 CFU il punteggio del turno di un giocatore a scelta
+    // Diminuisci di 2 CFU il punteggio del turno di un giocatore a scelta (istantanea)
     DIMINUISCI,
     // Inverti punteggio minimo e massimo del turno (istantanea)
     INVERTI,

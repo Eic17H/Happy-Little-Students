@@ -3,6 +3,7 @@
 //
 
 #include "estetica.h"
+#include "interfaccia.h"
 
 /**
  * Stampa il logo leggendolo da immagine.txt e logo.txt
@@ -46,20 +47,6 @@ void stampaLogo(){
         letto = fscanf(fp, "%c", &c);
     }
     printf("\n\n\n");
-}
-
-/**
- * Indica se una carta ha un effetto
- * @param carta una carta cfu
- * @return un indicatore se la carta ha un effetto, uno spazio altrimenti
- */
-char cartaSpeciale(CartaCfu carta){
-    if(carta.effetto == 0)
-        return ' ';
-    else if(carta.effetto>=PRIMA_ISTANTANEA)
-        return SIMBOLO_CARTA_ISTANTANEA;
-    else
-        return SIMBOLO_CARTA_EFFETTO;
 }
 
 /**
@@ -129,57 +116,13 @@ void colorePersonaggio(Personaggio personaggio, Personaggio personaggi[N_PERSONA
 
 /**
  * Imposta il colore del testo a quello associato al personaggio di un giocatore
- * @param personaggio Il giocatore
+ * @param giocatore Il giocatore
  * @param personaggi L'array dei personaggi
  */
 void coloreGiocatore(Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI]){
     if(giocatore == NULL)
         return;
     colorePersonaggio(giocatore->personaggio, personaggi);
-}
-
-// TODO: interfaccia.c
-
-/**
- * Stampa le carte ostacolo e i CFU di ciascun giocatore
- * @param giocatori Puntatore al primo giocatore
- * @param nGiocatori Numero corrente di giocatori
- * @param personaggi Array dei personaggi
- */
-void stampaSituazione(Giocatore* giocatori, int nGiocatori, Personaggio* personaggi){
-    Giocatore* giocatore = giocatori;
-    CartaOstacolo *carta;
-    int i=0, continua=0;
-
-    printf("\n");
-
-    // Nomi
-    for(giocatore=giocatori, i=0; giocatore!=NULL; giocatore=giocatore->prossimo, i++){
-        colorePersonaggio(giocatore->personaggio, personaggi);
-        printf("%32s: %2d CFU\t", giocatore->nomeUtente, giocatore->cfu);
-        logCfu(*giocatore);
-        for(carta = giocatore->primaOstacolo; carta != NULL; carta = carta->prossima) {
-            stampaNomeOstacolo(*carta);
-            printf("\t");
-        }
-        printf(RESET);
-        printf("\n");
-    }
-    printf("\n\n");
-}
-
-// TODO: rimuovere (non so per che situazione sia stata fatta)
-void aiuto(int scelta){
-    switch(scelta){
-        case 0:
-            printf("Una carta senza segnalino e' una carta che non ha un effetto.\n");
-            break;
-        case 1:
-            printf("Una carta con il segnalino \"%c\" e' una carta con effetto che puoi usare nella prima fase del turno.\n", SIMBOLO_CARTA_EFFETTO);
-            break;
-        case 2:
-            printf("Una carta con il segnalino \"%c\" e' una carta istantanea, da usare dopo il calcolo del punteggio.\n", SIMBOLO_CARTA_ISTANTANEA);
-    }
 }
 
 /**

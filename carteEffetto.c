@@ -1,5 +1,6 @@
 #include "carteCfu.h"
 #include "carteEffetto.h"
+#include "interfaccia.h"
 
 /**
  * Stampa le informazioni di una carta cfu (nome, valore, effetto)
@@ -190,7 +191,6 @@ void ruba(Giocatore **giocatori, Giocatore *giocatore, Personaggio personaggi[N_
     prendiCarta(giocatore, daiCarta(avversario, carta));
 }
 
-// TODO: AAAAAAAAAAAA ho fatto un casino con gli indici, non so come fare
 /**
  * Scambia questa carta con quella di un altro giocatore, purché senza effetto
  * @param giocatori Puntatore alla lista di giocatori

@@ -1,6 +1,13 @@
 #ifndef HAPPY_LITTLE_STUDENTS_SALVATAGGIO_H
 #define HAPPY_LITTLE_STUDENTS_SALVATAGGIO_H
 
+#include "carteIstantanee.h"
+#include "log.h"
+#include "carteEffetto.h"
+#include "utilita.h"
+#include "estetica.h"
+#include "ANSI-color-codes.h"
+#include <time.h>
 #include "costanti.h"
 #include "tipi.h"
 #include <string.h>
@@ -19,5 +26,7 @@ void scriviSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteC
 void nomePartita(char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]);
 bool esisteSalvataggio(char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]);
 void inizializzaSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, Personaggio personaggi[N_PERSONAGGI]);
+void inizializzaGiocatori(Giocatore*);
+void assegnaPersonaggi(Giocatore*, Personaggio[N_PERSONAGGI]);
 
 #endif //HAPPY_LITTLE_STUDENTS_SALVATAGGIO_H

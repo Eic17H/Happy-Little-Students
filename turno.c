@@ -1,47 +1,7 @@
 #include "turno.h"
 #include "carteOstacolo.h"
-
-/** Inizializza i giocatori:
- * nessuna carta CFU,
- * nessuna carta ostacolo,
- * 0 CFU
- * @param giocatori puntatore al primo giocatore
- */
-void inizializzaGiocatori(Giocatore* giocatori){
-    Giocatore* giocatore = giocatori;
-    while(giocatore != NULL){
-        giocatore->primaCfu = NULL;
-        giocatore->primaOstacolo = NULL;
-        giocatore->cfu = 0;
-        giocatore = giocatore->prossimo;
-    }
-}
-
-/**
- * Permette ai giocatori di selezionare, in ordine, il proprio personaggio
- * @param giocatori Puntatore al primo giocatore
- * @param personaggi Array dei personaggi letti dal file
- */
-void assegnaPersonaggi(Giocatore* giocatori, Personaggio personaggi[N_PERSONAGGI]){
-    Giocatore *giocatore = giocatori;
-    bool selezionati[N_PERSONAGGI] = {false};
-    int i=0, scelta=-1;
-
-    // Si scorre la lista di giocatori, e si fa scegliere un personaggio, ripetendo l'input se non e' valido
-    for(i=0, giocatore=giocatori; giocatore != NULL; i++, giocatore=giocatore->prossimo){
-        printf("%s, seleziona un personaggio (1-%d): ", giocatore->nomeUtente, N_PERSONAGGI);
-        scelta = inputCifra()-1;
-        while(scelta<0 || scelta>=N_PERSONAGGI || selezionati[scelta]){
-            if(scelta<0 || scelta>=N_PERSONAGGI)
-                printf("Seleziona un'opzione\n");
-            else if(selezionati[scelta])
-                printf("Questo personaggio e' gia' stato selezionato\n");
-            scelta = inputCifra()-1;
-        }
-        selezionati[scelta] = true;
-        giocatore->personaggio = personaggi[i];
-    }
-}
+#include "salvataggio.h"
+#include "interfaccia.h"
 
 /**
  * Controlla se qualcuno ha vinto. Se qualcuno ha vinto, rimuove tutti i giocatori che non hanno vinto
@@ -73,34 +33,6 @@ bool vince(Giocatore** giocatori, int* nGiocatori){
                 rimuoviGiocatore(giocatori, giocatore, nGiocatori);
 
     return trovato;
-}
-
-void stampaVincitori(Giocatore* giocatori, Personaggio personaggi[N_PERSONAGGI]){
-    // Non dovrebbe poter succedere, ma per sicurezza lo gestisco
-    if(giocatori == NULL){
-        coloreErrore();
-        printf("Errore: la partita è terminata senza nessun vincitore.\n" RESET);
-        return;
-    }
-
-    // Stampo il nome del primo vincitore
-    stampaNomeGiocatoreColore(giocatori, personaggi);
-    // Se non ci sono altri vincitori, il verbo è al singolare
-    if(giocatori->prossimo == NULL)
-        printf(" ha vinto!\n");
-    // Altrimenti, stampo "e" e le virgole, e il verbo è al plurale
-    else{
-        while(giocatori->prossimo != NULL){
-            giocatori = giocatori->prossimo;
-            // Se sto per stampare l'ultimo, stampo "e", altrimenti una virgola.
-            if(giocatori->prossimo == NULL)
-                printf("e ");
-            else
-                printf(", ");
-            stampaNomeGiocatoreColore(giocatori, personaggi);
-        }
-        printf(" hanno vinto!\n");
-    }
 }
 
 /**
@@ -244,6 +176,7 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
                     selezionato = true;
                     break;
                 case 2:
+                    printf(RESET);
                     stampaCfu(*selezionaCarta(giocatore, true, true, true, false));
                     break;
                 case 3:
@@ -266,6 +199,7 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
             coloreGiocatore(giocatore, personaggi);
             giocaCarta(giocatore, scarti, &punteggi[i].carta);
             arrayGiocatori[i] = giocatore;
+            // La carta giocata è l'ultima che è stata messa negli scarti
             carte[i] = **scarti;
             printf(RESET);
         }
@@ -318,10 +252,11 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
     }
 
 
-    printf("Qualcuno vuole giocare una carta istantanea?\n");
+    printf("\nQualcuno vuole giocare una carta istantanea?\n");
     stampaGiocatori(giocatori, punteggi, personaggi);
     printf("0 per terminare.\n");
     scelta = inputCifra();
+    printf("\n");
 
     while(scelta!=0){
         if(scelta<0 || scelta>nGiocatori){
@@ -331,13 +266,15 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
             // L'input parte da 1, ma gli indici partono da 0
             scelta--;
             // La carta viene selezionata
+            coloreGiocatore(arrayGiocatori[scelta], personaggi);
             carta = selezionaCarta(arrayGiocatori[scelta], true, false, false, true);
             if(carta!=NULL) {
                 stampaCfu(*carta);
                 printf("Vuoi usare questa carta? 1 per si', qualunque altro tasto per no\nSeleziona: ");
                 if (inputCifra() == 1) {
-                    // Solo se il giocatore conferma la scelta, la carta viene rimossa dalla mano e attivata
-                    carta = daiCarta(arrayGiocatori[scelta], carta);
+                    // Solo se il giocatore conferma la scelta, e se la carta si può usare, la carta viene rimossa dalla mano e attivata
+                    if(carta->effetto < PRIMA_SOLO_SCONFITTO)
+                        carta = daiCarta(arrayGiocatori[scelta], carta);
                     // Ricontrollo che non sia NULL dopo daiCarta(). Non dovrebbe essere possibile, ma è meglio evitare
                     if (carta != NULL) {
                         stampaEffetto(*carta);
@@ -346,11 +283,12 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
                     }
                 }
             }
-            printf("Qualcun altro vuole giocare una carta istantanea?\n");
+            printf("\nQualcun altro vuole giocare una carta istantanea?\n");
             stampaGiocatori(giocatori, punteggi, personaggi);
             printf("0 per terminare.\n");
         }
         scelta = inputCifra();
+        printf("\n");
     }
 }
 
@@ -421,19 +359,6 @@ void fineTurno(Giocatore *giocatori, Personaggio personaggi[4], int nGiocatori, 
         pescaOstacolo(giocatore, carteOstacolo, personaggi);
     }else{
         annullaOstacolo(carteOstacolo);
-    }
-}
-
-/**
- * Stampa nome e punteggio provvisorio di ciascun giocatore
- * @param giocatori Puntatore al primo giocatore
- * @param punteggi Array dei punteggi provvisori
- * @param personaggi Array dei personaggi (serve per i colori)
- */
-void stampaGiocatori(Giocatore* giocatori, Punteggio punteggi[], Personaggio personaggi[N_PERSONAGGI]){
-    for(int i=1; giocatori!=NULL; i++, giocatori=giocatori->prossimo){
-        coloreGiocatore(giocatori, personaggi);
-        printf("%d: %s \t (%d CFU)\n" RESET, i, giocatori->nomeUtente, punteggi[i-1].totale);
     }
 }
 

@@ -1,5 +1,6 @@
 #include "carteCfu.h"
 #include "carteEffetto.h"
+#include "interfaccia.h"
 
 /**
  * Questa funzione toglie una carta da una mano e la restituisce.
