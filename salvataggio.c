@@ -152,6 +152,9 @@ void leggiSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCf
     int letti = fread(nTurno, sizeof(int), 1, fp);
     if(letti == 0)
         *nTurno = 0;
+    // Se ha un valore impossibile da ottenere, si resetta
+    if(*nTurno<0 || *nTurno>PUNTI_PER_VINCERE*N_PERSONAGGI)
+        *nTurno = 0;
 
     fclose(fp);
 }
