@@ -408,6 +408,8 @@ void scambiaC(int nGiocatori, Giocatore* giocatori[nGiocatori], CartaCfu carte[n
     // Si scambiano le carte e i loro contributi ai punteggi dei giocatori
     scambiaCarte(&carte[selezionati[0]], &carte[selezionati[1]]);
     scambiaInt(&(punteggi[selezionati[0]].carta), &(punteggi[selezionati[1]].carta));
+
+    logScambiaC(*giocatori[indice], *giocatori[selezionati[0]], *giocatori[selezionati[1]], carte[selezionati[0]], carte[selezionati[1]]);
     printf(RESET "Le carte giocate da ");
     stampaNomeGiocatoreColore(giocatori[selezionati[0]], personaggi);
     printf(" e da ");

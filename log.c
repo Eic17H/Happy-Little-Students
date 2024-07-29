@@ -209,4 +209,16 @@ void logSpareggio(){
     fclose(fp);
 }
 
-// TODO: logScambiaC()
+/**
+ * Segna nel log che un giocatore ha scambiato le carte di due giocatori
+ * @param scambiante Il giocatore che ha scambiato le carte
+ * @param scambiato1 Un giocatore di cui è stata scambiata la carta
+ * @param scambiato2 L'altro giocatore di cui è stata scambiata la carta
+ * @param carta1 Una carta scambiata
+ * @param carta2 L'altra carta scambiata
+ */
+void logScambiaC(Giocatore scambiante, Giocatore scambiato1, Giocatore scambiato2, CartaCfu carta1, CartaCfu carta2){
+    FILE *fp = fopen("log.txt", "a");
+    fprintf(fp, "%s scambia la carta %s di %s con la carta %s di %s\n", scambiante.nomeUtente, carta1.nome, scambiato1.nomeUtente, carta2.nome, scambiato2.nomeUtente);
+    fclose(fp);
+}
