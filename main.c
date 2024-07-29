@@ -75,15 +75,12 @@ int main() {
     // Se qualcuno ha vinto si esce dal loop
     stampaVincitori(giocatori, personaggi);
 
-    // TODO: copiare da Marcello
     // Si deallocano le liste
     freeCfu(&carteCfu);
     freeCfu(&scarti);
     freeOstacoli(&carteOstacolo);
     freeGiocatori(&giocatori);
 
-    // Evita che l'andata a capo già inserita sia presa dal prossimo getchar()
-    getchar();
     printf("\n\nPremi invio per chiudere.\n");
     // Prima di chiudere il gioco, attende che si prema invio
     getchar();

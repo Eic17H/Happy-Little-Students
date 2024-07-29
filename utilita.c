@@ -44,13 +44,11 @@ void stampaNomeGiocatoreColore(Giocatore* giocatore, Personaggio personaggi[N_PE
  * @param mazzo La lista da deallocare
  */
 void freeCfu(CartaCfu** mazzo){
-    CartaCfu* prima = *mazzo;
-    CartaCfu* seconda = prima->prossima;
-    while(prima != NULL){
-        if(prima->prossima != NULL)
-            seconda = prima->prossima;
-        free(prima);
-        prima = seconda;
+    CartaCfu* carta = *mazzo;
+    while(*mazzo != NULL){
+        *mazzo = (*mazzo)->prossima;
+        free(carta);
+        carta = *mazzo;
     }
 }
 
@@ -59,13 +57,11 @@ void freeCfu(CartaCfu** mazzo){
  * @param mazzo La lista da deallocare
  */
 void freeOstacoli(CartaOstacolo** mazzo){
-    CartaOstacolo* prima = *mazzo;
-    CartaOstacolo* seconda = prima->prossima;
-    while(prima != NULL){
-        if(prima->prossima != NULL)
-            seconda = prima->prossima;
-        free(prima);
-        prima = seconda;
+    CartaOstacolo* carta = *mazzo;
+    while(*mazzo != NULL){
+        *mazzo = (*mazzo)->prossima;
+        free(carta);
+        carta = *mazzo;
     }
 }
 
@@ -74,14 +70,12 @@ void freeOstacoli(CartaOstacolo** mazzo){
  * @param lista La lista da deallocare
  */
 void freeGiocatori(Giocatore** lista){
-    Giocatore* primo = *lista;
-    Giocatore* secondo = primo->prossimo;
-    while(primo != NULL){
-        if(primo->prossimo != NULL)
-            secondo = primo->prossimo;
-        freeCfu(&(primo->primaCfu));
-        freeOstacoli(&(primo->primaOstacolo));
-        free(primo);
-        primo = secondo;
+    Giocatore* giocatore = *lista;
+    while(*lista != NULL){
+        *lista = (*lista)->prossimo;
+        freeCfu(&(giocatore->primaCfu));
+        freeOstacoli(&(giocatore->primaOstacolo));
+        free(giocatore);
+        giocatore = *lista;
     }
 }
