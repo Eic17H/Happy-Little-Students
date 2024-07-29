@@ -69,6 +69,7 @@ void rimuoviGiocatore(Giocatore** giocatori, Giocatore* giocatore, int* nGiocato
  * @return Il giocatore che ha perso lo spareggio
  */
 Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGiocatori], CartaCfu** scarti, Personaggio personaggi[N_PERSONAGGI]){
+    logSpareggio();
     // Contiene il punteggio di spareggio di ciascun giocatore
     int punti[nGiocatori];
     int spareggianti=nGiocatori;

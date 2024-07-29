@@ -199,3 +199,14 @@ void logRimescola(){
         fprintf(fp, "Si rimescolano gli scarti nel mazzo\n");
     fclose(fp);
 }
+
+/**
+ * Segna nel log che inizia uno spareggio
+ */
+void logSpareggio(){
+    FILE *fp = fopen("log.txt", "a");
+    fprintf(fp, "Spareggio\n");
+    fclose(fp);
+}
+
+// TODO: logScambiaC()

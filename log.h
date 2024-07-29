@@ -22,5 +22,6 @@ void logDirotta(Giocatore giocatore, CartaCfu carta, Giocatore vittima);
 void logScarta(Giocatore giocatore, CartaCfu carta);
 void logAumentaDiminuisci(Giocatore giocatore, Giocatore vittima, int valore);
 void logRimescola();
+void logSpareggio();
 
 #endif //HAPPY_LITTLE_STUDENTS_LOG_H

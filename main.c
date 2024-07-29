@@ -75,6 +75,7 @@ int main() {
     // Se qualcuno ha vinto si esce dal loop
     stampaVincitori(giocatori, personaggi);
 
+    // TODO: copiare da Marcello
     // Si deallocano le liste
     freeCfu(&carteCfu);
     freeCfu(&scarti);
