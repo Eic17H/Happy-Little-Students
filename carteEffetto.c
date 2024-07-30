@@ -297,15 +297,18 @@ void scartaC(Giocatore *giocatore, CartaCfu** scarti) {
 
     // Va avanti per 3 carte o finché non decide di smettere. Può annullare l'azione
     for(int i=0; i<nCarte && finito!=1; i++){
-        carta = daiCarta(giocatore, selezionaCarta(giocatore, true, true, true, true));
-        logScarta(*giocatore, *carta);
+        carta = selezionaCarta(giocatore, true, true, true, true);
+
         // Se la carta è NULL, vuole dire che ha scelto annulla, quindi si chiede conferma
         if(carta==NULL){
             i--;
             printf("Vuoi terminare l'effetto?\n1 per si', qualunque altro tasto per no\n");
             finito = inputCifra();
-        }else
+        }else{
+            carta = daiCarta(giocatore, carta);
+            logScarta(*giocatore, *carta);
             cartaNegliScarti(scarti, carta);
+        }
     }
 }
 
