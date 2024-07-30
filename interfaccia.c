@@ -80,7 +80,7 @@ void stampaVincitori(Giocatore* giocatori, Personaggio personaggi[N_PERSONAGGI])
 void stampaGiocatori(Giocatore* giocatori, Punteggio punteggi[], Personaggio personaggi[N_PERSONAGGI]){
     for(int i=1; giocatori!=NULL; i++, giocatori=giocatori->prossimo){
         coloreGiocatore(giocatori, personaggi);
-        printf("%d: %s \t (%d CFU)\n" RESET, i, giocatori->nomeUtente, punteggi[i-1].totale);
+        printf("%d: %s (%d CFU)\n" RESET, i, giocatori->nomeUtente, punteggi[i-1].totale);
     }
 }
 
