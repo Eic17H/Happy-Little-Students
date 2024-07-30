@@ -1,6 +1,6 @@
-// Nome: Lorenzo Derosas (l.derosas@studenti.unica.it)
-// Matricola: 60/61/66478
-// Tipologia progetto: medio
+//Nome: Lorenzo Derosas (l.derosas@studenti.unica.it)
+//Matricola: 60/61/66478
+//Tipologia progetto: medio
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -17,9 +17,6 @@
 #include "interfaccia.h"
 
 int main() {
-    // Nome: Lorenzo Derosas (l.derosas@studenti.unica.it)
-    // Matricola: 60/61/66478
-    // Tipologia progetto: medio
     srand(time(NULL));
     stampaLogo();
 
