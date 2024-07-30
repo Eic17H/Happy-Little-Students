@@ -12,6 +12,9 @@
  */
 CartaCfu* daiCarta(Giocatore* giocatore, CartaCfu* carta){
 
+    if(giocatore==NULL || carta==NULL)
+        return NULL;
+
     // Se il giocatore non ha quella carta, restituisce NULL
     if(!haQuestaCarta(giocatore, carta))
         return NULL;

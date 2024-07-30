@@ -290,6 +290,7 @@ void faseIstantanee(Giocatore* giocatori, Personaggio personaggi[4], int nGiocat
             coloreGiocatore(arrayGiocatori[scelta], personaggi);
             carta = selezionaCarta(arrayGiocatori[scelta], true, false, false, true);
             printf(RESET);
+            // Se è NULL, il giocatore ha deciso di annullare
             if(carta!=NULL) {
                 stampaCfu(*carta);
                 coloreGiocatore(arrayGiocatori[scelta], personaggi);
