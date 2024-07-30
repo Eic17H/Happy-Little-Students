@@ -2,6 +2,7 @@
 // Created by eic17 on 25/03/2024.
 //
 
+#include "utilita.h"
 #include "estetica.h"
 #include "interfaccia.h"
 
@@ -79,20 +80,20 @@ void coloreOstacoli(TipoOstacolo tipo){
 
 /**
  * Assegna indirettamente i colori ai personaggi
- * @param n L'n-esimo colore viene associato all'n-esimo personaggio (personaggi[n-1] nell'array)
+ * @param n L'n-esimo colore viene associato all'n-esimo personaggio)
  */
 void coloreNumero(int n){
     switch(n){
-        case 1:
+        case 0:
             printf(MAG);
             break;
-        case 2:
+        case 1:
             printf(CYN);
             break;
-        case 3:
+        case 2:
             printf(GRN);
             break;
-        case 4:
+        case 3:
             printf(YEL);
             break;
         default:
@@ -107,10 +108,9 @@ void coloreNumero(int n){
  * @param personaggi L'array dei personaggi
  */
 void colorePersonaggio(Personaggio personaggio, Personaggio personaggi[N_PERSONAGGI]){
-    // I personaggi partono da 0, ma i giocatori sono numerati da 1
     for(int i=0; i<N_PERSONAGGI; i++){
         if(strcmp(personaggio.nome, personaggi[i].nome) == 0)
-            coloreNumero(i+1);
+            coloreNumero(i);
     }
 }
 
@@ -144,4 +144,14 @@ void coloreComunicazioni(){
  */
 void coloreProblema(){
     printf(RED);
+}
+
+/**
+ * Stampa il nome di un giocatore con il colore del suo personaggio
+ * @param giocatore Il giocatore
+ * @param personaggi L'array dei personaggi
+ */
+void stampaNomeGiocatoreColore(Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI]){
+    coloreGiocatore(giocatore, personaggi);
+    printf("%s" RESET, giocatore->nomeUtente);
 }

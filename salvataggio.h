@@ -15,7 +15,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "letturaFile.h"
-#include "input.h"
 #include "turno.h"
 #include "carteCfu.h"
 #include "carteOstacolo.h"

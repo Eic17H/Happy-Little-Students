@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "estetica.h"
+#include "letturaFile.h"
 
 void stampaSituazione(Giocatore* giocatori, Personaggio personaggi[N_PERSONAGGI]);
 char cartaSpeciale(CartaCfu);
@@ -24,5 +25,6 @@ void stampaVincitori(Giocatore* giocatori, Personaggio personaggi[N_PERSONAGGI])
 void stampaGiocatori(Giocatore* giocatori, Punteggio punteggi[], Personaggio personaggi[N_PERSONAGGI]);
 Giocatore* inputGiocatori(int nGiocatori, int nGiocatore);
 int inputNGiocatori();
+void stampaPersonaggi(Personaggio personaggi[N_PERSONAGGI]);
 
 #endif //HAPPY_LITTLE_STUDENTS_INTERFACCIA_H

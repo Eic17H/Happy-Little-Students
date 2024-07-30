@@ -1,4 +1,5 @@
 #include "carteOstacolo.h"
+#include "estetica.h"
 
 /** Questa funzione permette di pescare una carta.
  * La toglie dalla cima del mazzo e la mette in cima alla mano di un giocatore
@@ -27,7 +28,9 @@ void pescaOstacolo(Giocatore* giocatore, CartaOstacolo** mazzo, Personaggio pers
  */
 CartaOstacolo* togliOstacolo(CartaOstacolo** mazzo){
     CartaOstacolo* carta = *mazzo;
+    // Il mazzo comincia dalla carta successiva
     *mazzo = carta->prossima;
+    // La carta viene scollegata dal mazzo
     carta->prossima = NULL;
     return carta;
 }
@@ -90,6 +93,8 @@ void mischiaOstacoli(CartaOstacolo** mazzo){
  */
 bool troppiOstacoli(int carte[4]){
 
+    // L'enum comincia da 1, l'array comincia da 0
+
     // Tre carte dello stesso colore (le carte esame contano in ogni caso)
     if(carte[STUDIO-1]+carte[ESAME-1]>=N_TIPI_OSTACOLI)
         return true;
@@ -120,41 +125,25 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio perso
         return;
     Giocatore *giocatore=*giocatori, *giocatorePrec;
     CartaOstacolo *carta;
-    int carte[4] = {0, 0, 0, 0};
+    int carte[N_TIPI_OSTACOLI] = {0};
     int precedente = 0;
     for(giocatore = *giocatori; giocatore!=NULL; giocatore = giocatore->prossimo){
         precedente = giocatore->cfu;
-        carte[0] = 0;
-        carte[1] = 0;
-        carte[2] = 0;
-        carte[3] = 0;
+        for(int i=0; i<N_TIPI_OSTACOLI; i++)
+            carte[i] = 0;
         // scorre le carte ostacolo
         for(carta = giocatore->primaOstacolo; carta!=NULL; carta = carta->prossima){
             // Aumento CFU per ogni carta ostacolo
             giocatore->cfu++;
-            // conta le carte di ciascun tipo
-            switch(carta->tipo){
-                case STUDIO:
-                    carte[0]++;
-                    break;
-                case SOPRAVVIVENZA:
-                    carte[1]++;
-                    break;
-                case SOCIALE:
-                    carte[2]++;
-                    break;
-                case ESAME:
-                    carte[3]++;
-                    break;
-                default:
-                    break;
-            }
+            // Evita problemi se l'enum e la macro non corrispondono
+            if(carta->tipo - 1 < N_TIPI_OSTACOLI)
+                carte[carta->tipo - 1]++;
         }
-        if(giocatore->cfu-precedente != 0){
+        // Stampa l'avviso solo se il punteggio è cambiato
+        if(giocatore->cfu - precedente != 0){
             logPrendiCfu(*giocatore, giocatore->cfu - precedente, false);
             coloreGiocatore(giocatore, personaggi);
-            printf("%s ha preso %d CFU grazie alle carte ostacolo.\n" RESET, giocatore->nomeUtente,
-                   giocatore->cfu - precedente);
+            printf("%s ha preso %d CFU grazie alle carte ostacolo.\n" RESET, giocatore->nomeUtente, giocatore->cfu - precedente);
         }
         if(troppiOstacoli(carte)){
             // Testo rosso
@@ -182,7 +171,9 @@ void controlloOstacoli(Giocatore** giocatori, int* nGiocatori, Personaggio perso
  */
 void rimettiOstacoloNelMazzo(CartaOstacolo* mazzo, CartaOstacolo* ostacolo){
     CartaOstacolo* carta;
+    // Scorre fino al fondo del mazzo
     for(carta = mazzo; carta->prossima != NULL; carta = carta->prossima);
+    // Collega la carta al mazzo
     carta->prossima = ostacolo;
     ostacolo->prossima = NULL;
 }

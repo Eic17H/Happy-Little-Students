@@ -3,6 +3,7 @@
 //
 
 #include "carteIstantanee.h"
+#include "estetica.h"
 
 void usaIstantanea(CartaCfu carta, int nGiocatori, int indice, Giocatore* arrayGiocatori[nGiocatori], Punteggio punteggi[nGiocatori], Personaggio personaggi[N_PERSONAGGI], int moltiplicatoreAumenta){
     switch(carta.effetto){

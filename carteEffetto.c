@@ -1,6 +1,7 @@
 #include "carteCfu.h"
 #include "carteEffetto.h"
 #include "interfaccia.h"
+#include "estetica.h"
 
 /**
  * Stampa le informazioni di una carta cfu (nome, valore, effetto)

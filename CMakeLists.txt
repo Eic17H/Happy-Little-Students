@@ -10,8 +10,6 @@ add_executable(Happy_Little_Students main.c
         costanti.h
         turno.c
         turno.h
-        input.c
-        input.h
         estetica.c
         estetica.h
         ANSI-color-codes.h

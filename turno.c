@@ -81,21 +81,22 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
     printf("\n\n=== SPAREGGIO ===\n\n");
     while(spareggianti>1){
         giocatore = giocatori;
-        // scorriamo tutti i giocatori
+        // Scorriamo tutti i giocatori
         for (i = 0; i < nGiocatori; i++, giocatore = giocatore->prossimo) {
-            // i giocatori che non stanno spareggiando avranno un punteggio di default per il calcolo del minimo
+            // I giocatori che non stanno spareggiando avranno un punteggio di default per il calcolo del minimo
             punti[i]=PUNTI_PER_VINCERE+1;
-            // perdi automaticamente se non hai più carte in mano
+            // Perdi automaticamente se non hai più carte in mano
             if(contaCarteMano(*giocatore)==0 || soloIstantanee(*giocatore))
                 return giocatore;
-            // consideriamo solo chi partecipa allo spareggio
+            // Consideriamo solo chi partecipa allo spareggio
             if (sconfitti[i] == 1) {
                 punti[i]=0;
                 coloreGiocatore(giocatore, personaggi);
                 giocaCarta(giocatore, scarti, &punti[i]);
             }
         }
-        // trovare il punteggio minimo
+
+        // Trovare il punteggio minimo
         for (i = 0; i < nGiocatori; i++) {
             if (sconfitti[i] == 1){
                 if(punti[i]<punti[min])
@@ -105,7 +106,7 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
 
         // Si ricontrolla ogni giocatore, se non sta spareggiando si indica nell'array, se sta spareggiando lo si conta
         spareggianti = 0;
-        for (int i = 0; i < nGiocatori; i++) {
+        for (i = 0; i < nGiocatori; i++) {
             if (sconfitti[i] == 1){
                 if(punti[i]==punti[min])
                     spareggianti++;
@@ -114,10 +115,14 @@ Giocatore* spareggio(Giocatore* giocatori, int nGiocatori, bool sconfitti[nGioca
             }
         }
     }
+
     // trovato il punteggio minimo, vediamo di chi è
     for(i = 0, giocatore=giocatori; i<nGiocatori; i++, giocatore = giocatore->prossimo)
         if(i==min)
             return giocatore;
+
+    // Non dovrebbe essere possibile arrivare a questo punto
+    return NULL;
 }
 
 /** La fase delle carte CFU
@@ -146,13 +151,10 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
     // Variabile che scorre la lista di giocatori
     Giocatore* giocatore = *giocatori;
 
-    // Punteggio minimo e punteggio massimo del turno
-    int min=0, max=0;
-    // Numero ed elenco di sconfitti, per lo spareggio
-    int nSconfitti = 0;
-    bool selezionato = false;
+    // Vero se il giocatore è pronto a giocare una carta
+    bool pronto = false;
+    // Vero se il giocatore si arrende
     bool arrende = false;
-    CartaCfu *carta;
 
     stampaOstacolo(**carteOstacolo);
 
@@ -165,23 +167,23 @@ void faseCfu(Giocatore **giocatori, Personaggio personaggi[4], int *nGiocatori, 
         }
         coloreGiocatore(giocatore, personaggi);
         printf("= Turno di %s\n", giocatore->nomeUtente);
-        selezionato = false;
+        pronto = false;
         arrende = false;
-        while(!selezionato){
+        while(!pronto){
             coloreGiocatore(giocatore, personaggi);
             printf("1: Gioca una carta\n");
             printf("2: Visualizza informazioni sulle carte\n");
             printf("3: Arrenditi\n");
             switch(inputCifra()){
                 case 1:
-                    selezionato = true;
+                    pronto = true;
                     break;
                 case 2:
                     printf(RESET);
                     stampaCfu(*selezionaCarta(giocatore, true, true, true, false));
                     break;
                 case 3:
-                    selezionato = true;
+                    pronto = true;
                     arrende = true;
                     printf("\n");
                     break;
@@ -397,7 +399,7 @@ void calcolaPunteggio(Punteggio *punteggio, int moltiplicatoreAumenta){
     punteggio->totale = 0;
     punteggio->totale += punteggio->carta;
     punteggio->totale += punteggio->personaggio;
-    punteggio->totale += punteggio->aumenta * 2 * moltiplicatoreAumenta;
+    punteggio->totale += punteggio->aumenta * VALORE_DEFAULT_AUMENTA_DIMINUISCI * moltiplicatoreAumenta;
 }
 
 /**

@@ -1,5 +1,6 @@
 #include "letturaFile.h"
 #include "salvataggio.h"
+#include "interfaccia.h"
 
 /** La funzione leggiPersonaggi legge i personaggi da personaggi.txt e li mette in un array dichiarato nel main.
  * @param personaggi puntatore all'array
@@ -15,6 +16,7 @@ void leggiPersonaggi(Personaggio personaggi[N_PERSONAGGI]){
     }
 
     // Leggere dal file
+    // Per ogni personaggio: un int per ogni tipo di ostacolo, e poi una stringa
     for(int i=0; i<N_PERSONAGGI; i++){
         for (int j = 0; j<N_TIPI_OSTACOLI; j++){
             fscanf(fp, "%d", &(personaggi[i].ostacoli[j]));
@@ -24,35 +26,6 @@ void leggiPersonaggi(Personaggio personaggi[N_PERSONAGGI]){
 
     // Chiudere il file
     fclose(fp);
-}
-
-/**
- * Stampa le informazioni sui personaggi
- * @param personaggi
- */
-void stampaPersonaggi(Personaggio personaggi[N_PERSONAGGI]){
-    printf("\n\n\nOgni personaggio ha un bonus e un malus\n");
-    printf("I bonus e i malus sono legati al tipo di ostacolo mostrato all'inizio del turno\n");
-    printf("Se il tuo personaggio ha un malus legato a quel tipo,\nil tuo punteggio provvisorio sara' minore di quello che dovrebbe essere\n");
-    printf("Nel caso dei bonus, sara' maggiore.\n");
-    printf("Le carte ostacolo ");
-    coloreOstacoli(ESAME);
-    printf("esame" RESET " sono piu' rare e piu' pericolose.\n");
-    for(int i=0; i<N_PERSONAGGI; i++) {
-        colorePersonaggio(personaggi[i], personaggi);
-        printf("%i: %32s: ", i+1, personaggi[i].nome);
-        for (int j = 0; j < N_TIPI_OSTACOLI; j++)
-            if(personaggi[i].ostacoli[j] > 0){
-                coloreOstacoli(j+1);
-                printf("Bonus ");
-            }
-        for (int j = 0; j < N_TIPI_OSTACOLI; j++)
-            if(personaggi[i].ostacoli[j] < 0){
-                coloreOstacoli(j+1);
-                printf("Malus\n");
-            }
-    }
-    printf(RESET "\n\n");
 }
 
 /** La funzione leggiCarte restituisce una lista di carte lette da carte.txt

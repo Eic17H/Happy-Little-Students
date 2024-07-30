@@ -30,21 +30,12 @@ int inputCifra(){
 }
 
 /**
- * Stampa il nome di un giocatore con il colore del suo personaggio
- * @param giocatore Il giocatore
- * @param personaggi L'array dei personaggi
- */
-void stampaNomeGiocatoreColore(Giocatore* giocatore, Personaggio personaggi[N_PERSONAGGI]){
-    coloreGiocatore(giocatore, personaggi);
-    printf("%s" RESET, giocatore->nomeUtente);
-}
-
-/**
  * Dealloca una lista di carte cfu
  * @param mazzo La lista da deallocare
  */
 void freeCfu(CartaCfu** mazzo){
     CartaCfu* carta = *mazzo;
+    // Una a una, toglie tutte le carte dal mazzo e le dealloca, finché il mazzo non è vuoto
     while(*mazzo != NULL){
         *mazzo = (*mazzo)->prossima;
         free(carta);
@@ -58,6 +49,7 @@ void freeCfu(CartaCfu** mazzo){
  */
 void freeOstacoli(CartaOstacolo** mazzo){
     CartaOstacolo* carta = *mazzo;
+    // Una a una, toglie tutte le carte dal mazzo e le dealloca, finché il mazzo non è vuoto
     while(*mazzo != NULL){
         *mazzo = (*mazzo)->prossima;
         free(carta);
@@ -71,10 +63,13 @@ void freeOstacoli(CartaOstacolo** mazzo){
  */
 void freeGiocatori(Giocatore** lista){
     Giocatore* giocatore = *lista;
+    // Uno a uno, toglie tutti i giocatori dalla lista e opera su quello appena rimosso
     while(*lista != NULL){
         *lista = (*lista)->prossimo;
+        // Dealloca le liste associate al giocatore
         freeCfu(&(giocatore->primaCfu));
         freeOstacoli(&(giocatore->primaOstacolo));
+        // Dealloca il giocatore stesso
         free(giocatore);
         giocatore = *lista;
     }

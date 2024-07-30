@@ -204,7 +204,7 @@ void scriviSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteC
         giocatore = giocatore->prossimo;
     }
 
-    // Per ognuno dei mazzi, si trova e si scrive il numero di carte e poi si scrive la lista in ordine
+    // Per ognuno dei mazzi, si trova e si scrive il numero di carte e poi si scrivono gli elementi della lista in ordine
 
     nCarte = 0;
     for(carta = *carteCfu; carta != NULL; carta = carta->prossima)
@@ -227,6 +227,7 @@ void scriviSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteC
     for(ostacolo = *carteOstacolo; ostacolo != NULL; ostacolo = ostacolo->prossima)
         fwrite(ostacolo, sizeof(CartaOstacolo), 1, fp);
 
+    // Si scrive il numero del turno
     fwrite(nTurno, sizeof(int), 1, fp);
 
     fclose(fp);
@@ -237,15 +238,17 @@ void scriviSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteC
  * @param nomeFile
  */
 void nomePartita(char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]){
-    nomeFile[LUNG_NOMI-1] = 0;
+    nomeFile[LUNG_NOMI-1] = '\0';
     printf("Dai un nome alla partita:\n");
     scanf("%s", nomeFile);
-    while(nomeFile[LUNG_NOMI-1] != 0){
+    // Se l'ultimo carattere è stato rimpiazzato e non è il carattere di terminazione, il nome inserito è troppo lungo
+    while(nomeFile[LUNG_NOMI-1] != '\0'){
         printf("E' un nome troppo lungo!\nMassimo %d caratteri.\n", LUNG_NOMI-1);
-        nomeFile[LUNG_NOMI-1] = 0;
+        nomeFile[LUNG_NOMI-1] = '\0';
         scanf("%s", nomeFile);
     }
     getchar();
+    // Si aggiunge l'estenzione .sav al file
     strcat(nomeFile, ESTENSIONE_SAV);
 }
 
@@ -278,13 +281,13 @@ bool esisteSalvataggio(char nomeFile[LUNG_NOMI+strlen(ESTENSIONE_SAV)]){
  */
 void inizializzaSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **carteCfu, CartaCfu **scarti, CartaOstacolo **carteOstacolo, int *nTurno, Personaggio personaggi[N_PERSONAGGI]){
     *nTurno = 1;
-    // Puntatore alla prima carta del mazzo di carte CFU
-    *carteCfu = leggiCarte();
-    // Puntatore alla prima carta degli scarti CFU
-    *scarti = NULL;
 
-    // Puntatore alla prima carta del mazzo di carte ostacolo
+    // Si leggono i mazzi dai file e si mischiano. All'inizio non ci sono carte scartate
+    *scarti = NULL;
+    *carteCfu = leggiCarte();
     *carteOstacolo = leggiOstacoli();
+    mischiaMazzo(carteCfu);
+    mischiaOstacoli(carteOstacolo);
 
     // Input del numero dei giocatori, input delle informazioni, assegnazione personaggi
     *nGiocatori = inputNGiocatori();
@@ -292,8 +295,6 @@ void inizializzaSalvataggio(int *nGiocatori, Giocatore **giocatori, CartaCfu **c
     inizializzaGiocatori(*giocatori);
     stampaPersonaggi(personaggi);
     assegnaPersonaggi(*giocatori, personaggi);
-    mischiaMazzo(carteCfu);
-    mischiaOstacoli(carteOstacolo);
 }
 
 /** Inizializza i giocatori:
