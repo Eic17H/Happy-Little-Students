@@ -306,8 +306,10 @@ void scartaC(Giocatore *giocatore, CartaCfu** scarti) {
             finito = inputCifra();
         }else{
             carta = daiCarta(giocatore, carta);
-            logScarta(*giocatore, *carta);
-            cartaNegliScarti(scarti, carta);
+            if(carta != NULL) {
+                logScarta(*giocatore, *carta);
+                cartaNegliScarti(scarti, carta);
+            }
         }
     }
 }

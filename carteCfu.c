@@ -44,8 +44,10 @@ CartaCfu* daiCarta(Giocatore* giocatore, CartaCfu* carta){
  * @param carta La carta da scartare
  */
 void cartaNegliScarti(CartaCfu** scarti, CartaCfu* carta){
-    carta->prossima = *scarti;
-    *scarti = carta;
+    if(carta != NULL){
+        carta->prossima = *scarti;
+        *scarti = carta;
+    }
 }
 
 /**
@@ -128,8 +130,10 @@ CartaCfu* cartaDalMazzo(CartaCfu** mazzo, CartaCfu** scarti){
  * @param carta La carta da prendere
  */
 void prendiCarta(Giocatore* giocatore, CartaCfu* carta){
-    carta->prossima = giocatore->primaCfu;
-    giocatore->primaCfu = carta;
+    if(giocatore!=NULL && carta!=NULL){
+        carta->prossima = giocatore->primaCfu;
+        giocatore->primaCfu = carta;
+    }
 }
 
 /** Questa funzione permette di pescare una carta.
