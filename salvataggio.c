@@ -334,6 +334,6 @@ void assegnaPersonaggi(Giocatore* giocatori, Personaggio personaggi[N_PERSONAGGI
             scelta = inputCifra()-1;
         }
         selezionati[scelta] = true;
-        giocatore->personaggio = personaggi[i];
+        giocatore->personaggio = personaggi[scelta];
     }
 }
