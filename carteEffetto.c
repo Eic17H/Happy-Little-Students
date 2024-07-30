@@ -227,7 +227,7 @@ void scambiaDS(Giocatore** giocatori, CartaCfu carte[], Giocatore* giocante, Per
     if(scelta >= indice)
         scelta++;
 
-    // L'input è invalido se si seleziona un numero negativo, un giocatore che non esiste, o una carta senza effetto
+    // L'input è invalido se si seleziona un numero negativo, un giocatore che non esiste, o una carta con effetto
     while(scelta<0 || scelta>nGiocatori-1 || carte[scelta].effetto!=NESSUNO){
         printf("Riseleziona: ");
         scelta = inputCifra()-1;
