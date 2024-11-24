@@ -22,3 +22,4 @@ cmake-build-debug/cmake_install.cmake
 cmake-build-debug/build.ninja
 cmake-build-debug/.ninja_log
 cmake-build-debug/.ninja_deps
+*.sav
